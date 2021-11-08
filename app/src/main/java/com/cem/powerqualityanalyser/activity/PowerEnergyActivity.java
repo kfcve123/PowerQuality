@@ -416,7 +416,7 @@ public class PowerEnergyActivity extends BaseActivity implements BaseFragmentTre
 
     @Override
     public void onDataReceived(byte[] bytes) {
-        log.e("------------------------" +BleUtil.dec_hex(bytes));
+ //       log.e("------------------------" +BleUtil.dec_hex(bytes));
     }
 
     private boolean isPowerHold;

@@ -64,7 +64,7 @@ public class DipsSwellsActivity extends BaseActivity implements BaseFragmentTren
         setViewShow(0);
         setBottom1TextSize(18);
         setBottom4TextSize(18);
-
+        dissLoading(1500l);
     }
 
     @Override
@@ -457,10 +457,19 @@ public class DipsSwellsActivity extends BaseActivity implements BaseFragmentTren
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(serialHelper!=null){
+            serialHelper.closeSerialPort();
+            serialHelper = null;
+        }
+    }
+
+
+    @Override
     public void onDataReceivedModel(ModelAllData modelAllData) {
         if (modelAllData != null && modelAllData.getValueType() == ModelAllData.AllData_valueType.E8_Surge_Suspended) {
-            dissLoading();
-            log.e("-----------" + modelAllData.getModelLineData().size());
+
             if (!isTrendHold) {
                 if (Fragment_Third != null && Fragment_Third.isAdded()){
                     Fragment_Third.setShowMeterData(modelAllData, wir_index, firstPopIndex, secondPopIndex, cursorEnable);

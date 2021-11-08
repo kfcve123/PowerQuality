@@ -48,6 +48,7 @@ public class TransientActivity extends BaseActivity {
         setViewShow(0);
         setBottom1TextSize(18);
         setBottom4TextSize(18);
+        dissLoading(1500l);
     }
 
     @Override
@@ -287,13 +288,24 @@ public class TransientActivity extends BaseActivity {
 
     @Override
     public void onDataReceived(byte[] bytes) {
-//        log.e("------" + BleUtil.dec_hex(bytes));
+ //       log.e("------" + BleUtil.dec_hex(bytes));
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(serialHelper!=null){
+            serialHelper.closeSerialPort();
+            serialHelper = null;
+        }
     }
 
     @Override
     public void onDataReceivedModel(ModelAllData modelAllData) {
         if (modelAllData != null && modelAllData.getValueType() == ModelAllData.AllData_valueType.E7_Transient) {
-            dissLoading();
+ //           dissLoading();
+            if(!isStart)
+                isStart = true;
             if (!isHold) {
                 List<ModelLineData> dataList = modelAllData.getModelLineData();
                 if (dataList != null) {
@@ -387,6 +399,7 @@ public class TransientActivity extends BaseActivity {
 
                 break;
             case Back:
+            case Menu:
                 if(currentFragmentIndex!=0) {
                     setViewShow(0);
                     updateBottomView(new BaseBottomAdapterObj(0,null),0);

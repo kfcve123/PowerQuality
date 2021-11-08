@@ -51,7 +51,14 @@ public class FlickerActivity extends BaseActivity {
     @Override
     public byte[] getMode() {
 //        return new byte[]{(byte) 0xE6,0x00};
-        return null;
+        if(AppConfig.getInstance().getConfig_nominal() ==0)
+            cmd  = new byte[]{(byte) 0xE6,0x00};
+        else if(AppConfig.getInstance().getConfig_nominal() ==1)
+            cmd  = new byte[]{(byte) 0xE6,0x01};
+//        serialHelper.sendData(cmd);
+        if(openLog)
+            Toast.makeText(this, BleUtil.dec_hex(cmd),Toast.LENGTH_LONG).show();
+        return cmd;
     }
 
     @Override
@@ -79,7 +86,8 @@ public class FlickerActivity extends BaseActivity {
         data.add(new BaseBottomAdapterObj(0,null));
         data.add(new BaseBottomAdapterObj(1,null));
         data.add(new BaseBottomAdapterObj(2,null));
-        data.add(new BaseBottomAdapterObj(3,Res2String(R.string.Start)));
+        data.add(new BaseBottomAdapterObj(3,null));
+ //       data.add(new BaseBottomAdapterObj(3,Res2String(R.string.Start)));
         data.add(new BaseBottomAdapterObj(4,null,Res2String(R.string.Hold),Res2String(R.string.run)));
         return  data;
     }
@@ -100,13 +108,7 @@ public class FlickerActivity extends BaseActivity {
                 setViewShow(obj.getSwitchindex());
                 break;
             case 3:
-                if(AppConfig.getInstance().getConfig_nominal() ==0)
-                    cmd  = new byte[]{(byte) 0xE6,0x00};
-                else if(AppConfig.getInstance().getConfig_nominal() ==1)
-                    cmd  = new byte[]{(byte) 0xE6,0x01};
-                serialHelper.sendData(cmd);
-                if(openLog)
-                    Toast.makeText(this, BleUtil.dec_hex(cmd),Toast.LENGTH_LONG).show();
+
                 break;
             case 4:
                 isHold = obj.getSwitchindex() == 0 ? true : false;

@@ -227,18 +227,27 @@ public class ScopeActivity extends BaseActivity implements BaseFragmentTrend.OnW
                 if(Fragment_first!=null)
                     Fragment_first.moveCursor(1);
                 break;
+            case Back:
+            case Menu:
+                if(isStart){
+                    isStartAlert(Res2String(R.string.scope));
+                }
+
+                break;
         }
     }
 
     @Override
     public void onDataReceived(final byte[] bytes) {
- //       log.e("-----------" + BleUtil.dec_hex(bytes));
+//        log.e("-----------" + BleUtil.dec_hex(bytes));
     }
 
     @Override
     public void onDataReceivedModel(ModelAllData modelAllData) {
         if(modelAllData!=null && modelAllData.getValueType() == ModelAllData.AllData_valueType.E1_Oscilloscope) {
 //            dissLoading();
+            if(!isStart)
+                isStart = true;
             if (!isHold) {
                 List<ModelLineData> dataList = modelAllData.getModelLineData();
                 if (dataList != null) {
@@ -309,10 +318,10 @@ public class ScopeActivity extends BaseActivity implements BaseFragmentTrend.OnW
     @Override
     protected void onDestroy() {
         super.onDestroy();
-//        if(serialHelper!=null){
-//            serialHelper.closeSerialPort();
-//            serialHelper = null;
-//        }
+        if(serialHelper!=null){
+            serialHelper.closeSerialPort();
+            serialHelper = null;
+        }
 
     }
 

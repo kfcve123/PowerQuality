@@ -208,7 +208,7 @@ public class HarmonicsActivity extends BaseActivity implements BaseFragmentTrend
 
     @Override
     public void onDataReceived(byte[] bytes) {
-        log.e("-----" + BleUtil.dec_hex(bytes));
+  //      log.e("-----" + BleUtil.dec_hex(bytes));
     }
 
     @Override

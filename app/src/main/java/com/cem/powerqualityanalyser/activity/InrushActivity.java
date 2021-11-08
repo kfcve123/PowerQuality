@@ -405,7 +405,7 @@ public class InrushActivity extends BaseActivity implements BaseFragmentTrend.On
 
     @Override
     public void onDataReceived(byte[] bytes) {
-        log.e("-------------" + BleUtil.dec_hex(bytes));
+
     }
 
     @Override

@@ -751,6 +751,8 @@ public class InrushActivity extends BaseActivity implements BaseFragmentTrend.On
         if(serialHelper!=null){
             serialHelper.closeSerialPort();
             serialHelper = null;
+
+
         }
     }
 

@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorwhite">
+
+
+    <LinearLayout
+        android:id="@+id/set_top_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_12"
+        android:layout_marginTop="@dimen/dimen_20"
+        android:layout_marginRight="@dimen/dimen_12"
+        android:background="@drawable/set_top_button_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/dimen_30"
+        android:paddingTop="@dimen/dimen_10"
+        android:paddingBottom="@dimen/dimen_10">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/set_info_on"
+            android:visibility="invisible" />
+
+        <TextView
+            android:id="@+id/set_info_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_20"
+            android:text="@string/config_nominal_frequency"
+            android:textColor="@color/set_fragment_top_title_color"
+            android:textSize="@dimen/textsize_30" />
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/set_one_content_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/set_top_view"
+        android:layout_marginTop="@dimen/dimen_30"
+        android:paddingLeft="@dimen/dimen_50">
+
+        <LinearLayout
+            android:id="@+id/config_choose_ll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.cem.powerqualityanalyser.view.ConfigChooseView
+                android:id="@+id/configchooseview11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <com.cem.powerqualityanalyser.view.ConfigChooseView
+                android:id="@+id/configchooseview12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10" />
+
+            <com.cem.powerqualityanalyser.view.ConfigChooseView
+                android:id="@+id/configchooseview13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10" />
+
+            <com.cem.powerqualityanalyser.view.ConfigChooseView
+                android:id="@+id/configchooseview14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10" />
+
+            <com.cem.powerqualityanalyser.view.ConfigChooseView
+                android:id="@+id/configchooseview15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10" />
+
+            <com.cem.powerqualityanalyser.view.ConfigChooseView
+                android:id="@+id/configchooseview16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/config_choose_ll1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/config_choose_ll"
+            android:orientation="vertical">
+
+            <com.cem.powerqualityanalyser.view.ConfigChooseView
+                android:id="@+id/configchooseview21"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <com.cem.powerqualityanalyser.view.ConfigChooseView
+                android:id="@+id/configchooseview22"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10" />
+
+            <com.cem.powerqualityanalyser.view.ConfigChooseView
+                android:id="@+id/configchooseview23"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10" />
+
+            <com.cem.powerqualityanalyser.view.ConfigChooseView
+                android:id="@+id/configchooseview24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10" />
+
+            <com.cem.powerqualityanalyser.view.ConfigChooseView
+                android:id="@+id/configchooseview25"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10" />
+
+            <com.cem.powerqualityanalyser.view.ConfigChooseView
+                android:id="@+id/configchooseview26"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10" />
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/set_one_content_layout2"
+        android:layout_toRightOf="@+id/set_one_content_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/set_top_view"
+        android:layout_marginTop="@dimen/dimen_30"
+        android:paddingLeft="@dimen/dimen_30">
+
+        <LinearLayout
+            android:id="@+id/config_choose_ll3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.cem.powerqualityanalyser.view.ConfigChooseView
+                android:id="@+id/configchooseview31"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <com.cem.powerqualityanalyser.view.ConfigChooseView
+                android:id="@+id/configchooseview32"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10" />
+
+            <com.cem.powerqualityanalyser.view.ConfigChooseView
+                android:id="@+id/configchooseview33"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10" />
+
+            <com.cem.powerqualityanalyser.view.ConfigChooseView
+                android:id="@+id/configchooseview34"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10" />
+
+            <com.cem.powerqualityanalyser.view.ConfigChooseView
+                android:id="@+id/configchooseview35"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10" />
+
+            <com.cem.powerqualityanalyser.view.ConfigChooseView
+                android:id="@+id/configchooseview36"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/config_choose_ll4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/config_choose_ll3"
+            android:orientation="vertical">
+
+            <com.cem.powerqualityanalyser.view.ConfigChooseView
+                android:id="@+id/configchooseview41"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <com.cem.powerqualityanalyser.view.ConfigChooseView
+                android:id="@+id/configchooseview42"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10" />
+
+            <com.cem.powerqualityanalyser.view.ConfigChooseView
+                android:id="@+id/configchooseview43"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10" />
+
+            <com.cem.powerqualityanalyser.view.ConfigChooseView
+                android:id="@+id/configchooseview44"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10" />
+
+            <com.cem.powerqualityanalyser.view.ConfigChooseView
+                android:id="@+id/configchooseview45"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10" />
+
+            <com.cem.powerqualityanalyser.view.ConfigChooseView
+                android:id="@+id/configchooseview46"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10" />
+        </LinearLayout>
+    </RelativeLayout>
+
+
+</RelativeLayout>

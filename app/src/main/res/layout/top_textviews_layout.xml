@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main_top_view"
+    android:layout_width="match_parent"
+    android:layout_height="38dp"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingLeft="@dimen/dimen_15"
+    android:layout_marginTop="@dimen/dimen_5"
+    android:paddingRight="@dimen/dimen_15">
+
+    <TextView
+        android:id="@+id/textview_l1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_20"
+        android:layout_marginRight="@dimen/dimen_20"
+        android:layout_weight="1"
+        android:background="@drawable/bg_black"
+        android:gravity="left|center_vertical"
+        android:paddingLeft="@dimen/dimen_5"
+        android:text="L1 9.99A"
+        android:textColor="@color/colorwhite"
+        android:textSize="@dimen/textsize_25" />
+
+
+    <TextView
+        android:id="@+id/textview_l2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_20"
+        android:layout_marginRight="@dimen/dimen_20"
+        android:layout_weight="1"
+        android:background="@drawable/bg_red"
+        android:gravity="left|center_vertical"
+        android:paddingLeft="@dimen/dimen_5"
+        android:text="L2 9.99A"
+        android:textColor="@color/colorwhite"
+        android:textSize="@dimen/textsize_25"
+        />
+
+
+    <TextView
+        android:id="@+id/textview_l3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_20"
+        android:layout_marginRight="@dimen/dimen_20"
+        android:layout_weight="1"
+        android:background="@drawable/bg_blue"
+        android:gravity="left|center_vertical"
+        android:paddingLeft="@dimen/dimen_5"
+        android:text="L3 9.99A"
+        android:textColor="@color/colorwhite"
+        android:textSize="@dimen/textsize_25"
+        />
+
+    <TextView
+        android:id="@+id/textview_l4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_20"
+        android:layout_marginRight="@dimen/dimen_20"
+        android:layout_weight="1"
+        android:background="@drawable/bg_white"
+        android:gravity="left|center_vertical"
+        android:paddingLeft="@dimen/dimen_5"
+        android:text="N 99Hz"
+        android:textColor="@color/colorblack"
+        android:textSize="@dimen/textsize_25"
+        />
+
+</LinearLayout>

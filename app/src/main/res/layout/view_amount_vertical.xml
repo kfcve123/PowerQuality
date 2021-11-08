@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:focusableInTouchMode="true">
+
+    <RelativeLayout
+        android:id="@+id/amount_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:focusableInTouchMode="true"
+        >
+
+        <ImageView
+            android:id="@+id/amount_increase_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:visibility="invisible"
+            android:src="@mipmap/amount_up2" />
+
+        <TextView
+            android:id="@+id/amount_tv_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_3"
+            android:layout_below="@+id/amount_increase_vertical"
+            android:gravity="center"
+            android:textColor="@color/set_text_color"
+            android:background="@mipmap/set_time_nocontent_bg"
+            android:text="11"
+            android:textSize="@dimen/textsize_25" />
+
+
+        <ImageView
+            android:id="@+id/amount_dncrease_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            android:layout_marginTop="@dimen/dimen_3"
+            android:layout_below="@+id/amount_tv_vertical"
+            android:layout_centerHorizontal="true"
+            android:src="@mipmap/amount_down2" />
+    </RelativeLayout>
+
+</LinearLayout>

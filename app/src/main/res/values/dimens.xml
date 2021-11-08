@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--公共控件中文字与图片的间距-->
+    <dimen name="public_view_margin">10dp</dimen>
+    <!-- 设置scope中弹框的item的大小 -->
+    <dimen name="min_height">50dp</dimen>
+    <dimen name="dimen_3_5">3.5dp</dimen>
+    <dimen name="dimen_3">3dp</dimen>
+    <dimen name="dimen_4">4dp</dimen>
+    <dimen name="dimen_5">5dp</dimen>
+    <dimen name="dimen_6">6dp</dimen>
+    <dimen name="dimen_7">7dp</dimen>
+    <dimen name="dimen_8">8dp</dimen>
+    <dimen name="dimen_10">10dp</dimen>
+    <dimen name="dimen_12">12dp</dimen>
+    <dimen name="dimen_13">13dp</dimen>
+    <dimen name="dimen_15">15dp</dimen>
+    <dimen name="dimen_17">17dp</dimen>
+    <dimen name="dimen_19">19dp</dimen>
+    <dimen name="dimen_20">20dp</dimen>
+    <dimen name="dimen_23">23dp</dimen>
+    <dimen name="dimen_25">25dp</dimen>
+    <dimen name="dimen_30">30dp</dimen>
+    <dimen name="dimen_31">31dp</dimen>
+    <dimen name="dimen_35">35dp</dimen>
+    <dimen name="dimen_38">38dp</dimen>
+    <dimen name="dimen_39">39dp</dimen>
+    <dimen name="dimen_40">40dp</dimen>
+    <dimen name="dimen_41">41dp</dimen>
+    <dimen name="dimen_42">42dp</dimen>
+    <dimen name="dimen_43">43dp</dimen>
+    <dimen name="dimen_44">44dp</dimen>
+
+    <dimen name="dimen_46">46dp</dimen>
+
+    <dimen name="dimen_48">48dp</dimen>
+    <dimen name="dimen_50">50dp</dimen>
+    <dimen name="dimen_51">51dp</dimen>
+    <dimen name="dimen_52">52dp</dimen>
+    <dimen name="dimen_57">57dp</dimen>
+    <dimen name="dimen_77">77dp</dimen>
+    <dimen name="dimen_100">100dp</dimen>
+    <dimen name="dimen_120">120dp</dimen>
+    <dimen name="dimen_130">130dp</dimen>
+    <dimen name="dimen_131">131dp</dimen>
+    <dimen name="dimen_132">132dp</dimen>
+    <dimen name="dimen_159">159dp</dimen>
+    <dimen name="dimen_160">160dp</dimen>
+    <dimen name="dimen_163">163dp</dimen>
+    <dimen name="dimen_165">165dp</dimen>
+
+    <dimen name="dimen_179">179dp</dimen>
+    <dimen name="dimen_179_5">179.5dp</dimen>
+    <dimen name="dimen_180">180dp</dimen>
+    <dimen name="dimen_270">270dp</dimen>
+
+    <dimen name="textsize_15">15sp</dimen>
+    <dimen name="textsize_20">20sp</dimen>
+    <dimen name="textsize_25">25sp</dimen>
+    <dimen name="textsize_30">30sp</dimen>
+    <dimen name="textsize_35">35sp</dimen>
+
+    <!--表格标题文字大小-->
+    <dimen name="grid_titleTextSize">28sp</dimen>
+    <dimen name="grid_ClildTextSize">22sp</dimen>
+
+    <dimen name="phase_tv_width">100dp</dimen>
+    <dimen name="phase_tv_height">40dp</dimen>
+
+    <dimen name="left_tv_width">150dp</dimen>
+    <dimen name="phase_tv_size">24sp</dimen>
+    <dimen name="add_btn_width">50dp</dimen>
+    <dimen name="add_btn_height">40dp</dimen>
+    <dimen name="add_btn_left_marigin">10dp</dimen>
+
+
+</resources>

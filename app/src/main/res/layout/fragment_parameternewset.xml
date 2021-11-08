@@ -1,0 +1,1636 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/circleBack"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/set_top_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_12"
+        android:layout_marginTop="@dimen/dimen_20"
+        android:layout_marginRight="@dimen/dimen_12"
+        android:background="@drawable/set_top_button_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/dimen_30"
+        android:paddingTop="@dimen/dimen_10"
+        android:paddingBottom="@dimen/dimen_10">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/parameter_icon" />
+
+        <TextView
+            android:id="@+id/set_info_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_20"
+            android:text="@string/Parameterset"
+            android:textColor="@color/set_fragment_top_title_color"
+            android:textSize="@dimen/textsize_30" />
+    </LinearLayout>
+
+
+    <com.cem.powerqualityanalyser.view.RightModeView
+        android:id="@+id/parameter_rightview"
+        android:layout_width="190dp"
+        android:layout_below="@+id/set_top_view"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/dimen_20"
+        android:layout_centerHorizontal="true"
+        android:gravity="center_vertical" />
+
+
+    <RelativeLayout
+        android:layout_below="@+id/set_top_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_toLeftOf="@id/parameter_rightview"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:orientation="horizontal"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
+        <!--OK-->
+        <LinearLayout
+            android:id="@+id/layout_voltamp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/parameter_VoltAmp"
+                android:textColor="@color/colorblack"
+                android:textSize="@dimen/textsize_35" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/dimen_20"
+                android:paddingEnd="@dimen/dimen_20"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <CheckBox
+                        android:id="@+id/voltamp_urms"
+                        style="@style/CustomCheckboxTheme"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/parameter_Urms"
+                        android:textSize="@dimen/textsize_20" />
+
+                    <CheckBox
+                        android:id="@+id/voltamp_vrms"
+                        style="@style/CustomCheckboxTheme"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/parameter_Vrms"
+                        android:textSize="@dimen/textsize_20" />
+
+                    <CheckBox
+                        android:id="@+id/voltamp_arms"
+                        style="@style/CustomCheckboxTheme"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/parameter_Arms"
+                        android:textSize="@dimen/textsize_20" />
+
+                    <CheckBox
+                        android:id="@+id/voltamp_ucf"
+                        style="@style/CustomCheckboxTheme"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/parameter_Ucf"
+                        android:textSize="@dimen/textsize_20" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dimen_10"
+                    android:orientation="vertical">
+
+                    <CheckBox
+                        android:id="@+id/voltamp_udc"
+                        style="@style/CustomCheckboxTheme"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/parameter_Udc"
+                        android:textSize="@dimen/textsize_20" />
+
+                    <CheckBox
+                        android:id="@+id/voltamp_vdc"
+                        style="@style/CustomCheckboxTheme"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/parameter_Vdc"
+                        android:textSize="@dimen/textsize_20" />
+
+                    <CheckBox
+                        android:id="@+id/voltamp_adc"
+                        style="@style/CustomCheckboxTheme"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/parameter_Adc"
+                        android:textSize="@dimen/textsize_20" />
+
+                    <CheckBox
+                        android:id="@+id/voltamp_vcf"
+                        style="@style/CustomCheckboxTheme"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/parameter_Vcf"
+                        android:textSize="@dimen/textsize_20" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dimen_10"
+                    android:orientation="vertical">
+
+                    <CheckBox
+                        android:id="@+id/voltamp_upeak"
+                        style="@style/CustomCheckboxTheme"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/parameter_Upeak1"
+                        android:textSize="@dimen/textsize_20" />
+
+                    <CheckBox
+                        android:id="@+id/voltamp_vpeak"
+                        style="@style/CustomCheckboxTheme"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/parameter_Vpeak1"
+                        android:textSize="@dimen/textsize_20" />
+
+                    <CheckBox
+                        android:id="@+id/voltamp_apeak"
+                        style="@style/CustomCheckboxTheme"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/parameter_Apeak1"
+                        android:textSize="@dimen/textsize_20" />
+
+                    <CheckBox
+                        android:id="@+id/voltamp_acf"
+                        style="@style/CustomCheckboxTheme"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/parameter_Acf"
+                        android:textSize="@dimen/textsize_20" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dimen_10"
+                    android:orientation="vertical">
+
+                    <CheckBox
+                        android:id="@+id/voltamp_upeak1"
+                        style="@style/CustomCheckboxTheme"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/parameter_Upeak2"
+                        android:textSize="@dimen/textsize_20" />
+
+                    <CheckBox
+                        android:id="@+id/voltamp_vpeak1"
+                        style="@style/CustomCheckboxTheme"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/parameter_Vpeak2"
+                        android:textSize="@dimen/textsize_20" />
+
+                    <CheckBox
+                        android:id="@+id/voltamp_apeak1"
+                        style="@style/CustomCheckboxTheme"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/parameter_Apeak2"
+                        android:textSize="@dimen/textsize_20" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_flicker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/parameter_Flicker"
+                android:textColor="@color/colorblack"
+                android:textSize="@dimen/textsize_35" />
+
+            <LinearLayout
+                android:paddingStart="@dimen/dimen_20"
+                android:paddingEnd="@dimen/dimen_20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <CheckBox
+                        android:id="@+id/flicker_pst1min"
+                        style="@style/CustomCheckboxTheme"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/parameter_pstmin"
+                        android:textSize="@dimen/textsize_20" />
+
+                    <CheckBox
+                        android:id="@+id/flicker_pst"
+                        style="@style/CustomCheckboxTheme"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/parameter_pst"
+                        android:textSize="@dimen/textsize_20" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dimen_50"
+                    android:orientation="vertical">
+
+                    <CheckBox
+                        android:id="@+id/flicker_plt"
+                        style="@style/CustomCheckboxTheme"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/parameter_plt"
+                        android:textSize="@dimen/textsize_20" />
+
+                    <CheckBox
+                        android:id="@+id/flicker_pinst"
+                        style="@style/CustomCheckboxTheme"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/parameter_pinst"
+                        android:textSize="@dimen/textsize_20" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_freq"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/parameter_Frequency"
+                android:textColor="@color/colorblack"
+                android:textSize="@dimen/textsize_35" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <CheckBox
+                        android:id="@+id/freq_hz"
+                        style="@style/CustomCheckboxTheme"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/parameter_hz"
+                        android:textSize="@dimen/textsize_20" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+        <!---->
+        <LinearLayout
+            android:id="@+id/layout_vlotharmonic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/parameter_volt_harm"
+                android:textColor="@color/colorblack"
+                android:textSize="@dimen/textsize_35" />
+
+            <android.support.v4.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_gravity="left"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <CheckBox
+                            android:id="@+id/voltharmonic_vfund"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_Vfund"
+                            android:textSize="@dimen/textsize_20" />
+
+                        <CheckBox
+                            android:id="@+id/voltharmonic_thdf"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_volt_thdf"
+                            android:textSize="@dimen/textsize_20" />
+
+                        <CheckBox
+                            android:id="@+id/voltharmonic_thdr"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_volt_thdr"
+                            android:textSize="@dimen/textsize_20" />
+
+                        <CheckBox
+                            android:id="@+id/voltharmonic_dc"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_volt_DC"
+                            android:textSize="@dimen/textsize_20" />
+
+                        <CheckBox
+                            android:id="@+id/voltharmonic_h1"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_volt_H1"
+                            android:textSize="@dimen/textsize_20" />
+                        <CheckBox
+                            android:id="@+id/voltharmonic_h2"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_volt_H2"
+                            android:textSize="@dimen/textsize_20" />
+
+                        <CheckBox
+                            android:id="@+id/voltharmonic_h3"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_volt_H3"
+                            android:textSize="@dimen/textsize_20" />
+                        <CheckBox
+                            android:id="@+id/voltharmonic_h4"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_volt_H4"
+                            android:textSize="@dimen/textsize_20" />
+
+                        <CheckBox
+                            android:id="@+id/voltharmonic_h5"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_volt_H5"
+                            android:textSize="@dimen/textsize_20" />
+                        <CheckBox
+                            android:id="@+id/voltharmonic_h6"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_volt_H6"
+                            android:textSize="@dimen/textsize_20" />
+
+                        <CheckBox
+                            android:id="@+id/voltharmonic_h7"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_volt_H7"
+                            android:textSize="@dimen/textsize_20" />
+                        <CheckBox
+                            android:id="@+id/voltharmonic_h8"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_volt_H8"
+                            android:textSize="@dimen/textsize_20" />
+
+
+                        <CheckBox
+                            android:id="@+id/voltharmonic_h9"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_volt_H9"
+                            android:textSize="@dimen/textsize_20" />
+                        <CheckBox
+                            android:id="@+id/voltharmonic_h10"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_volt_H10"
+                            android:textSize="@dimen/textsize_20" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_gravity="left"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dimen_10"
+                        android:orientation="vertical">
+
+                        <CheckBox
+                            android:id="@+id/voltharmonic_h11"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_volt_H11"
+                            android:textSize="@dimen/textsize_20" />
+                        <CheckBox
+                            android:id="@+id/voltharmonic_h12"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_volt_H12"
+                            android:textSize="@dimen/textsize_20" />
+
+                        <CheckBox
+                            android:id="@+id/voltharmonic_h13"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_volt_H13"
+                            android:textSize="@dimen/textsize_20" />
+                        <CheckBox
+                            android:id="@+id/voltharmonic_h14"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_volt_H14"
+                            android:textSize="@dimen/textsize_20" />
+
+                        <CheckBox
+                            android:id="@+id/voltharmonic_h15"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_volt_H15"
+                            android:textSize="@dimen/textsize_20" />
+                        <CheckBox
+                            android:id="@+id/voltharmonic_h16"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_volt_H16"
+                            android:textSize="@dimen/textsize_20" />
+
+                        <CheckBox
+                            android:id="@+id/voltharmonic_h17"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_volt_H17"
+                            android:textSize="@dimen/textsize_20" />
+                        <CheckBox
+                            android:id="@+id/voltharmonic_h18"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_volt_H18"
+                            android:textSize="@dimen/textsize_20" />
+
+
+                        <CheckBox
+                            android:id="@+id/voltharmonic_h19"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_volt_H19"
+                            android:textSize="@dimen/textsize_20" />
+                        <CheckBox
+                            android:id="@+id/voltharmonic_h20"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_volt_H20"
+                            android:textSize="@dimen/textsize_20" />
+
+                        <CheckBox
+                            android:id="@+id/voltharmonic_h21"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_volt_H21"
+                            android:textSize="@dimen/textsize_20" />
+                        <CheckBox
+                            android:id="@+id/voltharmonic_h22"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_volt_H22"
+                            android:textSize="@dimen/textsize_20" />
+
+
+                        <CheckBox
+                            android:id="@+id/voltharmonic_h23"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_volt_H23"
+                            android:textSize="@dimen/textsize_20" />
+                        <CheckBox
+                            android:id="@+id/voltharmonic_h24"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_volt_H24"
+                            android:textSize="@dimen/textsize_20" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_gravity="left"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="@dimen/dimen_10"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <CheckBox
+                            android:id="@+id/voltharmonic_h25"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_volt_H25"
+                            android:textSize="@dimen/textsize_20" />
+                        <CheckBox
+                            android:id="@+id/voltharmonic_h26"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_volt_H26"
+                            android:textSize="@dimen/textsize_20" />
+
+                        <CheckBox
+                            android:id="@+id/voltharmonic_h27"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_volt_H27"
+                            android:textSize="@dimen/textsize_20" />
+                        <CheckBox
+                            android:id="@+id/voltharmonic_h28"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_volt_H28"
+                            android:textSize="@dimen/textsize_20" />
+
+
+                        <CheckBox
+                            android:id="@+id/voltharmonic_h29"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_volt_H29"
+                            android:textSize="@dimen/textsize_20" />
+                        <CheckBox
+                            android:id="@+id/voltharmonic_h30"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_volt_H30"
+                            android:textSize="@dimen/textsize_20" />
+
+                        <CheckBox
+                            android:id="@+id/voltharmonic_h31"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_volt_H31"
+                            android:textSize="@dimen/textsize_20" />
+                        <CheckBox
+                            android:id="@+id/voltharmonic_h32"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_volt_H32"
+                            android:textSize="@dimen/textsize_20" />
+
+                        <CheckBox
+                            android:id="@+id/voltharmonic_h33"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_volt_H33"
+                            android:textSize="@dimen/textsize_20" />
+                        <CheckBox
+                            android:id="@+id/voltharmonic_h34"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_volt_H34"
+                            android:textSize="@dimen/textsize_20" />
+
+                        <CheckBox
+                            android:id="@+id/voltharmonic_h35"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_volt_H35"
+                            android:textSize="@dimen/textsize_20" />
+                        <CheckBox
+                            android:id="@+id/voltharmonic_h36"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_volt_H36"
+                            android:textSize="@dimen/textsize_20" />
+
+                        <CheckBox
+                            android:id="@+id/voltharmonic_h37"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_volt_H37"
+                            android:textSize="@dimen/textsize_20" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_gravity="left"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="@dimen/dimen_10"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <CheckBox
+                            android:id="@+id/voltharmonic_h38"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_volt_H38"
+                            android:textSize="@dimen/textsize_20" />
+
+
+                        <CheckBox
+                            android:id="@+id/voltharmonic_h39"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_volt_H39"
+                            android:textSize="@dimen/textsize_20" />
+                        <CheckBox
+                            android:id="@+id/voltharmonic_h40"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_volt_H40"
+                            android:textSize="@dimen/textsize_20" />
+
+                        <CheckBox
+                            android:id="@+id/voltharmonic_h41"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_volt_H41"
+                            android:textSize="@dimen/textsize_20" />
+                        <CheckBox
+                            android:id="@+id/voltharmonic_h42"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_volt_H42"
+                            android:textSize="@dimen/textsize_20" />
+
+                        <CheckBox
+                            android:id="@+id/voltharmonic_h43"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_volt_H43"
+                            android:textSize="@dimen/textsize_20" />
+                        <CheckBox
+                            android:id="@+id/voltharmonic_h44"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_volt_H44"
+                            android:textSize="@dimen/textsize_20" />
+
+                        <CheckBox
+                            android:id="@+id/voltharmonic_h45"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_volt_H45"
+                            android:textSize="@dimen/textsize_20" />
+                        <CheckBox
+                            android:id="@+id/voltharmonic_h46"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_volt_H46"
+                            android:textSize="@dimen/textsize_20" />
+
+                        <CheckBox
+                            android:id="@+id/voltharmonic_h47"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_volt_H47"
+                            android:textSize="@dimen/textsize_20" />
+
+                        <CheckBox
+                            android:id="@+id/voltharmonic_h48"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_volt_H48"
+                            android:textSize="@dimen/textsize_20" />
+                        <CheckBox
+                            android:id="@+id/voltharmonic_h49"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_volt_H49"
+                            android:textSize="@dimen/textsize_20" />
+                        <CheckBox
+                            android:id="@+id/voltharmonic_h50"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_volt_H50"
+                            android:textSize="@dimen/textsize_20" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </android.support.v4.widget.NestedScrollView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_ampharmonic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/parameter_amp_harm"
+                android:textColor="@color/colorblack"
+                android:textSize="@dimen/textsize_35" />
+
+            <android.support.v4.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <CheckBox
+                            android:id="@+id/ampharmonic_afund"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_Afund"
+                            android:textSize="@dimen/textsize_20" />
+
+                        <CheckBox
+                            android:id="@+id/ampharmonic_thdf"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_amp_thdf"
+                            android:textSize="@dimen/textsize_20" />
+
+                        <CheckBox
+                            android:id="@+id/ampharmonic_thdr"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_amp_thdr"
+                            android:textSize="@dimen/textsize_20" />
+
+                        <CheckBox
+                            android:id="@+id/ampharmonic_dc"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_amp_DC"
+                            android:textSize="@dimen/textsize_20" />
+
+                        <CheckBox
+                            android:id="@+id/ampharmonic_h1"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_amp_H1"
+                            android:textSize="@dimen/textsize_20" />
+
+                        <CheckBox
+                            android:id="@+id/ampharmonic_h2"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_amp_H2"
+                            android:textSize="@dimen/textsize_20" />
+
+                        <CheckBox
+                            android:id="@+id/ampharmonic_h3"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_amp_H3"
+                            android:textSize="@dimen/textsize_20" />
+
+                        <CheckBox
+                            android:id="@+id/ampharmonic_h4"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_amp_H4"
+                            android:textSize="@dimen/textsize_20" />
+
+                        <CheckBox
+                            android:id="@+id/ampharmonic_h5"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_amp_H5"
+                            android:textSize="@dimen/textsize_20" />
+
+                        <CheckBox
+                            android:id="@+id/ampharmonic_h6"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_amp_H6"
+                            android:textSize="@dimen/textsize_20" />
+
+                        <CheckBox
+                            android:id="@+id/ampharmonic_h7"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_amp_H7"
+                            android:textSize="@dimen/textsize_20" />
+
+                        <CheckBox
+                            android:id="@+id/ampharmonic_h8"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_amp_H8"
+                            android:textSize="@dimen/textsize_20" />
+
+
+                        <CheckBox
+                            android:id="@+id/ampharmonic_h9"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_amp_H9"
+                            android:textSize="@dimen/textsize_20" />
+
+                        <CheckBox
+                            android:id="@+id/ampharmonic_h10"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_amp_H10"
+                            android:textSize="@dimen/textsize_20" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_marginLeft="@dimen/dimen_10"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <CheckBox
+                            android:id="@+id/ampharmonic_h11"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_amp_H11"
+                            android:textSize="@dimen/textsize_20" />
+
+                        <CheckBox
+                            android:id="@+id/ampharmonic_h12"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_amp_H12"
+                            android:textSize="@dimen/textsize_20" />
+
+                        <CheckBox
+                            android:id="@+id/ampharmonic_h13"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_amp_H13"
+                            android:textSize="@dimen/textsize_20" />
+
+                        <CheckBox
+                            android:id="@+id/ampharmonic_h14"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_amp_H14"
+                            android:textSize="@dimen/textsize_20" />
+
+                        <CheckBox
+                            android:id="@+id/ampharmonic_h15"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_amp_H15"
+                            android:textSize="@dimen/textsize_20" />
+
+                        <CheckBox
+                            android:id="@+id/ampharmonic_h16"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_amp_H16"
+                            android:textSize="@dimen/textsize_20" />
+
+                        <CheckBox
+                            android:id="@+id/ampharmonic_h17"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_amp_H17"
+                            android:textSize="@dimen/textsize_20" />
+
+                        <CheckBox
+                            android:id="@+id/ampharmonic_h18"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_amp_H18"
+                            android:textSize="@dimen/textsize_20" />
+
+
+                        <CheckBox
+                            android:id="@+id/ampharmonic_h19"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_amp_H19"
+                            android:textSize="@dimen/textsize_20" />
+
+                        <CheckBox
+                            android:id="@+id/ampharmonic_h20"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_amp_H20"
+                            android:textSize="@dimen/textsize_20" />
+
+                        <CheckBox
+                            android:id="@+id/ampharmonic_h21"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_amp_H21"
+                            android:textSize="@dimen/textsize_20" />
+
+                        <CheckBox
+                            android:id="@+id/ampharmonic_h22"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_amp_H22"
+                            android:textSize="@dimen/textsize_20" />
+
+
+                        <CheckBox
+                            android:id="@+id/ampharmonic_h23"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_amp_H23"
+                            android:textSize="@dimen/textsize_20" />
+
+                        <CheckBox
+                            android:id="@+id/ampharmonic_h24"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_amp_H24"
+                            android:textSize="@dimen/textsize_20" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_marginLeft="@dimen/dimen_10"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <CheckBox
+                            android:id="@+id/ampharmonic_h25"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_amp_H25"
+                            android:textSize="@dimen/textsize_20" />
+
+                        <CheckBox
+                            android:id="@+id/ampharmonic_h26"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_amp_H26"
+                            android:textSize="@dimen/textsize_20" />
+
+                        <CheckBox
+                            android:id="@+id/ampharmonic_h27"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_amp_H27"
+                            android:textSize="@dimen/textsize_20" />
+
+                        <CheckBox
+                            android:id="@+id/ampharmonic_h28"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_amp_H28"
+                            android:textSize="@dimen/textsize_20" />
+
+
+                        <CheckBox
+                            android:id="@+id/ampharmonic_h29"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_amp_H29"
+                            android:textSize="@dimen/textsize_20" />
+
+                        <CheckBox
+                            android:id="@+id/ampharmonic_h30"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_amp_H30"
+                            android:textSize="@dimen/textsize_20" />
+
+                        <CheckBox
+                            android:id="@+id/ampharmonic_h31"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_amp_H31"
+                            android:textSize="@dimen/textsize_20" />
+
+                        <CheckBox
+                            android:id="@+id/ampharmonic_h32"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_amp_H32"
+                            android:textSize="@dimen/textsize_20" />
+
+                        <CheckBox
+                            android:id="@+id/ampharmonic_h33"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_amp_H33"
+                            android:textSize="@dimen/textsize_20" />
+
+                        <CheckBox
+                            android:id="@+id/ampharmonic_h34"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_amp_H34"
+                            android:textSize="@dimen/textsize_20" />
+
+                        <CheckBox
+                            android:id="@+id/ampharmonic_h35"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_amp_H35"
+                            android:textSize="@dimen/textsize_20" />
+
+                        <CheckBox
+                            android:id="@+id/ampharmonic_h36"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_amp_H36"
+                            android:textSize="@dimen/textsize_20" />
+
+                        <CheckBox
+                            android:id="@+id/ampharmonic_h37"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_amp_H37"
+                            android:textSize="@dimen/textsize_20" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_marginLeft="@dimen/dimen_10"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <CheckBox
+                            android:id="@+id/ampharmonic_h38"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_amp_H38"
+                            android:textSize="@dimen/textsize_20" />
+
+
+                        <CheckBox
+                            android:id="@+id/ampharmonic_h39"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_amp_H39"
+                            android:textSize="@dimen/textsize_20" />
+
+                        <CheckBox
+                            android:id="@+id/ampharmonic_h40"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_amp_H40"
+                            android:textSize="@dimen/textsize_20" />
+
+                        <CheckBox
+                            android:id="@+id/ampharmonic_h41"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_amp_H41"
+                            android:textSize="@dimen/textsize_20" />
+
+                        <CheckBox
+                            android:id="@+id/ampharmonic_h42"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_amp_H42"
+                            android:textSize="@dimen/textsize_20" />
+
+                        <CheckBox
+                            android:id="@+id/ampharmonic_h43"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_amp_H43"
+                            android:textSize="@dimen/textsize_20" />
+
+                        <CheckBox
+                            android:id="@+id/ampharmonic_h44"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_amp_H44"
+                            android:textSize="@dimen/textsize_20" />
+
+                        <CheckBox
+                            android:id="@+id/ampharmonic_h45"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_amp_H45"
+                            android:textSize="@dimen/textsize_20" />
+
+                        <CheckBox
+                            android:id="@+id/ampharmonic_h46"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_amp_H46"
+                            android:textSize="@dimen/textsize_20" />
+
+                        <CheckBox
+                            android:id="@+id/ampharmonic_h47"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_amp_H47"
+                            android:textSize="@dimen/textsize_20" />
+
+                        <CheckBox
+                            android:id="@+id/ampharmonic_h48"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_amp_H48"
+                            android:textSize="@dimen/textsize_20" />
+
+                        <CheckBox
+                            android:id="@+id/ampharmonic_h49"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_amp_H49"
+                            android:textSize="@dimen/textsize_20" />
+
+                        <CheckBox
+                            android:id="@+id/ampharmonic_h50"
+                            style="@style/CustomCheckboxTheme"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/parameter_amp_H50"
+                            android:textSize="@dimen/textsize_20" />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+            </android.support.v4.widget.NestedScrollView>
+
+
+        </LinearLayout>
+
+        <!--OK-->
+        <LinearLayout
+            android:id="@+id/layout_unbalance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/parameter_Unbalance"
+                android:textColor="@color/colorblack"
+                android:textSize="@dimen/textsize_35" />
+
+            <LinearLayout
+                android:paddingStart="@dimen/dimen_20"
+                android:paddingEnd="@dimen/dimen_20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <CheckBox
+                        android:id="@+id/unbalance_unbal"
+                        style="@style/CustomCheckboxTheme"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/parameter_Unbal"
+                        android:textSize="@dimen/textsize_20" />
+
+                    <CheckBox
+                        android:id="@+id/unbalance_vneg"
+                        style="@style/CustomCheckboxTheme"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/parameter_Vneg"
+                        android:textSize="@dimen/textsize_20" />
+
+                    <CheckBox
+                        android:id="@+id/unbalance_vzero"
+                        style="@style/CustomCheckboxTheme"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/parameter_Vzero"
+                        android:textSize="@dimen/textsize_20" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dimen_50"
+                    android:orientation="vertical">
+
+                    <CheckBox
+                        android:id="@+id/unbalance_aneg"
+                        style="@style/CustomCheckboxTheme"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/parameter_Aneg"
+                        android:textSize="@dimen/textsize_20" />
+
+                    <CheckBox
+                        android:id="@+id/unbalance_azero"
+                        style="@style/CustomCheckboxTheme"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/parameter_Azero"
+                        android:textSize="@dimen/textsize_20" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_power"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/parameter_Power"
+                android:textColor="@color/colorblack"
+                android:textSize="@dimen/textsize_35" />
+
+            <LinearLayout
+                android:paddingStart="@dimen/dimen_20"
+                android:paddingEnd="@dimen/dimen_20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <CheckBox
+                        android:id="@+id/power_kw"
+                        style="@style/CustomCheckboxTheme"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/parameter_kW"
+                        android:textSize="@dimen/textsize_20" />
+
+                    <CheckBox
+                        android:id="@+id/power_kva"
+                        style="@style/CustomCheckboxTheme"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/parameter_kVA"
+                        android:textSize="@dimen/textsize_20" />
+
+                    <CheckBox
+                        android:id="@+id/power_kvar"
+                        style="@style/CustomCheckboxTheme"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/parameter_kvar"
+                        android:textSize="@dimen/textsize_20" />
+
+                    <CheckBox
+                        android:id="@+id/power_kva_harm"
+                        style="@style/CustomCheckboxTheme"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/parameter_kVA_Harm"
+                        android:textSize="@dimen/textsize_20" />
+
+                    <CheckBox
+                        android:id="@+id/power_cos"
+                        style="@style/CustomCheckboxTheme"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/parameter_cos"
+                        android:textSize="@dimen/textsize_20" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dimen_100"
+                    android:orientation="vertical">
+
+                    <CheckBox
+                        android:id="@+id/power_kva_unb"
+                        style="@style/CustomCheckboxTheme"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/parameter_kVA_Unb"
+                        android:textSize="@dimen/textsize_20" />
+
+                    <CheckBox
+                        android:id="@+id/power_kw_fund"
+                        style="@style/CustomCheckboxTheme"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/parameter_kW_fund"
+                        android:textSize="@dimen/textsize_20" />
+
+                    <CheckBox
+                        android:id="@+id/power_kva_fund"
+                        style="@style/CustomCheckboxTheme"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/parameter_kVA_fund"
+                        android:textSize="@dimen/textsize_20" />
+
+                    <CheckBox
+                        android:id="@+id/power_w_fund"
+                        style="@style/CustomCheckboxTheme"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/parameter_W_fund"
+                        android:textSize="@dimen/textsize_20" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/layout_energy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/parameter_Energy"
+                android:textColor="@color/colorblack"
+                android:textSize="@dimen/textsize_35" />
+
+            <LinearLayout
+                android:paddingStart="@dimen/dimen_20"
+                android:paddingEnd="@dimen/dimen_20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <CheckBox
+                        android:id="@+id/energy_kvah"
+                        style="@style/CustomCheckboxTheme"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/parameter_kVAh"
+                        android:textSize="@dimen/textsize_20" />
+
+                    <CheckBox
+                        android:id="@+id/energy_kwh_forw"
+                        style="@style/CustomCheckboxTheme"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/parameter_kWh_forw"
+                        android:textSize="@dimen/textsize_20" />
+
+                    <CheckBox
+                        android:id="@+id/energy_kwh"
+                        style="@style/CustomCheckboxTheme"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/parameter_kWh"
+                        android:textSize="@dimen/textsize_20" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dimen_50"
+                    android:orientation="vertical">
+
+                    <CheckBox
+                        android:id="@+id/energy_kvarh"
+                        style="@style/CustomCheckboxTheme"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/parameter_kvarh"
+                        android:textSize="@dimen/textsize_20" />
+
+                    <CheckBox
+                        android:id="@+id/energy_kwh_rev"
+                        style="@style/CustomCheckboxTheme"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/parameter_kWh_rev"
+                        android:textSize="@dimen/textsize_20" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

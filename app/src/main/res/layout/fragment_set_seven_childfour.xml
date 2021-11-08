@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:id="@+id/color_ll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/set_text_color"
+                android:textSize="@dimen/textsize_20"
+                android:text="@string/set_show_color_vl1" />
+
+            <com.cem.powerqualityanalyser.view.AmountColorViewHorizontal
+                android:id="@+id/colorViewHorizontal1"
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="@dimen/dimen_20"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:orientation="horizontal">
+
+            <TextView
+                android:textColor="@color/set_text_color"
+                android:textSize="@dimen/textsize_20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/set_show_color_vl2" />
+
+            <com.cem.powerqualityanalyser.view.AmountColorViewHorizontal
+                android:id="@+id/colorViewHorizontal2"
+                android:layout_marginLeft="@dimen/dimen_20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="@dimen/dimen_10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:textColor="@color/set_text_color"
+                android:textSize="@dimen/textsize_20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/set_show_color_vl3" />
+
+            <com.cem.powerqualityanalyser.view.AmountColorViewHorizontal
+                android:id="@+id/colorViewHorizontal3"
+                android:layout_marginLeft="@dimen/dimen_20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="@dimen/dimen_10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:textColor="@color/set_text_color"
+                android:textSize="@dimen/textsize_20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/set_show_color_vn" />
+
+            <com.cem.powerqualityanalyser.view.AmountColorViewHorizontal
+                android:id="@+id/colorViewHorizontal4"
+                android:layout_marginLeft="22dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:visibility="gone"
+        android:layout_weight="1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:layout_below="@+id/color_ll"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:textColor="@color/set_text_color"
+                android:textSize="@dimen/textsize_20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/set_show_color_al1" />
+
+            <com.cem.powerqualityanalyser.view.AmountColorViewHorizontal
+                android:id="@+id/colorViewHorizontal5"
+                android:layout_marginLeft="@dimen/dimen_20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="@dimen/dimen_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:textColor="@color/set_text_color"
+                android:textSize="@dimen/textsize_20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/set_show_color_al2" />
+
+            <com.cem.powerqualityanalyser.view.AmountColorViewHorizontal
+                android:id="@+id/colorViewHorizontal6"
+                android:layout_marginLeft="@dimen/dimen_20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="@dimen/dimen_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:textColor="@color/set_text_color"
+                android:textSize="@dimen/textsize_20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/set_show_color_al3" />
+
+            <com.cem.powerqualityanalyser.view.AmountColorViewHorizontal
+                android:id="@+id/colorViewHorizontal7"
+                android:layout_marginLeft="@dimen/dimen_20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="@dimen/dimen_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:textColor="@color/set_text_color"
+                android:textSize="@dimen/textsize_20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/set_show_color_an" />
+
+            <com.cem.powerqualityanalyser.view.AmountColorViewHorizontal
+                android:id="@+id/colorViewHorizontal8"
+                android:layout_marginLeft="22dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

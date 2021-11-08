@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_vertical"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/caluc_frtv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_77"
+        android:text="@string/set_caluc_fr"
+        android:textColor="@color/set_text_color"
+        android:textSize="@dimen/textsize_35" />
+
+
+    <TextView
+        android:id="@+id/caluc_frtv1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_50"
+        android:layout_toRightOf="@+id/caluc_frtv"
+        android:text="@string/set_caluc_fr_one"
+        android:textColor="@color/set_text_color"
+        android:textSize="@dimen/textsize_35" />
+
+    <LinearLayout
+        android:id="@+id/caluc_frLL"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/caluc_frtv1"
+        android:layout_alignBottom="@+id/caluc_frtv1"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/dimen_50"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/fr_choose_on"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/caluc_frtv1"
+            android:src="@mipmap/set_choose_no" />
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/caluc_frtv2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/caluc_frtv1"
+        android:layout_alignLeft="@+id/caluc_frtv1"
+        android:text="@string/set_caluc_fr_two"
+        android:textColor="@color/set_text_color"
+        android:textSize="@dimen/textsize_35" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/caluc_frLL"
+        android:layout_alignLeft="@+id/caluc_frLL"
+        android:layout_alignTop="@+id/caluc_frtv2"
+        android:layout_alignBottom="@+id/caluc_frtv2"
+        android:layout_marginRight="@dimen/dimen_50"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/fr_choose_off"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/set_choose_no" />
+
+    </LinearLayout>
+
+
+</RelativeLayout>

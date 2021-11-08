@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheckedTextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:id="@+id/checktv"
+    android:gravity="center"
+    android:textColor="#ffffff"
+    android:textAlignment="center"
+    android:textSize="18sp" />
+
+<!--<CheckedTextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/checktv"
+    style="?android:attr/spinnerDropDownItemStyle"
+    android:background="@drawable/spinner_down_bg"
+    android:singleLine="true"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:gravity="center"
+    android:textColor="#ffffff"
+    android:textSize="18sp"
+    android:textAlignment="center"
+    android:ellipsize="marquee"/>-->
+
+

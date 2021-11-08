@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorwhite">
+
+    <RelativeLayout
+        android:id="@+id/rightmodeview"
+        android:layout_width="184dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="@dimen/dimen_23"
+        android:layout_marginBottom="@dimen/dimen_6">
+
+        <TextView
+            android:id="@+id/tv_hz"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:background="@mipmap/textview_bg3"
+            android:gravity="center"
+            android:text="50.00Hz"
+            android:textColor="@color/colorwhite"
+            android:textSize="@dimen/grid_titleTextSize" />
+
+
+        <com.cem.powerqualityanalyser.view.RightModeView
+            android:id="@+id/modeview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_hz"
+            android:layout_marginTop="@dimen/dimen_8"
+            android:gravity="center"
+            android:orientation="vertical" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/scope_config_tv"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_40"
+        android:layout_marginLeft="@dimen/dimen_50"
+        android:layout_marginRight="@dimen/dimen_10"
+        android:gravity="center_vertical|left"
+        android:padding="@dimen/dimen_5"
+        android:textColor="@color/colorblack"
+        android:textSize="@dimen/textsize_30" />
+
+    <LinearLayout
+        android:layout_above="@+id/scope_config_tv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignBottom="@+id/rightmodeview"
+        android:layout_marginLeft="@dimen/dimen_13"
+        android:layout_marginTop="@dimen/dimen_23"
+        android:layout_marginRight="@dimen/dimen_5"
+        android:layout_marginBottom="6dp"
+        android:layout_toLeftOf="@+id/rightmodeview"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/scope_vector_Top"
+            layout="@layout/new_top_textviews_layout"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ListView
+                android:id="@+id/scopeLeft"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:divider="@null"
+                android:dividerHeight="5px"
+                android:focusable="false"
+                android:paddingTop="@dimen/dimen_30" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.8">
+
+                <com.cem.powerqualityanalyser.view.phaseview.DrawRoundpointer
+                    android:id="@+id/scopeRight"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>

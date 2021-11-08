@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorwhite"
+    tools:context="com.cem.powerqualityanalyser.activity.SetupActivityTest">
+
+    <LinearLayout
+        android:id="@+id/leftmenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/setup_tv1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:background="@mipmap/u24_normal"
+            android:text="@string/setup_overview" />
+
+        <TextView
+            android:id="@+id/setup_tv2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:background="@mipmap/u6_normal"
+            android:text="@string/setup_system" />
+
+        <TextView
+            android:id="@+id/setup_tv3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:background="@mipmap/u6_normal"
+            android:text="@string/setup_conect" />
+
+        <TextView
+            android:id="@+id/setup_tv4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:background="@mipmap/u6_normal"
+            android:text="@string/setup_freq" />
+
+        <TextView
+            android:id="@+id/setup_tv5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:background="@mipmap/u6_normal"
+            android:text="@string/setup_info" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/urerLayout"
+        android:layout_above="@id/leftmenu"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal" />
+
+</RelativeLayout>

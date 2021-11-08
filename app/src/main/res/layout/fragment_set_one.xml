@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@color/colorwhite"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:id="@+id/set_top_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_12"
+        android:layout_marginTop="@dimen/dimen_20"
+        android:layout_marginRight="@dimen/dimen_12"
+        android:background="@drawable/set_top_button_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/dimen_30"
+        android:paddingTop="@dimen/dimen_10"
+        android:paddingBottom="@dimen/dimen_10">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/set_caluc_on" />
+
+        <TextView
+            android:id="@+id/set_caluc_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_20"
+            android:text="@string/set_caluc"
+            android:textColor="@color/set_fragment_top_title_color"
+            android:textSize="@dimen/textsize_30" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/set_one_content_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/set_top_view"
+        android:orientation="horizontal"
+        />
+
+
+    <!--日期格式 只能切换  MM-DD-YY 和 DD-MM-YY 切换， 时间格式 是 24/12 或者 PM/AM 切换-->
+
+
+</RelativeLayout>

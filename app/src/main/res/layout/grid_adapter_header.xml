@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+
+    <com.cem.powerqualityanalyser.view.StrokeTextView
+        android:id="@+id/tv_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text=""
+        android:textColor="@color/colorwhite"
+        android:textSize="@dimen/grid_titleTextSize" />
+
+    <View
+        android:id="@+id/line_header"
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="@color/colorwhite" />
+
+
+    <com.cem.powerqualityanalyser.view.StrokeTextView
+        android:id="@+id/tv_headerL1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text=""
+        android:textColor="@color/colorwhite"
+        android:textSize="@dimen/grid_titleTextSize" />
+
+    <View
+        android:id="@+id/line_headerL1"
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:background="@color/colorwhite" />
+
+
+    <com.cem.powerqualityanalyser.view.StrokeTextView
+        android:id="@+id/tv_headerL2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text=""
+        android:textColor="@color/colorwhite"
+        android:textSize="@dimen/grid_titleTextSize" />
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:id="@+id/line_headerL2"
+        android:background="@color/colorwhite" />
+
+
+    <com.cem.powerqualityanalyser.view.StrokeTextView
+        android:id="@+id/tv_headerL3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text=""
+        android:textColor="@color/colorwhite"
+        android:textSize="@dimen/grid_titleTextSize" />
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:id="@+id/line_headerL3"
+        android:background="@color/colorwhite" />
+
+
+    <com.cem.powerqualityanalyser.view.StrokeTextView
+        android:id="@+id/tv_headerLN"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text=""
+        android:textColor="@color/colorwhite"
+        android:textSize="@dimen/grid_titleTextSize" />
+
+    <View
+        android:id="@+id/line_headerLN"
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="@color/colorwhite"
+        android:visibility="gone" />
+
+</LinearLayout>
+
+    <!--   <?xml version="1.0" encoding="utf-8"?>
+   <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+   android:layout_width="match_parent"
+   android:layout_height="wrap_content"
+   android:orientation="horizontal">
+
+
+   <RelativeLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_weight="1">
+
+       <com.cem.powerqualityanalyser.view.StrokeTextView
+           android:id="@+id/tv_header"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_weight="1"
+           android:gravity="center"
+           android:padding="5dp"
+           android:text=""
+           android:textColor="@color/colorwhite"
+           android:textSize="@dimen/grid_titleTextSize" />
+
+       <View
+           android:layout_width="1dp"
+           android:layout_height="match_parent"
+           android:layout_alignParentRight="true"
+           android:background="@color/colorwhite" />
+   </RelativeLayout>
+<RelativeLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_weight="1">
+   <com.cem.powerqualityanalyser.view.StrokeTextView
+       android:id="@+id/tv_headerL1"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_weight="1"
+       android:gravity="center"
+       android:padding="5dp"
+       android:text=""
+       android:textColor="@color/colorwhite"
+       android:textSize="@dimen/grid_titleTextSize" />
+
+   <View
+       android:layout_width="1dp"
+       android:layout_height="match_parent"
+       android:layout_alignParentRight="true"
+       android:background="@color/colorwhite" />
+ </RelativeLayout>
+   <RelativeLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_weight="1">
+
+       <com.cem.powerqualityanalyser.view.StrokeTextView
+           android:id="@+id/tv_headerL2"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_weight="1"
+           android:gravity="center"
+           android:padding="5dp"
+           android:text=""
+           android:textColor="@color/colorwhite"
+           android:textSize="@dimen/grid_titleTextSize" />
+
+       <View
+           android:layout_width="1dp"
+           android:layout_height="match_parent"
+           android:layout_alignParentRight="true"
+           android:background="@color/colorwhite" />
+   </RelativeLayout>
+
+   <RelativeLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_weight="1">
+
+       <com.cem.powerqualityanalyser.view.StrokeTextView
+           android:id="@+id/tv_headerL3"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_weight="1"
+           android:gravity="center"
+           android:padding="5dp"
+           android:text=""
+           android:textColor="@color/colorwhite"
+           android:textSize="@dimen/grid_titleTextSize" />
+
+       <View
+           android:layout_width="1dp"
+           android:layout_height="match_parent"
+           android:layout_alignParentRight="true"
+           android:background="@color/colorwhite" />
+   </RelativeLayout>
+
+   <RelativeLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_weight="1">
+
+       <com.cem.powerqualityanalyser.view.StrokeTextView
+           android:id="@+id/tv_headerLN"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_weight="1"
+           android:gravity="center"
+           android:padding="5dp"
+           android:text=""
+           android:textColor="@color/colorwhite"
+           android:textSize="@dimen/grid_titleTextSize" />
+
+       <View
+           android:layout_width="1dp"
+           android:layout_height="match_parent"
+           android:layout_alignParentRight="true"
+           android:background="@color/colorwhite"
+           android:visibility="gone" />
+   </RelativeLayout>
+
+   </LinearLayout>-->

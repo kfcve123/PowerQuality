@@ -1,0 +1,492 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="share_type">
+        <item>BT</item>
+        <item>Email</item>
+    </string-array>
+
+    <array name="scope_array">
+        <item>RMS</item>
+        <item>CF</item>
+        <item>THD</item>
+    </array>
+
+
+    <array name="abcn_arrat">
+        <item>""</item>
+        <item>A</item>
+        <item>B</item>
+        <item>C</item>
+        <item>N</item>
+    </array>
+    <array name="all_arrat">
+        <item>""</item>
+        <item>A</item>
+        <item>B</item>
+        <item>C</item>
+        <item>Total</item>
+    </array>
+    <array name="abc_arrat">
+        <item>""</item>
+        <item>AB</item>
+        <item>BC</item>
+        <item>CA</item>
+    </array>
+
+
+    <string-array name="Subfunction_array">
+        <item>@string/scope</item>
+        <item>@string/voltsampshertz</item>
+        <item>@string/powerenergy</item>
+        <item>@string/harmonics</item>
+        <item>@string/unbalance</item>
+        <item>@string/surge</item>
+        <item>@string/flicker</item>
+        <item>@string/transients</item>
+        <!--<item>@string/waveformcapture</item>-->
+        <item>@string/dips_swells</item>
+        <!--<item>@string/power_quality_monitor</item>-->
+        <!--<item>@string/deviceparameters</item>-->
+        <item>@string/photo</item>
+        <item>@string/warning</item>
+        <!--<item>@string/ir</item>-->
+        <item>@string/trendchartrecord</item>
+        <!--<item>@string/enery_consumption_calculator</item>-->
+        <item>@string/set</item>
+    </string-array>
+
+    <integer-array name="Subfunction_arrayRes">
+        <item>@mipmap/scope</item>
+        <item>@mipmap/voltsampshertz</item>
+        <item>@mipmap/powerenergy</item>
+        <item>@mipmap/harmonics</item>
+        <item>@mipmap/unbalance</item>
+        <item>@mipmap/surge</item>
+        <item>@mipmap/flicker</item>
+        <item>@mipmap/transients</item>
+        <item>@mipmap/dips_swells</item>
+        <!--<item>@mipmap/waveformcapture</item>-->
+        <!--<item>@mipmap/power_monitor</item>-->
+       <!-- <item>@mipmap/deviceparameters</item>-->
+        <item>@mipmap/photo</item>
+        <!--<item>@mipmap/ir</item>-->
+        <item>@mipmap/warning</item>
+        <item>@mipmap/trendchartrecord</item>
+        <!--<item>@mipmap/calculator</item>-->
+        <item>@mipmap/set</item>
+    </integer-array>
+
+    <integer-array name="Subfunction_arrayRes_down">
+        <item>@mipmap/volts_amps_hertz_d</item>
+        <item>@mipmap/scope_d</item>
+        <item>@mipmap/harmonics_d</item>
+        <item>@mipmap/power_energy_d</item>
+        <item>@mipmap/unbalance_d</item>
+        <item>@mipmap/shipboard_v_a_hz_d</item>
+        <item>@mipmap/dips_swells_d</item>
+        <item>@mipmap/inrush_d</item>
+        <item>@mipmap/flicker_d</item>
+        <item>@mipmap/recorder_d</item>
+        <item>@mipmap/historyrecord_d</item>
+        <item>@mipmap/set_d</item>
+    </integer-array>
+
+
+    <array name="VerifyArr">
+        <item>B0</item>
+        <!--<item>B1</item>-->
+        <item>B2</item>
+        <item>B3</item>
+        <item>B4</item>
+        <item>B5</item>
+       <!-- <item>B6</item>
+        <item>B7</item>-->
+
+    </array>
+
+
+
+    <!--NewVersion-->
+
+
+    <!--接线方式-->
+
+
+    <string-array name="set_content_array">
+        <!--<item>@string/set_airplane</item>-->
+        <!--<item>@string/set_caluc</item>-->
+        <item>@string/set_wifi</item>
+        <item>@string/set_wir</item>
+        <item>@string/set_blue</item>
+        <item>@string/set_clamp</item>
+        <item>@string/set_gps</item>
+        <!--<item>@string/set_point</item>-->
+        <item>@string/set_date</item>
+        <!--<item>@string/set_trend</item>-->
+        <item>@string/set_show</item>
+        <item>@string/set_delete</item>
+        <!--<item>@string/set_timer</item>-->
+        <item>@string/set_info</item>
+        <!--<item>@string/set_warn</item>-->
+
+    </string-array>
+
+    <integer-array name="set_icon_array">
+        <!--<item>@mipmap/set_airplane_off</item>-->
+        <!--<item>@mipmap/set_caluc_off</item>-->
+        <item>@mipmap/set_wifi_off</item>
+        <item>@mipmap/set_wir_off</item>
+        <item>@mipmap/set_blue_off</item>
+        <item>@mipmap/set_clamp_off</item>
+        <item>@mipmap/set_gps_off</item>
+        <!--<item>@mipmap/set_point_off</item>-->
+        <item>@mipmap/set_date_off</item>
+        <!--<item>@mipmap/set_trend_off</item>-->
+        <item>@mipmap/set_show_off</item>
+        <item>@mipmap/set_delete_off</item>
+        <!--<item>@mipmap/set_timer_off</item>-->
+        <item>@mipmap/set_info_off</item>
+        <!--<item>@mipmap/set_warn_off</item>-->
+    </integer-array>
+
+    <integer-array name="set_icon_array_down">
+        <!--<item>@mipmap/set_airplane_on</item>-->
+        <!--<item>@mipmap/set_caluc_on</item>-->
+        <item>@mipmap/set_wifi_on</item>
+        <item>@mipmap/set_wir_on</item>
+        <item>@mipmap/set_blue_on</item>
+        <item>@mipmap/set_clamp_on</item>
+        <item>@mipmap/set_gps_on</item>
+        <!--<item>@mipmap/set_point_on</item>-->
+        <item>@mipmap/set_date_on</item>
+        <!--<item>@mipmap/set_trend_on</item>-->
+        <item>@mipmap/set_show_on</item>
+        <item>@mipmap/set_delete_on</item>
+        <!--<item>@mipmap/set_timer_on</item>-->
+        <item>@mipmap/set_info_on</item>
+        <!--<item>@mipmap/set_warn_on</item>-->
+    </integer-array>
+
+
+
+    <integer-array name="colorview_arrays">
+        <item>@color/wir_color_black</item>
+        <item>@color/wir_color_yellow</item>
+        <item>@color/wir_color_red</item>
+        <item>@color/wir_color_blue</item>
+        <item>@color/wir_color_green</item>
+    </integer-array>
+
+
+    <integer-array name="harmonics_item_arrays">
+        <item>@mipmap/harmonics_graph_black</item>
+        <item>@mipmap/harmonics_graph_yellow</item>
+        <item>@mipmap/harmonics_graph_red</item>
+        <item>@mipmap/harmonics_graph_blue</item>
+        <item>@mipmap/harmonics_graph_green</item>
+    </integer-array>
+
+
+    <string-array name="set_wir_arrays1">
+        <item>3相5线</item>
+        <item>3相4线</item>
+        <item>3相3线</item>
+        <item>单相2线</item>
+        <item>单相3线</item>
+        <item>分相2线</item>
+        <item>分相3线</item>
+        <item>分相4线</item>
+        <!--<item>1Ø + NEUTRAL</item>
+        <item>1Ø IT NO NEUTRAL</item>
+        <item>1Ø SPLIT PHASE</item>
+        <item>2½-ELEMENT</item>
+        <item>2-ELEMENT</item>
+        <item>3Ø DELTA</item>
+        <item>3Ø HIGH LEG</item>
+        <item>3Ø IT</item>
+        <item>3Ø OPEN LEG</item>
+        <item>3Ø WYE</item>-->
+    </string-array>
+
+
+    <!-- 2½-ELEMENT -->
+
+    <!--2-ELEMENT  3Ø DELTA   3Ø IT  3Ø OPEN LEG-->
+
+    <!--3Ø HIGH LEG  3Ø WYE -->
+
+
+    <!-- 3相5线 3相4线 -->
+
+    <!-- 3相3线 -->
+
+    <!-- 3相5线-->
+
+    <!-- 3相4线-->
+
+    <!-- 3相3线-->
+
+
+    <!-- 单相3线-->
+
+    <!-- 分相3线-->
+
+    <!-- 分相4线-->
+    n
+    <array name="l1al2bl3c_array">
+        <item>""</item>
+        <item>L1(A)</item>
+        <item>L2(B)</item>
+        <item>L3(C)</item>
+    </array>
+
+    <array name="currenta_array">
+        <item>""</item>
+        <item>VOLTS</item>
+        <item>CURRENT</item>
+    </array>
+
+    <array name="l1n_array">
+        <item>""</item>
+        <item>L1</item>
+        <item>N</item>
+    </array>
+
+    <array name="L1L2_array">
+        <item>""</item>
+        <item>L1L2</item>
+    </array>
+
+    <array name="L2L3_array">
+        <item>""</item>
+        <item>L2L3</item>
+    </array>
+
+    <array name="L3L1_array">
+        <item>""</item>
+        <item>L3L1</item>
+    </array>
+
+
+    <array name="l1_array">
+        <item>""</item>
+        <item>L1</item>
+    </array>
+
+    <array name="l2_array">
+        <item>""</item>
+        <item>L2</item>
+    </array>
+
+    <array name="l3_array">
+        <item>""</item>
+        <item>L3</item>
+    </array>
+
+    <array name="l1l2n_array">
+        <item>""</item>
+        <item>L1</item>
+        <item>L2</item>
+        <item>N</item>
+    </array>
+
+
+    <array name="l1al2bl3cn_array">
+        <item>""</item>
+        <item>L1(A)</item>
+        <item>L2(B)</item>
+        <item>L3(C)</item>
+        <item>"N"</item>
+    </array>
+
+
+    <array name="confighz_array">
+        <item>@string/config_nominal_frequency_50hz</item>
+        <item>@string/config_nominal_frequency_60hz</item>
+        <item>@string/config_nominal_frequency_400hz</item>
+    </array>
+
+    <array name="l1l2l2l3l3l1_array">
+        <item>""</item>
+        <item>L1L2</item>
+        <item>L2L3</item>
+        <item>L3L1</item>
+    </array>
+
+    <array name="l1l2l2l3l3l1n_array">
+        <item>""</item>
+        <item>L1L2</item>
+        <item>L2L3</item>
+        <item>L3L1</item>
+        <item>N</item>
+    </array>
+
+
+    <array name="l1l2l3_array">
+        <item>""</item>
+        <item>L1</item>
+        <item>L2</item>
+        <item>L3</item>
+    </array>
+
+    <array name="l1l2l3n_array">
+        <item>""</item>
+        <item>L1</item>
+        <item>L2</item>
+        <item>L3</item>
+        <item>N</item>
+    </array>
+
+    <array name="total_array">
+        <item>""</item>
+        <item>Total</item>
+    </array>
+
+    <array name="n_array">
+        <item>""</item>
+        <item>N</item>
+    </array>
+
+    <array name="l1l2l2l3n_array">
+        <item>""</item>
+        <item>L1L2</item>
+        <item>L2L3</item>
+        <item>N</item>
+    </array>
+
+    <array name="l1l2_array">
+        <item>""</item>
+        <item>L1</item>
+        <item>L2</item>
+    </array>
+
+    <array name="asu_array">
+        <item>U</item>
+        <item>S</item>
+        <item>A</item>
+    </array>
+
+    <array name="asv_array">
+        <item>V</item>
+        <item>S</item>
+        <item>A</item>
+    </array>
+
+    <array name="unbalance_array">
+        <item>""</item>
+        <item>Vneg</item>
+        <item>Vzero</item>
+        <item>Aneg</item>
+        <item>Azero</item>
+    </array>
+
+    <array name="unbalance_varray">
+        <item>""</item>
+        <item>Vneg</item>
+        <item>Vzero</item>
+    </array>
+
+    <array name="unbalance_aarray">
+        <item>""</item>
+        <item>Aneg</item>
+        <item>Azero</item>
+    </array>
+
+
+    <array name="top_backgroud_res_array">
+        <item>@mipmap/top_black_bg</item>
+        <item>@mipmap/top_yellow_bg</item>
+        <item>@mipmap/top_red_bg</item>
+        <item>@mipmap/top_blue_bg</item>
+        <item>@mipmap/top_green_bg</item>
+    </array>
+
+    <array name="power_energy_array">
+        <item>POWER</item>
+        <item>ENERGY</item>
+    </array>
+
+    <array name="inrush_av_array">
+        <item>A</item>
+        <item>V</item>
+    </array>
+
+    <array name="inrush_l1l2l3n_array">
+        <item>L1</item>
+        <item>L2</item>
+        <item>L3</item>
+        <item>N</item>
+    </array>
+
+
+    <array name="inrush_l1l2l3_array">
+        <item>L1</item>
+        <item>L2</item>
+        <item>L3</item>
+    </array>
+
+    <array name="inrush_l1l2n_array">
+        <item>L1</item>
+        <item>L2</item>
+        <item>N</item>
+    </array>
+
+    <array name="inrush_l1n_array">
+        <item>L1</item>
+        <item>N</item>
+    </array>
+
+    <array name="inrush_l1_array">
+        <item>L1</item>
+    </array>
+
+
+    <array name="transient_av_array">
+        <item>V</item>
+        <item>A</item>
+    </array>
+
+    <array name="transient_avf_array">
+        <item>V</item>
+        <item>A</item>
+        <item>F</item>
+    </array>
+
+    <array name="energy_loss_array">
+        <item>""</item>
+        <item>Total</item>
+        <item>Loss</item>
+        <item>Cost</item>
+    </array>
+
+    <array name="energy_loss_head_array">
+        <item>""</item>
+        <item>L1</item>
+        <item>L2</item>
+        <item>L3</item>
+        <item>Total</item>
+    </array>
+
+    <array name="energy_loss_head_array2">
+        <item>""</item>
+        <item>L1</item>
+        <item>L2</item>
+        <item>L3</item>
+        <item>""</item>
+    </array>
+
+    <array name="energy_loss_head_l1l2total">
+        <item>""</item>
+        <item>L1</item>
+        <item>L2</item>
+        <item>Total</item>
+    </array>
+
+    <array name="energy_loss_head_l1total">
+        <item>""</item>
+        <item>L1</item>
+        <item>Total</item>
+    </array>
+
+</resources>

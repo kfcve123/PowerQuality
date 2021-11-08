@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="colorPrimaryDark">#D81B60</color>
+    <color name="colorPrimary">#D81B60</color>
+    <color name="colorAccent">#D81B60</color>
+    <!--示波器界面的黄色字体-->
+    <color name="colorYellow">#f8ef07</color>
+    <color name="colorwhite">#ffffff</color>
+    <color name="white_stroke">#999999</color>
+    <color name="colorblack">#000000</color>
+
+    <color name="scope_value_blue">#4fb2ff</color>
+    <color name="value_green">#798a9c</color>
+    <color name="value_red">#fc4343</color>
+    <color name="value_yellow">#f8ef07</color>
+    <color name="listviewSelectColor">#14326a</color>
+
+    <color name="tabledrive">#4a4b4c</color>
+    <color name="tablechildTextColor">#ffffe9</color>
+    <color name="tableSelectColor">#727272</color>
+
+
+    <color name="l2_red">#B72626</color>
+    <color name="l3_blue">#2626AF</color>
+
+    <color name="spinner_dropDownSelector">#4fb2ff</color>
+
+    <color name="main_content_color">#f3f3f3</color>
+
+
+    <color name="table_value_title_color">#344480</color>
+    <color name="circleBack">#33ffffff</color>
+
+    <color name="table_value_content_color">#3f76a5</color>
+    <color name="table_value_content2_color">#305b7f</color>
+
+
+    <color name="set_text_color">#171717</color>
+    <color name="set_line_color">#c9c9c9</color>
+    <color name="set_text_color_choose">#ffffff</color>
+
+
+    <color name="set_fragment_top_title_color">#fcfcfc</color>
+
+
+    <color name="config_line_color">#adaeaf</color>
+
+    <color name="wir_color_black">#000000</color>
+    <color name="wir_color_blue">#0000ff</color>
+    <color name="wir_color_red">#ff0000</color>
+    <color name="wir_color_yellow">#00ff00</color>
+    <color name="wir_color_green">#008000</color>
+
+    <color name="transient_tv_color">#a2a3a4</color>
+
+
+</resources>

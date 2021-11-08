@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorwhite"
+    android:paddingLeft="@dimen/dimen_15"
+    android:paddingRight="@dimen/dimen_15"
+    android:gravity="center"
+    android:orientation="horizontal">
+
+    <com.cem.powerqualityanalyser.view.MyLinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+
+        <!--android:background="@drawable/button_style"-->
+        <RelativeLayout
+            android:id="@+id/bottom_view_Laout1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/dimen_31"
+            android:background="@mipmap/textview_bg1"
+            android:clickable="true"
+            android:paddingLeft="@dimen/dimen_19"
+            android:paddingRight="@dimen/dimen_19">
+
+            <com.cem.powerqualityanalyser.view.TextImageView
+                android:id="@+id/bottom_view_context1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/bottom_view_img1"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/colorwhite"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/imgeShow1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/bottom_view_img1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:visibility="gone"
+                android:src="@mipmap/right_arrow" />
+        </RelativeLayout>
+    </com.cem.powerqualityanalyser.view.MyLinearLayout>
+
+
+    <com.cem.powerqualityanalyser.view.MyLinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+
+        <!--android:background="@drawable/button_style"-->
+        <RelativeLayout
+            android:id="@+id/bottom_view_Laout2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/dimen_31"
+            android:background="@mipmap/textview_bg1"
+            android:paddingLeft="@dimen/dimen_19"
+            android:clickable="true"
+            android:paddingRight="@dimen/dimen_19">
+
+            <com.cem.powerqualityanalyser.view.TextImageView
+                android:id="@+id/bottom_view_context2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/bottom_view_img2"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/colorwhite"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/imgeShow2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:visibility="gone" />
+
+            <ImageView
+                android:visibility="gone"
+                android:id="@+id/bottom_view_img2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/right_arrow" />
+        </RelativeLayout>
+    </com.cem.powerqualityanalyser.view.MyLinearLayout>
+
+    <com.cem.powerqualityanalyser.view.MyLinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+
+        <!--android:background="@drawable/button_style"-->
+        <RelativeLayout
+            android:id="@+id/bottom_view_Laout3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/dimen_31"
+            android:background="@mipmap/textview_bg1"
+            android:paddingLeft="@dimen/dimen_19"
+            android:clickable="true"
+            android:paddingRight="@dimen/dimen_19">
+
+            <com.cem.powerqualityanalyser.view.TextImageView
+                android:id="@+id/bottom_view_context3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/bottom_view_img3"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/colorwhite"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/imgeShow3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:visibility="gone" />
+
+            <ImageView
+                android:visibility="gone"
+                android:id="@+id/bottom_view_img3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/right_arrow" />
+        </RelativeLayout>
+    </com.cem.powerqualityanalyser.view.MyLinearLayout>
+
+    <com.cem.powerqualityanalyser.view.MyLinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+
+        <!--android:background="@drawable/button_style"-->
+        <RelativeLayout
+            android:id="@+id/bottom_view_Laout4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/dimen_31"
+            android:clickable="true"
+            android:background="@mipmap/textview_bg1"
+            android:paddingLeft="@dimen/dimen_19"
+            android:paddingRight="@dimen/dimen_19">
+
+            <com.cem.powerqualityanalyser.view.TextImageView
+                android:id="@+id/bottom_view_context4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/bottom_view_img4"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/colorwhite"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/imgeShow4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:visibility="gone" />
+
+            <ImageView
+                android:visibility="gone"
+                android:id="@+id/bottom_view_img4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/right_arrow" />
+        </RelativeLayout>
+    </com.cem.powerqualityanalyser.view.MyLinearLayout>
+
+    <com.cem.powerqualityanalyser.view.MyLinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+
+        <!--android:background="@drawable/button_style"-->
+        <RelativeLayout
+            android:id="@+id/bottom_view_Laout5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/dimen_20"
+            android:clickable="true"
+            android:background="@mipmap/textview_bg1"
+            android:paddingLeft="@dimen/dimen_19"
+            android:paddingRight="@dimen/dimen_19">
+
+            <!--<LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/bottom_view_img5"
+                android:gravity="center_vertical"
+                android:layout_centerVertical="true"
+                android:orientation="vertical">
+
+                <com.cem.powerqualityanalyser.view.TextImageView
+                    android:id="@+id/bottom_view_context5"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_height="0dp"
+                    android:gravity="center"
+                    android:text="@string/Hold"
+                    android:textColor="@color/colorwhite"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <com.cem.powerqualityanalyser.view.TextImageView
+                    android:id="@+id/bottom_view_context52"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_height="0dp"
+                    android:gravity="center"
+                    android:text="@string/run"
+                    android:textColor="@color/colorwhite"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </LinearLayout>-->
+
+            <com.cem.powerqualityanalyser.view.TextImageView
+                android:id="@+id/bottom_view_context5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/bottom_view_img5"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/colorwhite"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/imgeShow5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:visibility="gone" />
+
+            <ImageView
+                android:visibility="gone"
+                android:id="@+id/bottom_view_img5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/right_arrow" />
+        </RelativeLayout>
+    </com.cem.powerqualityanalyser.view.MyLinearLayout>
+
+
+</LinearLayout>

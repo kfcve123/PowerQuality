@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@color/colorwhite"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:id="@+id/set_top_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_12"
+        android:layout_marginTop="@dimen/dimen_20"
+        android:layout_marginRight="@dimen/dimen_12"
+        android:background="@drawable/set_top_button_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/dimen_30"
+        android:paddingTop="@dimen/dimen_10"
+        android:paddingBottom="@dimen/dimen_10">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/set_date_on" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_20"
+            android:text="@string/warn_lefttitle_name"
+            android:textColor="@color/set_fragment_top_title_color"
+            android:textSize="@dimen/textsize_30" />
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/set_top_view"
+        android:layout_marginLeft="@dimen/dimen_50"
+        android:layout_marginTop="@dimen/dimen_50"
+        >
+
+        <LinearLayout
+            android:id="@+id/warn_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/warn_file_name"
+                android:textColor="@color/set_text_color"
+                android:textSize="@dimen/textsize_35" />
+
+
+            <EditText
+                android:background="@mipmap/logger_name_bg"
+                android:padding="2dp"
+                android:focusable="true"
+                android:id="@+id/warn_file_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:paddingStart="@dimen/dimen_15"
+                android:hint="@string/fileName"
+                android:cursorVisible="true"
+                android:textCursorDrawable="@null"
+                android:inputType="text"
+                android:maxLines="1"
+                android:textColorHint="@color/colorwhite"
+                android:textColor="@color/colorwhite"
+                android:layout_marginLeft="@dimen/dimen_50"
+                android:textSize="@dimen/textsize_25" />
+
+        </LinearLayout>
+        <View
+            android:id="@+id/set_time_line"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:visibility="invisible"
+            android:layout_below="@+id/warn_name"
+            android:layout_alignLeft="@+id/warn_start"
+            android:layout_alignRight="@+id/warn_end"
+            android:layout_marginTop="@dimen/dimen_30"
+            android:background="@color/set_line_color" />
+
+        <LinearLayout
+            android:id="@+id/warn_start"
+            android:layout_below="@+id/set_time_line"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/warn_start_time"
+                android:textColor="@color/set_text_color"
+                android:textSize="@dimen/textsize_35" />
+
+
+            <TextView
+                android:background="@drawable/bg_view"
+                android:focusableInTouchMode="true"
+                android:padding="2dp"
+                android:focusable="true"
+                android:id="@+id/warn_start_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:textColor="@color/set_text_color"
+                android:layout_marginLeft="@dimen/dimen_50"
+                android:textSize="@dimen/textsize_25" />
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/set_time_line2"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:visibility="invisible"
+            android:layout_below="@+id/warn_start"
+            android:layout_alignLeft="@+id/warn_start"
+            android:layout_alignRight="@+id/warn_end"
+            android:layout_marginTop="@dimen/dimen_30"
+            android:background="@color/set_line_color" />
+
+
+        <LinearLayout
+            android:id="@+id/warn_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_below="@+id/set_time_line2"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/warn_end_time"
+                android:textColor="@color/set_text_color"
+                android:textSize="@dimen/textsize_35" />
+
+
+            <TextView
+                android:background="@drawable/bg_view"
+                android:focusableInTouchMode="true"
+                android:padding="2dp"
+                android:focusable="true"
+                android:id="@+id/warn_end_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:textColor="@color/set_text_color"
+                android:layout_marginLeft="@dimen/dimen_50"
+                android:textSize="@dimen/textsize_25" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

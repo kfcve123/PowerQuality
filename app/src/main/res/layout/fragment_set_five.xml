@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@color/colorwhite"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:id="@+id/set_top_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_12"
+        android:layout_marginTop="@dimen/dimen_20"
+        android:layout_marginRight="@dimen/dimen_12"
+        android:background="@drawable/set_top_button_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/dimen_30"
+        android:paddingTop="@dimen/dimen_10"
+        android:paddingBottom="@dimen/dimen_10">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/set_date_on" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_20"
+            android:text="@string/set_date2"
+            android:textColor="@color/set_fragment_top_title_color"
+            android:textSize="@dimen/textsize_30" />
+    </LinearLayout>
+
+   <!-- <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/set_top_view"
+        android:layout_centerInParent="true"
+        android:gravity="center">
+
+        <LinearLayout
+            android:id="@+id/set_time_content"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/set_date2"
+                android:textColor="@color/set_text_color"
+                android:textSize="@dimen/textsize_35" />
+
+            <View
+                android:id="@+id/set_time_line"
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/dimen_15"
+                android:background="@color/set_line_color" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/set_time_format"
+                android:layout_marginTop="@dimen/dimen_15"
+                android:textColor="@color/set_text_color"
+                android:textSize="@dimen/textsize_35" />
+
+            <View
+                android:id="@+id/set_time_line2"
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/dimen_15"
+                android:background="@color/set_line_color" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/set_date_format"
+                android:layout_marginTop="@dimen/dimen_15"
+                android:textColor="@color/set_text_color"
+                android:textSize="@dimen/textsize_35" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/set_time_format_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:layout_toRightOf="@+id/set_time_content"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/setup_system_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+
+                android:gravity="center"
+                android:padding="2dp"
+                android:textColor="@color/set_text_color"
+                android:textSize="@dimen/textsize_25" />
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:layout_alignStart="@+id/set_time_content"
+                android:layout_alignEnd="@+id/set_time_format_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:background="@color/set_line_color" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <com.cem.powerqualityanalyser.view.AmountViewHorizontal
+                    android:id="@+id/amount_view6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="right"
+                    android:layout_marginLeft="@dimen/dimen_20"
+                    android:layout_marginRight="15dp"
+                    android:nextFocusDown="@id/amount_view7" />
+
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:layout_alignLeft="@+id/set_time_content"
+                android:layout_alignRight="@+id/set_time_format_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:background="@color/set_line_color" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <com.cem.powerqualityanalyser.view.AmountViewHorizontal
+                    android:id="@+id/amount_view7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="right"
+                    android:layout_marginLeft="@dimen/dimen_20"
+                    android:layout_marginRight="15dp"
+                    android:nextFocusUp="@id/amount_view6" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </RelativeLayout>
+-->
+
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/set_top_view"
+        android:layout_centerInParent="true"
+        android:gravity="center">
+
+        <LinearLayout
+            android:id="@+id/set_time_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/set_date2"
+                android:textColor="@color/set_text_color"
+                android:textSize="@dimen/textsize_35" />
+
+
+            <TextView
+                android:gravity="center"
+                android:focusableInTouchMode="true"
+                android:focusable="true"
+                android:padding="2dp"
+                android:id="@+id/setup_system_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:textColor="@color/set_text_color"
+                android:layout_marginLeft="@dimen/dimen_77"
+                android:textSize="@dimen/textsize_25" />
+
+        </LinearLayout>
+        <View
+            android:id="@+id/set_time_line"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_below="@+id/set_time_content"
+            android:layout_alignStart="@+id/set_time_content"
+            android:layout_alignEnd="@+id/set_time_format_content"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:background="@color/set_line_color" />
+
+        <LinearLayout
+            android:id="@+id/set_time_format_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/set_time_line"
+            android:layout_alignStart="@+id/set_time_content"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/set_time_format"
+                android:textColor="@color/set_text_color"
+                android:textSize="@dimen/textsize_35" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <com.cem.powerqualityanalyser.view.AmountViewHorizontal
+                    android:id="@+id/amount_view6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="right"
+                    android:layout_marginLeft="@dimen/dimen_20"
+                    android:layout_marginRight="15dp" />
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:id="@+id/set_time_line2"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_below="@+id/set_time_format_content"
+            android:layout_alignLeft="@+id/set_time_content"
+            android:layout_alignRight="@+id/set_time_format_content"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:background="@color/set_line_color" />
+
+        <LinearLayout
+            android:id="@+id/set_date_format_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/set_time_line2"
+            android:layout_alignLeft="@+id/set_time_content"
+            android:layout_alignRight="@+id/set_time_format_content"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/set_date_format"
+                android:textColor="@color/set_text_color"
+                android:textSize="@dimen/textsize_35" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <com.cem.powerqualityanalyser.view.AmountViewHorizontal
+                    android:id="@+id/amount_view7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="right"
+                    android:layout_marginLeft="@dimen/dimen_20"
+                    android:layout_marginRight="15dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </RelativeLayout>
+
+
+    <!--日期格式 只能切换  MM-DD-YY 和 DD-MM-YY 切换， 时间格式 是 24/12 或者 PM/AM 切换-->
+
+
+</RelativeLayout>

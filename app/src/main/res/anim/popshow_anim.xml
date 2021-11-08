@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--比例动画-->
+    <!--fromXScale,toXScale:X轴按比例缩放-->
+    <!--pivotX,pivotY:动画施展的轴心(起始点)，(相对于自身的位置)-->
+    <!--fillAfter:动画结束时，画面是否停留在最后一帧-->
+    <!--duration:动画持续时间-->
+    <scale  android:interpolator="@android:anim/accelerate_decelerate_interpolator"
+
+        android:toXScale="1.0"
+        android:toYScale="1.0"
+        android:fromXScale="0.0"
+        android:fromYScale="0.0"
+        android:pivotX="100%"
+        android:pivotY="100%"
+
+        android:duration="200" >
+
+    </scale>
+
+    <!--位移动画-->
+    <!--fromYDelta,toYDelta:Y轴动画的起始位置和结束位置，如果是%则是以自己为参照，如果是%p则是以父控件为参照-->
+    <!--<translate-->
+    <!--android:duration="1000"-->
+    <!--android:fromYDelta="0"-->
+    <!--android:toYDelta="100%" />-->
+    <!--透明度动画:fromAlpha,toAlpha-->
+    <!--<alpha-->
+    <!--android:duration="1000"-->
+    <!--android:fromAlpha="0.0"-->
+    <!--android:toAlpha="1.0" />-->
+
+</set>

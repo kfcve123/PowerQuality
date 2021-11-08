@@ -1,0 +1,569 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorwhite"
+    android:orientation="horizontal"
+    android:paddingLeft="@dimen/dimen_30"
+    android:paddingTop="@dimen/dimen_20"
+    android:paddingRight="@dimen/dimen_30">
+
+    <LinearLayout
+        android:id="@+id/config_ll1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/config_tv_nobg"
+            android:text="@string/config_user"
+            android:gravity="center_vertical"
+            android:textColor="@color/set_text_color"
+            android:textSize="@dimen/textsize_25" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/config_tv_nobg"
+            android:gravity="center_vertical"
+            android:text="@string/config_date"
+            android:textColor="@color/set_text_color"
+            android:textSize="@dimen/textsize_25" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/config_tv_nobg"
+            android:gravity="center_vertical"
+            android:text="@string/config_time"
+            android:textColor="@color/set_text_color"
+            android:textSize="@dimen/textsize_25" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/config_tv_nobg"
+            android:gravity="center_vertical"
+            android:text="@string/config_config"
+            android:textColor="@color/set_text_color"
+            android:textSize="@dimen/textsize_25" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/config_tv_nobg"
+            android:gravity="center_vertical"
+            android:text="@string/config_freq"
+            android:textColor="@color/set_text_color"
+            android:textSize="@dimen/textsize_25" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/config_tv_nobg"
+            android:gravity="center_vertical"
+            android:text="@string/config_vnom"
+            android:textColor="@color/set_text_color"
+            android:textSize="@dimen/textsize_25" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/config_tv_nobg"
+            android:gravity="center_vertical"
+            android:text="@string/config_limits"
+            android:textColor="@color/set_text_color"
+            android:textSize="@dimen/textsize_25" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/config_ll2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/config_ll1"
+        android:layout_alignTop="@id/config_ll1"
+        android:layout_alignBottom="@id/config_ll1"
+        android:gravity="center_horizontal"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/config_tv1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/config_tv_nobg"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:gravity="center"
+            android:nextFocusDown="@id/config_tv2"
+            android:text="Admin"
+            android:textColor="@color/set_text_color"
+            android:textSize="@dimen/textsize_25" />
+
+        <TextView
+            android:id="@+id/config_tv2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/config_tv_nobg"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:gravity="center"
+            android:nextFocusUp="@id/config_tv1"
+            android:nextFocusDown="@id/config_tv3"
+            android:text="2020/5/26"
+            android:textColor="@color/set_text_color"
+            android:textSize="@dimen/textsize_25" />
+
+        <TextView
+            android:id="@+id/config_tv3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/config_tv_nobg"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:gravity="center"
+            android:nextFocusUp="@id/config_tv2"
+            android:nextFocusDown="@id/config_tv4"
+
+            android:text="8:50:12"
+            android:textColor="@color/set_text_color"
+            android:textSize="@dimen/textsize_25" />
+
+        <TextView
+            android:id="@+id/config_tv4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/config_tv_nobg"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:gravity="center"
+            android:nextFocusUp="@id/config_tv3"
+            android:nextFocusDown="@id/config_tv5"
+
+            android:text="3@DELTA"
+            android:textColor="@color/set_text_color"
+            android:textSize="@dimen/textsize_25" />
+
+        <TextView
+            android:id="@+id/config_tv5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/config_tv_nobg"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:gravity="center"
+            android:nextFocusUp="@id/config_tv4"
+            android:nextFocusDown="@id/config_tv6"
+            android:text="50Hz"
+            android:textColor="@color/set_text_color"
+            android:textSize="@dimen/textsize_25" />
+
+        <TextView
+            android:id="@+id/config_tv6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/config_tv_nobg"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:gravity="center"
+            android:nextFocusUp="@id/config_tv5"
+            android:nextFocusDown="@id/config_tv7"
+            android:text="208V"
+            android:textColor="@color/set_text_color"
+            android:textSize="@dimen/textsize_25" />
+
+        <TextView
+            android:id="@+id/config_tv7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_5"
+            android:gravity="center"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:nextFocusUp="@id/config_tv6"
+            android:nextFocusDown="@id/config_tv8"
+            android:padding="@dimen/dimen_3"
+            android:text="EN50160*"
+            android:textColor="@color/set_text_color"
+            android:textSize="@dimen/textsize_25" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/config_ll3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/dimen_10">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@color/set_text_color"
+                android:textSize="@dimen/textsize_25" />
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/dimen_5"
+                android:layout_marginBottom="@dimen/dimen_5"
+                android:background="@color/config_line_color" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/config_phase"
+                android:textColor="@color/set_text_color"
+                android:textSize="@dimen/textsize_25" />
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/dimen_5"
+                android:layout_marginBottom="@dimen/dimen_5"
+                android:background="@color/config_line_color" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/config_neutral"
+                android:textColor="@color/set_text_color"
+                android:textSize="@dimen/textsize_25" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="140dp"
+            android:background="@color/config_line_color" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/dimen_10">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/config_clamp"
+                android:textColor="@color/set_text_color"
+                android:textSize="@dimen/textsize_25" />
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/dimen_5"
+                android:layout_marginBottom="@dimen/dimen_5"
+                android:background="@color/config_line_color" />
+
+            <TextView
+                android:id="@+id/config_tv8"
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:layout_marginLeft="@dimen/dimen_10"
+                android:layout_marginRight="@dimen/dimen_10"
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:nextFocusUp="@id/config_tv7"
+                android:textColor="@color/set_text_color"
+                android:textSize="@dimen/textsize_25" />
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/dimen_5"
+                android:layout_marginBottom="@dimen/dimen_5"
+                android:background="@color/config_line_color" />
+
+            <TextView
+                android:id="@+id/config_tv9"
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:layout_marginLeft="@dimen/dimen_10"
+                android:layout_marginRight="@dimen/dimen_10"
+                android:layout_height="wrap_content"
+                android:textColor="@color/set_text_color"
+                android:textSize="@dimen/textsize_25" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="140dp"
+            android:background="@color/config_line_color" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/dimen_10">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/config_a_range"
+                android:textColor="@color/set_text_color"
+                android:textSize="@dimen/textsize_25" />
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/dimen_5"
+                android:layout_marginBottom="@dimen/dimen_5"
+                android:background="@color/config_line_color" />
+
+            <TextView
+                android:id="@+id/config_tv10"
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:layout_marginLeft="@dimen/dimen_10"
+                android:layout_marginRight="@dimen/dimen_10"
+                android:layout_height="wrap_content"
+                android:textColor="@color/set_text_color"
+                android:textSize="@dimen/textsize_25" />
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/dimen_5"
+                android:layout_marginBottom="@dimen/dimen_5"
+                android:background="@color/config_line_color" />
+
+            <TextView
+                android:id="@+id/config_tv11"
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:layout_marginLeft="@dimen/dimen_10"
+                android:layout_marginRight="@dimen/dimen_10"
+                android:layout_height="wrap_content"
+                android:textColor="@color/set_text_color"
+                android:textSize="@dimen/textsize_25" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="140dp"
+            android:background="@color/config_line_color" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/dimen_10">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/config_v_ratio"
+                android:textColor="@color/set_text_color"
+                android:textSize="@dimen/textsize_25" />
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/dimen_5"
+                android:layout_marginBottom="@dimen/dimen_5"
+                android:background="@color/config_line_color" />
+
+            <TextView
+                android:id="@+id/config_tv12"
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:layout_marginLeft="@dimen/dimen_10"
+                android:layout_marginRight="@dimen/dimen_10"
+                android:layout_height="wrap_content"
+                android:textColor="@color/set_text_color"
+                android:textSize="@dimen/textsize_25" />
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/dimen_5"
+                android:layout_marginBottom="@dimen/dimen_5"
+                android:background="@color/config_line_color" />
+
+            <TextView
+
+                android:id="@+id/config_tv13"
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:layout_marginLeft="@dimen/dimen_10"
+                android:layout_marginRight="@dimen/dimen_10"
+                android:layout_height="wrap_content"
+                android:textColor="@color/set_text_color"
+                android:textSize="@dimen/textsize_25" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="140dp"
+            android:background="@color/config_line_color" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/dimen_5">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/config_a_ratio"
+                android:textColor="@color/set_text_color"
+                android:textSize="@dimen/textsize_25" />
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/dimen_5"
+                android:layout_marginBottom="@dimen/dimen_5"
+                android:background="@color/config_line_color" />
+
+            <TextView
+                android:id="@+id/config_tv14"
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:layout_marginLeft="@dimen/dimen_10"
+                android:layout_marginRight="@dimen/dimen_10"
+                android:layout_height="wrap_content"
+                android:textColor="@color/set_text_color"
+                android:textSize="@dimen/textsize_25" />
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/dimen_5"
+                android:layout_marginBottom="@dimen/dimen_5"
+                android:background="@color/config_line_color" />
+
+            <TextView
+                android:id="@+id/config_tv15"
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:layout_marginLeft="@dimen/dimen_10"
+                android:layout_marginRight="@dimen/dimen_10"
+                android:layout_height="wrap_content"
+                android:textColor="@color/set_text_color"
+                android:textSize="@dimen/textsize_25" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/config_ll3"
+        android:layout_toRightOf="@+id/config_ll2"
+        android:gravity="center"
+        android:paddingBottom="@dimen/dimen_5">
+
+        <ImageView
+            android:visibility="gone"
+            android:id="@+id/cem_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:src="@mipmap/cem_logo" />
+
+        <ImageView
+            android:id="@+id/config_wir_imv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/cem_logo" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/config_wir_imv"
+            android:layout_marginLeft="123dp"
+            android:orientation="horizontal"
+            android:paddingBottom="18.8dp">
+
+            <ImageView
+                android:id="@+id/set_wir_cir1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/set_wir_color1" />
+
+            <ImageView
+                android:id="@+id/set_wir_cir2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:src="@mipmap/set_wir_color2" />
+
+            <ImageView
+                android:id="@+id/set_wir_cir3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:src="@mipmap/set_wir_color3" />
+
+            <ImageView
+                android:id="@+id/set_wir_cir4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:src="@mipmap/set_wir_color4" />
+
+            <ImageView
+                android:id="@+id/set_wir_cir5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="52dp"
+                android:src="@mipmap/set_wir_color1" />
+
+            <ImageView
+                android:id="@+id/set_wir_cir6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15.2dp"
+                android:src="@mipmap/set_wir_color2" />
+
+            <ImageView
+                android:id="@+id/set_wir_cir7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:src="@mipmap/set_wir_color3" />
+
+            <ImageView
+                android:id="@+id/set_wir_cir8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15.2dp"
+                android:src="@mipmap/set_wir_color4" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

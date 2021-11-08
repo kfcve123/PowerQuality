@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/colorwhite"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/center_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="60dp"
+        android:layout_marginRight="60dp"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:background="@color/scope_value_blue"
+        android:gravity="center"
+        android:paddingBottom="@dimen/dimen_5"
+        android:paddingTop="@dimen/dimen_5"
+        android:textColor="@color/colorwhite"
+        android:text="@string/Dips_Setup"
+        android:textSize="@dimen/textsize_20" />
+
+
+    <RelativeLayout
+        android:id="@+id/center_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/center_title"
+        android:paddingBottom="@dimen/dimen_10"
+        android:paddingTop="@dimen/dimen_10">
+
+        <LinearLayout
+            android:id="@+id/left_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="120dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/dips_set_value"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:gravity="center_vertical"
+                android:text="@string/Nominal_Volt"
+                android:textColor="@color/colorblack"
+                android:textSize="@dimen/textsize_25" />
+
+            <TextView
+                android:id="@+id/dips_set_value2"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginTop="@dimen/dimen_20"
+                android:gravity="center_vertical"
+                android:text="@string/Threshold"
+                android:textColor="@color/colorblack"
+                android:textSize="@dimen/textsize_25" />
+
+            <TextView
+                android:id="@+id/dips_set_value3"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginTop="@dimen/dimen_20"
+                android:gravity="center_vertical"
+                android:text="@string/Hysteresis"
+                android:textColor="@color/colorblack"
+                android:textSize="@dimen/textsize_25" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="120dp"
+            android:layout_toRightOf="@id/left_title"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.cem.powerqualityanalyser.view.AmountViewHorizontal
+                    android:id="@+id/dips_amount_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="15dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="@dimen/dimen_20"
+                    android:layout_marginRight="@dimen/dimen_20"
+                    android:gravity="center"
+                    android:text="@string/V"
+                    android:textColor="@color/colorblack"
+                    android:textSize="@dimen/textsize_25" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_20"
+                android:orientation="horizontal">
+
+                <com.cem.powerqualityanalyser.view.AmountViewHorizontal
+                    android:id="@+id/dips_amount_view2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="15dp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dimen_20"
+                    android:layout_marginRight="@dimen/dimen_20"
+                    android:src="@mipmap/inrush_down" />
+
+                <TextView
+                    android:id="@+id/dips_set_value4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:text="132V"
+                    android:textColor="@color/colorblack"
+                    android:textSize="@dimen/textsize_25" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_20"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <com.cem.powerqualityanalyser.view.AmountViewHorizontal
+                    android:id="@+id/dips_amount_view3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="15dp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dimen_20"
+                    android:layout_marginRight="@dimen/dimen_20"
+                    android:src="@mipmap/inrush_up" />
+
+                <TextView
+                    android:id="@+id/dips_set_value5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:text="22V"
+                    android:textColor="@color/colorblack"
+                    android:textSize="@dimen/textsize_25" />
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+
+    <TextView
+        android:id="@+id/center_title2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/center_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="60dp"
+        android:layout_marginRight="60dp"
+        android:layout_marginTop="@dimen/dimen_20"
+        android:background="@color/scope_value_blue"
+        android:textColor="@color/colorwhite"
+        android:gravity="center"
+        android:paddingBottom="@dimen/dimen_5"
+        android:paddingTop="@dimen/dimen_5"
+        android:text="@string/Swells_Setup"
+        android:textSize="@dimen/textsize_20" />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_below="@id/center_title2"
+        android:paddingBottom="@dimen/dimen_20"
+        android:paddingTop="@dimen/dimen_20">
+
+        <LinearLayout
+            android:id="@+id/left_title2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="120dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/dips_set_value6"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:gravity="center_vertical"
+                android:text="@string/Nominal_Volt"
+                android:textColor="@color/colorblack"
+                android:textSize="@dimen/textsize_25" />
+
+            <TextView
+                android:id="@+id/dips_set_value7"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginTop="@dimen/dimen_20"
+                android:gravity="center_vertical"
+                android:text="@string/Threshold"
+                android:textColor="@color/colorblack"
+                android:textSize="@dimen/textsize_25" />
+
+            <TextView
+                android:id="@+id/dips_set_value8"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginTop="@dimen/dimen_20"
+                android:gravity="center_vertical"
+                android:text="@string/Hysteresis"
+                android:textColor="@color/colorblack"
+                android:textSize="@dimen/textsize_25" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="120dp"
+            android:layout_toRightOf="@id/left_title2"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.cem.powerqualityanalyser.view.AmountViewHorizontal
+                    android:id="@+id/dips_amount_view4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="15dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="@dimen/dimen_20"
+                    android:layout_marginRight="@dimen/dimen_20"
+                    android:gravity="center"
+                    android:text="@string/V"
+                    android:textColor="@color/colorblack"
+                    android:textSize="@dimen/textsize_25" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_20"
+                android:orientation="horizontal">
+
+                <com.cem.powerqualityanalyser.view.AmountViewHorizontal
+                    android:id="@+id/dips_amount_view5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="15dp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dimen_20"
+                    android:layout_marginRight="@dimen/dimen_20"
+                    android:src="@mipmap/inrush_down" />
+
+                <TextView
+                    android:id="@+id/dips_set_value9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:text="440V"
+                    android:textColor="@color/colorblack"
+                    android:textSize="@dimen/textsize_25" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_20"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <com.cem.powerqualityanalyser.view.AmountViewHorizontal
+                    android:id="@+id/dips_amount_view6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="15dp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dimen_20"
+                    android:layout_marginRight="@dimen/dimen_20"
+                    android:src="@mipmap/inrush_up" />
+
+                <TextView
+                    android:id="@+id/dips_set_value10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:text="22V"
+                    android:textColor="@color/colorblack"
+                    android:textSize="@dimen/textsize_25" />
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+
+</RelativeLayout>

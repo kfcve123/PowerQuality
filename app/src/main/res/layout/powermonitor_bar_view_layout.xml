@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorwhite"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.2"
+        android:background="@color/colorwhite" />
+
+    <include
+        android:id="@+id/main_top_view"
+        layout="@layout/inrush_top_textviews_layout" />
+
+
+    <LinearLayout
+        android:id="@+id/middle_ll"
+        android:layout_below="@+id/main_top_view"
+        android:layout_marginTop="@dimen/dimen_5"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/selectTime"
+            android:layout_width="0dp"
+            android:layout_weight="4"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_35"
+            android:background="@mipmap/trend_config_bg"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/dimen_30"
+                android:layout_marginRight="@dimen/dimen_5"
+                android:src="@mipmap/time_icon" />
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_5"
+                android:text="00:00:00"
+                android:textColor="@color/colorwhite"
+                android:textSize="@dimen/textsize_25" />
+
+            <TextView
+                android:id="@+id/inrush_config_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_50"
+                android:layout_marginEnd="@dimen/dimen_50"
+                android:gravity="center"
+                android:textColor="@color/colorwhite"
+                android:textSize="@dimen/textsize_25" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_hz"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/selectTime"
+            android:layout_centerHorizontal="true"
+            android:layout_toRightOf="@+id/selectTime"
+            android:background="@mipmap/textview_bg3"
+            android:gravity="center"
+            android:text="50.00Hz"
+            android:textColor="@color/colorwhite"
+            android:textSize="@dimen/grid_titleTextSize" />
+    </LinearLayout>
+
+    <com.cem.powerqualityanalyser.newchart.PowerMonitorBarChart
+        android:id="@+id/powerMonitorBarChart"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/middle_ll"
+        android:layout_weight="1" />
+
+
+</RelativeLayout>

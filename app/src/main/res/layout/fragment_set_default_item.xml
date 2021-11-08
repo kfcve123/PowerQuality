@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:id="@+id/set_item"
+    android:layout_marginLeft="@dimen/dimen_20"
+    android:paddingRight="@dimen/dimen_10"
+    android:paddingLeft="@dimen/dimen_39">
+
+
+    <ImageView
+        android:id="@+id/set_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:src="@mipmap/set_airplane_off" />
+
+    <TextView
+        android:id="@+id/set_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_centerVertical="true"
+        android:textColor="@color/set_text_color"
+        android:textSize="@dimen/textsize_30" />
+
+    <!--<ImageView
+        android:id="@+id/set_check_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/dimen_15"
+        android:src="@mipmap/set_uncheck" />-->
+
+   <ToggleButton
+        android:id="@+id/set_check_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/dimen_15"
+        android:minHeight="41dp"
+        android:minWidth="70dp"
+        android:text=""
+        android:textOff=""
+        android:textOn=""
+        android:background="@drawable/check_selector" />
+
+    <View
+        android:id="@+id/set_line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/set_check_button"
+        android:layout_marginLeft="75dp"
+        android:layout_marginTop="@dimen/dimen_20"
+        android:layout_marginRight="@dimen/dimen_10"
+        android:background="@color/set_line_color" />
+</RelativeLayout>
+
+

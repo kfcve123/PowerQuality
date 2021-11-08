@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorwhite"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:id="@+id/set_top_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_12"
+        android:layout_marginTop="@dimen/dimen_20"
+        android:layout_marginRight="@dimen/dimen_12"
+        android:background="@drawable/set_top_button_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/dimen_30"
+        android:paddingTop="@dimen/dimen_10"
+        android:paddingBottom="@dimen/dimen_10">
+
+        <TextView
+            android:id="@+id/transient_trigger"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_20"
+            android:layout_weight="1"
+            android:text="@string/transient_trigger"
+            android:textColor="@color/set_fragment_top_title_color"
+            android:textSize="@dimen/textsize_30"
+            />
+
+        <TextView
+            android:id="@+id/transient_time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_20"
+            android:layout_weight="1"
+            android:text="@string/transient_time"
+            android:textColor="@color/set_fragment_top_title_color"
+            android:textSize="@dimen/textsize_30" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/set_top_view"
+        android:layout_marginLeft="@dimen/dimen_12"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:layout_marginRight="@dimen/dimen_12"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/dimen_30"
+        android:paddingTop="@dimen/dimen_10"
+        android:paddingBottom="@dimen/dimen_10">
+
+        <LinearLayout
+            android:layout_below="@+id/set_top_view"
+            android:id="@+id/transient_set_left"
+            android:layout_marginLeft="@dimen/dimen_12"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:layout_marginRight="@dimen/dimen_12"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/voltlevel_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/transient_voltlevel"
+                    android:textColor="@color/colorblack"
+                    android:textSize="@dimen/textsize_30" />
+
+                <TextView
+                    android:id="@+id/amplevel_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/transient_amplevel"
+                    android:layout_marginTop="@dimen/dimen_10"
+                    android:layout_below="@+id/voltlevel_tv"
+                    android:textColor="@color/colorblack"
+                    android:textSize="@dimen/textsize_30" />
+
+                <com.cem.powerqualityanalyser.view.AmountViewHorizontal
+                    android:id="@+id/vlot_amountview"
+                    android:layout_toRightOf="@+id/voltlevel_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_alignTop="@+id/voltlevel_tv"
+                    android:layout_alignBottom="@+id/voltlevel_tv"
+                    android:layout_height="wrap_content"
+                    android:nextFocusDown="@id/amp_amountview" />
+
+
+                <com.cem.powerqualityanalyser.view.AmountViewHorizontal
+                    android:id="@+id/amp_amountview"
+                    android:layout_width="wrap_content"
+                    android:layout_alignLeft="@+id/vlot_amountview"
+                    android:layout_alignTop="@+id/amplevel_tv"
+                    android:layout_alignBottom="@+id/amplevel_tv"
+                    android:layout_height="wrap_content"
+                    android:nextFocusUp="@id/vlot_amountview"
+                    android:nextFocusDown="@id/transient_voltage_transient_tv"
+                     />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/transient_voltage_transient"
+                    style="@style/CustomCheckboxTheme"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/transient_voltage_transient_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_17"
+                    android:gravity="center_vertical"
+                    android:paddingStart="@dimen/dimen_10"
+                    android:text="@string/transient_voltage_transient"
+                    android:textColor="@color/colorblack"
+                    android:nextFocusUp="@id/amp_amountview"
+                    android:nextFocusDown="@id/transient_amps_ll"
+                    android:textSize="@dimen/textsize_25" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dimen_100"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/transient_amps"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_3"
+                    android:button="@drawable/checkbox_style"
+                    android:paddingLeft="@dimen/dimen_15" />
+
+                <LinearLayout
+                    android:id="@+id/transient_amps_ll"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:nextFocusUp="@id/transient_voltage_transient_tv"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/transient_amps_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:paddingStart="@dimen/dimen_10"
+                        android:text="@string/transient_amps"
+                        android:textColor="@color/colorblack"
+                        android:textSize="@dimen/textsize_25" />
+
+                    <ImageView
+                        android:id="@+id/transient_amps_img"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dimen_10"
+                        android:src="@mipmap/amps_icon_select" />
+
+                    <TextView
+                        android:id="@+id/transient_amps_tv2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/transient_ol_a"
+                        android:layout_marginLeft="@dimen/dimen_5"
+                        android:textColor="@color/colorblack"
+                        android:textSize="@dimen/textsize_25" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/transient_set_right"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dimen_50"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/transient_immediate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:button="@drawable/radiobutton_selector1"
+                    android:paddingLeft="@dimen/dimen_15" />
+
+                <TextView
+                    android:id="@+id/transient_immediate_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:nextFocusDown="@id/transient_timed_tv"
+                    android:paddingStart="@dimen/dimen_10"
+                    android:text="@string/transient_immediate"
+                    android:textSize="@dimen/textsize_25" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dimen_50"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/transient_timed"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_3"
+                    android:button="@drawable/radiobutton_selector1"
+                    android:paddingLeft="@dimen/dimen_15" />
+
+                <TextView
+                    android:id="@+id/transient_timed_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:nextFocusUp="@id/transient_immediate_tv"
+                    android:nextFocusDown="@id/amountview_year"
+                    android:paddingStart="@dimen/dimen_10"
+                    android:text="@string/transient_timed"
+                    android:textSize="@dimen/textsize_25" />
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingStart="@dimen/dimen_50">
+
+                <TextView
+                    android:id="@+id/year_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dimen_50"
+                    android:layout_marginTop="@dimen/dimen_12"
+                    android:gravity="center_vertical"
+                    android:text="@string/transient_year"
+                    android:textSize="25sp" />
+
+                <TextView
+                    android:id="@+id/month_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dimen_50"
+                    android:layout_below="@+id/year_tv"
+                    android:layout_marginTop="@dimen/dimen_8"
+                    android:gravity="center_vertical"
+                    android:text="@string/transient_month"
+                    android:textSize="25sp" />
+
+                <TextView
+                    android:id="@+id/day_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dimen_50"
+                    android:layout_below="@+id/month_tv"
+                    android:layout_marginTop="@dimen/dimen_4"
+                    android:gravity="center_vertical"
+                    android:text="@string/transient_day"
+                    android:textSize="25sp" />
+
+                <TextView
+                    android:id="@+id/hour_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dimen_50"
+                    android:layout_below="@+id/day_tv"
+                    android:layout_marginTop="@dimen/dimen_7"
+                    android:gravity="center_vertical"
+                    android:text="@string/transient_hours"
+                    android:textSize="25sp" />
+
+                <TextView
+                    android:id="@+id/minutes_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dimen_50"
+                    android:layout_below="@+id/hour_tv"
+                    android:layout_marginTop="@dimen/dimen_7"
+                    android:gravity="center_vertical"
+                    android:text="@string/transient_minutes"
+                    android:textSize="25sp" />
+
+
+                <com.cem.powerqualityanalyser.view.AmountViewHorizontal
+                    android:id="@+id/amountview_year"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/year_tv"
+                    android:layout_alignBottom="@+id/year_tv"
+                    android:layout_marginStart="@dimen/dimen_50"
+                    android:layout_toRightOf="@+id/year_tv"
+                    android:nextFocusUp="@id/transient_timed_tv"
+                    android:nextFocusDown="@id/amountview_month" />
+
+                <com.cem.powerqualityanalyser.view.AmountViewHorizontal
+                    android:id="@+id/amountview_month"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/amountview_year"
+                    android:layout_alignTop="@+id/month_tv"
+                    android:layout_alignBottom="@+id/month_tv"
+                    android:nextFocusUp="@id/amountview_year"
+                    android:nextFocusDown="@id/amountview_day" />
+
+                <com.cem.powerqualityanalyser.view.AmountViewHorizontal
+                    android:id="@+id/amountview_day"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/amountview_year"
+                    android:layout_alignTop="@+id/day_tv"
+                    android:layout_alignBottom="@+id/day_tv"
+                    android:layout_toRightOf="@+id/day_tv"
+                    android:nextFocusUp="@id/amountview_month"
+                    android:nextFocusDown="@id/amountview_hour" />
+
+                <com.cem.powerqualityanalyser.view.AmountViewHorizontal
+                    android:id="@+id/amountview_hour"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/amountview_year"
+                    android:layout_alignTop="@+id/hour_tv"
+                    android:layout_alignBottom="@+id/hour_tv"
+                    android:layout_toRightOf="@+id/hour_tv"
+                    android:nextFocusUp="@id/amountview_day"
+                    android:nextFocusDown="@id/amountview_minutes" />
+
+                <com.cem.powerqualityanalyser.view.AmountViewHorizontal
+                    android:id="@+id/amountview_minutes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/amountview_year"
+                    android:layout_alignTop="@+id/minutes_tv"
+                    android:layout_alignBottom="@+id/minutes_tv"
+                    android:layout_toRightOf="@+id/minutes_tv"
+                    android:nextFocusUp="@id/amountview_hour" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</RelativeLayout>

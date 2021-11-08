@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- 设置背景填充色 -->
+    <solid android:color="#00000000" />
+    <!-- 设置边框宽度为1dp，边框颜色 -->
+    <stroke
+        android:width="2dp"
+        android:color="#00000000" />
+    <!-- 设置按钮圆角半径为25dp -->
+
+</shape>

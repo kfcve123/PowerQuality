@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <string name="inrush_set">4,375,200,2</string>
+    <string name="dips_set">220,60,10,220,200,10</string>
+
+    <string name="set_caluc_wh_item">BTU,吨油当量(非原子能),吨油当量(原子能),J,Wh</string>
+
+    <string name="set_caluc_fkq_item">1.5,1.6,1.7</string>
+    <string name="set_caluc_fke_item">0.05,0.06,0.07,0.08,0.09,0.10</string>
+
+
+
+    <!--<string name="set_wir_item">3相5线,3相4线,3相3线,单相2线,单相3线,分相2线,分相3线,分相4线</string>-->
+    <!--<string name="set_wir_item">1Ø + NEUTRAL,1Ø IT NO NEUTRAL,1Ø SPLIT PHASE,2½-ELEMENT,2-ELEMENT,3Ø DELTA,3Ø HIGH LEG,3Ø IT,3Ø OPEN LEG,3Ø WYE</string>-->
+
+
+    <string name="set_wir_item">3Ø WYE,3Ø OPEN LEG,3Ø IT,2-ELEMENT,3Ø DELTA,3Ø HIGH LEG,2½-ELEMENT,1Ø SPLIT PHASE,1Ø IT NO NEUTRAL,1Ø + NEUTRAL</string>
+
+
+</resources>

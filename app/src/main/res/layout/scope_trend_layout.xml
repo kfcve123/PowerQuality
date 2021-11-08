@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.2"
+        android:background="@color/colorwhite">
+
+    </FrameLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/main_top_view"
+            layout="@layout/new_top_textviews_layout" />
+
+        <TextView
+            android:layout_marginTop="@dimen/dimen_10"
+            android:id="@+id/scope_config_tv"
+            android:layout_marginLeft="@dimen/dimen_40"
+            android:layout_marginRight="@dimen/dimen_10"
+            android:gravity="center"
+            android:textSize="@dimen/textsize_25"
+            android:layout_below="@+id/main_top_view"
+            android:layout_width="match_parent"
+            android:background="@mipmap/trend_config_bg"
+            android:padding="@dimen/dimen_5"
+            android:textColor="@color/colorwhite"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:id="@+id/scope_bottom_ll"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="@dimen/dimen_50"
+            android:layout_alignParentBottom="true"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/scope_bottom_tv1"
+                android:gravity="center"
+                android:text="t=_ _ _._s"
+                android:textColor="@color/wir_color_black"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/scope_bottom_tv2"
+                android:gravity="center"
+                android:text="V1=_ _ _._V"
+                android:layout_weight="1"
+                android:textColor="@color/wir_color_black"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/scope_bottom_tv3"
+                android:gravity="center"
+                android:text="V2=_ _ _._V"
+                android:textColor="@color/wir_color_black"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/scope_bottom_tv4"
+                android:gravity="center"
+                android:text="V3=_ _ _._V"
+                android:layout_weight="1"
+                android:textColor="@color/wir_color_black"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/scope_bottom_tv5"
+                android:gravity="center"
+                android:text="N=_ _ _._V"
+                android:layout_weight="1"
+                android:textColor="@color/wir_color_black"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <com.cem.powerqualityanalyser.chart.ScopeLineChart
+            android:id="@+id/scopelinechart"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/scope_bottom_ll"
+            android:layout_below="@+id/scope_config_tv" />
+    </RelativeLayout>
+
+
+</RelativeLayout>

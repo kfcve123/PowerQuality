@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="horizontal">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/set_text_color"
+        android:textSize="@dimen/textsize_35"
+        android:text="@string/set_caluc_wh"/>
+
+
+    <com.cem.powerqualityanalyser.view.AmountViewVertical
+        android:id="@+id/wh_amountview"
+        android:layout_marginLeft="@dimen/dimen_50"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+</LinearLayout>

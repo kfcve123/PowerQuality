@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+android:gravity="center_horizontal"
+    android:orientation="horizontal">
+
+
+    <TextView
+        android:id="@+id/textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/set_caluc_fk"
+        android:layout_centerVertical="true"
+        android:textColor="@color/set_text_color"
+        android:textSize="@dimen/textsize_35" />
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/textview"
+        android:layout_marginLeft="@dimen/dimen_100"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/amount_ll1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/textview"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/set_caluc_fk_q"
+                android:textColor="@color/set_text_color"
+                android:textSize="@dimen/textsize_35" />
+
+            <com.cem.powerqualityanalyser.view.AmountViewHorizontal
+                android:id="@+id/fk_q_amountview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dimen_50" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_20"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/set_caluc_fk_e"
+                android:textColor="@color/set_text_color"
+                android:textSize="@dimen/textsize_35" />
+
+
+            <com.cem.powerqualityanalyser.view.AmountViewHorizontal
+                android:id="@+id/fk_e_amountview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dimen_50" />
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

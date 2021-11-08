@@ -1,0 +1,41 @@
+<resources>
+
+    <!-- Base application theme. -->
+
+
+    <style name="mypopwindow_anim_style">
+        <item name="android:windowEnterAnimation">@anim/popshow_anim</item>
+        <!-- 指定显示的动画xml -->
+
+        <item name="android:windowExitAnimation">@anim/pophide_anim</item>
+        <!-- 指定消失的动画xml -->
+    </style>
+
+
+    <!--自定义seekbarstyle-->
+    <style name="CustomSeekbarStyle" >
+        <item name="android:maxHeight">10dp</item>
+        <item name="android:indeterminateOnly">false</item>
+        <item name="android:indeterminateDrawable">@color/colorAccent</item>
+        <item name="android:progressDrawable">@drawable/seekbar_progress_drawable</item>
+        <item name="android:minHeight">10dp</item>
+        <item name="android:thumb">@mipmap/thumb</item>
+    </style>
+
+    <style name="CustomCheckboxTheme" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/checkbox_style</item>
+        <item name="android:paddingLeft">@dimen/dimen_15</item>
+        <item name="android:layout_marginTop">@dimen/dimen_20</item>
+        <item name="android:textColor">@color/colorblack</item>
+        <item name="android:textSize">@dimen/textsize_30</item>
+    </style>
+
+    <style name="CustomCheckboxTheme2" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/checkbox_style</item>
+        <item name="android:paddingLeft">@dimen/dimen_15</item>
+        <item name="android:textColor">@color/colorblack</item>
+        <item name="android:textSize">@dimen/textsize_30</item>
+    </style>
+
+
+</resources>

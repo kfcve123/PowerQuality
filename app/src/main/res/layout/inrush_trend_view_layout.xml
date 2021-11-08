@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorwhite"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.2"
+        android:background="@color/colorwhite" />
+
+    <include
+        android:id="@+id/main_top_view"
+        layout="@layout/inrush_top_textviews_layout" />
+
+
+    <LinearLayout
+        android:id="@+id/middle_ll"
+        android:layout_below="@+id/main_top_view"
+        android:layout_marginTop="@dimen/dimen_5"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="4"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_35"
+            android:background="@mipmap/trend_config_bg"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:id="@+id/iv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/dimen_30"
+                android:layout_marginRight="@dimen/dimen_5"
+                android:src="@mipmap/time_icon" />
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_5"
+                android:text="00:00:00"
+                android:textColor="@color/colorwhite"
+                android:textSize="@dimen/textsize_25" />
+
+            <TextView
+                android:id="@+id/inrush_config_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_50"
+                android:layout_marginEnd="@dimen/dimen_50"
+                android:gravity="center"
+                android:textColor="@color/colorwhite"
+                android:textSize="@dimen/textsize_25" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_hz"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/selectTime"
+            android:layout_centerHorizontal="true"
+            android:layout_toRightOf="@+id/selectTime"
+            android:background="@mipmap/textview_bg3"
+            android:gravity="center"
+            android:text="50.00Hz"
+            android:textColor="@color/colorwhite"
+            android:textSize="@dimen/grid_titleTextSize" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/middle_ll"
+        android:layout_marginTop="@dimen/dimen_5"
+        android:paddingRight="@dimen/dimen_20"
+        android:paddingTop="@dimen/dimen_10"
+        android:paddingBottom="@dimen/dimen_20"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/inrushchart_l1_rl"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+
+            <TextView
+                android:id="@+id/right_tv"
+                android:layout_width="@dimen/dimen_30"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:background="@color/colorblack"
+                android:gravity="center"
+                android:text="L1"
+                android:textColor="@color/colorwhite" />
+
+            <com.cem.powerqualityanalyser.chart.VoltsAmpsHertzLineChart
+                android:id="@+id/voltsampshertzlinechart"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toLeftOf="@+id/right_tv" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/inrushchart_l2_rl"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/right_tv2"
+                android:layout_width="@dimen/dimen_30"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:background="@color/l2_red"
+                android:gravity="center"
+                android:layout_alignParentBottom="true"
+                android:text="L2"
+                android:textColor="@color/colorwhite" />
+
+            <com.cem.powerqualityanalyser.chart.VoltsAmpsHertzLineChart
+                android:id="@+id/voltsampshertzlinechart2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toLeftOf="@+id/right_tv2" />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/inrushchart_l3_rl"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/right_tv3"
+                android:layout_width="@dimen/dimen_30"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:background="@color/l3_blue"
+                android:layout_alignParentBottom="true"
+                android:gravity="center"
+                android:text="L3"
+                android:textColor="@color/colorwhite" />
+
+            <com.cem.powerqualityanalyser.chart.VoltsAmpsHertzLineChart
+                android:id="@+id/voltsampshertzlinechart3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toLeftOf="@+id/right_tv3"
+                android:clipChildren="true" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/inrushchart_n_rl"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1.0">
+
+            <TextView
+                android:id="@+id/right_tv4"
+                android:layout_width="@dimen/dimen_30"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:background="@color/wir_color_black"
+                android:layout_alignParentBottom="true"
+                android:gravity="center"
+                android:text="N"
+                android:textColor="@color/colorwhite" />
+
+            <com.cem.powerqualityanalyser.chart.VoltsAmpsHertzLineChart
+                android:id="@+id/voltsampshertzlinechart4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toLeftOf="@+id/right_tv4" />
+
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

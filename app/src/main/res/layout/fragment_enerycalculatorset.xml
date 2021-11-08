@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorwhite"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:id="@+id/set_top_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_12"
+        android:layout_marginTop="@dimen/dimen_20"
+        android:layout_marginRight="@dimen/dimen_12"
+        android:background="@drawable/set_top_button_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/dimen_30"
+        android:paddingTop="@dimen/dimen_10"
+        android:paddingBottom="@dimen/dimen_10">
+
+        <TextView
+            android:id="@+id/transient_trigger"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_20"
+            android:layout_weight="1"
+            android:text="@string/cable"
+            android:textColor="@color/set_fragment_top_title_color"
+            android:textSize="@dimen/textsize_30" />
+
+        <TextView
+            android:id="@+id/transient_time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_20"
+            android:layout_weight="1"
+            android:text="@string/rate"
+            android:textColor="@color/set_fragment_top_title_color"
+            android:textSize="@dimen/textsize_30" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/set_top_view"
+        android:layout_marginLeft="@dimen/dimen_12"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:layout_marginRight="@dimen/dimen_12"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/dimen_30"
+        android:paddingTop="@dimen/dimen_10"
+        android:paddingBottom="@dimen/dimen_10">
+
+        <LinearLayout
+            android:id="@+id/transient_set_left"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/set_top_view"
+            android:layout_marginLeft="@dimen/dimen_12"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:layout_marginRight="@dimen/dimen_12"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/voltlevel_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/enerycalculaotr_mode"
+                    android:textColor="@color/colorblack"
+                    android:textSize="@dimen/textsize_30" />
+
+                <TextView
+                    android:id="@+id/amplevel_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/voltlevel_tv"
+                    android:layout_marginTop="@dimen/dimen_10"
+                    android:text="@string/length"
+                    android:textColor="@color/colorblack"
+                    android:textSize="@dimen/textsize_30" />
+
+                <TextView
+                    android:id="@+id/area_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/amplevel_tv"
+                    android:layout_marginTop="@dimen/dimen_10"
+                    android:text="@string/area"
+                    android:textColor="@color/colorblack"
+                    android:textSize="@dimen/textsize_30" />
+
+                <TextView
+                    android:id="@+id/material_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/area_tv"
+                    android:layout_marginTop="@dimen/dimen_10"
+                    android:text="@string/material"
+                    android:textColor="@color/colorblack"
+                    android:textSize="@dimen/textsize_30" />
+
+                <com.cem.powerqualityanalyser.view.AmountViewHorizontal
+                    android:id="@+id/vlot_amountview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/voltlevel_tv"
+                    android:layout_alignBottom="@+id/voltlevel_tv"
+                    android:layout_marginStart="@dimen/dimen_25"
+                    android:layout_toRightOf="@+id/voltlevel_tv"
+                    android:nextFocusDown="@id/amp_amountview" />
+
+
+                <com.cem.powerqualityanalyser.view.AmountViewHorizontal
+                    android:id="@+id/amp_amountview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/vlot_amountview"
+                    android:layout_alignTop="@+id/amplevel_tv"
+                    android:layout_alignBottom="@+id/amplevel_tv"
+                    android:nextFocusUp="@id/vlot_amountview"
+                    android:nextFocusDown="@id/area_amountview" />
+
+                <com.cem.powerqualityanalyser.view.AmountViewHorizontal
+                    android:id="@+id/area_amountview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/vlot_amountview"
+                    android:layout_alignTop="@+id/area_tv"
+                    android:layout_alignBottom="@+id/area_tv"
+                    android:nextFocusUp="@id/amp_amountview"
+                    android:nextFocusDown="@id/material_amountview" />
+
+                <com.cem.powerqualityanalyser.view.AmountViewHorizontal
+                    android:id="@+id/material_amountview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/vlot_amountview"
+                    android:layout_alignTop="@+id/material_tv"
+                    android:layout_alignBottom="@+id/material_tv"
+                    android:nextFocusUp="@id/area_amountview" />
+
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/transient_set_right"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:layout_weight="1.2"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/year_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:text="@string/rate1_start_time"
+                    android:textSize="@dimen/textsize_30" />
+
+                <TextView
+                    android:id="@+id/month_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/year_tv"
+                    android:layout_marginTop="@dimen/dimen_10"
+                    android:gravity="center_vertical"
+                    android:text="@string/tariff"
+                    android:textSize="@dimen/textsize_30" />
+
+                <TextView
+                    android:id="@+id/day_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/month_tv"
+                    android:layout_marginTop="@dimen/dimen_10"
+                    android:gravity="center_vertical"
+                    android:text="@string/rate2_start_time"
+                    android:textSize="@dimen/textsize_30" />
+
+                <TextView
+                    android:id="@+id/hour_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/day_tv"
+                    android:layout_marginTop="@dimen/dimen_10"
+                    android:gravity="center_vertical"
+                    android:text="@string/tariff"
+                    android:textSize="@dimen/textsize_30" />
+
+                <TextView
+                    android:id="@+id/minutes_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/hour_tv"
+                    android:layout_marginTop="@dimen/dimen_10"
+                    android:gravity="center_vertical"
+                    android:text="@string/rate3_start_time"
+                    android:textSize="@dimen/textsize_30" />
+
+                <TextView
+                    android:id="@+id/tariff_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/minutes_tv"
+                    android:layout_marginTop="@dimen/dimen_10"
+                    android:gravity="center_vertical"
+                    android:text="@string/tariff"
+                    android:textSize="@dimen/textsize_30" />
+
+                <TextView
+                    android:id="@+id/unit_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tariff_tv"
+                    android:layout_marginTop="@dimen/dimen_10"
+                    android:gravity="center_vertical"
+                    android:text="@string/unit"
+                    android:textSize="@dimen/textsize_30" />
+
+
+                <com.cem.powerqualityanalyser.view.AmountViewHorizontal
+                    android:id="@+id/amountview_year"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/year_tv"
+                    android:layout_alignBottom="@+id/year_tv"
+                    android:layout_marginStart="@dimen/dimen_10"
+                    android:layout_toRightOf="@+id/year_tv"
+                    android:nextFocusUp="@id/transient_timed_tv"
+                    android:nextFocusDown="@id/amountview_month" />
+
+                <com.cem.powerqualityanalyser.view.AmountViewHorizontal
+                    android:id="@+id/amountview_month"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/amountview_year"
+                    android:layout_alignTop="@+id/month_tv"
+                    android:layout_alignBottom="@+id/month_tv"
+                    android:nextFocusUp="@id/amountview_year"
+                    android:nextFocusDown="@id/amountview_day" />
+
+                <com.cem.powerqualityanalyser.view.AmountViewHorizontal
+                    android:id="@+id/amountview_day"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/amountview_year"
+                    android:layout_alignTop="@+id/day_tv"
+                    android:layout_alignBottom="@+id/day_tv"
+                    android:layout_toRightOf="@+id/day_tv"
+                    android:nextFocusUp="@id/amountview_month"
+                    android:nextFocusDown="@id/amountview_hour" />
+
+                <com.cem.powerqualityanalyser.view.AmountViewHorizontal
+                    android:id="@+id/amountview_hour"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/amountview_year"
+                    android:layout_alignTop="@+id/hour_tv"
+                    android:layout_alignBottom="@+id/hour_tv"
+                    android:layout_toRightOf="@+id/hour_tv"
+                    android:nextFocusUp="@id/amountview_day"
+                    android:nextFocusDown="@id/amountview_minutes" />
+
+                <com.cem.powerqualityanalyser.view.AmountViewHorizontal
+                    android:id="@+id/amountview_minutes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/amountview_year"
+                    android:layout_alignTop="@+id/minutes_tv"
+                    android:layout_alignBottom="@+id/minutes_tv"
+                    android:layout_toRightOf="@+id/minutes_tv"
+                    android:nextFocusUp="@id/amountview_hour"
+                    android:nextFocusDown="@id/amountview_tariff" />
+
+                <com.cem.powerqualityanalyser.view.AmountViewHorizontal
+                    android:id="@+id/amountview_tariff"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/amountview_year"
+                    android:layout_alignTop="@+id/tariff_tv"
+                    android:layout_alignBottom="@+id/tariff_tv"
+                    android:layout_toRightOf="@+id/tariff_tv"
+                    android:nextFocusUp="@id/amountview_unit"
+                    android:nextFocusDown="@id/amountview_unit" />
+
+                <com.cem.powerqualityanalyser.view.AmountViewHorizontal
+                    android:id="@+id/amountview_unit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/amountview_year"
+                    android:layout_alignTop="@+id/unit_tv"
+                    android:layout_alignBottom="@+id/unit_tv"
+                    android:layout_toRightOf="@+id/unit_tv"
+                    android:nextFocusUp="@id/amountview_tariff" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</RelativeLayout>

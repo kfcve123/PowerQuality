@@ -1,0 +1,31 @@
+JvmtiExport can_access_local_variables 0
+JvmtiExport can_hotswap_or_post_breakpoint 0
+JvmtiExport can_post_on_exceptions 0
+# 293 ciObject found
+instanceKlass com/sun/tools/javac/comp/Lower$5
+instanceKlass com/sun/tools/javac/comp/Check$9
+instanceKlass com/sun/tools/javac/code/Types$TypePair
+instanceKlass com/sun/tools/javac/comp/Infer$IncorporationBinaryOp
+instanceKlass com/sun/tools/javac/code/Type$UndetVar$2
+instanceKlass com/sun/tools/javac/comp/Infer$MultiUndetVarListener
+instanceKlass com/sun/tools/javac/comp/Infer$BoundFilter
+instanceKlass com/sun/tools/javac/jvm/ClassFile$NameAndType
+instanceKlass com/sun/tools/javac/jvm/ClassWriter$1
+instanceKlass com/sun/tools/javac/jvm/Code$LocalVar$Range
+instanceKlass com/sun/tools/javac/jvm/ClassWriter$StackMapTableFrame
+instanceKlass com/sun/tools/javac/jvm/Code$StackMapFrame
+instanceKlass com/sun/tools/javac/jvm/Code$Chain
+instanceKlass com/sun/tools/javac/code/Types$UniqueType
+instanceKlass com/sun/tools/javac/model/FilteredMemberList$1
+instanceKlass com/sun/tools/javac/jvm/Items
+instanceKlass com/sun/tools/javac/jvm/Code$LocalVar
+instanceKlass com/sun/tools/javac/jvm/Code$State
+instanceKlass com/sun/tools/javac/jvm/Gen$GenContext
+instanceKlass com/sun/tools/javac/jvm/Gen$3
+instanceKlass com/sun/tools/javac/comp/Lower$7
+instanceKlass com/sun/tools/javac/comp/Lower$EnumMapping
+instanceKlass com/sun/tools/javac/comp/Flow$2
+instanceKlass com/sun/tools/javac/util/Bits$1
+instanceKlass com/sun/tools/javac/util/Bits
+instanceKlass com/sun/tools/javac/comp/Flow$BaseAnalyzer$PendingExit
+instanceKlass com/sun/tools/javac/code/Types$MembersClosureCache$MembersScope$1

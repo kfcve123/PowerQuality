@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<litepal>
+    <dbname value="meterdata" ></dbname>
+
+    <version value="1" ></version>
+
+    <list>
+        <mapping class="com.cem.powerqualityanalyser.sqlBean.SqlDataBean"></mapping>
+        <mapping class="com.cem.powerqualityanalyser.sqlBean.SqlMeterData"></mapping>
+
+        <mapping class="com.cem.powerqualityanalyser.sqlBean.InrushDataBean"></mapping>
+        <mapping class="com.cem.powerqualityanalyser.sqlBean.InrushMeterData"></mapping>
+
+
+        <mapping class="com.cem.powerqualityanalyser.sqlBean.DipsSwellsDataBean"></mapping>
+        <mapping class="com.cem.powerqualityanalyser.sqlBean.DipsSwellsMeterData"></mapping>
+
+
+
+    </list>
+</litepal>

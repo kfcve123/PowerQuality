@@ -1,0 +1,615 @@
+<resources>
+    <string name="app_name">PowerQualityAnalyser</string>
+
+    <string name="back">Back</string>
+
+    <string name="display_time">yyyy/MM/dd HH:mm</string>
+    <string name="main_menu">MENU</string>
+    <string name="main_meter">Meter</string>
+
+    <!--Setup-->
+    <string name="setup_overview">Overview</string>
+    <string name="setup_system">System</string>
+    <string name="setup_conect">Conect</string>
+    <string name="setup_freq">Freq</string>
+    <string name="setup_info">Info</string>
+
+
+    <!-- 电压电流界面对应的文字-->
+    <string name="Meter">Meter</string>
+    <string name="Trend">Trend</string>
+
+    <!-- 示波器界面对应的文字-->
+    <string name="Cursor">Cursor</string>
+    <string name="On">ON</string>
+    <string name="Off">OFF</string>
+    <string name="Zoom">Zoom \n</string>
+    <string name="Zoomstr">x</string>
+    <string name="Hold">Hold</string>
+    <string name="run">Run</string>
+
+    <!-- 电压电流界面对应的文字-->
+    <string name="scope">Scope</string>
+    <string name="voltsampshertz">Volts/Amps\nHertz</string>
+    <string name="powerenergy">Power&#038;Energy</string>
+    <string name="harmonics">Harmonics</string>
+    <string name="unbalance">Unbalance</string>
+    <string name="warning">Warning</string>
+    <string name="flicker">Flicker</string>
+    <string name="transients">Transient</string>
+    <string name="dips_swells">Dips&#038;Swells</string>
+    <string name="surge">Inrush</string>
+    <string name="trendchartrecord">Record/View</string>
+    <string name="photo">Photo/Video</string>
+    <string name="set">Setup</string>
+
+
+    <string name="allmeter_votls_v">VOTLS</string>
+    <string name="allmeter_current_a">CURRENT</string>
+    <string name="allmeter_power">POWER</string>
+    <string name="allmeter_power_enrgy">POWER&amp;ENRGY</string>
+    <string name="allmeter_unbalance">UNBALANCE</string>
+    <string name="allmeter_flicker">FLICKER</string>
+    <string name="allmeter_harmonics">HARMONICS</string>
+    <string name="allmeter_dips_swells">DIPS&#038;SWELLS</string>
+    <string name="allmeter_surge">Inrush</string>
+    <string name="allmeter_transients">TRANSIENTS</string>
+
+
+    <string name="set_airplane">Airplane</string>
+    <string name="set_wifi">WIFI</string>
+    <string name="set_blue">BT</string>
+    <string name="set_gps">GPS</string>
+    <string name="set_date">Date</string>
+    <string name="set_show">Dsiplay</string>
+    <string name="set_timer">Timer</string>
+    <string name="set_warn">Warning</string>
+
+    <string name="set_caluc">Calculation</string>
+    <string name="set_wir">Wiring Config</string>
+    <string name="set_clamp">A Ratio</string>
+    <string name="set_point">Capture</string>
+    <string name="set_trend">Trend</string>
+    <string name="set_delete">Delete</string>
+    <string name="set_info">Device information</string>
+
+    <!--本机信息-->
+    <string name="set_info_warranty_serial_number">Warranty serial number</string>
+    <string name="set_info_serial_number">Serial Number</string>
+    <string name="set_info_firmware_version">Fireware Version</string>
+    <string name="set_info_main_board_version">Mainboard version</string>
+    <string name="set_info_memory_card_capacity">SD card capacity</string>
+    <string name="set_info_available_capacity">Available Capacity</string>
+    <string name="set_info_button_menu">MENU</string>
+    <string name="set_info_button_ok">OK</string>
+
+
+
+    <!--日期时间-->
+    <string name="set_date2">Date/Time</string>
+    <string name="set_date_format">Date format</string>
+    <string name="set_time_format">Time format</string>
+    <string name="set_system_time">Date&#38;Time</string>
+
+
+    <!--显示-->
+    <string name="set_show_bright">Bright</string>
+    <string name="set_show_color">Color</string>
+    <string name="set_show_autooff">Auto power off</string>
+    <string name="set_show_nightmode">Night mode</string>
+
+    <string name="set_show_autooff_true">Auto off</string>
+    <string name="set_show_autooff_false">Never off</string>
+
+
+
+    <string name="set_show_color_vl1">L1</string>
+    <string name="set_show_color_vl2">L2</string>
+    <string name="set_show_color_vl3">L3</string>
+    <string name="set_show_color_vn">N&#160;</string>
+    <string name="set_show_color_al1">A&#160;L1</string>
+    <string name="set_show_color_al2">A&#160;L2</string>
+    <string name="set_show_color_al3">A&#160;L3</string>
+    <string name="set_show_color_an">A&#160;N&#160;</string>
+
+
+    <!--计算方式-->
+    <string name="set_caluc_var_title">Non-active values</string>
+    <string name="set_caluc_var">Var(Non-active values)</string>
+    <string name="set_caluc_var_yes">Broken down</string>
+    <string name="set_caluc_wh_title">Energy unit</string>
+    <string name="set_caluc_wh">Wh Energy unit</string>
+
+    <string name="set_caluc_fk_title">Transformer Factor K</string>
+    <string name="set_caluc_fk">FK Transformer Factor K</string>
+    <string name="set_caluc_fk_q">q</string>
+    <string name="set_caluc_fk_e">E</string>
+
+
+    <string name="set_caluc_fr_title">Phase hamonic ratios</string>
+    <string name="set_caluc_fr">%F-%r Phase hamonic ratios</string>
+    <string name="set_caluc_fr_one">Fundamental value as reference</string>
+    <string name="set_caluc_fr_two">Total value as reference</string>
+    <string name="set_caluc_plt_title">Long term flicker</string>
+    <string name="set_caluc_plt">Sliding window</string>
+    <string name="set_caluc_plt_content">PLT Long term flicker</string>
+
+    <string name="set_caluc_botton_var">Var</string>
+    <string name="set_caluc_botton_wh">Wh</string>
+    <string name="set_caluc_botton_fk">FK</string>
+    <string name="set_caluc_botton_fr">%F-%r</string>
+    <string name="set_caluc_botton_ptl">PLT</string>
+
+
+    <string name="set_botton_zh">ZH-CN</string>
+    <string name="set_botton_en">EN</string>
+    <string name="set_botton_fr">FR</string>
+    <string name="set_botton_de">DE</string>
+
+
+    <!--Volt/Hz-->
+    <string name="vlot_bottom_menu">MENU</string>
+    <string name="vlot_bottom_run">RUN</string>
+    <string name="vlot_bottom_hold">HOLD</string>
+
+
+
+
+
+    <string name="config_set">Setting</string>
+    <string name="config_bottom_viewconfig">VIEW\nCONFIG</string>
+    <string name="config_bottom_scope_scale">SCOPE\nSCALE</string>
+    <string name="config_bottom_ok">OK</string>
+    <string name="config_bottom_manualset">MANUAL\nSETUP</string>
+    <string name="config_bottom_back">BACK</string>
+
+
+    <string name="config_nominal_frequency">NOMINAL FREQUENCY</string>
+    <string name="config_nominal_frequency2">Nominal frequency</string>
+    <string name="config_nominal_frequency_50hz">50Hz</string>
+    <string name="config_nominal_frequency_60hz">60Hz</string>
+    <string name="config_nominal_frequency_400hz">400Hz</string>
+
+
+
+    <!-- Config -->
+
+    <string name="config_user">User:</string>
+    <string name="config_date">Date:</string>
+    <string name="config_time">Time:</string>
+    <string name="config_config">Config:</string>
+    <string name="config_freq">Freq:</string>
+    <string name="config_vnom">Vnom:</string>
+    <string name="config_limits">Limits:</string>
+
+    <string name="config_phase">Phase</string>
+    <string name="config_neutral">Neutral</string>
+    <string name="config_clamp">Clamp</string>
+    <string name="config_a_range">A Range</string>
+    <string name="config_v_ratio">V Ratio</string>
+    <string name="config_a_ratio">A Ratio</string>
+
+    <string name="config_amps">AMPS SCALING</string>
+    <string name="config_volt">VOLT SCALING</string>
+    <string name="config_scope_scale">SCOPE SCALE</string>
+    <string name="config_amps2">AMPS\nSCALING</string>
+    <string name="config_volt2">VOLT\nSCALING</string>
+    <string name="config_amps_range">Amp range</string>
+    <string name="config_volt_range">Volt range</string>
+
+    <string name="config_volt_ratio">Volt ratio:</string>
+
+    <string name="config_amp_clamp">Amp clamp:</string>
+    <string name="config_clamp_range">Range:</string>
+    <string name="config_nominal_range">Nominal range:</string>
+    <string name="config_sensitivity">Sensitivity:</string>
+    <string name="config_amp_ratio">Ratio:</string>
+
+    <!-- 接线方式选择-->
+    <string name="set_wir_content1">3 elements(3 wattmeters - virtual neutral)</string>
+    <string name="set_wir_content2">2 elements(2 wattmeters --Aron\'s method)(L3 current sensor optional)</string>
+    <string name="set_wir_content3">2 elements(2 wattmeters --Aron\'s method)(L1 current sensor optional)</string>
+    <string name="set_wir_content4">2 elements(2 wattmeters --Aron\'s method)(L2 current sensor optional)</string>
+
+
+    <!--logger界面对应的文字-->
+    <string name="saveAs">Save as:</string>
+    <string name="Interval">Interval:</string>
+    <string name="fileName">input file name</string>
+    <string name="loggerDuration">Duration:</string>
+    <string name="Parameterset">Parameter-set</string>
+    <string name="Urms">Urms</string>
+    <string name="Upk">Upk</string>
+    <string name="Irms">Irms</string>
+    <string name="udc">Udc</string>
+
+    <string name="Ipk">Ipk</string>
+    <string name="Freq">Freq</string>
+    <string name="Vfund">Vfund</string>
+    <string name="Afund">Afund</string>
+    <string name="PF">PF</string>
+    <string name="Uabc">Uabc</string>
+    <string name="Urms2">U½rms</string>
+    <string name="Irms2">I½rms</string>
+    <string name="fV">φV</string>
+    <string name="fA">φA</string>
+    <string name="Uthd">Uthd</string>
+    <string name="Ithd">Ithd</string>
+    <string name="Uthd2_50">Uthd2-50</string>
+    <string name="Ithd2_50">Ithd2-50</string>
+
+    <string name="Stop">Stop</string>
+    <string name="Sure">Sure</string>
+    <string name="No">No</string>
+    <string name="dilogforfilename">File name already exist</string>
+    <string name="Parameter">Parameter</string>
+    <string name="Event">Event</string>
+    <string name="Rename">Rename</string>
+    <string name="Cover">Cover</string>
+
+    <string name="defaul">Defaults</string>
+    <string name="Start">Start</string>
+
+    <string name="memoryHint">Less than 5% memory</string>
+
+
+    <!-- Power and Energy-->
+
+    <string name="energy">ENERGY</string>
+    <string name="power">POWER</string>
+    <string name="energy_reset">Reset</string>
+    <!-- Logger Parameter-->
+
+    <string name="logger_parameter">PARAMETER</string>
+    <string name="logger_logger">LOGGER</string>
+    <string name="logger_view">VIEW</string>
+
+
+    <string name="parameter_VoltAmp">Volt&#038;Amp</string>
+    <string name="parameter_Inrush">Inrush</string>
+    <string name="parameter_Shipboard">Shipboard</string>
+    <string name="parameter_Harmonic">Harmonic</string>
+    <string name="parameter_DipsSweels">Dips&#038;Sweels</string>
+    <string name="parameter_Unbalance">Unbalance</string>
+    <string name="parameter_Power">Power</string>
+    <string name="parameter_Energy">Energy</string>
+    <string name="parameter_Flicker">Flicker</string>
+    <string name="parameter_Frequency">Frequency</string>
+    <string name="parameter_amp_harm">Amp Harmonic</string>
+    <string name="parameter_volt_harm">Volt Harmonic</string>
+
+    <string name="parameter_Urms">Urms</string>
+    <string name="parameter_Vrms">Vrms</string>
+    <string name="parameter_Arms">Arms</string>
+    <string name="parameter_Ucf">Ucf</string>
+    <string name="parameter_Vcf">Vcf</string>
+    <string name="parameter_Acf">Acf</string>
+
+    <string name="parameter_Upeak1">Upeak+</string>
+    <string name="parameter_Upeak2">Upeak-</string>
+    <string name="parameter_Vpeak1">Vpeak+</string>
+    <string name="parameter_Vpeak2">Vpeak-</string>
+    <string name="parameter_Apeak1">Apeak+</string>
+    <string name="parameter_Apeak2">Apeak-</string>
+
+    <string name="parameter_Udc">Udc</string>
+    <string name="parameter_Vdc">Vdc</string>
+    <string name="parameter_Adc">Adc</string>
+
+    <string name="parameter_pstmin">Pst(1min)</string>
+    <string name="parameter_pst">Pst.</string>
+    <string name="parameter_plt">Plt</string>
+    <string name="parameter_pinst">Pinst</string>
+
+    <string name="parameter_hz">Hz</string>
+
+    <string name="parameter_Unbal">Unbal(%)</string>
+    <string name="parameter_Vneg">Vneg.</string>
+    <string name="parameter_Vzero">Vzero.</string>
+    <string name="parameter_Aneg">Aneg.</string>
+    <string name="parameter_Azero">Azero.</string>
+
+    <string name="parameter_volt_thdf">THD%f</string>
+    <string name="parameter_volt_thdr">THD%r</string>
+    <string name="parameter_volt_DC">Volt DC</string>
+
+    <string name="parameter_volt_H1">Volt H1</string>
+    <string name="parameter_volt_H2">Volt H2</string>
+    <string name="parameter_volt_H3">Volt H3</string>
+    <string name="parameter_volt_H4">Volt H4</string>
+    <string name="parameter_volt_H5">Volt H5</string>
+    <string name="parameter_volt_H6">Volt H6</string>
+    <string name="parameter_volt_H7">Volt H7</string>
+    <string name="parameter_volt_H8">Volt H8</string>
+    <string name="parameter_volt_H9">Volt H9</string>
+    <string name="parameter_volt_H10">Volt H10</string>
+
+    <string name="parameter_volt_H11">Volt H11</string>
+    <string name="parameter_volt_H12">Volt H12</string>
+    <string name="parameter_volt_H13">Volt H13</string>
+    <string name="parameter_volt_H14">Volt H14</string>
+    <string name="parameter_volt_H15">Volt H15</string>
+    <string name="parameter_volt_H16">Volt H16</string>
+    <string name="parameter_volt_H17">Volt H17</string>
+    <string name="parameter_volt_H18">Volt H18</string>
+    <string name="parameter_volt_H19">Volt H19</string>
+    <string name="parameter_volt_H20">Volt H20</string>
+
+    <string name="parameter_volt_H21">Volt H21</string>
+    <string name="parameter_volt_H22">Volt H22</string>
+    <string name="parameter_volt_H23">Volt H23</string>
+    <string name="parameter_volt_H24">Volt H24</string>
+    <string name="parameter_volt_H25">Volt H25</string>
+    <string name="parameter_volt_H26">Volt H26</string>
+    <string name="parameter_volt_H27">Volt H27</string>
+    <string name="parameter_volt_H28">Volt H28</string>
+    <string name="parameter_volt_H29">Volt H29</string>
+    <string name="parameter_volt_H30">Volt H30</string>
+
+    <string name="parameter_volt_H31">Volt H31</string>
+    <string name="parameter_volt_H32">Volt H32</string>
+    <string name="parameter_volt_H33">Volt H33</string>
+    <string name="parameter_volt_H34">Volt H34</string>
+    <string name="parameter_volt_H35">Volt H35</string>
+    <string name="parameter_volt_H36">Volt H36</string>
+    <string name="parameter_volt_H37">Volt H37</string>
+    <string name="parameter_volt_H38">Volt H38</string>
+    <string name="parameter_volt_H39">Volt H39</string>
+    <string name="parameter_volt_H40">Volt H40</string>
+
+    <string name="parameter_volt_H41">Volt H41</string>
+    <string name="parameter_volt_H42">Volt H42</string>
+    <string name="parameter_volt_H43">Volt H43</string>
+    <string name="parameter_volt_H44">Volt H44</string>
+    <string name="parameter_volt_H45">Volt H45</string>
+    <string name="parameter_volt_H46">Volt H46</string>
+    <string name="parameter_volt_H47">Volt H47</string>
+    <string name="parameter_volt_H48">Volt H48</string>
+    <string name="parameter_volt_H49">Volt H49</string>
+    <string name="parameter_volt_H50">Volt H50</string>
+
+
+    <string name="parameter_amp_thdf">Amp THD%f</string>
+    <string name="parameter_amp_thdr">Amp THD%r</string>
+    <string name="parameter_amp_DC">Amp DC</string>
+
+    <string name="parameter_amp_H1">Amp H1</string>
+    <string name="parameter_amp_H2">Amp H2</string>
+    <string name="parameter_amp_H3">Amp H3</string>
+    <string name="parameter_amp_H4">Amp H4</string>
+    <string name="parameter_amp_H5">Amp H5</string>
+    <string name="parameter_amp_H6">Amp H6</string>
+    <string name="parameter_amp_H7">Amp H7</string>
+    <string name="parameter_amp_H8">Amp H8</string>
+    <string name="parameter_amp_H9">Amp H9</string>
+    <string name="parameter_amp_H10">Amp H10</string>
+
+    <string name="parameter_amp_H11">Amp H11</string>
+    <string name="parameter_amp_H12">Amp H12</string>
+    <string name="parameter_amp_H13">Amp H13</string>
+    <string name="parameter_amp_H14">Amp H14</string>
+    <string name="parameter_amp_H15">Amp H15</string>
+    <string name="parameter_amp_H16">Amp H16</string>
+    <string name="parameter_amp_H17">Amp H17</string>
+    <string name="parameter_amp_H18">Amp H18</string>
+    <string name="parameter_amp_H19">Amp H19</string>
+    <string name="parameter_amp_H20">Amp H20</string>
+
+    <string name="parameter_amp_H21">Amp H21</string>
+    <string name="parameter_amp_H22">Amp H22</string>
+    <string name="parameter_amp_H23">Amp H23</string>
+    <string name="parameter_amp_H24">Amp H24</string>
+    <string name="parameter_amp_H25">Amp H25</string>
+    <string name="parameter_amp_H26">Amp H26</string>
+    <string name="parameter_amp_H27">Amp H27</string>
+    <string name="parameter_amp_H28">Amp H28</string>
+    <string name="parameter_amp_H29">Amp H29</string>
+    <string name="parameter_amp_H30">Amp H30</string>
+
+    <string name="parameter_amp_H31">Amp H31</string>
+    <string name="parameter_amp_H32">Amp H32</string>
+    <string name="parameter_amp_H33">Amp H33</string>
+    <string name="parameter_amp_H34">Amp H34</string>
+    <string name="parameter_amp_H35">Amp H35</string>
+    <string name="parameter_amp_H36">Amp H36</string>
+    <string name="parameter_amp_H37">Amp H37</string>
+    <string name="parameter_amp_H38">Amp H38</string>
+    <string name="parameter_amp_H39">Amp H39</string>
+    <string name="parameter_amp_H40">Amp H40</string>
+
+    <string name="parameter_amp_H41">Amp H41</string>
+    <string name="parameter_amp_H42">Amp H42</string>
+    <string name="parameter_amp_H43">Amp H43</string>
+    <string name="parameter_amp_H44">Amp H44</string>
+    <string name="parameter_amp_H45">Amp H45</string>
+    <string name="parameter_amp_H46">Amp H46</string>
+    <string name="parameter_amp_H47">Amp H47</string>
+    <string name="parameter_amp_H48">Amp H48</string>
+    <string name="parameter_amp_H49">Amp H49</string>
+    <string name="parameter_amp_H50">Amp H50</string>
+
+    <string name="parameter_Rms">Rms</string>
+    <string name="parameter_CF">CF</string>
+    <string name="parameter_Peak1">Peak+</string>
+    <string name="parameter_Peak2">Peak-</string>
+    <string name="parameter_Thdf">Thd%f</string>
+    <string name="parameter_Thdr">Thd%r</string>
+    <string name="parameter_Max">Max</string>
+    <string name="parameter_Min">Min</string>
+    <string name="parameter_DC">DC</string>
+    <string name="parameter_Freq">Freq</string>
+
+    <string name="parameter_Irms2">I½rms</string>
+    <string name="parameter_Irms">Irms</string>
+    <string name="parameter_Uabc">Uabc</string>
+
+    <string name="parameter_Vfund">Vfund</string>
+    <string name="parameter_Afund">Afund</string>
+    <string name="parameter_Uthd2_50">Uthd2-50</string>
+    <string name="parameter_Ithd2_50">Ithd2-50</string>
+    <string name="parameter_Uthd">Uthd</string>
+    <string name="parameter_Ithd">Ithd</string>
+    <string name="parameter_Urms2">U½rms</string>
+
+    <string name="parameter_V">V</string>
+    <string name="parameter_A">A</string>
+
+
+    <string name="parameter_kW">kW</string>
+    <string name="parameter_kVA">kVA</string>
+    <string name="parameter_kvar">kvar</string>
+    <string name="parameter_kVA_Harm">kVA Harm</string>
+    <string name="parameter_cos">cosф</string>
+    <string name="parameter_kVA_Unb">kVA Unb</string>
+    <string name="parameter_kW_fund">kW fund</string>
+    <string name="parameter_kVA_fund">kVA fund</string>
+    <string name="parameter_W_fund">W fund</string>
+
+    <string name="parameter_kVAh">kVAh</string>
+    <string name="parameter_kvarh">kvarh</string>
+    <string name="parameter_kWh_forw">kWh forw</string>
+    <string name="parameter_kWh_rev">kWh rev</string>
+    <string name="parameter_kWh">kWh</string>
+
+    <string name="harmonic_graph">HARMONIC\nGRAPH</string>
+
+    <string name="trigger">TRIGGER</string>
+    <string name="time">TIME</string>
+
+    <string name="transient_trigger">TRIGGER ON:</string>
+    <string name="transient_voltlevel">Volt level:></string>
+    <string name="transient_amplevel">Amp level:</string>
+    <string name="transient_voltage_transient">Voltage Transient</string>
+    <string name="transient_amps">AMPS</string>
+    <string name="transient_ol_a">OL    A</string>
+    <string name="transient_time">TIME:</string>
+    <string name="transient_immediate">Immediate</string>
+    <string name="transient_timed">Timed</string>
+
+    <string name="transient_year">Year</string>
+    <string name="transient_month">Month</string>
+    <string name="transient_day">Day</string>
+    <string name="transient_hours">Hours</string>
+    <string name="transient_minutes">Minutes</string>
+
+
+    <string name="dipswell_voltage">Voltage Dips&#38;Swell</string>
+
+    <!-- 浪涌界面对应的文字 -->
+    <string name="Setup">Setup</string>
+    <string name="Duration">Duration</string>
+    <string name="Amps_Norminal">Norminal Amps</string>
+    <string name="Threshold">Threshold</string>
+    <string name="Hysteresis">Hysteresis</string>
+    <string name="m">m</string>
+    <string name="A">A</string>
+    <string name="defaults">DEFAULTS</string>
+
+    <string name="Dips_Setup">Dips Setup</string>
+    <string name="Swells_Setup">Swells Setup</string>
+    <string name="Nominal_Volt">Nominal Volt</string>
+    <string name="V">V</string>
+
+    
+    <string name="phasor">Phasor</string>
+
+    <string name="ol_value">- - -</string>
+
+    <string name="Cursor_zoom">CURSOR\n&amp;ZOOM</string>
+
+    <string name="Cursor_zoom_no">Zoom</string>
+
+    <string name="enery_consumption_calculator">Power Inverter Efficiency</string>
+
+
+    <!--电能监测-->
+    <string name="powermonitor_vrms">Vrms</string>
+
+
+    <!--能耗计算器-->
+    <string name="timed">TIMED</string>
+    <string name="cancel">CANCEL</string>
+    <string name="now">NOW</string>
+
+    <string name="unit_m">M</string>
+    <string name="unit_ft">FT</string>
+    <string name="unit_mm">mm²</string>
+    <string name="unit_awg">AWG</string>
+
+    <string name="cable">CABLE</string>
+
+    <string name="rate">RATE</string>
+    <string name="unit">UNIT</string>
+
+    <string name="enerycalculaotr_mode">Mode</string>
+    <string name="length">Length</string>
+    <string name="area">Area</string>
+    <string name="material">Material</string>
+
+    <string name="rate1_start_time">RATE1 Start time</string>
+    <string name="rate2_start_time">RATE2 Start time</string>
+    <string name="rate3_start_time">RATE3 Start time</string>
+    <string name="tariff">Tariff</string>
+
+    <string name="loss_energy">Loss\nEnergy</string>
+    <string name="energy_loss">Energy Loss</string>
+
+    <!-- Warning -->
+    <string name="warn_start_time">Start Time</string>
+    <string name="warn_end_time">End Time</string>
+    <string name="warn_file_name">File Name</string>
+    <string name="warn_lefttitle_name">Detection Schedule</string>
+
+
+    <string name="Open">Open</string>
+    <string name="SaveCSV">Save CSV</string>
+    <string name="Send">Send</string>
+    <string name="SelectAll">Select All</string>
+    <string name="unSelectAll">Unselect All</string>
+    <string name="Delete">Delete</string>
+
+    <string name="left">Left</string>
+    <string name="right">Right</string>
+
+    <!--Update Apk-->
+    <string name="new_version">It is the latest version</string>
+    <string name="apkpath">/Download/DT-7660.apk</string>
+    <string name="warn">Warn</string>
+    <string name="info_cancel">Cancel</string>
+    <string name="setting">Setting</string>
+    <string name="permission_storge">Storage</string>
+    <string name="permission_storge_content">The permission of storage is prohibited and will result in failure of storage.Do you want to open this permission?(procedure:application->permission->check\storage)</string>
+    <string name="update_apk">Update</string>
+
+
+    <string name="enter">Enter</string>
+    <string name="alert_title">Are you sure?</string>
+    <string name="alert_content">Won\´t be able to recover this file!</string>
+    <string name="alert_cancel">No,cancel plx!</string>
+    <string name="alert_confirm">Yes,stop it!</string>
+    <string name="alert_delete">Yes,delete it!</string>
+    <string name="alert_select_file">Please select a file!</string>
+
+
+    <string name="alert_save_title">Record completed</string>
+    <string name="alert_save_content">Go check the records?</string>
+    <string name="alert_save_cancel">No</string>
+    <string name="alert_save_confirm">Yes</string>
+
+
+    <string name="alert_warn_title">Warning</string>
+    <string name="alert_warn_content">再测量期间不被允许</string>
+
+    <string name="alert_load_title">Loading</string>
+
+
+
+    <string name="stop_meausre_title"></string>
+    <string name="stop_meausre_content">任务%s正在运行,\n确认退出任务?</string>
+    <string name="stop_meausre_cancel">Cancel</string>
+    <string name="stop_meausre_sure">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Sure&#160;&#160;&#160;&#160;</string>
+
+    <string name="voltsamps">Volts&#038;Amp</string>
+
+
+</resources>

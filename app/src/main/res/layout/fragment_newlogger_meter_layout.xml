@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorwhite"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/dimen_13"
+        android:layout_marginTop="@dimen/dimen_23"
+        android:layout_marginBottom="6dp"
+        android:layout_marginRight="@dimen/dimen_5"
+        android:background="@mipmap/left_table_bg"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="58dp"
+            android:background="@color/table_value_title_color"
+            android:paddingLeft="@dimen/dimen_10"
+            android:paddingRight="@dimen/dimen_10">
+
+            <ImageView
+                android:id="@+id/iv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/dimen_30"
+                android:layout_marginRight="@dimen/dimen_5"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/time_icon" />
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_5"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/iv_time"
+                android:text="00:00:00"
+                android:textColor="@color/colorwhite"
+                android:textSize="@dimen/textsize_25" />
+
+            <TextView
+                android:id="@+id/Group_list_middleText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:textColor="@color/colorwhite"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/Group_list_rightview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/power_icon" />
+
+            <TextView
+                android:id="@+id/Group_list_rightText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/dimen_10"
+                android:textColor="@color/colorwhite"
+                android:textSize="25sp" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorwhite" />
+
+        <com.cem.powerqualityanalyser.view.datalist.MyTableListView
+            android:id="@+id/sticky_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </com.cem.powerqualityanalyser.view.datalist.MyTableListView>
+    </LinearLayout>
+
+</RelativeLayout>

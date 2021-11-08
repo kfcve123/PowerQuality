@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main_top_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/dimen_5"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingLeft="@dimen/dimen_15"
+    android:paddingRight="@dimen/dimen_15">
+
+
+    <RelativeLayout
+        android:id="@+id/top_l1a_rl"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_20"
+        android:layout_marginRight="@dimen/dimen_10"
+        android:layout_weight="1"
+        android:background="@mipmap/top_blue_bg">
+
+        <TextView
+            android:id="@+id/l1a"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_10"
+            android:textColor="@color/colorwhite"
+            android:textSize="@dimen/textsize_20" />
+
+        <com.cem.powerqualityanalyser.view.MyNoPaddingTextView
+            android:id="@+id/textview_l1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:textColor="@color/colorwhite"
+            android:textSize="@dimen/textsize_20" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/top_l1b_rl"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_10"
+        android:layout_marginRight="@dimen/dimen_10"
+        android:layout_weight="1"
+        android:background="@mipmap/top_red_bg">
+
+        <TextView
+            android:id="@+id/l1b"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_10"
+            android:textColor="@color/colorwhite"
+            android:textSize="@dimen/textsize_20" />
+
+        <com.cem.powerqualityanalyser.view.MyNoPaddingTextView
+            android:id="@+id/textview_l2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:textColor="@color/colorwhite"
+            android:textSize="@dimen/textsize_20" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/top_l1c_rl"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_10"
+        android:layout_marginRight="@dimen/dimen_10"
+        android:layout_weight="1"
+        android:background="@mipmap/top_green_bg">
+
+        <TextView
+            android:id="@+id/l1c"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_10"
+            android:textColor="@color/colorwhite"
+            android:textSize="@dimen/textsize_20" />
+
+
+        <com.cem.powerqualityanalyser.view.MyNoPaddingTextView
+            android:id="@+id/textview_l3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:textColor="@color/colorwhite"
+            android:textSize="@dimen/textsize_20" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/top_n1_rl"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_10"
+        android:layout_marginRight="@dimen/dimen_20"
+        android:layout_weight="1"
+        android:background="@mipmap/top_black_bg">
+
+        <TextView
+            android:id="@+id/n1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_10"
+            android:textColor="@color/colorwhite"
+            android:textSize="@dimen/textsize_20" />
+
+        <com.cem.powerqualityanalyser.view.MyNoPaddingTextView
+            android:id="@+id/textview_l4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:textColor="@color/colorwhite"
+            android:textSize="@dimen/textsize_20" />
+    </RelativeLayout>
+</LinearLayout>

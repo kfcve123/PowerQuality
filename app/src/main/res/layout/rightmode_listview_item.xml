@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:minHeight="@dimen/min_height"
+    android:id="@+id/right_view"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/icon_right"
+        android:src="@mipmap/icon_right"
+        android:layout_width="wrap_content"
+        android:layout_centerVertical="true"
+        android:visibility="invisible"
+        android:layout_height="wrap_content"/>
+
+    <com.cem.powerqualityanalyser.view.TextImageView
+        android:id="@+id/right_item_tv"
+        android:textSize="@dimen/grid_titleTextSize"
+        android:gravity="center"
+        android:text=""
+        android:textColor="@color/colorwhite"
+        android:background="@mipmap/textview_bg2"
+        android:layout_toRightOf="@+id/icon_right"
+        android:layout_marginLeft="@dimen/dimen_8"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/rightmodelist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_15"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/icon_up"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/icon_up" />
+
+        <!--<android.support.v7.widget.RecyclerView
+            android:id="@+id/rightmodelistview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_7"
+            android:divider="@null"
+            android:fadingEdge="none"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:headerDividersEnabled="false"
+            android:footerDividersEnabled="false"
+            android:descendantFocusability="beforeDescendants"
+            android:dividerHeight="10dp"
+            android:scrollbars="none" />-->
+
+        <com.cem.powerqualityanalyser.view.RightModeListView
+            android:id="@+id/rightmodelistview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_7"
+            android:divider="@null"
+            android:fadingEdge="none"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:headerDividersEnabled="false"
+            android:footerDividersEnabled="false"
+            android:descendantFocusability="beforeDescendants"
+            android:dividerHeight="10dp"
+            android:scrollbars="none" />
+
+        <ImageView
+            android:id="@+id/icon_down"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/icon_down" />
+
+        <TextView
+            android:id="@+id/modelistindex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="10/14" />
+
+    </LinearLayout>
+
+
+    <!--<RelativeLayout
+        android:id="@+id/rightmodelist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_15"
+        android:layout_toRightOf="@+id/icon_right"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/icon_up"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:src="@mipmap/icon_up" />
+
+
+        <TextView
+            android:id="@+id/modelistindex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="10/14" />
+
+        <ImageView
+            android:id="@+id/icon_down"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/modelistindex"
+            android:layout_centerHorizontal="true"
+            android:src="@mipmap/icon_down" />
+
+
+        <ListView
+            android:id="@+id/rightmodelistview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/icon_down"
+            android:layout_marginTop="@dimen/dimen_7"
+            android:divider="@null"
+            android:fadingEdge="none"
+            android:headerDividersEnabled="false"
+            android:footerDividersEnabled="false"
+            android:dividerHeight="10dp"
+            android:layout_below="@+id/icon_up"
+            android:scrollbars="none" />
+
+
+    </RelativeLayout>-->
+
+
+</RelativeLayout>

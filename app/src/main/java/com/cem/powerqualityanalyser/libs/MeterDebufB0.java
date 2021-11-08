@@ -1,0 +1,36 @@
+package com.cem.powerqualityanalyser.libs;
+
+
+import com.cem.powerqualityanalyser.libsnew.PhaseObj;
+import com.cem.powerqualityanalyser.libsnew.PhaseObjN;
+
+public class MeterDebufB0 extends BaseMeterData {
+    private PhaseObjN v_Value;
+    private PhaseObj v_Max;
+    private PhaseObjN a_Value;
+    private MeterData frequency;
+
+    public MeterDebufB0(byte[] bytes) {
+        super(bytes);
+        this.v_Value = this.CreatePhaseObj(PhaseType.V_Value, this.getMeterData(), this.getMeterData(), this.getMeterData(), this.getMeterData());
+        this.v_Max = this.CreatePhaseObj(PhaseType.V_Max, this.getMeterData(), this.getMeterData(), this.getMeterData());
+        this.a_Value = this.CreatePhaseObj(PhaseType.A_Value, this.getMeterData(), this.getMeterData(), this.getMeterData(), this.getMeterData());
+        this.frequency = this.getMeterData();
+    }
+
+    public PhaseObjN getV_Value() {
+        return this.v_Value;
+    }
+
+    public PhaseObj getV_Max() {
+        return this.v_Max;
+    }
+
+    public PhaseObjN getA_Value() {
+        return this.a_Value;
+    }
+
+    public MeterData getFrequency() {
+        return this.frequency;
+    }
+}

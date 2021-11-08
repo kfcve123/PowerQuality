@@ -165,4 +165,7 @@ public class FlickerActivity extends BaseActivity {
     public void onDataReceivedList(List list) {
 
     }
+
+
+
 }

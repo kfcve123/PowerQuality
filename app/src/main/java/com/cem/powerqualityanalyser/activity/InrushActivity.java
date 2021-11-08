@@ -60,7 +60,7 @@ public class InrushActivity extends BaseActivity implements BaseFragmentTrend.On
         setTitle("");
         setViewShow(0);
         setBottom4TextSize(18);
-
+        dissLoading(1500l);
     }
 
     @Override
@@ -405,14 +405,15 @@ public class InrushActivity extends BaseActivity implements BaseFragmentTrend.On
 
     @Override
     public void onDataReceived(byte[] bytes) {
-  //      log.e("-------------" + BleUtil.dec_hex(bytes));
+        log.e("-------------" + BleUtil.dec_hex(bytes));
     }
 
     @Override
     public void onDataReceivedModel(ModelAllData modelAllData) {
         if(modelAllData!=null && modelAllData.getValueType() == ModelAllData.AllData_valueType.E8_Surge_Suspended) {
-            dissLoading();
-            log.e("-----------" + modelAllData.getModelLineData().size());
+ //           dissLoading();
+            if(!isStart)
+                isStart = true;
             if (!isTrendHold) {
                 if (Fragment_Third != null && Fragment_Third.isAdded()) {
                     Fragment_Third.setShowMeterData(modelAllData, wir_index, firstPopIndex, secondPopIndex, cursorEnable);
@@ -744,5 +745,13 @@ public class InrushActivity extends BaseActivity implements BaseFragmentTrend.On
         //       baseData = null;
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(serialHelper!=null){
+            serialHelper.closeSerialPort();
+            serialHelper = null;
+        }
+    }
 
 }

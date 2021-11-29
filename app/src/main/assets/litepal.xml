@@ -15,6 +15,12 @@
         <mapping class="com.cem.powerqualityanalyser.sqlBean.DipsSwellsDataBean"></mapping>
         <mapping class="com.cem.powerqualityanalyser.sqlBean.DipsSwellsMeterData"></mapping>
 
+        <mapping class="com.cem.powerqualityanalyser.sqlBean.TransientDataBean"></mapping>
+        <mapping class="com.cem.powerqualityanalyser.sqlBean.TransientMeterData"></mapping>
+
+
+        <mapping class="com.cem.powerqualityanalyser.sqlBean.UserSqlBean"></mapping>
+
 
 
     </list>

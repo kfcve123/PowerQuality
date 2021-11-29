@@ -170,6 +170,12 @@
     <string name="config_nominal_frequency_400hz">400Hz</string>
 
 
+    <string name="config_nominal_voltage">NOMINAL VOLTAGE</string>
+
+    <string name="config_user_info_user">USER CONFIG</string>
+    <string name="config_user_info_new">NEW</string>
+    <string name="config_user_info_edit">EDIT</string>
+    <string name="config_user_info_delete">DELETE</string>
     <!-- Config -->
 
     <string name="config_user">User:</string>
@@ -234,8 +240,8 @@
     <string name="fA">φA</string>
     <string name="Uthd">Uthd</string>
     <string name="Ithd">Ithd</string>
-    <string name="Uthd2_50">Uthd2-50</string>
-    <string name="Ithd2_50">Ithd2-50</string>
+    <string name="Uthd2_50">Uthd2–50</string>
+    <string name="Ithd2_50">Ithd2–50</string>
 
     <string name="Stop">Stop</string>
     <string name="Sure">Sure</string>
@@ -444,8 +450,8 @@
 
     <string name="parameter_Vfund">Vfund</string>
     <string name="parameter_Afund">Afund</string>
-    <string name="parameter_Uthd2_50">Uthd2-50</string>
-    <string name="parameter_Ithd2_50">Ithd2-50</string>
+    <string name="parameter_Uthd2_50">Uthd2–50</string>
+    <string name="parameter_Ithd2_50">Ithd2–50</string>
     <string name="parameter_Uthd">Uthd</string>
     <string name="parameter_Ithd">Ithd</string>
     <string name="parameter_Urms2">U½rms</string>
@@ -597,12 +603,19 @@
 
     <string name="alert_load_title">正在加载</string>
 
-    <string name="stop_meausre_title"></string>
+    <string name="stop_meausre_title">警告</string>
     <string name="stop_meausre_content">任务%s正在运行,\n确认退出任务?</string>
     <string name="stop_meausre_cancel">取消</string>
     <string name="stop_meausre_sure">退出</string>
 
     <string name="voltsamps">电压&#038;电流</string>
 
+    <string name="load_data_fail">加载数据失败</string>
+
+    <string name="starttime">startTime</string>
+    <string name="Name">Name</string>
+    <string name="Type">Type</string>
+    <string name="Time">Time</string>
+    <string name="UserName">UserName</string>
 
 </resources>

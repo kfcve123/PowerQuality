@@ -61,7 +61,7 @@
     <string name="set_blue">BT</string>
     <string name="set_gps">GPS</string>
     <string name="set_date">Date</string>
-    <string name="set_show">Dsiplay</string>
+    <string name="set_show">Display</string>
     <string name="set_timer">Timer</string>
     <string name="set_warn">Warning</string>
 
@@ -170,6 +170,12 @@
     <string name="config_nominal_frequency_60hz">60Hz</string>
     <string name="config_nominal_frequency_400hz">400Hz</string>
 
+    <string name="config_nominal_voltage">NOMINAL </string>
+
+    <string name="config_user_info_user">USER CONFIG</string>
+    <string name="config_user_info_new">NEW</string>
+    <string name="config_user_info_edit">EDIT</string>
+    <string name="config_user_info_delete">DELETE</string>
 
 
     <!-- Config -->
@@ -235,8 +241,8 @@
     <string name="fA">φA</string>
     <string name="Uthd">Uthd</string>
     <string name="Ithd">Ithd</string>
-    <string name="Uthd2_50">Uthd2-50</string>
-    <string name="Ithd2_50">Ithd2-50</string>
+    <string name="Uthd2_50">Uthd2–50</string>
+    <string name="Ithd2_50">Ithd2–50</string>
 
     <string name="Stop">Stop</string>
     <string name="Sure">Sure</string>
@@ -445,8 +451,8 @@
 
     <string name="parameter_Vfund">Vfund</string>
     <string name="parameter_Afund">Afund</string>
-    <string name="parameter_Uthd2_50">Uthd2-50</string>
-    <string name="parameter_Ithd2_50">Ithd2-50</string>
+    <string name="parameter_Uthd2_50">Uthd2–50</string>
+    <string name="parameter_Ithd2_50">Ithd2–50</string>
     <string name="parameter_Uthd">Uthd</string>
     <string name="parameter_Ithd">Ithd</string>
     <string name="parameter_Urms2">U½rms</string>
@@ -604,12 +610,20 @@
 
 
 
-    <string name="stop_meausre_title"></string>
-    <string name="stop_meausre_content">任务%s正在运行,\n确认退出任务?</string>
+    <string name="stop_meausre_title">Warning</string>
+    <string name="stop_meausre_content">The task  %s is running,\ndo you want to quit?</string>
     <string name="stop_meausre_cancel">Cancel</string>
-    <string name="stop_meausre_sure">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Sure&#160;&#160;&#160;&#160;</string>
+    <string name="stop_meausre_sure">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Quit&#160;&#160;&#160;&#160;</string>
 
     <string name="voltsamps">Volts&#038;Amp</string>
+
+    <string name="load_data_fail">Failed to load data</string>
+
+    <string name="starttime">startTime</string>
+    <string name="Name">Name</string>
+    <string name="Type">Type</string>
+    <string name="Time">Time</string>
+    <string name="UserName">UserName</string>
 
 
 </resources>

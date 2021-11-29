@@ -15,7 +15,7 @@
         android:background="@drawable/set_top_button_bg"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingLeft="@dimen/dimen_30"
+        android:paddingStart="@dimen/dimen_30"
         android:paddingTop="@dimen/dimen_10"
         android:paddingBottom="@dimen/dimen_10">
 
@@ -29,8 +29,8 @@
             android:id="@+id/set_info_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dimen_20"
-            android:text="@string/config_nominal_frequency"
+            android:layout_marginStart="@dimen/dimen_20"
+            android:text="@string/config_nominal_voltage"
             android:textColor="@color/set_fragment_top_title_color"
             android:textSize="@dimen/textsize_30" />
     </LinearLayout>
@@ -42,7 +42,7 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/set_top_view"
         android:layout_marginTop="@dimen/dimen_30"
-        android:paddingLeft="@dimen/dimen_50">
+        android:paddingStart="@dimen/dimen_50">
 
         <LinearLayout
             android:id="@+id/config_choose_ll"
@@ -91,7 +91,7 @@
             android:id="@+id/config_choose_ll1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/config_choose_ll"
+            android:layout_toEndOf="@+id/config_choose_ll"
             android:orientation="vertical">
 
             <com.cem.powerqualityanalyser.view.ConfigChooseView
@@ -135,12 +135,12 @@
 
     <RelativeLayout
         android:id="@+id/set_one_content_layout2"
-        android:layout_toRightOf="@+id/set_one_content_layout"
+        android:layout_toEndOf="@+id/set_one_content_layout"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_below="@+id/set_top_view"
         android:layout_marginTop="@dimen/dimen_30"
-        android:paddingLeft="@dimen/dimen_30">
+        android:paddingStart="@dimen/dimen_30">
 
         <LinearLayout
             android:id="@+id/config_choose_ll3"
@@ -189,7 +189,7 @@
             android:id="@+id/config_choose_ll4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/config_choose_ll3"
+            android:layout_toEndOf="@+id/config_choose_ll3"
             android:orientation="vertical">
 
             <com.cem.powerqualityanalyser.view.ConfigChooseView

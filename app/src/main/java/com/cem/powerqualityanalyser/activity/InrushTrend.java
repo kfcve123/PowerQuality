@@ -451,7 +451,7 @@ public class InrushTrend extends BaseFragmentTrend {
     }
 
     public void zoomScale(float yScale){
-        zoomScale(0f,yScale);
+        zoomScale(1f,yScale);
     }
 
     private void zoomScale(float xScale,float yScale){

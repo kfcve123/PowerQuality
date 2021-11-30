@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 
 import android.util.AttributeSet;
 
+import android.util.Log;
 import android.view.View;
 
 import com.cem.powerqualityanalyser.R;
@@ -12,6 +13,7 @@ import com.cem.powerqualityanalyser.chart.BaseBarChart;
 import com.cem.powerqualityanalyser.tool.ColorList;
 import com.cem.powerqualityanalyser.tool.DataFormatUtil;
 import com.cem.powerqualityanalyser.tool.log;
+import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
@@ -30,7 +32,7 @@ import java.util.List;
 
 import serialport.amos.cem.com.libamosserial.ModelLineData;
 
-public class HarmoView extends HarmoBaseView{
+public class HarmoView extends HarmoBaseView {
 
     private int maxVisibleValueCount = 25;
     private Legend.LegendForm legendForm = Legend.LegendForm.NONE;
@@ -38,11 +40,11 @@ public class HarmoView extends HarmoBaseView{
     private int barselect = 0;
 
 
-    protected void setDrawValuesEnabled(boolean enabled){
+    protected void setDrawValuesEnabled(boolean enabled) {
         this.drawValuesEnabled = enabled;
     }
 
-    protected void setLegendForm(Legend.LegendForm form){
+    protected void setLegendForm(Legend.LegendForm form) {
         this.legendForm = form;
     }
 
@@ -65,19 +67,19 @@ public class HarmoView extends HarmoBaseView{
     private int barMode = 3;
     private String rightItem;
 
-    public void setHarmonicsBarMode(int mode,String rightItem) {
+    public void setHarmonicsBarMode(int mode, String rightItem) {
         barMode = mode;
-        select_harmoinics_tv.setText(funTypeIndexString +"-h1");
+        select_harmoinics_tv.setText(funTypeIndexString + "-h1");
         this.rightItem = rightItem;
-        if(mode == 2){
+        if (mode == 2) {
             sticky_ll.setBackgroundResource(R.mipmap.harmonics_graph_bg2);
             harmoinics_3item_ll.setVisibility(View.GONE);
             harmoinics_2item_ll.setVisibility(View.VISIBLE);
             harmoinics_title_1item.setVisibility(View.GONE);
             harmoinics_l1_title_2item.setText("L1");
             harmoinics_l2_title_2item.setText("L2");
-            setLineDataSetVisable(true,true,false,false);
-        }else if(mode == 3){
+            setLineDataSetVisable(true, true, false, false);
+        } else if (mode == 3) {
             sticky_ll.setBackgroundResource(R.mipmap.harmonics_graph_bg1);
             harmoinics_3item_ll.setVisibility(View.VISIBLE);
             harmoinics_title_ll_3item.setVisibility(VISIBLE);
@@ -86,66 +88,68 @@ public class HarmoView extends HarmoBaseView{
             harmoinics_l1_title_3item.setText("L1");
             harmoinics_l2_title_3item.setText("L2");
             harmoinics_l3_title_3item.setText("L3");
-            setLineDataSetVisable(true,true,true,false);
-        }else {
+            setLineDataSetVisable(true, true, true, false);
+        } else {
             sticky_ll.setBackgroundResource(R.mipmap.harmonics_graph_bg3);
             harmoinics_3item_ll.setVisibility(View.VISIBLE);
             harmoinics_title_1item.setVisibility(View.VISIBLE);
             harmoinics_title_ll_3item.setVisibility(View.GONE);
             harmoinics_2item_ll.setVisibility(View.GONE);
             harmoinics_title_1item.setText(rightItem);
-            if(rightItem.equals("L1")||rightItem.equals("L1L2")) {
-                setLineDataSetVisable(true,false,false,false);
-            }else if(rightItem.equals("L2")||rightItem.equals("L2L3")){
-                setLineDataSetVisable(false,true,false,false);
-            }else if(rightItem.equals("L3")||rightItem.equals("L3L1")){
-                setLineDataSetVisable(false,false,true,false);
-            }else if(rightItem.equals("N")){
-                setLineDataSetVisable(false,false,false,true);
-            }else{
-                setLineDataSetVisable(true,false,false,false);
+            if (rightItem.equals("L1") || rightItem.equals("L1L2")) {
+                setLineDataSetVisable(true, false, false, false);
+            } else if (rightItem.equals("L2") || rightItem.equals("L2L3")) {
+                setLineDataSetVisable(false, true, false, false);
+            } else if (rightItem.equals("L3") || rightItem.equals("L3L1")) {
+                setLineDataSetVisable(false, false, true, false);
+            } else if (rightItem.equals("N")) {
+                setLineDataSetVisable(false, false, false, true);
+            } else {
+                setLineDataSetVisable(true, false, false, false);
             }
         }
         harmonicsbarchart.invalidate();
     }
 
     private int wir_index;
-    public void setWir(String wir,int wir_index){
+
+    public void setWir(String wir, int wir_index) {
         this.wir_index = wir_index;
         wir_tv.setText(wir);
     }
 
-    private String funTypeIndexString ="V";
+    private String funTypeIndexString = "V";
+
     public void setHarmonicsType(String funTypeIndex) {
         this.funTypeIndexString = funTypeIndex;
-        select_harmoinics_tv.setText(funTypeIndexString +"-h01");
+        select_harmoinics_tv.setText(funTypeIndexString + "-h01");
     }
 
-    public void refeshHeadColor(int l1,int l2,int l3,int n,String rightItem){
+    public void refeshHeadColor(int l1, int l2, int l3, int n, String rightItem) {
         TypedArray ar = getResources().obtainTypedArray(R.array.harmonics_item_arrays);
         final int len = ar.length();
         int[] dataColorArray = new int[len];
-        for (int i = 0; i < len; i++){
+        for (int i = 0; i < len; i++) {
             dataColorArray[i] = ar.getResourceId(i, 0);
         }
         ar.recycle();
 
-        harmoinics_l1_title_3item.setBackgroundResource(dataColorArray[l1-1]);
-        harmoinics_l2_title_3item.setBackgroundResource(dataColorArray[l2-1]);
-        harmoinics_l3_title_3item.setBackgroundResource(dataColorArray[l3-1]);
+        harmoinics_l1_title_3item.setBackgroundResource(dataColorArray[l1 - 1]);
+        harmoinics_l2_title_3item.setBackgroundResource(dataColorArray[l2 - 1]);
+        harmoinics_l3_title_3item.setBackgroundResource(dataColorArray[l3 - 1]);
 
-        harmoinics_l1_title_2item.setBackgroundResource(dataColorArray[l1-1]);
-        harmoinics_l2_title_2item.setBackgroundResource(dataColorArray[l2-1]);
-        if(rightItem.equals("L1")||rightItem.equals("L1L2")) {
-            harmoinics_title_1item.setBackgroundResource(dataColorArray[l1-1]);
-        }else if(rightItem.equals("L2")||rightItem.equals("L2L3")){
-            harmoinics_title_1item.setBackgroundResource(dataColorArray[l2-1]);
-        }else if(rightItem.equals("L3")||rightItem.equals("L3L1")){
-            harmoinics_title_1item.setBackgroundResource(dataColorArray[l3-1]);
-        }else if(rightItem.equals("N")){
-            harmoinics_title_1item.setBackgroundResource(dataColorArray[n-1]);
-        }else{
-            harmoinics_title_1item.setBackgroundResource(dataColorArray[l1-1]);
+        harmoinics_l1_title_2item.setBackgroundResource(dataColorArray[l1 - 1]);
+        harmoinics_l2_title_2item.setBackgroundResource(dataColorArray[l2 - 1]);
+        if (rightItem.equals("L1") || rightItem.equals("L1L2")) {
+            harmoinics_title_1item.setBackgroundResource(dataColorArray[l1 - 1]);
+        } else if (rightItem.equals("L2") || rightItem.equals("L2L3")) {
+            harmoinics_title_1item.setBackgroundResource(dataColorArray[l2 - 1]);
+        } else if (rightItem.equals("L3") || rightItem.equals("L3L1")) {
+            harmoinics_title_1item.setBackgroundResource(dataColorArray[l3 - 1]);
+        } else if (rightItem.equals("N")) {
+            harmoinics_title_1item.setBackgroundResource(dataColorArray[n - 1]);
+        } else {
+            harmoinics_title_1item.setBackgroundResource(dataColorArray[l1 - 1]);
         }
     }
 
@@ -153,21 +157,21 @@ public class HarmoView extends HarmoBaseView{
     protected void setLineCharAttribute() {
         super.setLineCharAttribute();
         harmonicsbarchart.setMaxVisibleValueCount(maxVisibleValueCount);
-        setLegendForm(Legend.LegendForm.NONE);
+//        setLegendForm(Legend.LegendForm.NONE);
         harmonicsbarchart.getAxisRight().setEnabled(false);
         harmonicsbarchart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
         harmonicsbarchart.getXAxis().setAxisMinimum(0f);
         harmonicsbarchart.getXAxis().setGranularity(1f);
-        harmonicsbarchart.getLegend().setEnabled(false);
+//        harmonicsbarchart.getLegend().setEnabled(false);
         harmonicsbarchart.getDescription().setEnabled(false);
         harmonicsbarchart.setDrawGridBackground(false);
         harmonicsbarchart.setDrawBorders(true);
         XAxis xAxis = harmonicsbarchart.getXAxis();
         xAxis.setDrawGridLines(false);
- //       xAxis.setAxisMaximum(50);
+        //       xAxis.setAxisMaximum(50);
         xAxis.setDrawAxisLine(false);
         xAxis.setAxisMinimum(0);
- //       xAxis.setLabelCount(50);
+        //       xAxis.setLabelCount(50);
 
         YAxis leftAxis = harmonicsbarchart.getAxisLeft();
         leftAxis.setTypeface(tfLight);
@@ -176,22 +180,21 @@ public class HarmoView extends HarmoBaseView{
         leftAxis.setSpaceTop(35f);
         leftAxis.setAxisMinimum(0f);
 
-        harmonicsbarchart.getAxisLeft().setAxisMinimum(0f);
         harmonicsbarchart.getAxisRight().setAxisMinimum(0f);
+        harmonicsbarchart.getAxisRight().setAxisMaximum(100f);
         harmonicsbarchart.getAxisLeft().setAxisMinimum(0f); // start at zero
         harmonicsbarchart.getAxisLeft().setAxisMaximum(100f); // the axis maximum is 100
-  //      setBarChart(harmonicsbarchart);
-
-
+        setBarChart(harmonicsbarchart);
     }
 
-    private boolean visablea,visableb,visablec,visablen;
+    private boolean visablea, visableb, visablec, visablen;
+
     private void setLineDataSetVisable(boolean visablea, boolean visableb, boolean visablec, boolean visablen) {
         this.visablea = visablea;
         this.visableb = visableb;
         this.visablec = visablec;
         this.visablen = visablen;
-        if(harmonicsbarchart.getData()!=null) {
+        if (harmonicsbarchart.getData() != null) {
             if (harmonicsbarchart.getData().getDataSetCount() > 0)
                 harmonicsbarchart.getBarData().getDataSets().get(0).setVisible(visablea);
             if (harmonicsbarchart.getData().getDataSetCount() > 1)
@@ -205,7 +208,7 @@ public class HarmoView extends HarmoBaseView{
 
     }
 
-    private void setBarChart(BaseBarChart chart){
+    private void setBarChart(BarChart chart) {
         chart.getDescription().setEnabled(false);
 
 //        chart.setDrawBorders(true);
@@ -328,44 +331,134 @@ public class HarmoView extends HarmoBaseView{
 
     private int selectEntry;
     private int selectSet;
+
     @Override
     public void onValueSelected(Entry e, Highlight h) {
         selectEntry = (int) e.getX();
         selectSet = h.getDataSetIndex();
+        Log.e("moveCursor", selectEntry + "--" + iLastEntry + "===" + "前" + "===" + selectSet);
+        if (iLastEntry != selectEntry) {
+            iLastEntry = selectEntry;
+        }
+            /*if (iLastSet != selectSet) {
+                iLastSet = selectSet;
+            }
+        } else {
+            if (iLastSet != selectSet) {
+                iLastSet = selectSet;
+            }
+        }*/
+        Log.e("moveCursor", selectEntry + "--" + iLastEntry + "===" + "后" + "===" + selectSet);
         harmonicsbarchart.centerViewToAnimated(e.getX(), e.getY(), harmonicsbarchart.getData().getDataSetByIndex(h.getDataSetIndex())
                 .getAxisDependency(), 500);
-        setTopTitle(harmonicsbarchart.getData().getDataSetByIndex(0).getEntryForIndex((int) e.getX()).getY()+"",harmonicsbarchart.getData().getDataSetByIndex(1).getEntryForIndex((int) e.getX()).getY()+"",harmonicsbarchart.getData().getDataSetByIndex(2).getEntryForIndex((int) e.getX()).getY()+"",harmonicsbarchart.getData().getDataSetByIndex(3).getEntryForIndex((int) e.getX()).getY()+"");
+        setTopTitle(harmonicsbarchart.getData().getDataSetByIndex(0).getEntryForIndex((int) e.getX()).getY() + "", harmonicsbarchart.getData().getDataSetByIndex(1).getEntryForIndex((int) e.getX()).getY() + "", harmonicsbarchart.getData().getDataSetByIndex(2).getEntryForIndex((int) e.getX()).getY() + "", harmonicsbarchart.getData().getDataSetByIndex(3).getEntryForIndex((int) e.getX()).getY() + "");
+    }
+
+    @Override
+    public void onNothingSelected() {
+        /*harmonicsbarchart.highlightValues(null);
+        iLastEntry = 0;
+        cursorEnable = false;*/
+    }
+
+    public void moveCursor(int i, int rightIndex) {
+        if (harmonicsbarchart != null) {
+            if (showCurson) {
+                if (iLastEntry + i > 0 && iLastEntry + i < harmonicsbarchart.getBarData().getEntryCount() - 1) {
+                    harmonicsbarchart.setHighlightFullBarEnabled(true);
+                    if (rightIndex != 0) {
+                        iLastSet = rightIndex - 1;
+                        harmonicsbarchart.highlightValue((float) (iLastEntry + i), iLastSet);
+                        if (iLastSet == 2 || iLastSet == 3) {
+                            harmonicsbarchart.highlightValue((float) (iLastEntry + 2), iLastSet);
+                        }
+                    } else {
+                        if (i == 1) {
+                            if (iLastSet == 0) {
+                                iLastSet = 1;
+                                iLastEntry = iLastEntry - 1;
+                            } else if (iLastSet == 1) {
+                                iLastSet = 2;
+                            } else if (iLastSet == 2) {
+                                iLastSet = 3;
+                            } else if (iLastSet == 3) {
+                                iLastSet = 0;
+                                iLastEntry = iLastEntry;
+                            }
+                            harmonicsbarchart.highlightValue((float) iLastEntry + i, iLastSet);
+                        } else if (i == -1) {
+                            if (iLastSet == 0) {
+                                iLastSet = 3;
+                                iLastEntry = iLastEntry;
+                            } else if (iLastSet == 1) {
+                                iLastSet = 0;
+                            } else if (iLastSet == 2) {
+                                iLastSet = 1;
+                            } else if (iLastSet == 3) {
+                                iLastSet = 2;
+                                iLastEntry = iLastEntry + 1;
+                            }
+                            harmonicsbarchart.highlightValue((float) iLastEntry, iLastSet);
+                        }
+
+                        /*iLastSet = 0;
+                        harmonicsbarchart.highlightValue((float) (iLastEntry + i), iLastSet);*/
+                    }
+                    Log.e("moveCursor", iLastEntry + "===" + "===" + iLastSet);
+                }
+            }
+        }
     }
 
 
-    private void setTopTitle(final String l1, final String l2, final String l3, final String ln){
+    protected boolean showCurson = false;
+
+    public void showCursor(boolean enable) {
+        this.showCurson = enable;
+        if (enable) {
+            for (int i = 0; i < charts.size(); i++) {
+                charts.get(i).highlightValue(iLastEntry, iLastSet);
+                charts.get(i).getData().setHighlightEnabled(true);
+            }
+        } else {
+            for (int i = 0; i < charts.size(); i++) {
+                charts.get(i).highlightValue(null);
+                charts.get(i).getData().setHighlightEnabled(false);
+            }
+        }
+
+    }
+
+
+    private void setTopTitle(final String l1, final String l2, final String l3,
+                             final String ln) {
         select_harmoinics_tv.post(new Runnable() {
             @Override
             public void run() {
-                if(selectEntry<9){
+                if (selectEntry < 9) {
                     select_harmoinics_tv.setText(funTypeIndexString + "-h0" + (selectEntry + 1));
-                }else {
+                } else {
                     select_harmoinics_tv.setText(funTypeIndexString + "-h" + (selectEntry + 1));
                 }
-                if(barMode == 2){
-                    harmoinics_l1_value_2item.setText(DataFormatUtil.frontCompWithZore(Float.valueOf(l1),2));
-                    harmoinics_l2_value_2item.setText(DataFormatUtil.frontCompWithZore(Float.valueOf(l2),2));
-                    harmoinics_l1_value1_2item.setText(DataFormatUtil.frontCompWithZore(Float.valueOf(l1),2));
-                    harmoinics_l2_value1_2item.setText(DataFormatUtil.frontCompWithZore(Float.valueOf(l2),2));
-                    harmoinics_l1_value2_2item.setText(DataFormatUtil.frontCompWithZore(Float.valueOf(l1),2));
-                    harmoinics_l2_value2_2item.setText(DataFormatUtil.frontCompWithZore(Float.valueOf(l2),2));
-                }else{
-                    harmoinics_l1_value.setText(DataFormatUtil.frontCompWithZore(Float.valueOf(l1),2));
-                    harmoinics_l2_value.setText(DataFormatUtil.frontCompWithZore(Float.valueOf(l2),2));
-                    harmoinics_l3_value.setText(DataFormatUtil.frontCompWithZore(Float.valueOf(l3),2));
+                if (barMode == 2) {
+                    harmoinics_l1_value_2item.setText(DataFormatUtil.frontCompWithZore(Float.valueOf(l1), 2));
+                    harmoinics_l2_value_2item.setText(DataFormatUtil.frontCompWithZore(Float.valueOf(l2), 2));
+                    harmoinics_l1_value1_2item.setText(DataFormatUtil.frontCompWithZore(Float.valueOf(l1), 2));
+                    harmoinics_l2_value1_2item.setText(DataFormatUtil.frontCompWithZore(Float.valueOf(l2), 2));
+                    harmoinics_l1_value2_2item.setText(DataFormatUtil.frontCompWithZore(Float.valueOf(l1), 2));
+                    harmoinics_l2_value2_2item.setText(DataFormatUtil.frontCompWithZore(Float.valueOf(l2), 2));
+                } else {
+                    harmoinics_l1_value.setText(DataFormatUtil.frontCompWithZore(Float.valueOf(l1), 2));
+                    harmoinics_l2_value.setText(DataFormatUtil.frontCompWithZore(Float.valueOf(l2), 2));
+                    harmoinics_l3_value.setText(DataFormatUtil.frontCompWithZore(Float.valueOf(l3), 2));
 
-                    harmoinics_l1_value1.setText(DataFormatUtil.frontCompWithZore(Float.valueOf(l1),2));
-                    harmoinics_l2_value1.setText(DataFormatUtil.frontCompWithZore(Float.valueOf(l2),2));
-                    harmoinics_l3_value1.setText(DataFormatUtil.frontCompWithZore(Float.valueOf(l3),2));
+                    harmoinics_l1_value1.setText(DataFormatUtil.frontCompWithZore(Float.valueOf(l1), 2));
+                    harmoinics_l2_value1.setText(DataFormatUtil.frontCompWithZore(Float.valueOf(l2), 2));
+                    harmoinics_l3_value1.setText(DataFormatUtil.frontCompWithZore(Float.valueOf(l3), 2));
 
-                    harmoinics_l1_value2.setText(DataFormatUtil.frontCompWithZore(Float.valueOf(l1),2));
-                    harmoinics_l2_value2.setText(DataFormatUtil.frontCompWithZore(Float.valueOf(l2),2));
-                    harmoinics_l3_value2.setText(DataFormatUtil.frontCompWithZore(Float.valueOf(l3),2));
+                    harmoinics_l1_value2.setText(DataFormatUtil.frontCompWithZore(Float.valueOf(l1), 2));
+                    harmoinics_l2_value2.setText(DataFormatUtil.frontCompWithZore(Float.valueOf(l2), 2));
+                    harmoinics_l3_value2.setText(DataFormatUtil.frontCompWithZore(Float.valueOf(l3), 2));
                 }
             }
         });
@@ -373,85 +466,86 @@ public class HarmoView extends HarmoBaseView{
 
 
     /**
-     *
-     * @param modelLineData  全部对象
-     * @param chooseUserFullModeList   全部显示Bar的对象
-     * @param wir_index 接线方式
-     * @param funTypeIndex  V -A - S
-     * @param wir_right_index - 3L,L1,L2,L3,N
-     * @param barIndex - 第几个Bar
+     * @param modelLineData          全部对象
+     * @param chooseUserFullModeList 全部显示Bar的对象
+     * @param wir_index              接线方式
+     * @param funTypeIndex           V -A - S
+     * @param wir_right_index        - 3L,L1,L2,L3,N
+     * @param barIndex               - 第几个Bar
      */
-    private void setHarmoninicsGridValue(List<ModelLineData> modelLineData,ModelLineData selectMode,int wir_index,int funTypeIndex, int wir_right_index){
-        switch (wir_index){
+    private void setHarmoninicsGridValue(List<ModelLineData> modelLineData, ModelLineData
+            selectMode, int wir_index, int funTypeIndex, int wir_right_index) {
+        switch (wir_index) {
             case 0://3ØWYE
-                switch (funTypeIndex){
+                switch (funTypeIndex) {
                     case 0://V
-                        switch (wir_right_index){
+                        switch (wir_right_index) {
                             case 0:
-                                harmoinics_l1_value.setText(selectMode.getaValue().getValueFl()+" %f");
-                                harmoinics_l2_value.setText(selectMode.getbValue().getValueFl()+" %f");
-                                harmoinics_l3_value.setText(selectMode.getcValue().getValueFl()+" %f");
+                                harmoinics_l1_value.setText(selectMode.getaValue().getValueFl() + " %f");
+                                harmoinics_l2_value.setText(selectMode.getbValue().getValueFl() + " %f");
+                                harmoinics_l3_value.setText(selectMode.getcValue().getValueFl() + " %f");
 
-                                harmoinics_l1_value1.setText(modelLineData.get(0).getaValue().getValueFl()+" V");
-                                harmoinics_l2_value1.setText(modelLineData.get(0).getbValue().getValueFl()+" V");
-                                harmoinics_l3_value1.setText(modelLineData.get(0).getcValue().getValueFl()+" V");
+                                harmoinics_l1_value1.setText(modelLineData.get(0).getaValue().getValueFl() + " V");
+                                harmoinics_l2_value1.setText(modelLineData.get(0).getbValue().getValueFl() + " V");
+                                harmoinics_l3_value1.setText(modelLineData.get(0).getcValue().getValueFl() + " V");
 
-                                harmoinics_l1_value2.setText(modelLineData.get(2).getaValue().getValueFl() +"");
-                                harmoinics_l2_value2.setText(modelLineData.get(2).getbValue().getValueFl() +"");
-                                harmoinics_l3_value2.setText(modelLineData.get(2).getcValue().getValueFl() +"");
+                                harmoinics_l1_value2.setText(modelLineData.get(2).getaValue().getValueFl() + "");
+                                harmoinics_l2_value2.setText(modelLineData.get(2).getbValue().getValueFl() + "");
+                                harmoinics_l3_value2.setText(modelLineData.get(2).getcValue().getValueFl() + "");
 
                                 break;
                             case 1:
-                                harmoinics_l1_value.setText(selectMode.getaValue().getValueFl()+" %f");
-                                harmoinics_l2_value.setText(modelLineData.get(0).getaValue().getValueFl()+" V");
-                                harmoinics_l3_value.setText(modelLineData.get(2).getaValue().getValueFl()+"");
+                                harmoinics_l1_value.setText(selectMode.getaValue().getValueFl() + " %f");
+                                harmoinics_l2_value.setText(modelLineData.get(0).getaValue().getValueFl() + " V");
+                                harmoinics_l3_value.setText(modelLineData.get(2).getaValue().getValueFl() + "");
 
-                                harmoinics_l1_value1.setText("max " + modelLineData.get(5).getaValue().getValueFl()+" %f");
-                                harmoinics_l2_value1.setText("THD " + modelLineData.get(3).getaValue().getValueFl() +" %f");
+                                harmoinics_l1_value1.setText("max " + modelLineData.get(5).getaValue().getValueFl() + " %f");
+                                harmoinics_l2_value1.setText("THD " + modelLineData.get(3).getaValue().getValueFl() + " %f");
                                 harmoinics_l3_value1.setText("");
 
-                                harmoinics_l1_value2.setText("min " + modelLineData.get(6).getaValue().getValueFl()+" %f");
-                                harmoinics_l2_value2.setText("Vd  " + modelLineData.get(7).getaValue().getValueFl() +" V");
+                                harmoinics_l1_value2.setText("min " + modelLineData.get(6).getaValue().getValueFl() + " %f");
+                                harmoinics_l2_value2.setText("Vd  " + modelLineData.get(7).getaValue().getValueFl() + " V");
                                 harmoinics_l3_value2.setText("");
                                 break;
                             case 2:
-                                harmoinics_l1_value.setText(selectMode.getbValue().getValueFl()+" %f");
-                                harmoinics_l2_value.setText(modelLineData.get(0).getbValue().getValueFl()+" V");
-                                harmoinics_l3_value.setText(modelLineData.get(2).getbValue().getValueFl()+"");
+                                harmoinics_l1_value.setText(selectMode.getbValue().getValueFl() + " %f");
+                                harmoinics_l2_value.setText(modelLineData.get(0).getbValue().getValueFl() + " V");
+                                harmoinics_l3_value.setText(modelLineData.get(2).getbValue().getValueFl() + "");
 
-                                harmoinics_l1_value1.setText("max " + modelLineData.get(5).getbValue().getValueFl()+" %f");
-                                harmoinics_l2_value1.setText("THD " + modelLineData.get(3).getbValue().getValueFl() +" %f");;
+                                harmoinics_l1_value1.setText("max " + modelLineData.get(5).getbValue().getValueFl() + " %f");
+                                harmoinics_l2_value1.setText("THD " + modelLineData.get(3).getbValue().getValueFl() + " %f");
+                                ;
                                 harmoinics_l3_value1.setText("");
 
-                                harmoinics_l1_value2.setText("min " + modelLineData.get(6).getbValue().getValueFl()+" %f");
-                                harmoinics_l2_value2.setText("Vd  " + modelLineData.get(7).getbValue().getValueFl() +" V");
+                                harmoinics_l1_value2.setText("min " + modelLineData.get(6).getbValue().getValueFl() + " %f");
+                                harmoinics_l2_value2.setText("Vd  " + modelLineData.get(7).getbValue().getValueFl() + " V");
                                 harmoinics_l3_value2.setText("");
 
                                 break;
                             case 3:
-                                harmoinics_l1_value.setText(selectMode.getcValue().getValueFl()+" %f");
-                                harmoinics_l2_value.setText(modelLineData.get(0).getcValue().getValueFl()+" V");
-                                harmoinics_l3_value.setText(modelLineData.get(2).getcValue().getValueFl()+"");
+                                harmoinics_l1_value.setText(selectMode.getcValue().getValueFl() + " %f");
+                                harmoinics_l2_value.setText(modelLineData.get(0).getcValue().getValueFl() + " V");
+                                harmoinics_l3_value.setText(modelLineData.get(2).getcValue().getValueFl() + "");
 
-                                harmoinics_l1_value1.setText("max " + modelLineData.get(5).getcValue().getValueFl()+" %f");
-                                harmoinics_l2_value1.setText("THD " + modelLineData.get(3).getcValue().getValueFl() +" %f");
+                                harmoinics_l1_value1.setText("max " + modelLineData.get(5).getcValue().getValueFl() + " %f");
+                                harmoinics_l2_value1.setText("THD " + modelLineData.get(3).getcValue().getValueFl() + " %f");
                                 harmoinics_l3_value1.setText("");
 
-                                harmoinics_l1_value2.setText("min " + modelLineData.get(6).getcValue().getValueFl()+" %f");
-                                harmoinics_l2_value2.setText("Vd  " + modelLineData.get(7).getcValue().getValueFl() +" V");
+                                harmoinics_l1_value2.setText("min " + modelLineData.get(6).getcValue().getValueFl() + " %f");
+                                harmoinics_l2_value2.setText("Vd  " + modelLineData.get(7).getcValue().getValueFl() + " V");
                                 harmoinics_l3_value2.setText("");
 
                                 break;
                             case 4:
-                                harmoinics_l1_value.setText(selectMode.getcValue().getValueFl()+" %r");
-                                harmoinics_l2_value.setText(modelLineData.get(0).getcValue().getValueFl()+" V");
+                                harmoinics_l1_value.setText(selectMode.getcValue().getValueFl() + " %r");
+                                harmoinics_l2_value.setText(modelLineData.get(0).getcValue().getValueFl() + " V");
                                 harmoinics_l3_value.setText("");
 
-                                harmoinics_l1_value1.setText("max " + modelLineData.get(5).getcValue().getValueFl()+" %r");
-                                harmoinics_l2_value1.setText(modelLineData.get(3).getcValue().getValueFl() +"V");
+                                harmoinics_l1_value1.setText("max " + modelLineData.get(5).getcValue().getValueFl() + " %r");
+                                harmoinics_l2_value1.setText(modelLineData.get(3).getcValue().getValueFl() + "V");
                                 harmoinics_l3_value1.setText("");
 
-                                harmoinics_l1_value2.setText("min " + modelLineData.get(6).getcValue().getValueFl()+" %r");
+                                harmoinics_l1_value2.setText("min " + modelLineData.get(6).getcValue().getValueFl() + " %r");
                                 harmoinics_l2_value2.setText("");
                                 harmoinics_l3_value2.setText("");
 
@@ -476,60 +570,60 @@ public class HarmoView extends HarmoBaseView{
 
                                 break;
                             case 1:
-                                harmoinics_l1_value.setText(selectMode.getaValue().getValueFl()+" %f");
-                                harmoinics_l2_value.setText(modelLineData.get(0).getaValue().getValueFl()+" A");
-                                harmoinics_l3_value.setText(modelLineData.get(2).getaValue().getValueFl()+"");
+                                harmoinics_l1_value.setText(selectMode.getaValue().getValueFl() + " %f");
+                                harmoinics_l2_value.setText(modelLineData.get(0).getaValue().getValueFl() + " A");
+                                harmoinics_l3_value.setText(modelLineData.get(2).getaValue().getValueFl() + "");
 
-                                harmoinics_l1_value1.setText("max " + modelLineData.get(6).getaValue().getValueFl()+" %f");
-                                harmoinics_l2_value1.setText("THD " + modelLineData.get(3).getaValue().getValueFl() +" %f");
+                                harmoinics_l1_value1.setText("max " + modelLineData.get(6).getaValue().getValueFl() + " %f");
+                                harmoinics_l2_value1.setText("THD " + modelLineData.get(3).getaValue().getValueFl() + " %f");
                                 harmoinics_l3_value1.setText("K " + modelLineData.get(5).getaValue().getValueFl());
 
-                                harmoinics_l1_value2.setText("min " + modelLineData.get(7).getaValue().getValueFl()+" %f");
+                                harmoinics_l1_value2.setText("min " + modelLineData.get(7).getaValue().getValueFl() + " %f");
                                 harmoinics_l2_value2.setText("Ad  " + modelLineData.get(8).getaValue().getValueFl());
                                 harmoinics_l3_value2.setText("");
 
                                 break;
 
                             case 2:
-                                harmoinics_l1_value.setText(selectMode.getbValue().getValueFl()+" %f");
-                                harmoinics_l2_value.setText(modelLineData.get(0).getbValue().getValueFl()+" A");
-                                harmoinics_l3_value.setText(modelLineData.get(2).getbValue().getValueFl()+"");
+                                harmoinics_l1_value.setText(selectMode.getbValue().getValueFl() + " %f");
+                                harmoinics_l2_value.setText(modelLineData.get(0).getbValue().getValueFl() + " A");
+                                harmoinics_l3_value.setText(modelLineData.get(2).getbValue().getValueFl() + "");
 
-                                harmoinics_l1_value1.setText("max " + modelLineData.get(6).getbValue().getValueFl()+" %f");
-                                harmoinics_l2_value1.setText("THD " + modelLineData.get(3).getbValue().getValueFl() +" %f");
+                                harmoinics_l1_value1.setText("max " + modelLineData.get(6).getbValue().getValueFl() + " %f");
+                                harmoinics_l2_value1.setText("THD " + modelLineData.get(3).getbValue().getValueFl() + " %f");
                                 harmoinics_l3_value1.setText("K " + modelLineData.get(5).getbValue().getValueFl());
 
-                                harmoinics_l1_value2.setText("min " + modelLineData.get(7).getbValue().getValueFl()+" %f");
+                                harmoinics_l1_value2.setText("min " + modelLineData.get(7).getbValue().getValueFl() + " %f");
                                 harmoinics_l2_value2.setText("Ad  " + modelLineData.get(8).getbValue().getValueFl());
                                 harmoinics_l3_value2.setText("");
 
                                 break;
 
                             case 3:
-                                harmoinics_l1_value.setText(selectMode.getcValue().getValueFl()+" %f");
-                                harmoinics_l2_value.setText(modelLineData.get(0).getcValue().getValueFl()+" A");
-                                harmoinics_l3_value.setText(modelLineData.get(2).getcValue().getValueFl()+"");
+                                harmoinics_l1_value.setText(selectMode.getcValue().getValueFl() + " %f");
+                                harmoinics_l2_value.setText(modelLineData.get(0).getcValue().getValueFl() + " A");
+                                harmoinics_l3_value.setText(modelLineData.get(2).getcValue().getValueFl() + "");
 
-                                harmoinics_l1_value1.setText("max " + modelLineData.get(6).getcValue().getValueFl()+" %f");
-                                harmoinics_l2_value1.setText("THD " + modelLineData.get(3).getcValue().getValueFl() +" %f");
+                                harmoinics_l1_value1.setText("max " + modelLineData.get(6).getcValue().getValueFl() + " %f");
+                                harmoinics_l2_value1.setText("THD " + modelLineData.get(3).getcValue().getValueFl() + " %f");
                                 harmoinics_l3_value1.setText("K " + modelLineData.get(5).getcValue().getValueFl());
 
-                                harmoinics_l1_value2.setText("min " + modelLineData.get(7).getcValue().getValueFl()+" %f");
+                                harmoinics_l1_value2.setText("min " + modelLineData.get(7).getcValue().getValueFl() + " %f");
                                 harmoinics_l2_value2.setText("Ad  " + modelLineData.get(8).getcValue().getValueFl());
                                 harmoinics_l3_value2.setText("");
 
                                 break;
 
                             case 4:
-                                harmoinics_l1_value.setText(selectMode.getcValue().getValueFl()+" %r");
-                                harmoinics_l2_value.setText(modelLineData.get(0).getcValue().getValueFl()+" A");
+                                harmoinics_l1_value.setText(selectMode.getcValue().getValueFl() + " %r");
+                                harmoinics_l2_value.setText(modelLineData.get(0).getcValue().getValueFl() + " A");
                                 harmoinics_l3_value.setText("");
 
-                                harmoinics_l1_value1.setText("max " + modelLineData.get(6).getcValue().getValueFl()+" %r");
-                                harmoinics_l2_value1.setText("THD " + modelLineData.get(3).getcValue().getValueFl() +" %r");
+                                harmoinics_l1_value1.setText("max " + modelLineData.get(6).getcValue().getValueFl() + " %r");
+                                harmoinics_l2_value1.setText("THD " + modelLineData.get(3).getcValue().getValueFl() + " %r");
                                 harmoinics_l3_value1.setText("K " + modelLineData.get(5).getcValue().getValueFl());
 
-                                harmoinics_l1_value2.setText("min " + modelLineData.get(7).getcValue().getValueFl()+" %r");
+                                harmoinics_l1_value2.setText("min " + modelLineData.get(7).getcValue().getValueFl() + " %r");
                                 harmoinics_l2_value2.setText("");
                                 harmoinics_l3_value2.setText("");
 
@@ -537,7 +631,7 @@ public class HarmoView extends HarmoBaseView{
                         }
                         break;
                     case 1://S
-                        switch (wir_right_index){
+                        switch (wir_right_index) {
                             case 0:
 
 
@@ -546,8 +640,6 @@ public class HarmoView extends HarmoBaseView{
 
                         break;
                 }
-
-
 
 
                 break;
@@ -567,17 +659,18 @@ public class HarmoView extends HarmoBaseView{
     }
 
 
-    private void setTextViewValue(ModelLineData modelLineData, int wir_index, int singleBar){
+    private void setTextViewValue(ModelLineData modelLineData, int wir_index, int singleBar) {
         harmoinics_l1_value.setText(modelLineData.getaValue().getValue());
         harmoinics_l2_value.setText(modelLineData.getbValue().getValue());
         harmoinics_l3_value.setText(modelLineData.getcValue().getValue());
     }
 
 
-    public void setShowMeterData3(List<ModelLineData>modelLineData,int wir_index,int funTypeIndex, int wir_right_index) {
+    public void setShowMeterData3(List<ModelLineData> modelLineData, int wir_index,
+                                  int funTypeIndex, int wir_right_index) {
         List<ModelLineData> chooseUserFullModeList = chooseUserFullModeList(modelLineData, wir_index, funTypeIndex, wir_right_index);
 
-        float groupSpace = 0.2f;
+        float groupSpace = 0.08f;
         float barSpace = 0.03f; // x4 DataSet
         float barWidth = 0.2f; // x4 DataSet
         // (0.2 + 0.03) * 4 + 0.08 = 1.00 -> interval per "group"
@@ -589,22 +682,22 @@ public class HarmoView extends HarmoBaseView{
         int startYear = 0;
         int endYear = startYear + groupCount;
 
-        float randomMultiplier = 20;
-        if(chooseUserFullModeList.size()>=groupCount) {
+        float randomMultiplier = 60;
+        if (chooseUserFullModeList.size() >= groupCount) {
             for (int i = startYear; i < endYear; i++) {
-//            values1.add(new BarEntry(i, (float) (Math.random() * randomMultiplier)));
-//            values2.add(new BarEntry(i, (float) (Math.random() * randomMultiplier)));
-//            values3.add(new BarEntry(i, (float) (Math.random() * randomMultiplier)));
-//            values4.add(new BarEntry(i, (float) (Math.random() * randomMultiplier)));
+                values1.add(new BarEntry(i, (float) (Math.random() * randomMultiplier)));
+                values2.add(new BarEntry(i, (float) (Math.random() * randomMultiplier)));
+                values3.add(new BarEntry(i, (float) (Math.random() * randomMultiplier)));
+                values4.add(new BarEntry(i, (float) (Math.random() * randomMultiplier)));
 
-                if (DataFormatUtil.isNumber(chooseUserFullModeList.get(i).getaValue().getValue()))
+                /*if (DataFormatUtil.isNumber(chooseUserFullModeList.get(i).getaValue().getValue()))
                     values1.add(new BarEntry(i, Float.valueOf(chooseUserFullModeList.get(i).getaValue().getValue())));
                 if (DataFormatUtil.isNumber(chooseUserFullModeList.get(i).getbValue().getValue()))
                     values2.add(new BarEntry(i, Float.valueOf(chooseUserFullModeList.get(i).getbValue().getValue())));
                 if (DataFormatUtil.isNumber(chooseUserFullModeList.get(i).getcValue().getValue()))
                     values3.add(new BarEntry(i, Float.valueOf(chooseUserFullModeList.get(i).getcValue().getValue())));
                 if (DataFormatUtil.isNumber(chooseUserFullModeList.get(i).getnValue().getValue()))
-                    values4.add(new BarEntry(i, Float.valueOf(chooseUserFullModeList.get(i).getnValue().getValue())));
+                    values4.add(new BarEntry(i, Float.valueOf(chooseUserFullModeList.get(i).getnValue().getValue())));*/
 
             }
         }
@@ -658,27 +751,30 @@ public class HarmoView extends HarmoBaseView{
 
         // barData.getGroupWith(...) is a helper that calculates the width each group needs based on the provided parameters
         harmonicsbarchart.getXAxis().setAxisMaximum(startYear + harmonicsbarchart.getBarData().getGroupWidth(groupSpace, barSpace) * groupCount);
-        if(harmonicsbarchart.getData().getDataSetCount()>1)
+        if (harmonicsbarchart.getData().getDataSetCount() > 1)
             harmonicsbarchart.groupBars(startYear, groupSpace, barSpace);
-        if(chooseUserFullModeList.size()>=groupCount)
-            setHarmoninicsGridValue(modelLineData,chooseUserFullModeList.get(1),wir_index,funTypeIndex,wir_right_index);
+        if (chooseUserFullModeList.size() >= groupCount)
+            setHarmoninicsGridValue(modelLineData, chooseUserFullModeList.get(1), wir_index, funTypeIndex, wir_right_index);
 //            setTopTitle(harmonicsbarchart.getData().getDataSetByIndex(0).getEntryForIndex(selectEntry).getY()+"",harmonicsbarchart.getData().getDataSetByIndex(1).getEntryForIndex(selectEntry).getY()+"",harmonicsbarchart.getData().getDataSetByIndex(2).getEntryForIndex(selectEntry).getY()+"",harmonicsbarchart.getData().getDataSetByIndex(3).getEntryForIndex(selectEntry).getY()+"");
         harmonicsbarchart.invalidate();
+
+        //默认是25个格子，然后还有如果获取焦点左上角的滑动的图标，可以通过左右按键滚动
+//        zoomScale(2, 1);
     }
 
     /**
-     *
      * @param chooseUserFullModeList
      * @param wir_right_index  右侧菜单当前选中的第几栏
      * @param singleBarSize  右侧菜单有几个 ，3L ,L1,L2,L3 or N
      */
-    private boolean setshowL1,setshowL2,setshowL3;
+    private boolean setshowL1, setshowL2, setshowL3;
     private ArrayList<BarEntry> values1 = new ArrayList<>();
     private ArrayList<BarEntry> values2 = new ArrayList<>();
     private ArrayList<BarEntry> values3 = new ArrayList<>();
     private ArrayList<BarEntry> values4 = new ArrayList<>();
 
-    public void setShowMeterData(List<ModelLineData> chooseUserFullModeList, int wir_right_index,int singleBarSize) {
+    public void setShowMeterData(List<ModelLineData> chooseUserFullModeList,
+                                 int wir_right_index, int singleBarSize) {
         values1.clear();
         values2.clear();
         values3.clear();
@@ -741,7 +837,7 @@ public class HarmoView extends HarmoBaseView{
             set2.setDrawValues(drawValuesEnabled);
             set3.setDrawValues(drawValuesEnabled);
             set4.setDrawValues(drawValuesEnabled);
-            BarData data = new BarData(set1,set2,set3,set4);
+            BarData data = new BarData(set1, set2, set3, set4);
             data.setValueFormatter(new LargeValueFormatter());
             data.setValueTypeface(tfLight);
             harmonicsbarchart.setData(data);
@@ -756,22 +852,24 @@ public class HarmoView extends HarmoBaseView{
 
         // barData.getGroupWith(...) is a helper that calculates the width each group needs based on the provided parameters
         harmonicsbarchart.getXAxis().setAxisMaximum(startYear + harmonicsbarchart.getBarData().getGroupWidth(groupSpace, barSpace) * groupCount);
-        if(harmonicsbarchart.getData().getDataSetCount()>1)
+        if (harmonicsbarchart.getData().getDataSetCount() > 1)
             harmonicsbarchart.groupBars(startYear, groupSpace, barSpace);
-        setTopTitle(harmonicsbarchart.getData().getDataSetByIndex(0).getEntryForIndex(selectEntry).getY()+"",harmonicsbarchart.getData().getDataSetByIndex(1).getEntryForIndex(selectEntry).getY()+"",harmonicsbarchart.getData().getDataSetByIndex(2).getEntryForIndex(selectEntry).getY()+"",harmonicsbarchart.getData().getDataSetByIndex(3).getEntryForIndex(selectEntry).getY()+"");
+        setTopTitle(harmonicsbarchart.getData().getDataSetByIndex(0).getEntryForIndex(selectEntry).getY() + "", harmonicsbarchart.getData().getDataSetByIndex(1).getEntryForIndex(selectEntry).getY() + "", harmonicsbarchart.getData().getDataSetByIndex(2).getEntryForIndex(selectEntry).getY() + "", harmonicsbarchart.getData().getDataSetByIndex(3).getEntryForIndex(selectEntry).getY() + "");
 
         harmonicsbarchart.invalidate();
 
     }
 
-    private float valueTo100(float value){
-        return Integer.parseInt(new DecimalFormat("0").format(value*100));
+    private float valueTo100(float value) {
+        return Integer.parseInt(new DecimalFormat("0").format(value * 100));
     }
 
 
     private List<ModelLineData> lineData = new ArrayList<>();
     private int singleBarSize = 1;
-    private List<ModelLineData> chooseUserFullModeList(List<ModelLineData> lineDataList,int wir_index,int funTypeIndex,int wir_right_index){
+
+    private List<ModelLineData> chooseUserFullModeList(List<ModelLineData> lineDataList,
+                                                       int wir_index, int funTypeIndex, int wir_right_index) {
         try {
             lineData.clear();
             switch (wir_index) {
@@ -837,7 +935,6 @@ public class HarmoView extends HarmoBaseView{
         }
         return lineData;
     }
-
 
 
 }

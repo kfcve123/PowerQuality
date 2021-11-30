@@ -61,6 +61,7 @@ public class RightModeAdapter extends BaseAdapter {
     private boolean lostFocus;
     public void lostFocus(boolean lost) {
         this.lostFocus = lost;
+        notifyDataSetChanged();
     }
 
 

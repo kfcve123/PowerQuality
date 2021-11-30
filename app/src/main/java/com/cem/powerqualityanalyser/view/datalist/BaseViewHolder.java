@@ -67,13 +67,13 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
         return this;
     }
 
-    public BaseViewHolder setText(int viewId, SpannableStringBuilder spannableStringBuilder){
+    public BaseViewHolder setText(int viewId, SpannableStringBuilder spannableStringBuilder) {
         TextView tv = get(viewId);
         tv.setText(spannableStringBuilder);
         return this;
     }
 
-    public BaseViewHolder setText(int viewId, SpannableString spannableStringBuilder){
+    public BaseViewHolder setText(int viewId, SpannableString spannableStringBuilder) {
         TextView tv = get(viewId);
         tv.setText(spannableStringBuilder);
         return this;
@@ -88,7 +88,7 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
     public BaseViewHolder setTextColor(int viewId, int textColor) {
         TextView view = get(viewId);
         view.setTextColor(textColor);
-        ((StrokeTextView) view).isStroke(false,1,view.getContext().getResources().getColor(R.color.white_stroke));
+        ((StrokeTextView) view).isStroke(false, 1, view.getContext().getResources().getColor(R.color.white_stroke));
         return this;
     }
 
@@ -151,7 +151,7 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
         return this;
     }*/
 
-    public BaseViewHolder setVisible(int viewId, int visible,float weight) {
+    public BaseViewHolder setVisible(int viewId, int visible, float weight) {
         View view = get(viewId);
         view.setVisibility(visible);
         view.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, weight));

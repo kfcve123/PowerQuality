@@ -4,7 +4,10 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -15,6 +18,8 @@ import com.cem.powerqualityanalyser.R;
 import com.cem.powerqualityanalyser.tool.BleUtil;
 import com.cem.powerqualityanalyser.tool.log;
 import com.cem.powerqualityanalyser.userobject.BaseBottomAdapterObj;
+import com.cem.powerqualityanalyser.userobject.MeterKeyValue;
+import com.cem.powerqualityanalyser.view.RightModeView;
 
 
 import java.util.ArrayList;
@@ -25,7 +30,7 @@ import serialport.amos.cem.com.libamosserial.ModelLineData;
 
 //闪变
 public class FlickerActivity extends BaseActivity {
-//    private FlickerTrend Fragment_first;
+    //    private FlickerTrend Fragment_first;
     private FlickerMeter Fragment_Second;
     private FragmentTransaction fragmentTransaction;
     private FragmentManager fragmentManager;
@@ -51,20 +56,20 @@ public class FlickerActivity extends BaseActivity {
     @Override
     public byte[] getMode() {
 //        return new byte[]{(byte) 0xE6,0x00};
-        if(AppConfig.getInstance().getConfig_nominal() ==0)
-            cmd  = new byte[]{(byte) 0xE6,0x00};
-        else if(AppConfig.getInstance().getConfig_nominal() ==1)
-            cmd  = new byte[]{(byte) 0xE6,0x01};
+        if (AppConfig.getInstance().getConfig_nominal() == 0)
+            cmd = new byte[]{(byte) 0xE6, 0x00};
+        else if (AppConfig.getInstance().getConfig_nominal() == 1)
+            cmd = new byte[]{(byte) 0xE6, 0x01};
 //        serialHelper.sendData(cmd);
-        if(openLog)
-            Toast.makeText(this, BleUtil.dec_hex(cmd),Toast.LENGTH_LONG).show();
+        if (openLog)
+            Toast.makeText(this, BleUtil.dec_hex(cmd), Toast.LENGTH_LONG).show();
         return cmd;
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(serialHelper!=null){
+        if (serialHelper != null) {
             serialHelper.closeSerialPort();
             serialHelper = null;
         }
@@ -77,30 +82,31 @@ public class FlickerActivity extends BaseActivity {
 
     @Override
     protected List<BaseBottomAdapterObj> initBottomData() {
-        List<BaseBottomAdapterObj> data=new ArrayList<>();
+        List<BaseBottomAdapterObj> data = new ArrayList<>();
       /*  data.add(new BaseBottomAdapterObj(0,null));
         data.add(new BaseBottomAdapterObj(1,null,Res2String(R.string.Trend),Res2String(R.string.Meter)));
         data.add(new BaseBottomAdapterObj(2,Res2String(R.string.Trend)));
         data.add(new BaseBottomAdapterObj(3,null));
         data.add(new BaseBottomAdapterObj(4,null,Res2String(R.string.Hold),Res2String(R.string.run)));*/
-        data.add(new BaseBottomAdapterObj(0,null));
-        data.add(new BaseBottomAdapterObj(1,null));
-        data.add(new BaseBottomAdapterObj(2,null));
-        data.add(new BaseBottomAdapterObj(3,null));
- //       data.add(new BaseBottomAdapterObj(3,Res2String(R.string.Start)));
-        data.add(new BaseBottomAdapterObj(4,null,Res2String(R.string.Hold),Res2String(R.string.run)));
-        return  data;
+        data.add(new BaseBottomAdapterObj(0, null));
+        data.add(new BaseBottomAdapterObj(1, null));
+        data.add(new BaseBottomAdapterObj(2, null));
+        data.add(new BaseBottomAdapterObj(3, null));
+        //       data.add(new BaseBottomAdapterObj(3,Res2String(R.string.Start)));
+        data.add(new BaseBottomAdapterObj(4, null, Res2String(R.string.Hold), Res2String(R.string.run)));
+        return data;
     }
 
     @Override
     protected void PopupWindowItemClick(BaseBottomAdapterObj obj, int positio) {
 
     }
+
     private byte[] cmd;
 
     @Override
     protected void BottomViewClick(View view, BaseBottomAdapterObj obj) {
-        switch (obj.getId()){
+        switch (obj.getId()) {
             case 0:
 
                 break;
@@ -116,14 +122,14 @@ public class FlickerActivity extends BaseActivity {
         }
     }
 
-    private void setViewShow(int index){
-        if (index==1){
+    private void setViewShow(int index) {
+        if (index == 1) {
             if (null == Fragment_Second) {
                 Fragment_Second = new FlickerMeter();
 
             }
-            showFragment(Fragment_Second,Res2String(R.string.Meter));
-        }else {
+            showFragment(Fragment_Second, Res2String(R.string.Meter));
+        } else {
 //            if (null == Fragment_first) {
 //                Fragment_first = new FlickerTrend();
 //
@@ -131,7 +137,8 @@ public class FlickerActivity extends BaseActivity {
 //            showFragment(Fragment_first,Res2String(R.string.Trend));
         }
     }
-    private  void  showFragment(Fragment fragment, String tag){
+
+    private void showFragment(Fragment fragment, String tag) {
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.userView, fragment, tag);
         fragmentTransaction.commit();
@@ -145,7 +152,7 @@ public class FlickerActivity extends BaseActivity {
 
     @Override
     public void onDataReceivedModel(ModelAllData modelAllData) {
-        if(modelAllData!=null && modelAllData.getValueType() == ModelAllData.AllData_valueType.E6_Flicker) {
+        if (modelAllData != null && modelAllData.getValueType() == ModelAllData.AllData_valueType.E6_Flicker) {
             if (!isHold) {
                 List<ModelLineData> dataList = modelAllData.getModelLineData();
                 if (dataList != null) {
@@ -168,6 +175,60 @@ public class FlickerActivity extends BaseActivity {
 
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        View rootview = getWindow().getDecorView();
+        View currentView = rootview.findFocus();
+        //TAG为当前Activity名称
+        if (currentView != null)
+            log.e("当前焦点所在View：" + currentView.toString());
+        else
+            log.e("当前焦点所在View：" + currentView);
+
+        MeterKeyValue key = MeterKeyValue.valueOf(keyCode);
+        log.e("========" + key.toString());
+        switch (key) {
+            case Up:
+                //只针对左侧列表的上拉
+                if (Fragment_Second != null && Fragment_Second.isAdded()) {
+                    if (currentView != null && currentView.isFocusable() && currentView instanceof RecyclerView) {
+                        Fragment_Second.leftUpScroll();
+                    }
+                }
+                break;
+            case Down:
+                //只针对左侧列表的下拉
+                if (Fragment_Second != null && Fragment_Second.isAdded()) {
+                    if (currentView != null && currentView.isFocusable() && currentView instanceof RecyclerView) {
+                        Fragment_Second.leftDownScroll();
+                    }
+                }
+                break;
+            case Left:
+                if (Fragment_Second != null && Fragment_Second.isAdded()) {
+                    Fragment_Second.setFocusOnLeft();
+                }
+                break;
+            case Right:
+                if (Fragment_Second != null && Fragment_Second.isAdded()) {
+                    Fragment_Second.setFocusOnRight();
+                }
+                break;
+            case Menu:
+            case Back:
+                if (isStart) {
+                    isStartAlert(Res2String(R.string.voltsamps));
+                }
+                break;
+            case Power:
 
 
+                break;
+
+        }
+        if (currentView instanceof RightModeView) {
+            //          return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 }

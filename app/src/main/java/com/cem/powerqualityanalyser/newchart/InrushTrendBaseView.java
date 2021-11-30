@@ -3,6 +3,7 @@ package com.cem.powerqualityanalyser.newchart;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
@@ -725,14 +726,14 @@ public class InrushTrendBaseView extends MPChartBaseView implements OnChartValue
 
     public void zoomScale(float xScale, float yScale) {
         //缩放第一种方式  
-        /*Matrix matrix = new Matrix();
+        Matrix matrix = new Matrix();
         mChart.fitScreen();
         matrix.postScale(xScale, yScale);
-        mChart.getViewPortHandler().refresh(matrix, mChart, false);*/
-        for (int i = 0; i < charts.size(); i++) {
+        mChart.getViewPortHandler().refresh(matrix, mChart, false);
+        /*for (int i = 0; i < charts.size(); i++) {
             charts.get(i).fitScreen();
             charts.get(i).getViewPortHandler().getMatrixTouch().postScale(xScale, yScale);
-        }
+        }*/
     }
 
     public void showCursor(boolean enable) {

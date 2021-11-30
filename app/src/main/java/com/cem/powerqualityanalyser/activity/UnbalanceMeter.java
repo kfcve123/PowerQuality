@@ -1,5 +1,6 @@
 package com.cem.powerqualityanalyser.activity;
 
+import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -29,9 +30,9 @@ public class UnbalanceMeter extends BaseFragmentTrend {
 
 
     private MyTableListView stickyLayout;
-    private MeterGroupListObj groupListObj1,groupListObj2;
-    private TextView Group_list_middleText,Group_list_leftText,Group_list_rightText;
-    private ImageView Group_list_rightview;
+    private MeterGroupListObj groupListObj1, groupListObj2;
+    private TextView Group_list_middleText, Group_list_leftText, Group_list_rightText;
+    private ImageView Group_list_rightview, leftFocusIv;
     private RightModeView rightModeView;
     private List<RightListViewItemObj> strList;
     private int showItem = 3;
@@ -41,7 +42,6 @@ public class UnbalanceMeter extends BaseFragmentTrend {
     private TextView tv_hz;
     private String configV;
     private String configHz;
-
 
 
     @Override
@@ -54,19 +54,20 @@ public class UnbalanceMeter extends BaseFragmentTrend {
         Group_list_leftText = (TextView) findViewById(R.id.Group_list_leftText);
         Group_list_rightText = (TextView) findViewById(R.id.Group_list_rightText);
         Group_list_rightview = (ImageView) findViewById(R.id.Group_list_rightview);
-        strList =  new ArrayList();
+        strList = new ArrayList();
         rightModeView = (RightModeView) findViewById(R.id.modeview);
 
         tv_hz = (TextView) findViewById(R.id.tv_hz);
+        leftFocusIv = (ImageView) findViewById(R.id.icon_left_focus);
 
         stickyLayout = (MyTableListView) findViewById(R.id.sticky_layout);
-        groupListObj1=new MeterGroupListObj();
+        groupListObj1 = new MeterGroupListObj();
         groupListObj2 = new MeterGroupListObj();
         rightModeView.setUpDownClick(false);
         rightModeView.hideUpDownView();
-        String[] showItems=getString(R.string.set_wir_item).split(",");
+        String[] showItems = getString(R.string.set_wir_item).split(",");
         Group_list_rightText.setTextSize(18f);
-        Group_list_rightText.setText(configV + "  " + configHz + "  " +  showItems[wir_index]);
+        Group_list_rightText.setText(configV + "  " + configHz + "  " + showItems[wir_index]);
         Group_list_middleText.setText(R.string.allmeter_unbalance);
         Group_list_leftText.setText("");
         ModelLineData modelLineData = new ModelLineData();
@@ -94,11 +95,10 @@ public class UnbalanceMeter extends BaseFragmentTrend {
                 strList.add(new RightListViewItemObj("L3", -1));
                 strList.add(new RightListViewItemObj("N", -1));
 
-                addMeterData(getSpannableString("unbal(%)"), 0, groupListObj1,modelLineData, showItem,"");
-                addMeterData(getSpannableString("V fund"), 0, groupListObj2,modelLineData, showItem2,"");
-                addMeterData(getSpannableString("φV(°)"), 1,groupListObj2, modelLineData, showItem2,"");
-                addMeterData(getSpannableString("RMS(V≃)",3,7), 2,groupListObj2, modelLineData, showItem2,"");
-
+                addMeterData(getSpannableString("unbal(%)"), 0, groupListObj1, modelLineData, showItem, "");
+                addMeterData(getSpannableString("V fund"), 0, groupListObj2, modelLineData, showItem2, "");
+                addMeterData(getSpannableString("φV(°)"), 1, groupListObj2, modelLineData, showItem2, "");
+                addMeterData(getSpannableString("RMS(V≃)", 3, 7), 2, groupListObj2, modelLineData, showItem2, "");
 
 
                 break;
@@ -117,10 +117,10 @@ public class UnbalanceMeter extends BaseFragmentTrend {
                 strList.add(new RightListViewItemObj("L2", -1));
                 strList.add(new RightListViewItemObj("L3", -1));
                 strList.add(new RightListViewItemObj("N", -1));
-                addMeterData(getSpannableString("Vunbal(%)"), 0, groupListObj1,modelLineData, showItem,"");
-                addMeterData(getSpannableString("V fund"), 0, groupListObj2,modelLineData, showItem2,"");
-                addMeterData(getSpannableString("φV(°)"), 1,groupListObj2, modelLineData, showItem2,"");
-                addMeterData(getSpannableString("RMS(V≃)",3,7), 2,groupListObj2, modelLineData, showItem2,"");
+                addMeterData(getSpannableString("Vunbal(%)"), 0, groupListObj1, modelLineData, showItem, "");
+                addMeterData(getSpannableString("V fund"), 0, groupListObj2, modelLineData, showItem2, "");
+                addMeterData(getSpannableString("φV(°)"), 1, groupListObj2, modelLineData, showItem2, "");
+                addMeterData(getSpannableString("RMS(V≃)", 3, 7), 2, groupListObj2, modelLineData, showItem2, "");
                 break;
 
             case 1://3QOPEN LEG
@@ -142,10 +142,10 @@ public class UnbalanceMeter extends BaseFragmentTrend {
                 strList.add(new RightListViewItemObj("L2L3", -1));
                 strList.add(new RightListViewItemObj("L3L1", -1));
 
-                addMeterData(getSpannableString("unbal(%)"), 0, groupListObj1,modelLineData, showItem,"");
-                addMeterData(getSpannableString("V fund"), 0, groupListObj2,modelLineData, showItem2,"");
-                addMeterData(getSpannableString("ØV(°)"), 1,groupListObj2, modelLineData, showItem2,"");
-                addMeterData(getSpannableString("RMS(V≃)",3,7), 2,groupListObj2, modelLineData, showItem2,"");
+                addMeterData(getSpannableString("unbal(%)"), 0, groupListObj1, modelLineData, showItem, "");
+                addMeterData(getSpannableString("V fund"), 0, groupListObj2, modelLineData, showItem2, "");
+                addMeterData(getSpannableString("ØV(°)"), 1, groupListObj2, modelLineData, showItem2, "");
+                addMeterData(getSpannableString("RMS(V≃)", 3, 7), 2, groupListObj2, modelLineData, showItem2, "");
 
                 break;
             case 8://1Q IT NO NEUTRAL
@@ -159,9 +159,9 @@ public class UnbalanceMeter extends BaseFragmentTrend {
                 strList.add(new RightListViewItemObj("A", -1));
                 strList.add(new RightListViewItemObj("L1L2", -1));
 
-                addMeterData(getSpannableString("V fund"), 0, groupListObj1,modelLineData, showItem,"");
-                addMeterData(getSpannableString("ØV(°)"), 1,groupListObj1, modelLineData, showItem,"");
-                addMeterData(getSpannableString("RMS(V≃)",3,7), 2, groupListObj1,modelLineData, showItem,"");
+                addMeterData(getSpannableString("V fund"), 0, groupListObj1, modelLineData, showItem, "");
+                addMeterData(getSpannableString("ØV(°)"), 1, groupListObj1, modelLineData, showItem, "");
+                addMeterData(getSpannableString("RMS(V≃)", 3, 7), 2, groupListObj1, modelLineData, showItem, "");
 
                 break;
             case 7://1Q SPLIT PHASE
@@ -177,9 +177,9 @@ public class UnbalanceMeter extends BaseFragmentTrend {
                 strList.add(new RightListViewItemObj("L2", -1));
                 strList.add(new RightListViewItemObj("N", -1));
 
-                addMeterData(getSpannableString("V fund"), 0, groupListObj1,modelLineData, showItem,"");
-                addMeterData(getSpannableString("ØV(°)"), 1,groupListObj1, modelLineData, showItem,"");
-                addMeterData(getSpannableString("RMS(V≃)",3,7), 2, groupListObj1,modelLineData, showItem,"");
+                addMeterData(getSpannableString("V fund"), 0, groupListObj1, modelLineData, showItem, "");
+                addMeterData(getSpannableString("ØV(°)"), 1, groupListObj1, modelLineData, showItem, "");
+                addMeterData(getSpannableString("RMS(V≃)", 3, 7), 2, groupListObj1, modelLineData, showItem, "");
 
                 break;
             case 9://1Q +NEUTRAL
@@ -195,9 +195,9 @@ public class UnbalanceMeter extends BaseFragmentTrend {
                 strList.add(new RightListViewItemObj("L1", -1));
                 strList.add(new RightListViewItemObj("N", -1));
 
-                addMeterData(getSpannableString("V fund"), 0, groupListObj1,modelLineData, showItem,"");
-                addMeterData(getSpannableString("ØV(°)"), 1,groupListObj1, modelLineData, showItem,"");
-                addMeterData(getSpannableString("RMS(V≃)",3,7), 2, groupListObj1,modelLineData, showItem,"");
+                addMeterData(getSpannableString("V fund"), 0, groupListObj1, modelLineData, showItem, "");
+                addMeterData(getSpannableString("ØV(°)"), 1, groupListObj1, modelLineData, showItem, "");
+                addMeterData(getSpannableString("RMS(V≃)", 3, 7), 2, groupListObj1, modelLineData, showItem, "");
                 break;
         }
 
@@ -205,9 +205,9 @@ public class UnbalanceMeter extends BaseFragmentTrend {
         stickyLayout.post(new Runnable() {
             @Override
             public void run() {
-                if (stickyLayout.showItemsCount()<1) {
+                if (stickyLayout.showItemsCount() < 1) {
                     stickyLayout.addItem(groupListObj1);
-                    if(groupListObj2.getHeaderSize()>0){
+                    if (groupListObj2.getHeaderSize() > 0) {
                         stickyLayout.addItem(groupListObj2);
                     }
                 }
@@ -221,7 +221,8 @@ public class UnbalanceMeter extends BaseFragmentTrend {
                 wir_right_index = item;
                 changeRightIndex = true;
 //                onWirAndRightIndexCallBack.returnWirAndRight(wir_index,wir_right_index);
-                updateWirData(wir_index,wir_right_index);
+                updateWirData(wir_index, wir_right_index);
+                setFocusOnRight();
             }
         });
     }
@@ -235,12 +236,12 @@ public class UnbalanceMeter extends BaseFragmentTrend {
     @Override
     public void setShowMeterData(final ModelAllData list) {
         List<ModelLineData> modelLineData = list.getModelLineData();
-        if(modelLineData!=null) {
-            addSelectMeterData(wir_index,wir_right_index,list);
+        if (modelLineData != null) {
+            addSelectMeterData(wir_index, wir_right_index, list);
             stickyLayout.post(new Runnable() {
                 @Override
                 public void run() {
-                    if(list!=null) {
+                    if (list != null) {
                         if (list.getModelLineData().size() > 0) {
                             tv_hz.setText(list.getHzData() == null ? "----Hz" : list.getHzData() + "Hz");
                         }
@@ -275,73 +276,74 @@ public class UnbalanceMeter extends BaseFragmentTrend {
 
     /**
      * 实时值
+     *
      * @param wir_index
      * @param wir_right_index
-     * @param list  如何定义
+     * @param list            如何定义
      */
-    public void addSelectMeterData(int wir_index,int wir_right_index,ModelAllData list){
-        switch (wir_index){
+    public void addSelectMeterData(int wir_index, int wir_right_index, ModelAllData list) {
+        switch (wir_index) {
             case 0://3QWYE
             case 6://2½-ELEMENT
-                switch (wir_right_index){
+                switch (wir_right_index) {
                     case 0://3V
-                        addMeterData(getSpannableString("Vunbal(%)"), 0, groupListObj1,list.getModelLineData().get(0), showItem,"");
-                        addMeterData(getSpannableString("V fund"), 0, groupListObj2,list.getModelLineData().get(1), showItem2,"");
-                        addMeterData(getSpannableString("φV(°)"), 1,groupListObj2,list.getModelLineData().get(2), showItem2,"");
-                        if(list.getModelLineData().size()>7)
-                            addMeterData(getSpannableString("RMS(V≃)",3,7), 2,groupListObj2, list.getModelLineData().get(7), showItem2,"");
+                        addMeterData(getSpannableString("Vunbal(%)"), 0, groupListObj1, list.getModelLineData().get(0), showItem, "");
+                        addMeterData(getSpannableString("V fund"), 0, groupListObj2, list.getModelLineData().get(1), showItem2, "");
+                        addMeterData(getSpannableString("φV(°)"), 1, groupListObj2, list.getModelLineData().get(2), showItem2, "");
+                        if (list.getModelLineData().size() > 7)
+                            addMeterData(getSpannableString("RMS(V≃)", 3, 7), 2, groupListObj2, list.getModelLineData().get(7), showItem2, "");
 
                         break;
                     case 1://3A
-                        addMeterData(getSpannableString("Aunbal(%)"), 0, groupListObj1,list.getModelLineData().get(0), showItem,"");
-                        addMeterData(getSpannableString("A fund"), 0, groupListObj2,list.getModelLineData().get(3), showItem2,"");
-                        addMeterData(getSpannableString("φA(°)"), 1,groupListObj2, list.getModelLineData().get(4), showItem2,"");
-                        if(list.getModelLineData().size()>8)
-                            addMeterData(getSpannableString("RMS(A≃)",3,7), 2,groupListObj2, list.getModelLineData().get(8), showItem2,"");
+                        addMeterData(getSpannableString("Aunbal(%)"), 0, groupListObj1, list.getModelLineData().get(0), showItem, "");
+                        addMeterData(getSpannableString("A fund"), 0, groupListObj2, list.getModelLineData().get(3), showItem2, "");
+                        addMeterData(getSpannableString("φA(°)"), 1, groupListObj2, list.getModelLineData().get(4), showItem2, "");
+                        if (list.getModelLineData().size() > 8)
+                            addMeterData(getSpannableString("RMS(A≃)", 3, 7), 2, groupListObj2, list.getModelLineData().get(8), showItem2, "");
                         break;
                     case 2://L1
-                        addMeterData(getSpannableString("unbal(%)"), 0, groupListObj1,list.getModelLineData().get(0), showItem,"L1");
-                        addMeterData(getSpannableString("V fund"), 0, groupListObj2,list.getModelLineData().get(1), showItem2,"L1");
-                        addMeterData(getSpannableString("φV(°)"), 1,groupListObj2, list.getModelLineData().get(2), showItem2,"L1");
-                        addMeterData(getSpannableString("A fund"), 2, groupListObj2,list.getModelLineData().get(3), showItem2,"L1");
-                        addMeterData(getSpannableString("φA(°)"), 3,groupListObj2, list.getModelLineData().get(4), showItem2,"L1");
-                        if(list.getModelLineData().size()>7)
-                            addMeterData(getSpannableString("RMS(V≃)",3,7), 4,groupListObj2, list.getModelLineData().get(7), showItem2,"L1");
-                        if(list.getModelLineData().size()>8)
-                            addMeterData(getSpannableString("RMS(A≃)",3,7), 5,groupListObj2, list.getModelLineData().get(8), showItem2,"L1");
+                        addMeterData(getSpannableString("unbal(%)"), 0, groupListObj1, list.getModelLineData().get(0), showItem, "L1");
+                        addMeterData(getSpannableString("V fund"), 0, groupListObj2, list.getModelLineData().get(1), showItem2, "L1");
+                        addMeterData(getSpannableString("φV(°)"), 1, groupListObj2, list.getModelLineData().get(2), showItem2, "L1");
+                        addMeterData(getSpannableString("A fund"), 2, groupListObj2, list.getModelLineData().get(3), showItem2, "L1");
+                        addMeterData(getSpannableString("φA(°)"), 3, groupListObj2, list.getModelLineData().get(4), showItem2, "L1");
+                        if (list.getModelLineData().size() > 7)
+                            addMeterData(getSpannableString("RMS(V≃)", 3, 7), 4, groupListObj2, list.getModelLineData().get(7), showItem2, "L1");
+                        if (list.getModelLineData().size() > 8)
+                            addMeterData(getSpannableString("RMS(A≃)", 3, 7), 5, groupListObj2, list.getModelLineData().get(8), showItem2, "L1");
                         break;
                     case 3://L2
-                        addMeterData(getSpannableString("unbal(%)"), 0, groupListObj1,list.getModelLineData().get(0), showItem,"L2");
-                        addMeterData(getSpannableString("V fund"), 0, groupListObj2,list.getModelLineData().get(1), showItem2,"L2");
-                        addMeterData(getSpannableString("φV(°)"), 1,groupListObj2, list.getModelLineData().get(2), showItem2,"L2");
-                        addMeterData(getSpannableString("A fund"), 2, groupListObj2,list.getModelLineData().get(3), showItem2,"L2");
-                        addMeterData(getSpannableString("φA(°)"), 3,groupListObj2, list.getModelLineData().get(4), showItem2,"L2");
-                        if(list.getModelLineData().size()>7)
-                            addMeterData(getSpannableString("RMS(V≃)",3,7), 4,groupListObj2, list.getModelLineData().get(7), showItem2,"L2");
-                        if(list.getModelLineData().size()>8)
-                            addMeterData(getSpannableString("RMS(A≃)",3,7), 5,groupListObj2, list.getModelLineData().get(8), showItem2,"L2");
+                        addMeterData(getSpannableString("unbal(%)"), 0, groupListObj1, list.getModelLineData().get(0), showItem, "L2");
+                        addMeterData(getSpannableString("V fund"), 0, groupListObj2, list.getModelLineData().get(1), showItem2, "L2");
+                        addMeterData(getSpannableString("φV(°)"), 1, groupListObj2, list.getModelLineData().get(2), showItem2, "L2");
+                        addMeterData(getSpannableString("A fund"), 2, groupListObj2, list.getModelLineData().get(3), showItem2, "L2");
+                        addMeterData(getSpannableString("φA(°)"), 3, groupListObj2, list.getModelLineData().get(4), showItem2, "L2");
+                        if (list.getModelLineData().size() > 7)
+                            addMeterData(getSpannableString("RMS(V≃)", 3, 7), 4, groupListObj2, list.getModelLineData().get(7), showItem2, "L2");
+                        if (list.getModelLineData().size() > 8)
+                            addMeterData(getSpannableString("RMS(A≃)", 3, 7), 5, groupListObj2, list.getModelLineData().get(8), showItem2, "L2");
                         break;
                     case 4://L3
-                        addMeterData(getSpannableString("unbal(%)"), 0, groupListObj1,list.getModelLineData().get(0), showItem,"L3");
-                        addMeterData(getSpannableString("V fund"), 0, groupListObj2,list.getModelLineData().get(1), showItem2,"L3");
-                        addMeterData(getSpannableString("φV(°)"), 1,groupListObj2, list.getModelLineData().get(2), showItem2,"L3");
-                        addMeterData(getSpannableString("A fund"), 2, groupListObj2,list.getModelLineData().get(3), showItem2,"L3");
-                        addMeterData(getSpannableString("φA(°)"), 3,groupListObj2, list.getModelLineData().get(4), showItem2,"L3");
-                        if(list.getModelLineData().size()>7)
-                            addMeterData(getSpannableString("RMS(V≃)",3,7), 4,groupListObj2, list.getModelLineData().get(7), showItem2,"L3");
-                        if(list.getModelLineData().size()>8)
-                            addMeterData(getSpannableString("RMS(A≃)",3,7), 5,groupListObj2, list.getModelLineData().get(8), showItem2,"L3");
+                        addMeterData(getSpannableString("unbal(%)"), 0, groupListObj1, list.getModelLineData().get(0), showItem, "L3");
+                        addMeterData(getSpannableString("V fund"), 0, groupListObj2, list.getModelLineData().get(1), showItem2, "L3");
+                        addMeterData(getSpannableString("φV(°)"), 1, groupListObj2, list.getModelLineData().get(2), showItem2, "L3");
+                        addMeterData(getSpannableString("A fund"), 2, groupListObj2, list.getModelLineData().get(3), showItem2, "L3");
+                        addMeterData(getSpannableString("φA(°)"), 3, groupListObj2, list.getModelLineData().get(4), showItem2, "L3");
+                        if (list.getModelLineData().size() > 7)
+                            addMeterData(getSpannableString("RMS(V≃)", 3, 7), 4, groupListObj2, list.getModelLineData().get(7), showItem2, "L3");
+                        if (list.getModelLineData().size() > 8)
+                            addMeterData(getSpannableString("RMS(A≃)", 3, 7), 5, groupListObj2, list.getModelLineData().get(8), showItem2, "L3");
                         break;
                     case 5://N
-                        addMeterData(getSpannableString("unbal(%)"), 0, groupListObj1,list.getModelLineData().get(0), showItem,"N");
-                        addMeterData(getSpannableString("V fund"), 0, groupListObj2,list.getModelLineData().get(1), showItem2,"N");
-                        addMeterData(getSpannableString("φV(°)"), 1,groupListObj2, list.getModelLineData().get(2), showItem2,"N");
-                        addMeterData(getSpannableString("A fund"), 2, groupListObj2,list.getModelLineData().get(3), showItem2,"N");
-                        addMeterData(getSpannableString("φA(°)"), 3,groupListObj2, list.getModelLineData().get(4), showItem2,"N");
-                        if(list.getModelLineData().size()>7)
-                            addMeterData(getSpannableString("RMS(V≃)",3,7), 4,groupListObj2, list.getModelLineData().get(7), showItem2,"N");
-                        if(list.getModelLineData().size()>8)
-                            addMeterData(getSpannableString("RMS(A≃)",3,7), 5,groupListObj2, list.getModelLineData().get(8), showItem2,"N");
+                        addMeterData(getSpannableString("unbal(%)"), 0, groupListObj1, list.getModelLineData().get(0), showItem, "N");
+                        addMeterData(getSpannableString("V fund"), 0, groupListObj2, list.getModelLineData().get(1), showItem2, "N");
+                        addMeterData(getSpannableString("φV(°)"), 1, groupListObj2, list.getModelLineData().get(2), showItem2, "N");
+                        addMeterData(getSpannableString("A fund"), 2, groupListObj2, list.getModelLineData().get(3), showItem2, "N");
+                        addMeterData(getSpannableString("φA(°)"), 3, groupListObj2, list.getModelLineData().get(4), showItem2, "N");
+                        if (list.getModelLineData().size() > 7)
+                            addMeterData(getSpannableString("RMS(V≃)", 3, 7), 4, groupListObj2, list.getModelLineData().get(7), showItem2, "N");
+                        if (list.getModelLineData().size() > 8)
+                            addMeterData(getSpannableString("RMS(A≃)", 3, 7), 5, groupListObj2, list.getModelLineData().get(8), showItem2, "N");
                         break;
 
                 }
@@ -350,29 +352,29 @@ public class UnbalanceMeter extends BaseFragmentTrend {
             case 1://3QOPEN LEG
             case 3://2-ELEMENT
             case 4://3QDELTA
-                switch (wir_right_index){
+                switch (wir_right_index) {
                     case 0://3U
-                        addMeterData(getSpannableString("Vunbal(%)"), 0, groupListObj1,list.getModelLineData().get(0), showItem,"");
-                        if(list.getModelLineData().size()>5)
-                            addMeterData(getSpannableString("V fund"), 0, groupListObj2,list.getModelLineData().get(5), showItem2,"");
+                        addMeterData(getSpannableString("Vunbal(%)"), 0, groupListObj1, list.getModelLineData().get(0), showItem, "");
+                        if (list.getModelLineData().size() > 5)
+                            addMeterData(getSpannableString("V fund"), 0, groupListObj2, list.getModelLineData().get(5), showItem2, "");
                         else
-                            addMeterData(getSpannableString("V fund"), 0, groupListObj2,list.getModelLineData().get(1), showItem2,"");
-                        if(list.getModelLineData().size()>6)
-                            addMeterData(getSpannableString("φV(°)"), 1,groupListObj2,list.getModelLineData().get(6), showItem2,"");
+                            addMeterData(getSpannableString("V fund"), 0, groupListObj2, list.getModelLineData().get(1), showItem2, "");
+                        if (list.getModelLineData().size() > 6)
+                            addMeterData(getSpannableString("φV(°)"), 1, groupListObj2, list.getModelLineData().get(6), showItem2, "");
                         else
-                            addMeterData(getSpannableString("φV(°)"), 1,groupListObj2,list.getModelLineData().get(2), showItem2,"");
-                        if(list.getModelLineData().size()>7)
-                            addMeterData(getSpannableString("RMS(V≃)",3,7), 2,groupListObj2, list.getModelLineData().get(7), showItem2,"");
+                            addMeterData(getSpannableString("φV(°)"), 1, groupListObj2, list.getModelLineData().get(2), showItem2, "");
+                        if (list.getModelLineData().size() > 7)
+                            addMeterData(getSpannableString("RMS(V≃)", 3, 7), 2, groupListObj2, list.getModelLineData().get(7), showItem2, "");
                         break;
                     case 1://3A
-                        addMeterData(getSpannableString("Aunbal(%)"), 0, groupListObj1,list.getModelLineData().get(0), showItem,"");
-                        addMeterData(getSpannableString("A fund"), 0, groupListObj2,list.getModelLineData().get(3), showItem2,"");
-                        addMeterData(getSpannableString("φA(°)"), 1,groupListObj2, list.getModelLineData().get(4), showItem2,"");
-                        if(list.getModelLineData().size()>8)
-                            addMeterData(getSpannableString("RMS(A≃)",3,7), 2,groupListObj2, list.getModelLineData().get(8), showItem2,"");
+                        addMeterData(getSpannableString("Aunbal(%)"), 0, groupListObj1, list.getModelLineData().get(0), showItem, "");
+                        addMeterData(getSpannableString("A fund"), 0, groupListObj2, list.getModelLineData().get(3), showItem2, "");
+                        addMeterData(getSpannableString("φA(°)"), 1, groupListObj2, list.getModelLineData().get(4), showItem2, "");
+                        if (list.getModelLineData().size() > 8)
+                            addMeterData(getSpannableString("RMS(A≃)", 3, 7), 2, groupListObj2, list.getModelLineData().get(8), showItem2, "");
                         break;
                     case 2://L1L2
-                        addMeterData(getSpannableString("unbal(%)"), 0, groupListObj1,list.getModelLineData().get(0), showItem,"L1");
+                        addMeterData(getSpannableString("unbal(%)"), 0, groupListObj1, list.getModelLineData().get(0), showItem, "L1");
                         if (list.getModelLineData().size() > 5)
                             addMeterData(getSpannableString("V fund"), 0, groupListObj2, list.getModelLineData().get(5), showItem2, "L1");
                         else
@@ -384,15 +386,15 @@ public class UnbalanceMeter extends BaseFragmentTrend {
                             addMeterData(getSpannableString("φV(°)"), 1, groupListObj2, list.getModelLineData().get(2), showItem2, "L1");
 
 
-                        addMeterData(getSpannableString("A fund"), 2, groupListObj2,list.getModelLineData().get(3), showItem2,"L1");
-                        addMeterData(getSpannableString("φA(°)"), 3,groupListObj2, list.getModelLineData().get(4), showItem2,"L1");
-                        if(list.getModelLineData().size()>7)
-                        addMeterData(getSpannableString("RMS(V≃)",3,7), 4,groupListObj2, list.getModelLineData().get(7), showItem2,"L1");
-                        if(list.getModelLineData().size()>8)
-                        addMeterData(getSpannableString("RMS(A≃)",3,7), 5,groupListObj2, list.getModelLineData().get(8), showItem2,"L1");
+                        addMeterData(getSpannableString("A fund"), 2, groupListObj2, list.getModelLineData().get(3), showItem2, "L1");
+                        addMeterData(getSpannableString("φA(°)"), 3, groupListObj2, list.getModelLineData().get(4), showItem2, "L1");
+                        if (list.getModelLineData().size() > 7)
+                            addMeterData(getSpannableString("RMS(V≃)", 3, 7), 4, groupListObj2, list.getModelLineData().get(7), showItem2, "L1");
+                        if (list.getModelLineData().size() > 8)
+                            addMeterData(getSpannableString("RMS(A≃)", 3, 7), 5, groupListObj2, list.getModelLineData().get(8), showItem2, "L1");
                         break;
                     case 3://L2L3
-                        addMeterData(getSpannableString("unbal(%)"), 0, groupListObj1,list.getModelLineData().get(0), showItem,"L2");
+                        addMeterData(getSpannableString("unbal(%)"), 0, groupListObj1, list.getModelLineData().get(0), showItem, "L2");
                         if (list.getModelLineData().size() > 5)
                             addMeterData(getSpannableString("V fund"), 0, groupListObj2, list.getModelLineData().get(5), showItem2, "L2");
                         else
@@ -403,15 +405,15 @@ public class UnbalanceMeter extends BaseFragmentTrend {
                         else
                             addMeterData(getSpannableString("φV(°)"), 1, groupListObj2, list.getModelLineData().get(2), showItem2, "L2");
 
-                        addMeterData(getSpannableString("A fund"), 2, groupListObj2,list.getModelLineData().get(3), showItem2,"L2");
-                        addMeterData(getSpannableString("φA(°)"), 3,groupListObj2, list.getModelLineData().get(4), showItem2,"L2");
-                        if(list.getModelLineData().size()>7)
-                        addMeterData(getSpannableString("RMS(V≃)",3,7), 4,groupListObj2, list.getModelLineData().get(7), showItem2,"L2");
-                        if(list.getModelLineData().size()>8)
-                        addMeterData(getSpannableString("RMS(A≃)",3,7), 5,groupListObj2, list.getModelLineData().get(8), showItem2,"L2");
+                        addMeterData(getSpannableString("A fund"), 2, groupListObj2, list.getModelLineData().get(3), showItem2, "L2");
+                        addMeterData(getSpannableString("φA(°)"), 3, groupListObj2, list.getModelLineData().get(4), showItem2, "L2");
+                        if (list.getModelLineData().size() > 7)
+                            addMeterData(getSpannableString("RMS(V≃)", 3, 7), 4, groupListObj2, list.getModelLineData().get(7), showItem2, "L2");
+                        if (list.getModelLineData().size() > 8)
+                            addMeterData(getSpannableString("RMS(A≃)", 3, 7), 5, groupListObj2, list.getModelLineData().get(8), showItem2, "L2");
                         break;
                     case 4://L3L1
-                        addMeterData(getSpannableString("unbal(%)"), 0, groupListObj1,list.getModelLineData().get(0), showItem,"L3");
+                        addMeterData(getSpannableString("unbal(%)"), 0, groupListObj1, list.getModelLineData().get(0), showItem, "L3");
                         if (list.getModelLineData().size() > 5)
                             addMeterData(getSpannableString("V fund"), 0, groupListObj2, list.getModelLineData().get(5), showItem2, "L3");
                         else
@@ -421,70 +423,70 @@ public class UnbalanceMeter extends BaseFragmentTrend {
                             addMeterData(getSpannableString("φV(°)"), 1, groupListObj2, list.getModelLineData().get(6), showItem2, "L3");
                         else
                             addMeterData(getSpannableString("φV(°)"), 1, groupListObj2, list.getModelLineData().get(2), showItem2, "L3");
-                        addMeterData(getSpannableString("A fund"), 2, groupListObj2,list.getModelLineData().get(3), showItem2,"L3");
-                        addMeterData(getSpannableString("φA(°)"), 3,groupListObj2, list.getModelLineData().get(4), showItem2,"L3");
-                        if(list.getModelLineData().size()>7)
-                            addMeterData(getSpannableString("RMS(V≃)",3,7), 4,groupListObj2, list.getModelLineData().get(7), showItem2,"L3");
-                        if(list.getModelLineData().size()>8)
-                            addMeterData(getSpannableString("RMS(A≃)",3,7), 5,groupListObj2, list.getModelLineData().get(8), showItem2,"L3");
+                        addMeterData(getSpannableString("A fund"), 2, groupListObj2, list.getModelLineData().get(3), showItem2, "L3");
+                        addMeterData(getSpannableString("φA(°)"), 3, groupListObj2, list.getModelLineData().get(4), showItem2, "L3");
+                        if (list.getModelLineData().size() > 7)
+                            addMeterData(getSpannableString("RMS(V≃)", 3, 7), 4, groupListObj2, list.getModelLineData().get(7), showItem2, "L3");
+                        if (list.getModelLineData().size() > 8)
+                            addMeterData(getSpannableString("RMS(A≃)", 3, 7), 5, groupListObj2, list.getModelLineData().get(8), showItem2, "L3");
                         break;
                 }
                 break;
             case 5://3QHIGH LEG
-                switch (wir_right_index){
+                switch (wir_right_index) {
                     case 0://4V
-                        addMeterData(getSpannableString("Vunbal(%)"), 0, groupListObj1,list.getModelLineData().get(0), showItem,"");
-                        addMeterData(getSpannableString("V fund"), 0, groupListObj2,list.getModelLineData().get(1), showItem2,"");
-                        addMeterData(getSpannableString("φV(°)"), 1,groupListObj2,list.getModelLineData().get(2), showItem2,"");
-                        if(list.getModelLineData().size()>7)
-                            addMeterData(getSpannableString("RMS(V≃)",3,7), 2,groupListObj2, list.getModelLineData().get(7), showItem2,"");
+                        addMeterData(getSpannableString("Vunbal(%)"), 0, groupListObj1, list.getModelLineData().get(0), showItem, "");
+                        addMeterData(getSpannableString("V fund"), 0, groupListObj2, list.getModelLineData().get(1), showItem2, "");
+                        addMeterData(getSpannableString("φV(°)"), 1, groupListObj2, list.getModelLineData().get(2), showItem2, "");
+                        if (list.getModelLineData().size() > 7)
+                            addMeterData(getSpannableString("RMS(V≃)", 3, 7), 2, groupListObj2, list.getModelLineData().get(7), showItem2, "");
                         break;
                     case 1://4A
-                        addMeterData(getSpannableString("Aunbal(%)"), 0, groupListObj1,list.getModelLineData().get(0), showItem,"");
-                        addMeterData(getSpannableString("A fund"), 0, groupListObj2,list.getModelLineData().get(3), showItem2,"");
-                        addMeterData(getSpannableString("φA(°)"), 1,groupListObj2, list.getModelLineData().get(4), showItem2,"");
-                        if(list.getModelLineData().size()>8)
-                            addMeterData(getSpannableString("RMS(A≃)",3,7), 2,groupListObj2, list.getModelLineData().get(8), showItem2,"");
+                        addMeterData(getSpannableString("Aunbal(%)"), 0, groupListObj1, list.getModelLineData().get(0), showItem, "");
+                        addMeterData(getSpannableString("A fund"), 0, groupListObj2, list.getModelLineData().get(3), showItem2, "");
+                        addMeterData(getSpannableString("φA(°)"), 1, groupListObj2, list.getModelLineData().get(4), showItem2, "");
+                        if (list.getModelLineData().size() > 8)
+                            addMeterData(getSpannableString("RMS(A≃)", 3, 7), 2, groupListObj2, list.getModelLineData().get(8), showItem2, "");
                         break;
                     case 2://L1
-                        addMeterData(getSpannableString("A fund"), 0, groupListObj1,list.getModelLineData().get(1), showItem,"L1");
-                        addMeterData(getSpannableString("φA(°)"), 1,groupListObj1, list.getModelLineData().get(2), showItem,"L1");
-                        addMeterData(getSpannableString("A fund"), 2, groupListObj1,list.getModelLineData().get(3), showItem,"L1");
-                        addMeterData(getSpannableString("φA(°)"), 3,groupListObj1, list.getModelLineData().get(4), showItem,"L1");
-                        if(list.getModelLineData().size()>7)
-                            addMeterData(getSpannableString("RMS(V≃)",3,7), 4,groupListObj2, list.getModelLineData().get(7), showItem2,"L1");
-                        if(list.getModelLineData().size()>8)
-                            addMeterData(getSpannableString("RMS(A≃)",3,7), 5,groupListObj2, list.getModelLineData().get(8), showItem2,"L1");
+                        addMeterData(getSpannableString("A fund"), 0, groupListObj1, list.getModelLineData().get(1), showItem, "L1");
+                        addMeterData(getSpannableString("φA(°)"), 1, groupListObj1, list.getModelLineData().get(2), showItem, "L1");
+                        addMeterData(getSpannableString("A fund"), 2, groupListObj1, list.getModelLineData().get(3), showItem, "L1");
+                        addMeterData(getSpannableString("φA(°)"), 3, groupListObj1, list.getModelLineData().get(4), showItem, "L1");
+                        if (list.getModelLineData().size() > 7)
+                            addMeterData(getSpannableString("RMS(V≃)", 3, 7), 4, groupListObj2, list.getModelLineData().get(7), showItem2, "L1");
+                        if (list.getModelLineData().size() > 8)
+                            addMeterData(getSpannableString("RMS(A≃)", 3, 7), 5, groupListObj2, list.getModelLineData().get(8), showItem2, "L1");
                         break;
                     case 3://L2
-                        addMeterData(getSpannableString("A fund"), 0, groupListObj1,list.getModelLineData().get(1), showItem,"L2");
-                        addMeterData(getSpannableString("φA(°)"), 1,groupListObj1, list.getModelLineData().get(2), showItem,"L2");
-                        addMeterData(getSpannableString("A fund"), 2, groupListObj1,list.getModelLineData().get(3), showItem,"L2");
-                        addMeterData(getSpannableString("φA(°)"), 3,groupListObj1, list.getModelLineData().get(4), showItem,"L2");
-                        if(list.getModelLineData().size()>7)
-                            addMeterData(getSpannableString("RMS(V≃)",3,7), 4,groupListObj2, list.getModelLineData().get(7), showItem2,"L2");
-                        if(list.getModelLineData().size()>8)
-                            addMeterData(getSpannableString("RMS(A≃)",3,7), 5,groupListObj2, list.getModelLineData().get(8), showItem2,"L2");
+                        addMeterData(getSpannableString("A fund"), 0, groupListObj1, list.getModelLineData().get(1), showItem, "L2");
+                        addMeterData(getSpannableString("φA(°)"), 1, groupListObj1, list.getModelLineData().get(2), showItem, "L2");
+                        addMeterData(getSpannableString("A fund"), 2, groupListObj1, list.getModelLineData().get(3), showItem, "L2");
+                        addMeterData(getSpannableString("φA(°)"), 3, groupListObj1, list.getModelLineData().get(4), showItem, "L2");
+                        if (list.getModelLineData().size() > 7)
+                            addMeterData(getSpannableString("RMS(V≃)", 3, 7), 4, groupListObj2, list.getModelLineData().get(7), showItem2, "L2");
+                        if (list.getModelLineData().size() > 8)
+                            addMeterData(getSpannableString("RMS(A≃)", 3, 7), 5, groupListObj2, list.getModelLineData().get(8), showItem2, "L2");
                         break;
                     case 4://L3
-                        addMeterData(getSpannableString("A fund"), 0, groupListObj1,list.getModelLineData().get(1), showItem,"L3");
-                        addMeterData(getSpannableString("φA(°)"), 1,groupListObj1, list.getModelLineData().get(2), showItem,"L3");
-                        addMeterData(getSpannableString("A fund"), 2, groupListObj1,list.getModelLineData().get(3), showItem,"L3");
-                        addMeterData(getSpannableString("φA(°)"), 3,groupListObj1, list.getModelLineData().get(4), showItem,"L3");
-                        if(list.getModelLineData().size()>7)
-                            addMeterData(getSpannableString("RMS(V≃)",3,7), 4,groupListObj2, list.getModelLineData().get(7), showItem2,"L3");
-                        if(list.getModelLineData().size()>8)
-                            addMeterData(getSpannableString("RMS(A≃)",3,7), 5,groupListObj2, list.getModelLineData().get(8), showItem2,"L3");
+                        addMeterData(getSpannableString("A fund"), 0, groupListObj1, list.getModelLineData().get(1), showItem, "L3");
+                        addMeterData(getSpannableString("φA(°)"), 1, groupListObj1, list.getModelLineData().get(2), showItem, "L3");
+                        addMeterData(getSpannableString("A fund"), 2, groupListObj1, list.getModelLineData().get(3), showItem, "L3");
+                        addMeterData(getSpannableString("φA(°)"), 3, groupListObj1, list.getModelLineData().get(4), showItem, "L3");
+                        if (list.getModelLineData().size() > 7)
+                            addMeterData(getSpannableString("RMS(V≃)", 3, 7), 4, groupListObj2, list.getModelLineData().get(7), showItem2, "L3");
+                        if (list.getModelLineData().size() > 8)
+                            addMeterData(getSpannableString("RMS(A≃)", 3, 7), 5, groupListObj2, list.getModelLineData().get(8), showItem2, "L3");
                         break;
                     case 5://N
-                        addMeterData(getSpannableString("A fund"), 0, groupListObj1,list.getModelLineData().get(1), showItem,"N");
-                        addMeterData(getSpannableString("φA(°)"), 1,groupListObj1, list.getModelLineData().get(2), showItem,"N");
-                        addMeterData(getSpannableString("A fund"), 2, groupListObj1,list.getModelLineData().get(3), showItem,"N");
-                        addMeterData(getSpannableString("φA(°)"), 3,groupListObj1, list.getModelLineData().get(4), showItem,"N");
-                        if(list.getModelLineData().size()>7)
-                            addMeterData(getSpannableString("RMS(V≃)",3,7), 4,groupListObj2, list.getModelLineData().get(7), showItem2,"N");
-                        if(list.getModelLineData().size()>8)
-                            addMeterData(getSpannableString("RMS(A≃)",3,7), 5,groupListObj2, list.getModelLineData().get(8), showItem2,"N");
+                        addMeterData(getSpannableString("A fund"), 0, groupListObj1, list.getModelLineData().get(1), showItem, "N");
+                        addMeterData(getSpannableString("φA(°)"), 1, groupListObj1, list.getModelLineData().get(2), showItem, "N");
+                        addMeterData(getSpannableString("A fund"), 2, groupListObj1, list.getModelLineData().get(3), showItem, "N");
+                        addMeterData(getSpannableString("φA(°)"), 3, groupListObj1, list.getModelLineData().get(4), showItem, "N");
+                        if (list.getModelLineData().size() > 7)
+                            addMeterData(getSpannableString("RMS(V≃)", 3, 7), 4, groupListObj2, list.getModelLineData().get(7), showItem2, "N");
+                        if (list.getModelLineData().size() > 8)
+                            addMeterData(getSpannableString("RMS(A≃)", 3, 7), 5, groupListObj2, list.getModelLineData().get(8), showItem2, "N");
                         break;
 
                 }
@@ -492,75 +494,75 @@ public class UnbalanceMeter extends BaseFragmentTrend {
 
 
             case 8://1Q IT NO NEUTRAL
-                switch (wir_right_index){
+                switch (wir_right_index) {
                     case 0://U
-                        addMeterData(getSpannableString("V fund"), 0, groupListObj1,list.getModelLineData().get(1), showItem,"");
-                        addMeterData(getSpannableString("φV(°)"), 1,groupListObj1,list.getModelLineData().get(2), showItem,"");
-                        if(list.getModelLineData().size()>7)
-                        addMeterData(getSpannableString("RMS(V≃)",3,7), 2,groupListObj1, list.getModelLineData().get(7), showItem,"");
+                        addMeterData(getSpannableString("V fund"), 0, groupListObj1, list.getModelLineData().get(1), showItem, "");
+                        addMeterData(getSpannableString("φV(°)"), 1, groupListObj1, list.getModelLineData().get(2), showItem, "");
+                        if (list.getModelLineData().size() > 7)
+                            addMeterData(getSpannableString("RMS(V≃)", 3, 7), 2, groupListObj1, list.getModelLineData().get(7), showItem, "");
                         break;
                     case 1://A
-                        addMeterData(getSpannableString("A fund"), 0, groupListObj1,list.getModelLineData().get(3), showItem,"");
-                        addMeterData(getSpannableString("φA(°)"), 1,groupListObj1, list.getModelLineData().get(4), showItem,"");
-                        if(list.getModelLineData().size()>8)
-                        addMeterData(getSpannableString("RMS(A≃)",3,7), 2, groupListObj1,list.getModelLineData().get(8), showItem,"");
+                        addMeterData(getSpannableString("A fund"), 0, groupListObj1, list.getModelLineData().get(3), showItem, "");
+                        addMeterData(getSpannableString("φA(°)"), 1, groupListObj1, list.getModelLineData().get(4), showItem, "");
+                        if (list.getModelLineData().size() > 8)
+                            addMeterData(getSpannableString("RMS(A≃)", 3, 7), 2, groupListObj1, list.getModelLineData().get(8), showItem, "");
                         break;
                     case 2://L1L2
-                        addMeterData(getSpannableString("A fund"), 0, groupListObj1,list.getModelLineData().get(1), showItem,"L1");
-                        addMeterData(getSpannableString("φA(°)"), 1,groupListObj1, list.getModelLineData().get(2), showItem,"L1");
-                        addMeterData(getSpannableString("A fund"), 2, groupListObj1,list.getModelLineData().get(3), showItem,"L1");
-                        addMeterData(getSpannableString("φA(°)"), 3,groupListObj1, list.getModelLineData().get(4), showItem,"L1");
+                        addMeterData(getSpannableString("A fund"), 0, groupListObj1, list.getModelLineData().get(1), showItem, "L1");
+                        addMeterData(getSpannableString("φA(°)"), 1, groupListObj1, list.getModelLineData().get(2), showItem, "L1");
+                        addMeterData(getSpannableString("A fund"), 2, groupListObj1, list.getModelLineData().get(3), showItem, "L1");
+                        addMeterData(getSpannableString("φA(°)"), 3, groupListObj1, list.getModelLineData().get(4), showItem, "L1");
                         if (list.getModelLineData().size() > 7)
                             addMeterData(getSpannableString("RMS(V≃)", 3, 7), 4, groupListObj1, list.getModelLineData().get(7), showItem, "L1");
                         if (list.getModelLineData().size() > 8)
-                            addMeterData(getSpannableString("RMS(A≃)",3,7), 5, groupListObj1,list.getModelLineData().get(8), showItem,"L1");
+                            addMeterData(getSpannableString("RMS(A≃)", 3, 7), 5, groupListObj1, list.getModelLineData().get(8), showItem, "L1");
                         break;
                 }
                 break;
 
             case 7://1Q SPLIT PHASE
-                switch (wir_right_index){
+                switch (wir_right_index) {
                     case 0://3V
-                        addMeterData(getSpannableString("V fund"), 0, groupListObj1,list.getModelLineData().get(1), showItem,"");
-                        addMeterData(getSpannableString("φV(°)"), 1,groupListObj1,list.getModelLineData().get(2), showItem,"");
+                        addMeterData(getSpannableString("V fund"), 0, groupListObj1, list.getModelLineData().get(1), showItem, "");
+                        addMeterData(getSpannableString("φV(°)"), 1, groupListObj1, list.getModelLineData().get(2), showItem, "");
                         if (list.getModelLineData().size() > 7)
-                            addMeterData(getSpannableString("RMS(V≃)",3,7), 2,groupListObj1, list.getModelLineData().get(7), showItem,"");
+                            addMeterData(getSpannableString("RMS(V≃)", 3, 7), 2, groupListObj1, list.getModelLineData().get(7), showItem, "");
                         break;
                     case 1://3A
-                        addMeterData(getSpannableString("A fund"), 0, groupListObj1,list.getModelLineData().get(3), showItem,"");
-                        addMeterData(getSpannableString("φA(°)"), 1,groupListObj1, list.getModelLineData().get(4), showItem,"");
+                        addMeterData(getSpannableString("A fund"), 0, groupListObj1, list.getModelLineData().get(3), showItem, "");
+                        addMeterData(getSpannableString("φA(°)"), 1, groupListObj1, list.getModelLineData().get(4), showItem, "");
                         if (list.getModelLineData().size() > 8)
-                            addMeterData(getSpannableString("RMS(A≃)",3,7), 2, groupListObj1,list.getModelLineData().get(8), showItem,"");
+                            addMeterData(getSpannableString("RMS(A≃)", 3, 7), 2, groupListObj1, list.getModelLineData().get(8), showItem, "");
                         break;
                     case 2://L1
-                        addMeterData(getSpannableString("A fund"), 0, groupListObj1,list.getModelLineData().get(1), showItem,"L1");
-                        addMeterData(getSpannableString("φA(°)"), 1,groupListObj1, list.getModelLineData().get(2), showItem,"L1");
-                        addMeterData(getSpannableString("A fund"), 2, groupListObj1,list.getModelLineData().get(3), showItem,"L1");
-                        addMeterData(getSpannableString("φA(°)"), 3,groupListObj1, list.getModelLineData().get(4), showItem,"L1");
+                        addMeterData(getSpannableString("A fund"), 0, groupListObj1, list.getModelLineData().get(1), showItem, "L1");
+                        addMeterData(getSpannableString("φA(°)"), 1, groupListObj1, list.getModelLineData().get(2), showItem, "L1");
+                        addMeterData(getSpannableString("A fund"), 2, groupListObj1, list.getModelLineData().get(3), showItem, "L1");
+                        addMeterData(getSpannableString("φA(°)"), 3, groupListObj1, list.getModelLineData().get(4), showItem, "L1");
                         if (list.getModelLineData().size() > 7)
-                            addMeterData(getSpannableString("RMS(V≃)",3,7), 4,groupListObj1, list.getModelLineData().get(7), showItem,"L1");
+                            addMeterData(getSpannableString("RMS(V≃)", 3, 7), 4, groupListObj1, list.getModelLineData().get(7), showItem, "L1");
                         if (list.getModelLineData().size() > 8)
-                            addMeterData(getSpannableString("RMS(A≃)",3,7), 5, groupListObj1,list.getModelLineData().get(8), showItem,"L1");
+                            addMeterData(getSpannableString("RMS(A≃)", 3, 7), 5, groupListObj1, list.getModelLineData().get(8), showItem, "L1");
                         break;
                     case 3://L2
-                        addMeterData(getSpannableString("A fund"), 0, groupListObj1,list.getModelLineData().get(1), showItem,"L2");
-                        addMeterData(getSpannableString("φA(°)"), 1,groupListObj1, list.getModelLineData().get(2), showItem,"L2");
-                        addMeterData(getSpannableString("A fund"), 2, groupListObj1,list.getModelLineData().get(3), showItem,"L2");
-                        addMeterData(getSpannableString("φA(°)"), 3,groupListObj1, list.getModelLineData().get(4), showItem,"L2");
+                        addMeterData(getSpannableString("A fund"), 0, groupListObj1, list.getModelLineData().get(1), showItem, "L2");
+                        addMeterData(getSpannableString("φA(°)"), 1, groupListObj1, list.getModelLineData().get(2), showItem, "L2");
+                        addMeterData(getSpannableString("A fund"), 2, groupListObj1, list.getModelLineData().get(3), showItem, "L2");
+                        addMeterData(getSpannableString("φA(°)"), 3, groupListObj1, list.getModelLineData().get(4), showItem, "L2");
                         if (list.getModelLineData().size() > 7)
-                            addMeterData(getSpannableString("RMS(V≃)",3,7), 4,groupListObj1, list.getModelLineData().get(7), showItem,"L2");
+                            addMeterData(getSpannableString("RMS(V≃)", 3, 7), 4, groupListObj1, list.getModelLineData().get(7), showItem, "L2");
                         if (list.getModelLineData().size() > 8)
-                            addMeterData(getSpannableString("RMS(A≃)",3,7), 5, groupListObj1,list.getModelLineData().get(8), showItem,"L2");
+                            addMeterData(getSpannableString("RMS(A≃)", 3, 7), 5, groupListObj1, list.getModelLineData().get(8), showItem, "L2");
                         break;
                     case 4://N
-                        addMeterData(getSpannableString("A fund"), 0, groupListObj1,list.getModelLineData().get(1), showItem,"N");
-                        addMeterData(getSpannableString("φA(°)"), 1,groupListObj1, list.getModelLineData().get(2), showItem,"N");
-                        addMeterData(getSpannableString("A fund"), 2, groupListObj1,list.getModelLineData().get(3), showItem,"N");
-                        addMeterData(getSpannableString("φA(°)"), 3,groupListObj1, list.getModelLineData().get(4), showItem,"N");
+                        addMeterData(getSpannableString("A fund"), 0, groupListObj1, list.getModelLineData().get(1), showItem, "N");
+                        addMeterData(getSpannableString("φA(°)"), 1, groupListObj1, list.getModelLineData().get(2), showItem, "N");
+                        addMeterData(getSpannableString("A fund"), 2, groupListObj1, list.getModelLineData().get(3), showItem, "N");
+                        addMeterData(getSpannableString("φA(°)"), 3, groupListObj1, list.getModelLineData().get(4), showItem, "N");
                         if (list.getModelLineData().size() > 7)
-                            addMeterData(getSpannableString("RMS(V≃)",3,7), 4,groupListObj1, list.getModelLineData().get(7), showItem,"N");
+                            addMeterData(getSpannableString("RMS(V≃)", 3, 7), 4, groupListObj1, list.getModelLineData().get(7), showItem, "N");
                         if (list.getModelLineData().size() > 8)
-                            addMeterData(getSpannableString("RMS(A≃)",3,7), 5, groupListObj1,list.getModelLineData().get(8), showItem,"N");
+                            addMeterData(getSpannableString("RMS(A≃)", 3, 7), 5, groupListObj1, list.getModelLineData().get(8), showItem, "N");
                         break;
                 }
 
@@ -608,10 +610,11 @@ public class UnbalanceMeter extends BaseFragmentTrend {
 
     /**
      * 防止点击切换右边模式时 数据未传送过来显示空白的处理
+     *
      * @param wir_index
      * @param wir_right_index
      */
-    private void updateWirData(int wir_index, int wir_right_index){
+    private void updateWirData(int wir_index, int wir_right_index) {
         ModelLineData modelLineData = new ModelLineData();
         ModelBaseData modelBaseData = new ModelBaseData("---");
         modelLineData.setaValue(modelBaseData);
@@ -623,7 +626,7 @@ public class UnbalanceMeter extends BaseFragmentTrend {
             case 6:// 2½-ELEMENT
                 switch (wir_right_index) {//切换右边选项
                     case 0://4V
-                        refeshHeadColor(5,"3L");
+                        refeshHeadColor(5, "3L");
                         showItem = 3;
                         groupListObj1.Clear();
                         stickyLayout.setShowDividerCount(2);
@@ -632,14 +635,14 @@ public class UnbalanceMeter extends BaseFragmentTrend {
                         showItem2 = 5;
                         groupListObj2.addHeader(getResources().getStringArray(R.array.l1l2l3n_array));
 
-                        addMeterData(getSpannableString("Vunbal(%)"), 0, groupListObj1,modelLineData, showItem,"");
-                        addMeterData(getSpannableString("V fund"), 0, groupListObj2,modelLineData, showItem2,"");
-                        addMeterData(getSpannableString("φV(°)"), 1,groupListObj2, modelLineData, showItem2,"");
-                        addMeterData(getSpannableString("RMS(V≃)",3,7), 2,groupListObj2, modelLineData, showItem2,"");
+                        addMeterData(getSpannableString("Vunbal(%)"), 0, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("V fund"), 0, groupListObj2, modelLineData, showItem2, "");
+                        addMeterData(getSpannableString("φV(°)"), 1, groupListObj2, modelLineData, showItem2, "");
+                        addMeterData(getSpannableString("RMS(V≃)", 3, 7), 2, groupListObj2, modelLineData, showItem2, "");
 
                         break;
                     case 1://3A
-                        refeshHeadColor(5,"3L");
+                        refeshHeadColor(5, "3L");
                         showItem = 3;
                         groupListObj1.Clear();
                         stickyLayout.setShowDividerCount(2);
@@ -648,14 +651,14 @@ public class UnbalanceMeter extends BaseFragmentTrend {
                         showItem2 = 5;
                         groupListObj2.addHeader(getResources().getStringArray(R.array.l1l2l3n_array));
 
-                        addMeterData(getSpannableString("Aunbal(%)"), 0, groupListObj1,modelLineData, showItem,"");
-                        addMeterData(getSpannableString("A fund"), 0, groupListObj2,modelLineData, showItem2,"");
-                        addMeterData(getSpannableString("φA(°)"), 1,groupListObj2, modelLineData, showItem2,"");
-                        addMeterData(getSpannableString("RMS(A≃)",3,7), 2,groupListObj2, modelLineData, showItem2,"");
+                        addMeterData(getSpannableString("Aunbal(%)"), 0, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("A fund"), 0, groupListObj2, modelLineData, showItem2, "");
+                        addMeterData(getSpannableString("φA(°)"), 1, groupListObj2, modelLineData, showItem2, "");
+                        addMeterData(getSpannableString("RMS(A≃)", 3, 7), 2, groupListObj2, modelLineData, showItem2, "");
                         break;
 
                     case 2://L1
-                        refeshHeadColor(5,"L1");
+                        refeshHeadColor(5, "L1");
                         showItem = 5;
                         groupListObj1.Clear();
                         stickyLayout.setShowDividerCount(4);
@@ -664,16 +667,16 @@ public class UnbalanceMeter extends BaseFragmentTrend {
                         showItem2 = 2;
                         groupListObj2.addHeader(getResources().getStringArray(R.array.l1_array));
 
-                        addMeterData(getSpannableString("unbal(%)"), 0, groupListObj1,modelLineData, showItem,"");
-                        addMeterData(getSpannableString("V fund"), 0, groupListObj2,modelLineData, showItem2,"L1");
-                        addMeterData(getSpannableString("φV(°)"), 1,groupListObj2, modelLineData, showItem2,"L1");
-                        addMeterData(getSpannableString("A fund"), 2, groupListObj2,modelLineData, showItem2,"L1");
-                        addMeterData(getSpannableString("φA(°)"), 3,groupListObj2, modelLineData, showItem2,"L1");
-                        addMeterData(getSpannableString("RMS(V≃)",3,7), 4,groupListObj2, modelLineData, showItem2,"L1");
-                        addMeterData(getSpannableString("RMS(A≃)",3,7), 5,groupListObj2, modelLineData, showItem2,"L1");
+                        addMeterData(getSpannableString("unbal(%)"), 0, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("V fund"), 0, groupListObj2, modelLineData, showItem2, "L1");
+                        addMeterData(getSpannableString("φV(°)"), 1, groupListObj2, modelLineData, showItem2, "L1");
+                        addMeterData(getSpannableString("A fund"), 2, groupListObj2, modelLineData, showItem2, "L1");
+                        addMeterData(getSpannableString("φA(°)"), 3, groupListObj2, modelLineData, showItem2, "L1");
+                        addMeterData(getSpannableString("RMS(V≃)", 3, 7), 4, groupListObj2, modelLineData, showItem2, "L1");
+                        addMeterData(getSpannableString("RMS(A≃)", 3, 7), 5, groupListObj2, modelLineData, showItem2, "L1");
                         break;
                     case 3://L2
-                        refeshHeadColor(5,"L2");
+                        refeshHeadColor(5, "L2");
                         showItem = 5;
                         groupListObj1.Clear();
                         stickyLayout.setShowDividerCount(4);
@@ -682,16 +685,16 @@ public class UnbalanceMeter extends BaseFragmentTrend {
                         showItem2 = 2;
                         groupListObj2.addHeader(getResources().getStringArray(R.array.l2_array));
 
-                        addMeterData(getSpannableString("unbal(%)"), 0, groupListObj1,modelLineData, showItem,"");
-                        addMeterData(getSpannableString("V fund"), 0, groupListObj2,modelLineData, showItem2,"L2");
-                        addMeterData(getSpannableString("φV(°)"), 1,groupListObj2, modelLineData, showItem2,"L2");
-                        addMeterData(getSpannableString("A fund"), 2, groupListObj2,modelLineData, showItem2,"L2");
-                        addMeterData(getSpannableString("φA(°)"), 3,groupListObj2, modelLineData, showItem2,"L2");
-                        addMeterData(getSpannableString("RMS(V≃)",3,7), 4,groupListObj2, modelLineData, showItem2,"L2");
-                        addMeterData(getSpannableString("RMS(A≃)",3,7), 5,groupListObj2, modelLineData, showItem2,"L2");
+                        addMeterData(getSpannableString("unbal(%)"), 0, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("V fund"), 0, groupListObj2, modelLineData, showItem2, "L2");
+                        addMeterData(getSpannableString("φV(°)"), 1, groupListObj2, modelLineData, showItem2, "L2");
+                        addMeterData(getSpannableString("A fund"), 2, groupListObj2, modelLineData, showItem2, "L2");
+                        addMeterData(getSpannableString("φA(°)"), 3, groupListObj2, modelLineData, showItem2, "L2");
+                        addMeterData(getSpannableString("RMS(V≃)", 3, 7), 4, groupListObj2, modelLineData, showItem2, "L2");
+                        addMeterData(getSpannableString("RMS(A≃)", 3, 7), 5, groupListObj2, modelLineData, showItem2, "L2");
                         break;
                     case 4://L3
-                        refeshHeadColor(5,"L3");
+                        refeshHeadColor(5, "L3");
                         showItem = 5;
                         groupListObj1.Clear();
                         stickyLayout.setShowDividerCount(4);
@@ -699,16 +702,16 @@ public class UnbalanceMeter extends BaseFragmentTrend {
                         groupListObj2.Clear();
                         showItem2 = 2;
                         groupListObj2.addHeader(getResources().getStringArray(R.array.l3_array));
-                        addMeterData(getSpannableString("unbal(%)"), 0, groupListObj1,modelLineData, showItem,"");
-                        addMeterData(getSpannableString("V fund"), 0, groupListObj2,modelLineData, showItem2,"L3");
-                        addMeterData(getSpannableString("φV(°)"), 1,groupListObj2, modelLineData, showItem2,"L3");
-                        addMeterData(getSpannableString("A fund"), 2, groupListObj2,modelLineData, showItem2,"L3");
-                        addMeterData(getSpannableString("φA(°)"), 3,groupListObj2, modelLineData, showItem2,"L3");
-                        addMeterData(getSpannableString("RMS(V≃)",3,7), 4,groupListObj2, modelLineData, showItem2,"L3");
-                        addMeterData(getSpannableString("RMS(A≃)",3,7), 5,groupListObj2, modelLineData, showItem2,"L3");
+                        addMeterData(getSpannableString("unbal(%)"), 0, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("V fund"), 0, groupListObj2, modelLineData, showItem2, "L3");
+                        addMeterData(getSpannableString("φV(°)"), 1, groupListObj2, modelLineData, showItem2, "L3");
+                        addMeterData(getSpannableString("A fund"), 2, groupListObj2, modelLineData, showItem2, "L3");
+                        addMeterData(getSpannableString("φA(°)"), 3, groupListObj2, modelLineData, showItem2, "L3");
+                        addMeterData(getSpannableString("RMS(V≃)", 3, 7), 4, groupListObj2, modelLineData, showItem2, "L3");
+                        addMeterData(getSpannableString("RMS(A≃)", 3, 7), 5, groupListObj2, modelLineData, showItem2, "L3");
                         break;
                     case 5://N
-                        refeshHeadColor(5,"N");
+                        refeshHeadColor(5, "N");
                         showItem = 5;
                         groupListObj1.Clear();
                         stickyLayout.setShowDividerCount(4);
@@ -716,13 +719,13 @@ public class UnbalanceMeter extends BaseFragmentTrend {
                         groupListObj2.Clear();
                         showItem2 = 2;
                         groupListObj2.addHeader(getResources().getStringArray(R.array.n_array));
-                        addMeterData(getSpannableString("unbal(%)"), 0, groupListObj1,modelLineData, showItem,"");
-                        addMeterData(getSpannableString("V fund"), 0, groupListObj2,modelLineData, showItem2,"N");
-                        addMeterData(getSpannableString("φV(°)"), 1,groupListObj2, modelLineData, showItem2,"N");
-                        addMeterData(getSpannableString("A fund"), 2, groupListObj2,modelLineData, showItem2,"N");
-                        addMeterData(getSpannableString("φA(°)"), 3,groupListObj2, modelLineData, showItem2,"N");
-                        addMeterData(getSpannableString("RMS(V≃)",3,7), 4,groupListObj2, modelLineData, showItem2,"N");
-                        addMeterData(getSpannableString("RMS(A≃)",3,7), 5,groupListObj2, modelLineData, showItem2,"N");
+                        addMeterData(getSpannableString("unbal(%)"), 0, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("V fund"), 0, groupListObj2, modelLineData, showItem2, "N");
+                        addMeterData(getSpannableString("φV(°)"), 1, groupListObj2, modelLineData, showItem2, "N");
+                        addMeterData(getSpannableString("A fund"), 2, groupListObj2, modelLineData, showItem2, "N");
+                        addMeterData(getSpannableString("φA(°)"), 3, groupListObj2, modelLineData, showItem2, "N");
+                        addMeterData(getSpannableString("RMS(V≃)", 3, 7), 4, groupListObj2, modelLineData, showItem2, "N");
+                        addMeterData(getSpannableString("RMS(A≃)", 3, 7), 5, groupListObj2, modelLineData, showItem2, "N");
 
 
                         break;
@@ -731,7 +734,7 @@ public class UnbalanceMeter extends BaseFragmentTrend {
             case 5://3QHIGH LEG
                 switch (wir_right_index) {//切换右边选项
                     case 0://4V
-                        refeshHeadColor(5,"3L");
+                        refeshHeadColor(5, "3L");
                         showItem = 3;
                         groupListObj1.Clear();
                         stickyLayout.setShowDividerCount(2);
@@ -740,13 +743,13 @@ public class UnbalanceMeter extends BaseFragmentTrend {
                         showItem2 = 5;
                         groupListObj2.addHeader(getResources().getStringArray(R.array.l1l2l3n_array));
 
-                        addMeterData(getSpannableString("Vunbal(%)"), 0, groupListObj1,modelLineData, showItem,"");
-                        addMeterData(getSpannableString("V fund"), 0, groupListObj2,modelLineData, showItem2,"");
-                        addMeterData(getSpannableString("φV(°)"), 1,groupListObj2, modelLineData, showItem2,"");
-                        addMeterData(getSpannableString("RMS(V≃)",3,7), 2,groupListObj2, modelLineData, showItem2,"");
+                        addMeterData(getSpannableString("Vunbal(%)"), 0, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("V fund"), 0, groupListObj2, modelLineData, showItem2, "");
+                        addMeterData(getSpannableString("φV(°)"), 1, groupListObj2, modelLineData, showItem2, "");
+                        addMeterData(getSpannableString("RMS(V≃)", 3, 7), 2, groupListObj2, modelLineData, showItem2, "");
                         break;
                     case 1://4A
-                        refeshHeadColor(5,"3L");
+                        refeshHeadColor(5, "3L");
                         showItem = 3;
                         groupListObj1.Clear();
                         stickyLayout.setShowDividerCount(2);
@@ -755,71 +758,71 @@ public class UnbalanceMeter extends BaseFragmentTrend {
                         showItem2 = 5;
                         groupListObj2.addHeader(getResources().getStringArray(R.array.l1l2l3n_array));
 
-                        addMeterData(getSpannableString("Aunbal(%)"), 0, groupListObj1,modelLineData, showItem,"");
-                        addMeterData(getSpannableString("A fund"), 0, groupListObj2,modelLineData, showItem2,"");
-                        addMeterData(getSpannableString("φA(°)"), 1,groupListObj2, modelLineData, showItem2,"");
-                        addMeterData(getSpannableString("RMS(A≃)",3,7), 2,groupListObj2, modelLineData, showItem2,"");
+                        addMeterData(getSpannableString("Aunbal(%)"), 0, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("A fund"), 0, groupListObj2, modelLineData, showItem2, "");
+                        addMeterData(getSpannableString("φA(°)"), 1, groupListObj2, modelLineData, showItem2, "");
+                        addMeterData(getSpannableString("RMS(A≃)", 3, 7), 2, groupListObj2, modelLineData, showItem2, "");
                         break;
 
                     case 2://L1
-                        refeshHeadColor(5,"L1");
+                        refeshHeadColor(5, "L1");
                         showItem = 2;
                         groupListObj1.Clear();
                         stickyLayout.setShowDividerCount(1);
                         groupListObj1.addHeader(getResources().getStringArray(R.array.l1_array));
                         groupListObj2.Clear();
 
-                        addMeterData(getSpannableString("V fund"), 0, groupListObj1,modelLineData, showItem,"L1");
-                        addMeterData(getSpannableString("φV(°)"), 1,groupListObj1, modelLineData, showItem,"L1");
-                        addMeterData(getSpannableString("A fund"), 2, groupListObj1,modelLineData, showItem,"L1");
-                        addMeterData(getSpannableString("φA(°)"), 3,groupListObj1, modelLineData, showItem,"L1");
-                        addMeterData(getSpannableString("RMS(V≃)",3,7), 4,groupListObj1, modelLineData, showItem,"L1");
-                        addMeterData(getSpannableString("RMS(V≃)",3,7), 5,groupListObj1, modelLineData, showItem,"L1");
+                        addMeterData(getSpannableString("V fund"), 0, groupListObj1, modelLineData, showItem, "L1");
+                        addMeterData(getSpannableString("φV(°)"), 1, groupListObj1, modelLineData, showItem, "L1");
+                        addMeterData(getSpannableString("A fund"), 2, groupListObj1, modelLineData, showItem, "L1");
+                        addMeterData(getSpannableString("φA(°)"), 3, groupListObj1, modelLineData, showItem, "L1");
+                        addMeterData(getSpannableString("RMS(V≃)", 3, 7), 4, groupListObj1, modelLineData, showItem, "L1");
+                        addMeterData(getSpannableString("RMS(V≃)", 3, 7), 5, groupListObj1, modelLineData, showItem, "L1");
                         break;
                     case 3://L2
-                        refeshHeadColor(5,"L2");
+                        refeshHeadColor(5, "L2");
                         showItem = 2;
                         groupListObj1.Clear();
                         stickyLayout.setShowDividerCount(1);
                         groupListObj1.addHeader(getResources().getStringArray(R.array.l2_array));
                         groupListObj2.Clear();
 
-                        addMeterData(getSpannableString("V fund"), 0, groupListObj1,modelLineData, showItem,"L2");
-                        addMeterData(getSpannableString("φV(°)"), 1,groupListObj1, modelLineData, showItem,"L2");
-                        addMeterData(getSpannableString("A fund"), 2, groupListObj1,modelLineData, showItem,"L2");
-                        addMeterData(getSpannableString("φA(°)"), 3,groupListObj1, modelLineData, showItem,"L2");
-                        addMeterData(getSpannableString("RMS(V≃)",3,7), 4,groupListObj1, modelLineData, showItem,"L2");
-                        addMeterData(getSpannableString("RMS(V≃)",3,7), 5,groupListObj1, modelLineData, showItem,"L2");
+                        addMeterData(getSpannableString("V fund"), 0, groupListObj1, modelLineData, showItem, "L2");
+                        addMeterData(getSpannableString("φV(°)"), 1, groupListObj1, modelLineData, showItem, "L2");
+                        addMeterData(getSpannableString("A fund"), 2, groupListObj1, modelLineData, showItem, "L2");
+                        addMeterData(getSpannableString("φA(°)"), 3, groupListObj1, modelLineData, showItem, "L2");
+                        addMeterData(getSpannableString("RMS(V≃)", 3, 7), 4, groupListObj1, modelLineData, showItem, "L2");
+                        addMeterData(getSpannableString("RMS(V≃)", 3, 7), 5, groupListObj1, modelLineData, showItem, "L2");
                         break;
                     case 4://L3
-                        refeshHeadColor(5,"L3");
+                        refeshHeadColor(5, "L3");
                         showItem = 2;
                         groupListObj1.Clear();
                         stickyLayout.setShowDividerCount(1);
                         groupListObj1.addHeader(getResources().getStringArray(R.array.l3_array));
                         groupListObj2.Clear();
 
-                        addMeterData(getSpannableString("V fund"), 0, groupListObj1,modelLineData, showItem,"L3");
-                        addMeterData(getSpannableString("φV(°)"), 1,groupListObj1, modelLineData, showItem,"L3");
-                        addMeterData(getSpannableString("A fund"), 2, groupListObj1,modelLineData, showItem,"L3");
-                        addMeterData(getSpannableString("φA(°)"), 3,groupListObj1, modelLineData, showItem,"L3");
-                        addMeterData(getSpannableString("RMS(V≃)",3,7), 4,groupListObj1, modelLineData, showItem,"L3");
-                        addMeterData(getSpannableString("RMS(V≃)",3,7), 5,groupListObj1, modelLineData, showItem,"L3");
+                        addMeterData(getSpannableString("V fund"), 0, groupListObj1, modelLineData, showItem, "L3");
+                        addMeterData(getSpannableString("φV(°)"), 1, groupListObj1, modelLineData, showItem, "L3");
+                        addMeterData(getSpannableString("A fund"), 2, groupListObj1, modelLineData, showItem, "L3");
+                        addMeterData(getSpannableString("φA(°)"), 3, groupListObj1, modelLineData, showItem, "L3");
+                        addMeterData(getSpannableString("RMS(V≃)", 3, 7), 4, groupListObj1, modelLineData, showItem, "L3");
+                        addMeterData(getSpannableString("RMS(V≃)", 3, 7), 5, groupListObj1, modelLineData, showItem, "L3");
                         break;
                     case 5://N
-                        refeshHeadColor(5,"N");
+                        refeshHeadColor(5, "N");
                         showItem = 2;
                         groupListObj1.Clear();
                         stickyLayout.setShowDividerCount(1);
                         groupListObj1.addHeader(getResources().getStringArray(R.array.n_array));
                         groupListObj2.Clear();
 
-                        addMeterData(getSpannableString("V fund"), 0, groupListObj1,modelLineData, showItem,"N");
-                        addMeterData(getSpannableString("φV(°)"), 1,groupListObj1, modelLineData, showItem,"N");
-                        addMeterData(getSpannableString("A fund"), 2, groupListObj1,modelLineData, showItem,"N");
-                        addMeterData(getSpannableString("φA(°)"), 3,groupListObj1, modelLineData, showItem,"N");
-                        addMeterData(getSpannableString("RMS(V≃)",3,7), 4,groupListObj1, modelLineData, showItem,"N");
-                        addMeterData(getSpannableString("RMS(V≃)",3,7), 5,groupListObj1, modelLineData, showItem,"N");
+                        addMeterData(getSpannableString("V fund"), 0, groupListObj1, modelLineData, showItem, "N");
+                        addMeterData(getSpannableString("φV(°)"), 1, groupListObj1, modelLineData, showItem, "N");
+                        addMeterData(getSpannableString("A fund"), 2, groupListObj1, modelLineData, showItem, "N");
+                        addMeterData(getSpannableString("φA(°)"), 3, groupListObj1, modelLineData, showItem, "N");
+                        addMeterData(getSpannableString("RMS(V≃)", 3, 7), 4, groupListObj1, modelLineData, showItem, "N");
+                        addMeterData(getSpannableString("RMS(V≃)", 3, 7), 5, groupListObj1, modelLineData, showItem, "N");
                         break;
 
                 }
@@ -827,59 +830,59 @@ public class UnbalanceMeter extends BaseFragmentTrend {
             case 9://1Q +NEUTRAL
                 switch (wir_right_index) {//切换右边选项
                     case 0://V
-                        refeshHeadColor(5,"L1");
+                        refeshHeadColor(5, "L1");
                         showItem = 2;
                         groupListObj1.Clear();
                         stickyLayout.setShowDividerCount(1);
                         groupListObj1.addHeader(getResources().getStringArray(R.array.l1_array));
                         groupListObj2.Clear();
 
-                        addMeterData(getSpannableString("V fund"), 0, groupListObj1,modelLineData, showItem,"");
-                        addMeterData(getSpannableString("φV(°)"), 1,groupListObj1, modelLineData, showItem,"");
-                        addMeterData(getSpannableString("RMS(V≃)",3,7), 2,groupListObj1, modelLineData, showItem,"");
+                        addMeterData(getSpannableString("V fund"), 0, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("φV(°)"), 1, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("RMS(V≃)", 3, 7), 2, groupListObj1, modelLineData, showItem, "");
                         break;
                     case 1://A
-                        refeshHeadColor(5,"L1");
+                        refeshHeadColor(5, "L1");
                         showItem = 2;
                         groupListObj1.Clear();
                         stickyLayout.setShowDividerCount(1);
                         groupListObj1.addHeader(getResources().getStringArray(R.array.l1_array));
                         groupListObj2.Clear();
 
-                        addMeterData(getSpannableString("A fund"), 0, groupListObj1,modelLineData, showItem,"");
-                        addMeterData(getSpannableString("φA(°)"), 1,groupListObj1, modelLineData, showItem,"");
-                        addMeterData(getSpannableString("RMS(A≃)",3,7), 2,groupListObj1, modelLineData, showItem,"");
+                        addMeterData(getSpannableString("A fund"), 0, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("φA(°)"), 1, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("RMS(A≃)", 3, 7), 2, groupListObj1, modelLineData, showItem, "");
                         break;
 
                     case 2://L1
-                        refeshHeadColor(5,"L1");
+                        refeshHeadColor(5, "L1");
                         showItem = 2;
                         groupListObj1.Clear();
                         stickyLayout.setShowDividerCount(1);
                         groupListObj1.addHeader(getResources().getStringArray(R.array.l1_array));
                         groupListObj2.Clear();
 
-                        addMeterData(getSpannableString("V fund"), 0, groupListObj1,modelLineData, showItem,"L1");
-                        addMeterData(getSpannableString("φV(°)"), 1,groupListObj1, modelLineData, showItem,"L1");
-                        addMeterData(getSpannableString("A fund"), 2, groupListObj1,modelLineData, showItem,"L1");
-                        addMeterData(getSpannableString("φA(°)"), 3,groupListObj1, modelLineData, showItem,"L1");
-                        addMeterData(getSpannableString("RMS(V≃)",3,7), 4,groupListObj1, modelLineData, showItem,"L1");
-                        addMeterData(getSpannableString("RMS(A≃)",3,7), 5,groupListObj1, modelLineData, showItem,"L1");
+                        addMeterData(getSpannableString("V fund"), 0, groupListObj1, modelLineData, showItem, "L1");
+                        addMeterData(getSpannableString("φV(°)"), 1, groupListObj1, modelLineData, showItem, "L1");
+                        addMeterData(getSpannableString("A fund"), 2, groupListObj1, modelLineData, showItem, "L1");
+                        addMeterData(getSpannableString("φA(°)"), 3, groupListObj1, modelLineData, showItem, "L1");
+                        addMeterData(getSpannableString("RMS(V≃)", 3, 7), 4, groupListObj1, modelLineData, showItem, "L1");
+                        addMeterData(getSpannableString("RMS(A≃)", 3, 7), 5, groupListObj1, modelLineData, showItem, "L1");
                         break;
                     case 3://N
-                        refeshHeadColor(5,"L1");
+                        refeshHeadColor(5, "L1");
                         showItem = 2;
                         groupListObj1.Clear();
                         stickyLayout.setShowDividerCount(1);
                         groupListObj1.addHeader(getResources().getStringArray(R.array.l2_array));
                         groupListObj2.Clear();
 
-                        addMeterData(getSpannableString("V fund"), 0, groupListObj1,modelLineData, showItem,"N");
-                        addMeterData(getSpannableString("φV(°)"), 1,groupListObj1, modelLineData, showItem,"N");
-                        addMeterData(getSpannableString("A fund"), 2, groupListObj1,modelLineData, showItem,"N");
-                        addMeterData(getSpannableString("φA(°)"), 3,groupListObj1, modelLineData, showItem,"N");
-                        addMeterData(getSpannableString("RMS(V≃)",3,7), 4,groupListObj1, modelLineData, showItem,"N");
-                        addMeterData(getSpannableString("RMS(A≃)",3,7), 5,groupListObj1, modelLineData, showItem,"N");
+                        addMeterData(getSpannableString("V fund"), 0, groupListObj1, modelLineData, showItem, "N");
+                        addMeterData(getSpannableString("φV(°)"), 1, groupListObj1, modelLineData, showItem, "N");
+                        addMeterData(getSpannableString("A fund"), 2, groupListObj1, modelLineData, showItem, "N");
+                        addMeterData(getSpannableString("φA(°)"), 3, groupListObj1, modelLineData, showItem, "N");
+                        addMeterData(getSpannableString("RMS(V≃)", 3, 7), 4, groupListObj1, modelLineData, showItem, "N");
+                        addMeterData(getSpannableString("RMS(A≃)", 3, 7), 5, groupListObj1, modelLineData, showItem, "N");
                         break;
 
 
@@ -888,121 +891,121 @@ public class UnbalanceMeter extends BaseFragmentTrend {
             case 8://1Q IT NO NEUTRAL
                 switch (wir_right_index) {//切换右边选项
                     case 0://V
-                        refeshHeadColor(5,"L1");
+                        refeshHeadColor(5, "L1");
                         showItem = 2;
                         groupListObj1.Clear();
                         stickyLayout.setShowDividerCount(1);
                         groupListObj1.addHeader(getResources().getStringArray(R.array.L1L2_array));
                         groupListObj2.Clear();
 
-                        addMeterData(getSpannableString("V fund"), 0, groupListObj1,modelLineData, showItem,"");
-                        addMeterData(getSpannableString("φV(°)"), 1,groupListObj1, modelLineData, showItem,"");
-                        addMeterData(getSpannableString("RMS(V≃)",3,7), 2, groupListObj1,modelLineData, showItem,"");
+                        addMeterData(getSpannableString("V fund"), 0, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("φV(°)"), 1, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("RMS(V≃)", 3, 7), 2, groupListObj1, modelLineData, showItem, "");
                         break;
                     case 1://A
-                        refeshHeadColor(5,"L1");
+                        refeshHeadColor(5, "L1");
                         showItem = 2;
                         groupListObj1.Clear();
                         stickyLayout.setShowDividerCount(1);
                         groupListObj1.addHeader(getResources().getStringArray(R.array.L1L2_array));
                         groupListObj2.Clear();
 
-                        addMeterData(getSpannableString("A fund"), 0, groupListObj1,modelLineData, showItem,"");
-                        addMeterData(getSpannableString("φA(°)"), 1,groupListObj1, modelLineData, showItem,"");
-                        addMeterData(getSpannableString("RMS(A≃)",3,7), 2, groupListObj1,modelLineData, showItem,"");
+                        addMeterData(getSpannableString("A fund"), 0, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("φA(°)"), 1, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("RMS(A≃)", 3, 7), 2, groupListObj1, modelLineData, showItem, "");
                         break;
 
                     case 2://L1L2
-                        refeshHeadColor(5,"L1");
+                        refeshHeadColor(5, "L1");
                         showItem = 2;
                         groupListObj1.Clear();
                         stickyLayout.setShowDividerCount(1);
                         groupListObj1.addHeader(getResources().getStringArray(R.array.L1L2_array));
                         groupListObj2.Clear();
 
-                        addMeterData(getSpannableString("V fund"), 0, groupListObj1,modelLineData, showItem,"L1");
-                        addMeterData(getSpannableString("φV(°)"), 1,groupListObj1, modelLineData, showItem,"L1");
-                        addMeterData(getSpannableString("A fund"), 2, groupListObj1,modelLineData, showItem,"L1");
-                        addMeterData(getSpannableString("φA(°)"), 3,groupListObj1, modelLineData, showItem,"L1");
-                        addMeterData(getSpannableString("RMS(V≃)",3,7), 4, groupListObj1,modelLineData, showItem,"L1");
-                        addMeterData(getSpannableString("RMS(A≃)",3,7), 5, groupListObj1,modelLineData, showItem,"L1");
+                        addMeterData(getSpannableString("V fund"), 0, groupListObj1, modelLineData, showItem, "L1");
+                        addMeterData(getSpannableString("φV(°)"), 1, groupListObj1, modelLineData, showItem, "L1");
+                        addMeterData(getSpannableString("A fund"), 2, groupListObj1, modelLineData, showItem, "L1");
+                        addMeterData(getSpannableString("φA(°)"), 3, groupListObj1, modelLineData, showItem, "L1");
+                        addMeterData(getSpannableString("RMS(V≃)", 3, 7), 4, groupListObj1, modelLineData, showItem, "L1");
+                        addMeterData(getSpannableString("RMS(A≃)", 3, 7), 5, groupListObj1, modelLineData, showItem, "L1");
                         break;
                 }
                 break;
             case 7://1Q SPLIT PHASE
                 switch (wir_right_index) {//切换右边选项
                     case 0://3V
-                        refeshHeadColor(4,"2L");
+                        refeshHeadColor(4, "2L");
                         showItem = 4;
                         groupListObj1.Clear();
                         stickyLayout.setShowDividerCount(3);
                         groupListObj1.addHeader(getResources().getStringArray(R.array.l1l2n_array));
                         groupListObj2.Clear();
 
-                        addMeterData(getSpannableString("V fund"), 0, groupListObj1,modelLineData, showItem,"");
-                        addMeterData(getSpannableString("φV(°)"), 1,groupListObj1, modelLineData, showItem,"");
-                        addMeterData(getSpannableString("RMS(V≃)",3,7), 2, groupListObj1,modelLineData, showItem,"");
+                        addMeterData(getSpannableString("V fund"), 0, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("φV(°)"), 1, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("RMS(V≃)", 3, 7), 2, groupListObj1, modelLineData, showItem, "");
                         break;
                     case 1://3A
-                        refeshHeadColor(4,"2L");
+                        refeshHeadColor(4, "2L");
                         showItem = 4;
                         groupListObj1.Clear();
                         stickyLayout.setShowDividerCount(3);
                         groupListObj1.addHeader(getResources().getStringArray(R.array.l1l2n_array));
                         groupListObj2.Clear();
 
-                        addMeterData(getSpannableString("A fund"), 0, groupListObj1,modelLineData, showItem,"");
-                        addMeterData(getSpannableString("φA(°)"), 1,groupListObj1, modelLineData, showItem,"");
-                        addMeterData(getSpannableString("RMS(A≃)",3,7), 2, groupListObj1,modelLineData, showItem,"");
+                        addMeterData(getSpannableString("A fund"), 0, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("φA(°)"), 1, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("RMS(A≃)", 3, 7), 2, groupListObj1, modelLineData, showItem, "");
 
                         break;
 
                     case 2://L1
-                        refeshHeadColor(5,"L1");
+                        refeshHeadColor(5, "L1");
                         showItem = 2;
                         groupListObj1.Clear();
                         stickyLayout.setShowDividerCount(1);
                         groupListObj1.addHeader(getResources().getStringArray(R.array.l1_array));
                         groupListObj2.Clear();
 
-                        addMeterData(getSpannableString("V fund"), 0, groupListObj1,modelLineData, showItem,"L1");
-                        addMeterData(getSpannableString("φV(°)"), 1,groupListObj1, modelLineData, showItem,"L1");
-                        addMeterData(getSpannableString("A fund"), 2, groupListObj1,modelLineData, showItem,"L1");
-                        addMeterData(getSpannableString("φA(°)"), 3,groupListObj1, modelLineData, showItem,"L1");
-                        addMeterData(getSpannableString("RMS(V≃)",3,7), 4, groupListObj1,modelLineData, showItem,"L1");
-                        addMeterData(getSpannableString("RMS(A≃)",3,7), 5, groupListObj1,modelLineData, showItem,"L1");
+                        addMeterData(getSpannableString("V fund"), 0, groupListObj1, modelLineData, showItem, "L1");
+                        addMeterData(getSpannableString("φV(°)"), 1, groupListObj1, modelLineData, showItem, "L1");
+                        addMeterData(getSpannableString("A fund"), 2, groupListObj1, modelLineData, showItem, "L1");
+                        addMeterData(getSpannableString("φA(°)"), 3, groupListObj1, modelLineData, showItem, "L1");
+                        addMeterData(getSpannableString("RMS(V≃)", 3, 7), 4, groupListObj1, modelLineData, showItem, "L1");
+                        addMeterData(getSpannableString("RMS(A≃)", 3, 7), 5, groupListObj1, modelLineData, showItem, "L1");
                         break;
 
                     case 3://L2
-                        refeshHeadColor(5,"L2");
+                        refeshHeadColor(5, "L2");
                         showItem = 2;
                         groupListObj1.Clear();
                         stickyLayout.setShowDividerCount(1);
                         groupListObj1.addHeader(getResources().getStringArray(R.array.l2_array));
                         groupListObj2.Clear();
 
-                        addMeterData(getSpannableString("V fund"), 0, groupListObj1,modelLineData, showItem,"L2");
-                        addMeterData(getSpannableString("φV(°)"), 1,groupListObj1, modelLineData, showItem,"L2");
-                        addMeterData(getSpannableString("A fund"), 2, groupListObj1,modelLineData, showItem,"L2");
-                        addMeterData(getSpannableString("φA(°)"), 3,groupListObj1, modelLineData, showItem,"L2");
-                        addMeterData(getSpannableString("RMS(V≃)",3,7), 4, groupListObj1,modelLineData, showItem,"L2");
-                        addMeterData(getSpannableString("RMS(A≃)",3,7), 5, groupListObj1,modelLineData, showItem,"L2");
+                        addMeterData(getSpannableString("V fund"), 0, groupListObj1, modelLineData, showItem, "L2");
+                        addMeterData(getSpannableString("φV(°)"), 1, groupListObj1, modelLineData, showItem, "L2");
+                        addMeterData(getSpannableString("A fund"), 2, groupListObj1, modelLineData, showItem, "L2");
+                        addMeterData(getSpannableString("φA(°)"), 3, groupListObj1, modelLineData, showItem, "L2");
+                        addMeterData(getSpannableString("RMS(V≃)", 3, 7), 4, groupListObj1, modelLineData, showItem, "L2");
+                        addMeterData(getSpannableString("RMS(A≃)", 3, 7), 5, groupListObj1, modelLineData, showItem, "L2");
                         break;
 
                     case 4://N
-                        refeshHeadColor(5,"N");
+                        refeshHeadColor(5, "N");
                         showItem = 2;
                         groupListObj1.Clear();
                         stickyLayout.setShowDividerCount(1);
                         groupListObj1.addHeader(getResources().getStringArray(R.array.n_array));
                         groupListObj2.Clear();
 
-                        addMeterData(getSpannableString("V fund"), 0, groupListObj1,modelLineData, showItem,"N");
-                        addMeterData(getSpannableString("φV(°)"), 1,groupListObj1, modelLineData, showItem,"N");
-                        addMeterData(getSpannableString("A fund"), 2, groupListObj1,modelLineData, showItem,"N");
-                        addMeterData(getSpannableString("φA(°)"), 3,groupListObj1, modelLineData, showItem,"N");
-                        addMeterData(getSpannableString("RMS(V≃)",3,7), 4, groupListObj1,modelLineData, showItem,"N");
-                        addMeterData(getSpannableString("RMS(A≃)",3,7), 5, groupListObj1,modelLineData, showItem,"N");
+                        addMeterData(getSpannableString("V fund"), 0, groupListObj1, modelLineData, showItem, "N");
+                        addMeterData(getSpannableString("φV(°)"), 1, groupListObj1, modelLineData, showItem, "N");
+                        addMeterData(getSpannableString("A fund"), 2, groupListObj1, modelLineData, showItem, "N");
+                        addMeterData(getSpannableString("φA(°)"), 3, groupListObj1, modelLineData, showItem, "N");
+                        addMeterData(getSpannableString("RMS(V≃)", 3, 7), 4, groupListObj1, modelLineData, showItem, "N");
+                        addMeterData(getSpannableString("RMS(A≃)", 3, 7), 5, groupListObj1, modelLineData, showItem, "N");
                         break;
                 }
                 break;
@@ -1012,7 +1015,7 @@ public class UnbalanceMeter extends BaseFragmentTrend {
             case 4://3QDELTA
                 switch (wir_right_index) {//切换右边选项
                     case 0://3U
-                        refeshHeadColor(5,"3L");
+                        refeshHeadColor(5, "3L");
                         showItem = 3;
                         groupListObj1.Clear();
                         stickyLayout.setShowDividerCount(2);
@@ -1021,14 +1024,14 @@ public class UnbalanceMeter extends BaseFragmentTrend {
                         showItem2 = 4;
                         groupListObj2.addHeader(getResources().getStringArray(R.array.l1l2l2l3l3l1_array));
 
-                        addMeterData(getSpannableString("Vunbal(%)"), 0, groupListObj1,modelLineData, showItem,"");
-                        addMeterData(getSpannableString("V fund"), 0, groupListObj2,modelLineData, showItem2,"");
-                        addMeterData(getSpannableString("φV(°)"), 1,groupListObj2, modelLineData, showItem2,"");
-                        addMeterData(getSpannableString("RMS(V≃)",3,7), 2, groupListObj2,modelLineData, showItem2,"");
+                        addMeterData(getSpannableString("Vunbal(%)"), 0, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("V fund"), 0, groupListObj2, modelLineData, showItem2, "");
+                        addMeterData(getSpannableString("φV(°)"), 1, groupListObj2, modelLineData, showItem2, "");
+                        addMeterData(getSpannableString("RMS(V≃)", 3, 7), 2, groupListObj2, modelLineData, showItem2, "");
 
                         break;
                     case 1://3A
-                        refeshHeadColor(5,"3L");
+                        refeshHeadColor(5, "3L");
                         showItem = 3;
                         groupListObj1.Clear();
                         stickyLayout.setShowDividerCount(2);
@@ -1037,14 +1040,14 @@ public class UnbalanceMeter extends BaseFragmentTrend {
                         showItem2 = 4;
                         groupListObj2.addHeader(getResources().getStringArray(R.array.l1l2l2l3l3l1_array));
 
-                        addMeterData(getSpannableString("Aunbal(%)"), 0, groupListObj1,modelLineData, showItem,"");
-                        addMeterData(getSpannableString("A fund"), 0, groupListObj2,modelLineData, showItem2,"");
-                        addMeterData(getSpannableString("φA(°)"), 1,groupListObj2, modelLineData, showItem2,"");
-                        addMeterData(getSpannableString("RMS(A≃)",3,7), 2, groupListObj2,modelLineData, showItem2,"");
+                        addMeterData(getSpannableString("Aunbal(%)"), 0, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("A fund"), 0, groupListObj2, modelLineData, showItem2, "");
+                        addMeterData(getSpannableString("φA(°)"), 1, groupListObj2, modelLineData, showItem2, "");
+                        addMeterData(getSpannableString("RMS(A≃)", 3, 7), 2, groupListObj2, modelLineData, showItem2, "");
                         break;
 
                     case 2://L1L2
-                        refeshHeadColor(5,"L1");
+                        refeshHeadColor(5, "L1");
                         showItem = 5;
                         groupListObj1.Clear();
                         stickyLayout.setShowDividerCount(4);
@@ -1053,16 +1056,16 @@ public class UnbalanceMeter extends BaseFragmentTrend {
                         showItem2 = 2;
                         groupListObj2.addHeader(getResources().getStringArray(R.array.L1L2_array));
 
-                        addMeterData(getSpannableString("unbal(%)"), 0, groupListObj1,modelLineData, showItem,"");
-                        addMeterData(getSpannableString("V fund"), 0, groupListObj2,modelLineData, showItem2,"L1");
-                        addMeterData(getSpannableString("φV(°)"), 1,groupListObj2, modelLineData, showItem2,"L1");
-                        addMeterData(getSpannableString("A fund"), 2, groupListObj2,modelLineData, showItem2,"L1");
-                        addMeterData(getSpannableString("φA(°)"), 3,groupListObj2, modelLineData, showItem2,"L1");
-                        addMeterData(getSpannableString("RMS(V≃)",3,7), 4, groupListObj2,modelLineData, showItem2,"L1");
-                        addMeterData(getSpannableString("RMS(A≃)",3,7), 5, groupListObj2,modelLineData, showItem2,"L1");
+                        addMeterData(getSpannableString("unbal(%)"), 0, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("V fund"), 0, groupListObj2, modelLineData, showItem2, "L1");
+                        addMeterData(getSpannableString("φV(°)"), 1, groupListObj2, modelLineData, showItem2, "L1");
+                        addMeterData(getSpannableString("A fund"), 2, groupListObj2, modelLineData, showItem2, "L1");
+                        addMeterData(getSpannableString("φA(°)"), 3, groupListObj2, modelLineData, showItem2, "L1");
+                        addMeterData(getSpannableString("RMS(V≃)", 3, 7), 4, groupListObj2, modelLineData, showItem2, "L1");
+                        addMeterData(getSpannableString("RMS(A≃)", 3, 7), 5, groupListObj2, modelLineData, showItem2, "L1");
                         break;
                     case 3://L2L3
-                        refeshHeadColor(5,"L2");
+                        refeshHeadColor(5, "L2");
                         showItem = 5;
                         groupListObj1.Clear();
                         stickyLayout.setShowDividerCount(4);
@@ -1071,16 +1074,16 @@ public class UnbalanceMeter extends BaseFragmentTrend {
                         showItem2 = 2;
                         groupListObj2.addHeader(getResources().getStringArray(R.array.L2L3_array));
 
-                        addMeterData(getSpannableString("unbal(%)"), 0, groupListObj1,modelLineData, showItem,"");
-                        addMeterData(getSpannableString("V fund"), 0, groupListObj2,modelLineData, showItem2,"L2");
-                        addMeterData(getSpannableString("φV(°)"), 1,groupListObj2, modelLineData, showItem2,"L2");
-                        addMeterData(getSpannableString("A fund"), 2, groupListObj2,modelLineData, showItem2,"L2");
-                        addMeterData(getSpannableString("φA(°)"), 3,groupListObj2, modelLineData, showItem2,"L2");
-                        addMeterData(getSpannableString("RMS(V≃)",3,7), 4, groupListObj2,modelLineData, showItem2,"L2");
-                        addMeterData(getSpannableString("RMS(A≃)",3,7), 5, groupListObj2,modelLineData, showItem2,"L2");
+                        addMeterData(getSpannableString("unbal(%)"), 0, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("V fund"), 0, groupListObj2, modelLineData, showItem2, "L2");
+                        addMeterData(getSpannableString("φV(°)"), 1, groupListObj2, modelLineData, showItem2, "L2");
+                        addMeterData(getSpannableString("A fund"), 2, groupListObj2, modelLineData, showItem2, "L2");
+                        addMeterData(getSpannableString("φA(°)"), 3, groupListObj2, modelLineData, showItem2, "L2");
+                        addMeterData(getSpannableString("RMS(V≃)", 3, 7), 4, groupListObj2, modelLineData, showItem2, "L2");
+                        addMeterData(getSpannableString("RMS(A≃)", 3, 7), 5, groupListObj2, modelLineData, showItem2, "L2");
                         break;
                     case 4://L3L1
-                        refeshHeadColor(5,"L3");
+                        refeshHeadColor(5, "L3");
                         showItem = 5;
                         groupListObj1.Clear();
                         stickyLayout.setShowDividerCount(4);
@@ -1088,13 +1091,13 @@ public class UnbalanceMeter extends BaseFragmentTrend {
                         groupListObj2.Clear();
                         showItem2 = 2;
                         groupListObj2.addHeader(getResources().getStringArray(R.array.L3L1_array));
-                        addMeterData(getSpannableString("unbal(%)"), 0, groupListObj1,modelLineData, showItem,"");
-                        addMeterData(getSpannableString("V fund"), 0, groupListObj2,modelLineData, showItem2,"L3");
-                        addMeterData(getSpannableString("φV(°)"), 1,groupListObj2, modelLineData, showItem2,"L3");
-                        addMeterData(getSpannableString("A fund"), 2, groupListObj2,modelLineData, showItem2,"L3");
-                        addMeterData(getSpannableString("φA(°)"), 3,groupListObj2, modelLineData, showItem2,"L3");
-                        addMeterData(getSpannableString("RMS(V≃)",3,7), 4, groupListObj2,modelLineData, showItem2,"L3");
-                        addMeterData(getSpannableString("RMS(A≃)",3,7), 5, groupListObj2,modelLineData, showItem2,"L3");
+                        addMeterData(getSpannableString("unbal(%)"), 0, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("V fund"), 0, groupListObj2, modelLineData, showItem2, "L3");
+                        addMeterData(getSpannableString("φV(°)"), 1, groupListObj2, modelLineData, showItem2, "L3");
+                        addMeterData(getSpannableString("A fund"), 2, groupListObj2, modelLineData, showItem2, "L3");
+                        addMeterData(getSpannableString("φA(°)"), 3, groupListObj2, modelLineData, showItem2, "L3");
+                        addMeterData(getSpannableString("RMS(V≃)", 3, 7), 4, groupListObj2, modelLineData, showItem2, "L3");
+                        addMeterData(getSpannableString("RMS(A≃)", 3, 7), 5, groupListObj2, modelLineData, showItem2, "L3");
 
                         break;
                 }
@@ -1108,5 +1111,65 @@ public class UnbalanceMeter extends BaseFragmentTrend {
     public void setShowMeterData(BaseMeterData baseMeterData) {
 
 
+    }
+
+    public void setFocusOnLeft() {
+        stickyLayout.requestFocus();
+        stickyLayout.getViewFoucs();
+        stickyLayout.setListFocusAble(true);
+        stickyLayout.setListClickAble(true);
+        stickyLayout.setListToucheAble(true);
+
+        rightModeView.setListViewFocusable(false);
+        rightModeView.setListViewFocusableInTouchMode(false);
+        rightModeView.lostFocus(true);
+
+        leftFocusIv.setVisibility(View.VISIBLE);
+    }
+
+    public void setFocusOnRight() {
+        stickyLayout.setListFocusAble(false);
+
+
+        rightModeView.getViewFoucs();
+        rightModeView.lostFocus(false);
+//        rightModeView.setSelection(0);
+
+        leftFocusIv.setVisibility(View.GONE);
+
+    }
+
+    public void leftUpScroll() {
+        upOnclick(getContext());
+    }
+
+    public void leftDownScroll() {
+        downClick(getContext());
+    }
+
+    private void upOnclick(Context context) {
+        MeterGroupListObj groupItem = stickyLayout.getGroupItem(0);
+        int firstVisibleItem = stickyLayout.getFirstVisibleItem();
+//        Toast.makeText(context, "icon_up_test" + groupItem.getChildSize() + " 被点击了" + firstVisibleItem, Toast.LENGTH_SHORT).show();
+        if (firstVisibleItem == 0) {
+            stickyLayout.scrollToPosition(0);
+        } else if (firstVisibleItem >= 1) {
+            stickyLayout.scrollToPosition(firstVisibleItem - 1);
+        } else {
+//            Toast.makeText(context, "icon_up_test" + " 已经到顶", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void downClick(Context context) {
+        MeterGroupListObj groupItem = stickyLayout.getGroupItem(0);
+        int lastVisibleItem = stickyLayout.getLastVisibleItem();
+//        Toast.makeText(context, "icon_up_test" + groupItem.getChildSize() + " 被点击了" + lastVisibleItem, Toast.LENGTH_SHORT).show();
+        if (lastVisibleItem == 8) {
+            stickyLayout.scrollToPosition(9);
+        } else if (lastVisibleItem <= (groupItem.getChildSize() - 1)) {
+            stickyLayout.scrollToPosition(lastVisibleItem + 1);
+        } else {
+//            Toast.makeText(context, "icon_up_test" + " 已经到底", Toast.LENGTH_SHORT).show();
+        }
     }
 }

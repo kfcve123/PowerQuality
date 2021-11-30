@@ -72,7 +72,7 @@ public class MainActivity extends AllBaseActivity {
 
 
     // 根据亮度值修改当前window亮度
-    private void changeAppBrightness( int brightness) {
+    private void changeAppBrightness(int brightness) {
         Window window = this.getWindow();
         WindowManager.LayoutParams lp = window.getAttributes();
         if (brightness == -1) {
@@ -83,7 +83,7 @@ public class MainActivity extends AllBaseActivity {
         window.setAttributes(lp);
     }
 
-    private void getLanguageEvent(){
+    private void getLanguageEvent() {
         LiveEventBus
                 .get("changeLanguage", String.class)
                 .observe(this, new Observer<String>() {
@@ -97,7 +97,7 @@ public class MainActivity extends AllBaseActivity {
 
     public void changeAppLanguage() {
         String sta = LanguageStore.getLanguageLocal(this);
-        if(sta != null && !"".equals(sta)){
+        if (sta != null && !"".equals(sta)) {
             // 本地语言设置
             Locale myLocale = getLocale(sta);
             Resources res = getResources();
@@ -109,13 +109,13 @@ public class MainActivity extends AllBaseActivity {
 
     }
 
-    private Locale getLocale(String sta){
-        Locale locale ;
-        if(sta.equals("zh_rCN")){
-            locale =  Locale.SIMPLIFIED_CHINESE;
-        }else if(sta.equals("en")){
+    private Locale getLocale(String sta) {
+        Locale locale;
+        if (sta.equals("zh_rCN")) {
+            locale = Locale.SIMPLIFIED_CHINESE;
+        } else if (sta.equals("en")) {
             locale = Locale.ENGLISH;
-        }else{
+        } else {
             locale = Locale.ENGLISH;
         }
         return locale;

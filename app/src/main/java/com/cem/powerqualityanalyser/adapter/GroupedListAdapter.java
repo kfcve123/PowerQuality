@@ -2,8 +2,10 @@ package com.cem.powerqualityanalyser.adapter;
 
 import android.content.Context;
 
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Toast;
 
 import com.cem.powerqualityanalyser.R;
 import com.cem.powerqualityanalyser.tool.ColorList;
@@ -19,7 +21,7 @@ import java.util.ArrayList;
 /**
  * 这是普通的分组Adapter 每一个组都有头部、尾部和子项。
  */
-public class GroupedListAdapter extends GroupedRecyclerViewAdapter {
+public class GroupedListAdapter extends GroupedRecyclerViewAdapter implements RecyclerView.ChildDrawingOrderCallback {
 
     private ArrayList<MeterGroupListObj> mGroups;
     private int[] colorHeadList;
@@ -170,7 +172,7 @@ public class GroupedListAdapter extends GroupedRecyclerViewAdapter {
 
 
     @Override
-    public void onBindHeaderViewHolder(BaseViewHolder holder, int groupPosition) {
+    public void onBindHeaderViewHolder(final BaseViewHolder holder, int groupPosition) {
         MeterGroupListObj entity = mGroups.get(groupPosition);
         if (entity.getHeaderSize() == 5) {
             holder.setText(R.id.tv_header, entity.getHeaderList().get(0));
@@ -178,68 +180,68 @@ public class GroupedListAdapter extends GroupedRecyclerViewAdapter {
             holder.setText(R.id.tv_headerL2, entity.getHeaderList().get(2));
             holder.setText(R.id.tv_headerL3, entity.getHeaderList().get(3));
             holder.setText(R.id.tv_headerLN, entity.getHeaderList().get(4));
-            holder.setVisible(R.id.tv_header,View.VISIBLE,1);
-            holder.setVisible(R.id.tv_headerL1,View.VISIBLE,1);
-            holder.setVisible(R.id.tv_headerL2,View.VISIBLE,1);
-            holder.setVisible(R.id.tv_headerL3,View.VISIBLE,1);
-            holder.setVisible(R.id.tv_headerLN,View.VISIBLE,1);
+            holder.setVisible(R.id.tv_header, View.VISIBLE, 1);
+            holder.setVisible(R.id.tv_headerL1, View.VISIBLE, 1);
+            holder.setVisible(R.id.tv_headerL2, View.VISIBLE, 1);
+            holder.setVisible(R.id.tv_headerL3, View.VISIBLE, 1);
+            holder.setVisible(R.id.tv_headerLN, View.VISIBLE, 1);
 
-            holder.setVisible(R.id.line_headerL1,View.VISIBLE);
-            holder.setVisible(R.id.line_headerL2,View.VISIBLE);
-            holder.setVisible(R.id.line_headerL3,View.VISIBLE);
-            holder.setVisible(R.id.line_headerLN,View.VISIBLE);
+            holder.setVisible(R.id.line_headerL1, View.VISIBLE);
+            holder.setVisible(R.id.line_headerL2, View.VISIBLE);
+            holder.setVisible(R.id.line_headerL3, View.VISIBLE);
+            holder.setVisible(R.id.line_headerLN, View.VISIBLE);
 
         } else {
-            holder.setVisible(R.id.tv_headerLN,View.GONE);
-            holder.setVisible(R.id.line_headerLN,View.GONE);
+            holder.setVisible(R.id.tv_headerLN, View.GONE);
+            holder.setVisible(R.id.line_headerLN, View.GONE);
             holder.setText(R.id.tv_headerLN, "");
-            if(entity.getHeaderSize() ==4){
-                holder.setVisible(R.id.tv_header,View.VISIBLE,1.09f);
-                holder.setVisible(R.id.tv_headerL1,View.VISIBLE,1);
-                holder.setVisible(R.id.tv_headerL2,View.VISIBLE,1);
-                holder.setVisible(R.id.tv_headerL3,View.VISIBLE,1);
+            if (entity.getHeaderSize() == 4) {
+                holder.setVisible(R.id.tv_header, View.VISIBLE, 1.09f);
+                holder.setVisible(R.id.tv_headerL1, View.VISIBLE, 1);
+                holder.setVisible(R.id.tv_headerL2, View.VISIBLE, 1);
+                holder.setVisible(R.id.tv_headerL3, View.VISIBLE, 1);
                 holder.setText(R.id.tv_header, entity.getHeaderList().get(0));
                 holder.setText(R.id.tv_headerL1, entity.getHeaderList().get(1));
                 holder.setText(R.id.tv_headerL2, entity.getHeaderList().get(2));
                 holder.setText(R.id.tv_headerL3, entity.getHeaderList().get(3));
 
-                holder.setVisible(R.id.line_headerL1,View.VISIBLE);
-                holder.setVisible(R.id.line_headerL2,View.VISIBLE);
-                holder.setVisible(R.id.line_headerL3,View.VISIBLE);
+                holder.setVisible(R.id.line_headerL1, View.VISIBLE);
+                holder.setVisible(R.id.line_headerL2, View.VISIBLE);
+                holder.setVisible(R.id.line_headerL3, View.VISIBLE);
 
-            }else {
-                holder.setVisible(R.id.tv_headerL3,View.GONE);
-                holder.setVisible(R.id.line_headerL3,View.GONE);
+            } else {
+                holder.setVisible(R.id.tv_headerL3, View.GONE);
+                holder.setVisible(R.id.line_headerL3, View.GONE);
                 holder.setText(R.id.tv_headerL3, "");
-                if(entity.getHeaderSize() ==3){
-                    holder.setVisible(R.id.tv_header,View.VISIBLE,1.333f);
-                    holder.setVisible(R.id.tv_headerL1,View.VISIBLE,1);
-                    holder.setVisible(R.id.tv_headerL2,View.VISIBLE,1);
+                if (entity.getHeaderSize() == 3) {
+                    holder.setVisible(R.id.tv_header, View.VISIBLE, 1.333f);
+                    holder.setVisible(R.id.tv_headerL1, View.VISIBLE, 1);
+                    holder.setVisible(R.id.tv_headerL2, View.VISIBLE, 1);
                     holder.setText(R.id.tv_header, entity.getHeaderList().get(0));
                     holder.setText(R.id.tv_headerL1, entity.getHeaderList().get(1));
                     holder.setText(R.id.tv_headerL2, entity.getHeaderList().get(2));
-                    holder.setVisible(R.id.line_headerL1,View.VISIBLE);
-                    holder.setVisible(R.id.line_headerL2,View.VISIBLE);
+                    holder.setVisible(R.id.line_headerL1, View.VISIBLE);
+                    holder.setVisible(R.id.line_headerL2, View.VISIBLE);
 
-                }else{
+                } else {
                     holder.setText(R.id.tv_headerL2, "");
-                    holder.setVisible(R.id.tv_headerL2,View.GONE);
-                    holder.setVisible(R.id.line_headerL2,View.GONE);
-                    if(entity.getHeaderSize() ==2){
-                        holder.setVisible(R.id.tv_header,View.VISIBLE,4);
-                        holder.setVisible(R.id.tv_headerL1,View.VISIBLE,1);
+                    holder.setVisible(R.id.tv_headerL2, View.GONE);
+                    holder.setVisible(R.id.line_headerL2, View.GONE);
+                    if (entity.getHeaderSize() == 2) {
+                        holder.setVisible(R.id.tv_header, View.VISIBLE, 4);
+                        holder.setVisible(R.id.tv_headerL1, View.VISIBLE, 1);
                         holder.setText(R.id.tv_header, entity.getHeaderList().get(0));
                         holder.setText(R.id.tv_headerL1, entity.getHeaderList().get(1));
-                        holder.setVisible(R.id.line_headerL1,View.VISIBLE);
-                    }else{
+                        holder.setVisible(R.id.line_headerL1, View.VISIBLE);
+                    } else {
                         holder.setText(R.id.tv_headerL1, "");
-                        holder.setVisible(R.id.tv_headerL1,View.GONE);
-                        holder.setVisible(R.id.line_headerL1,View.GONE);
-                        if(entity.getHeaderSize() ==1) {
-                            holder.setVisible(R.id.tv_header,View.VISIBLE,1f);
+                        holder.setVisible(R.id.tv_headerL1, View.GONE);
+                        holder.setVisible(R.id.line_headerL1, View.GONE);
+                        if (entity.getHeaderSize() == 1) {
+                            holder.setVisible(R.id.tv_header, View.VISIBLE, 1f);
                             holder.setText(R.id.tv_header, entity.getHeaderList().get(0));
-                        }else{
-                            holder.setVisible(R.id.tv_header,View.GONE);
+                        } else {
+                            holder.setVisible(R.id.tv_header, View.GONE);
                         }
                     }
                 }
@@ -258,6 +260,25 @@ public class GroupedListAdapter extends GroupedRecyclerViewAdapter {
             holder.setTextColor(R.id.tv_headerL3, colorHeadList[3]);
             holder.setTextColor(R.id.tv_headerLN, colorHeadList[4]);
         }
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(v.getContext(), "item" + " 头被点击了", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        holder.itemView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    Toast.makeText(v.getContext(), "item" + " 被Focus了", Toast.LENGTH_SHORT).show();
+
+                } else {
+                    Toast.makeText(v.getContext(), "item" + " 被点击了", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     @Override
@@ -280,40 +301,41 @@ public class GroupedListAdapter extends GroupedRecyclerViewAdapter {
 
     /**
      * 容
+     *
      * @param holder
      * @param entity
      * @param index
      * @param viewId
      */
-    private void setKvarImage(BaseViewHolder holder,MeterGroupChildObj entity,int index,int viewId){
+    private void setKvarImage(BaseViewHolder holder, MeterGroupChildObj entity, int index, int viewId) {
 //        log.e("-------setKvarImage-------" + index +"------" + entity.getItem(index).isrElectricity());
-        if (entity.getItem(index).isrElectricity()){
-            holder.setVisible(viewId,true);
-            holder.setImageResource(viewId,R.mipmap.rongkang);
-        }else if (entity.getItem(index).isgElectricity()){
-            holder.setVisible(viewId,true);
-            holder.setImageResource(viewId,R.mipmap.gankang);
-        }else if (!entity.getItem(index).isgElectricity() && !entity.getItem(index).isrElectricity()){
-            holder.setVisible(viewId,false);
-            holder.setImageBitmap(viewId,null);
+        if (entity.getItem(index).isrElectricity()) {
+            holder.setVisible(viewId, true);
+            holder.setImageResource(viewId, R.mipmap.rongkang);
+        } else if (entity.getItem(index).isgElectricity()) {
+            holder.setVisible(viewId, true);
+            holder.setImageResource(viewId, R.mipmap.gankang);
+        } else if (!entity.getItem(index).isgElectricity() && !entity.getItem(index).isrElectricity()) {
+            holder.setVisible(viewId, false);
+            holder.setImageBitmap(viewId, null);
         }
     }
 
     @Override
     public void onBindChildViewHolder(BaseViewHolder holder, int groupPosition, int childPosition) {
         MeterGroupChildObj entity = mGroups.get(groupPosition).getChildObjList().get(childPosition);
- //       log.e("-----entity.getItemSize()----" + entity.getItemSize());
-        if (entity.getItemSize() >4) {
+        //       log.e("-----entity.getItemSize()----" + entity.getItemSize());
+        if (entity.getItemSize() > 4) {
             if (showDividerCount >= 5) {
                 holder.setVisible(R.id.childDivider5, View.VISIBLE);
             } else {
                 holder.setVisible(R.id.childDivider5, View.GONE);
             }
-            holder.setVisible(R.id.rl_child, View.VISIBLE,1);
-            holder.setVisible(R.id.rl_child1, View.VISIBLE,1);
-            holder.setVisible(R.id.rl_child2, View.VISIBLE,1);
-            holder.setVisible(R.id.rl_child3, View.VISIBLE,1);
-            holder.setVisible(R.id.rl_child4, View.VISIBLE,1);
+            holder.setVisible(R.id.rl_child, View.VISIBLE, 1);
+            holder.setVisible(R.id.rl_child1, View.VISIBLE, 1);
+            holder.setVisible(R.id.rl_child2, View.VISIBLE, 1);
+            holder.setVisible(R.id.rl_child3, View.VISIBLE, 1);
+            holder.setVisible(R.id.rl_child4, View.VISIBLE, 1);
             holder.setText(R.id.tv_childLN, entity.getItem(4).getChildStr());
             holder.setText(R.id.tv_childL3, entity.getItem(3).getChildStr());
             holder.setText(R.id.tv_childL2, entity.getItem(2).getChildStr());
@@ -325,30 +347,30 @@ public class GroupedListAdapter extends GroupedRecyclerViewAdapter {
             holder.setText(R.id.tv_child_unitL2, entity.getItem(2).getChildUnit());
             holder.setText(R.id.tv_child_unitL1, entity.getItem(1).getChildUnit());
 
-            holder.setImageResource(R.id.image_child,entity.getItem(0).getResImagID());
-            holder.setImageResource(R.id.image_child1,entity.getItem(0).getResImagID());
-            holder.setImageResource(R.id.image_child2,entity.getItem(0).getResImagID());
-            holder.setImageResource(R.id.image_child3,entity.getItem(0).getResImagID());
-            holder.setImageResource(R.id.image_child4,entity.getItem(0).getResImagID());
+            holder.setImageResource(R.id.image_child, entity.getItem(0).getResImagID());
+            holder.setImageResource(R.id.image_child1, entity.getItem(0).getResImagID());
+            holder.setImageResource(R.id.image_child2, entity.getItem(0).getResImagID());
+            holder.setImageResource(R.id.image_child3, entity.getItem(0).getResImagID());
+            holder.setImageResource(R.id.image_child4, entity.getItem(0).getResImagID());
 
-            holder.setVisible(R.id.childDivider1,View.VISIBLE);
-            holder.setVisible(R.id.childDivider2,View.VISIBLE);
-            holder.setVisible(R.id.childDivider3,View.VISIBLE);
-            holder.setVisible(R.id.childDivider4,View.VISIBLE);
+            holder.setVisible(R.id.childDivider1, View.VISIBLE);
+            holder.setVisible(R.id.childDivider2, View.VISIBLE);
+            holder.setVisible(R.id.childDivider3, View.VISIBLE);
+            holder.setVisible(R.id.childDivider4, View.VISIBLE);
 
-            setKvarImage(holder,entity,1,R.id.image_child1);
-            setKvarImage(holder,entity,2,R.id.image_child2);
-            setKvarImage(holder,entity,3,R.id.image_child3);
-            setKvarImage(holder,entity,4,R.id.image_child4);
+            setKvarImage(holder, entity, 1, R.id.image_child1);
+            setKvarImage(holder, entity, 2, R.id.image_child2);
+            setKvarImage(holder, entity, 3, R.id.image_child3);
+            setKvarImage(holder, entity, 4, R.id.image_child4);
 
         } else {
             holder.setVisible(R.id.rl_child4, View.GONE);
-            holder.setVisible(R.id.childDivider4,View.GONE);
+            holder.setVisible(R.id.childDivider4, View.GONE);
             if (entity.getItemSize() > 3) {
-                holder.setVisible(R.id.rl_child, View.VISIBLE,1.09f);
-                holder.setVisible(R.id.rl_child1, View.VISIBLE,1);
-                holder.setVisible(R.id.rl_child2, View.VISIBLE,1);
-                holder.setVisible(R.id.rl_child3, View.VISIBLE,1);
+                holder.setVisible(R.id.rl_child, View.VISIBLE, 1.09f);
+                holder.setVisible(R.id.rl_child1, View.VISIBLE, 1);
+                holder.setVisible(R.id.rl_child2, View.VISIBLE, 1);
+                holder.setVisible(R.id.rl_child3, View.VISIBLE, 1);
                 holder.setText(R.id.tv_childL3, entity.getItem(3).getChildStr());
                 holder.setText(R.id.tv_childL2, entity.getItem(2).getChildStr());
                 holder.setText(R.id.tv_childL1, entity.getItem(1).getChildStr());
@@ -357,70 +379,87 @@ public class GroupedListAdapter extends GroupedRecyclerViewAdapter {
                 holder.setText(R.id.tv_child_unitL3, entity.getItem(3).getChildUnit());
                 holder.setText(R.id.tv_child_unitL2, entity.getItem(2).getChildUnit());
                 holder.setText(R.id.tv_child_unitL1, entity.getItem(1).getChildUnit());
-                holder.setImageResource(R.id.image_child,entity.getItem(0).getResImagID());
-                holder.setImageResource(R.id.image_child1,entity.getItem(1).getResImagID());
-                holder.setImageResource(R.id.image_child2,entity.getItem(2).getResImagID());
-                holder.setImageResource(R.id.image_child3,entity.getItem(3).getResImagID());
+                holder.setImageResource(R.id.image_child, entity.getItem(0).getResImagID());
+                holder.setImageResource(R.id.image_child1, entity.getItem(1).getResImagID());
+                holder.setImageResource(R.id.image_child2, entity.getItem(2).getResImagID());
+                holder.setImageResource(R.id.image_child3, entity.getItem(3).getResImagID());
 
-                holder.setVisible(R.id.childDivider1,View.VISIBLE);
-                holder.setVisible(R.id.childDivider2,View.VISIBLE);
-                holder.setVisible(R.id.childDivider3,View.VISIBLE);
+                holder.setVisible(R.id.childDivider1, View.VISIBLE);
+                holder.setVisible(R.id.childDivider2, View.VISIBLE);
+                holder.setVisible(R.id.childDivider3, View.VISIBLE);
 
-                setKvarImage(holder,entity,1,R.id.image_child1);
-                setKvarImage(holder,entity,2,R.id.image_child2);
-                setKvarImage(holder,entity,3,R.id.image_child3);
+                setKvarImage(holder, entity, 1, R.id.image_child1);
+                setKvarImage(holder, entity, 2, R.id.image_child2);
+                setKvarImage(holder, entity, 3, R.id.image_child3);
 
 
             } else {
                 holder.setVisible(R.id.rl_child3, View.GONE);
-                holder.setVisible(R.id.childDivider3,View.GONE);
-                if (entity.getItemSize() >2) {
-                    holder.setVisible(R.id.rl_child, View.VISIBLE,1.333f);
-                    holder.setVisible(R.id.rl_child1, View.VISIBLE,1);
-                    holder.setVisible(R.id.rl_child2, View.VISIBLE,1);
+                holder.setVisible(R.id.childDivider3, View.GONE);
+                if (entity.getItemSize() > 2) {
+                    holder.setVisible(R.id.rl_child, View.VISIBLE, 1.333f);
+                    holder.setVisible(R.id.rl_child1, View.VISIBLE, 1);
+                    holder.setVisible(R.id.rl_child2, View.VISIBLE, 1);
                     holder.setText(R.id.tv_childL2, entity.getItem(2).getChildStr());
                     holder.setText(R.id.tv_childL1, entity.getItem(1).getChildStr());
                     holder.setText(R.id.tv_child, entity.getItem(0).getChildSpannStr());
                     holder.setText(R.id.tv_child_unitL2, entity.getItem(2).getChildUnit());
                     holder.setText(R.id.tv_child_unitL1, entity.getItem(1).getChildUnit());
-                    holder.setImageResource(R.id.image_child,entity.getItem(0).getResImagID());
-                    holder.setImageResource(R.id.image_child1,entity.getItem(1).getResImagID());
-                    holder.setImageResource(R.id.image_child2,entity.getItem(2).getResImagID());
+                    holder.setImageResource(R.id.image_child, entity.getItem(0).getResImagID());
+                    holder.setImageResource(R.id.image_child1, entity.getItem(1).getResImagID());
+                    holder.setImageResource(R.id.image_child2, entity.getItem(2).getResImagID());
 
-                    holder.setVisible(R.id.childDivider1,View.VISIBLE);
-                    holder.setVisible(R.id.childDivider2,View.VISIBLE);
+                    holder.setVisible(R.id.childDivider1, View.VISIBLE);
+                    holder.setVisible(R.id.childDivider2, View.VISIBLE);
 
-                    setKvarImage(holder,entity,1,R.id.image_child1);
-                    setKvarImage(holder,entity,2,R.id.image_child2);
+                    setKvarImage(holder, entity, 1, R.id.image_child1);
+                    setKvarImage(holder, entity, 2, R.id.image_child2);
 
 
                 } else {
                     holder.setVisible(R.id.rl_child2, View.GONE);
-                    holder.setVisible(R.id.childDivider2,View.GONE);
+                    holder.setVisible(R.id.childDivider2, View.GONE);
                     if (entity.getItemSize() > 1) {
-                        holder.setVisible(R.id.rl_child, View.VISIBLE,4);
-                        holder.setVisible(R.id.rl_child1, View.VISIBLE,1);
+                        holder.setVisible(R.id.rl_child, View.VISIBLE, 4);
+                        holder.setVisible(R.id.rl_child1, View.VISIBLE, 1);
                         holder.setText(R.id.tv_childL1, entity.getItem(1).getChildStr());
                         holder.setText(R.id.tv_child, entity.getItem(0).getChildSpannStr());
                         holder.setText(R.id.tv_child_unitL1, entity.getItem(1).getChildUnit());
-                        holder.setImageResource(R.id.image_child,entity.getItem(0).getResImagID());
-                        holder.setImageResource(R.id.image_child1,entity.getItem(1).getResImagID());
-                        holder.setVisible(R.id.childDivider1,View.VISIBLE);
+                        holder.setImageResource(R.id.image_child, entity.getItem(0).getResImagID());
+                        holder.setImageResource(R.id.image_child1, entity.getItem(1).getResImagID());
+                        holder.setVisible(R.id.childDivider1, View.VISIBLE);
 
-                        setKvarImage(holder,entity,1,R.id.image_child1);
+                        setKvarImage(holder, entity, 1, R.id.image_child1);
 
                     } else {
                         holder.setVisible(R.id.rl_child1, View.GONE);
-                        holder.setVisible(R.id.childDivider1,View.GONE);
-                        if (entity.getItemSize() ==1) {
+                        holder.setVisible(R.id.childDivider1, View.GONE);
+                        if (entity.getItemSize() == 1) {
                             holder.setVisible(R.id.rl_child, View.VISIBLE);
-                            holder.setImageResource(R.id.image_child,entity.getItem(0).getResImagID());
+                            holder.setImageResource(R.id.image_child, entity.getItem(0).getResImagID());
                         }
-                        setKvarImage(holder,entity,0,R.id.image_child1);
+                        setKvarImage(holder, entity, 0, R.id.image_child1);
                     }
                 }
             }
         }
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        holder.itemView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+
+                } else {
+                }
+            }
+        });
 
     }
 
@@ -638,5 +677,10 @@ public class GroupedListAdapter extends GroupedRecyclerViewAdapter {
 
     public void setItemAccount(int i) {
         itemAccount = i;
+    }
+
+    @Override
+    public int onGetChildDrawingOrder(int i, int i1) {
+        return 0;
     }
 }

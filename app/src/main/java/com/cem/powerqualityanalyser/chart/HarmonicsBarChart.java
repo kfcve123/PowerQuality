@@ -31,7 +31,13 @@ public class HarmonicsBarChart extends BaseBarChart{
         super(context, attrs, defStyle);
     }
 
-    public void setShowMeterData(List<ModelLineData> lineDataList, MeterHarmonicObj harmonicObj) {
+    @Override
+    protected void init() {
+        super.init();
+        mRenderer = new HarmoBarChartRenderer(this, mAnimator, mViewPortHandler);
+
+    }
+    /*public void setShowMeterData(List<ModelLineData> lineDataList, MeterHarmonicObj harmonicObj) {
 
         int size = lineDataList.size();
         ArrayList<BarEntry> values = new ArrayList<>();
@@ -74,9 +80,9 @@ public class HarmonicsBarChart extends BaseBarChart{
 
         //       harmonicsbarchart.setViewPortOffsets(50,20,20,50f); 搭配设置x的字体 xAxis.setTextSize(20f);
         invalidate();
-    }
+    }*/
 
-    public void setShowMeterData(List<ModelLineData> lineDataList, int dataSetSize) {
+    /*public void setShowMeterData(List<ModelLineData> lineDataList, int dataSetSize) {
 
         int size = lineDataList.size();
         ArrayList<BarEntry> values = new ArrayList<>();
@@ -118,5 +124,5 @@ public class HarmonicsBarChart extends BaseBarChart{
 
         //       harmonicsbarchart.setViewPortOffsets(50,20,20,50f); 搭配设置x的字体 xAxis.setTextSize(20f);
         invalidate();
-    }
+    }*/
 }

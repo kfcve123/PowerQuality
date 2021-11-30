@@ -33,15 +33,16 @@ public class AllBaseActivity extends FragmentActivity {
         return super.onKeyDown(keyCode, event);
 
     }
-    private void  globalKeDown(int keyCode){
-        MeterKeyValue key=MeterKeyValue.valueOf(keyCode);
-        String acitvityName=this.getClass().getSimpleName();
-  //      log.e("----------Power----------" + key.name());
-        switch (key){
+
+    private void globalKeDown(int keyCode) {
+        MeterKeyValue key = MeterKeyValue.valueOf(keyCode);
+        String acitvityName = this.getClass().getSimpleName();
+        //      log.e("----------Power----------" + key.name());
+        switch (key) {
             case Scope:
                 if (!acitvityName.contains(ScopeActivity.class.getSimpleName())) {
                     Intent intent = new Intent(this, ScopeActivity.class);
-                    intent.putExtra(AppConfig.MainPutActivityNameKey,"Scope");
+                    intent.putExtra(AppConfig.MainPutActivityNameKey, "Scope");
                     startActivity(intent);
                 }
 
@@ -49,7 +50,7 @@ public class AllBaseActivity extends FragmentActivity {
             case Setup:
                 if (!acitvityName.contains(SetupActivityTest.class.getSimpleName())) {
                     Intent intent = new Intent(this, SetupActivity.class);
-                    intent.putExtra(AppConfig.MainPutActivityNameKey,"Setting");
+                    intent.putExtra(AppConfig.MainPutActivityNameKey, "Setting");
                     startActivity(intent);
                 }
 
@@ -65,7 +66,7 @@ public class AllBaseActivity extends FragmentActivity {
             case Logger:
                 if (!acitvityName.contains(TrendChartRecordActivity.class.getSimpleName())) {
                     Intent intent = new Intent(this, TrendChartRecordActivity.class);
-                    intent.putExtra(AppConfig.MainPutActivityNameKey,"Logger");
+                    intent.putExtra(AppConfig.MainPutActivityNameKey, "Logger");
                     startActivity(intent);
                 }
                 break;
@@ -89,27 +90,28 @@ public class AllBaseActivity extends FragmentActivity {
         }
     }
 
-    private void screenAndSave(){
-        Bitmap bitmap =screenShots();
+    private void screenAndSave() {
+        Bitmap bitmap = screenShots();
         if (bitmap != null) {
             try {
-                String SAVE_Screenshot_PATH =getExternalCacheDir().getPath() + "/" + FileImageManager.IMAGE_CHILD_PATH;
+                String SAVE_Screenshot_PATH = getExternalCacheDir().getPath() + "/" + FileImageManager.IMAGE_CHILD_PATH;
 
                 createDir(SAVE_Screenshot_PATH);
 
-                File fileDir =new File(SAVE_Screenshot_PATH,new Date().getTime()+".png");
-                Log.e("地址:",fileDir.getAbsolutePath());
+                File fileDir = new File(SAVE_Screenshot_PATH, new Date().getTime() + ".png");
+                Log.e("地址:", fileDir.getAbsolutePath());
                 Log.e("是否可写入：", String.valueOf(fileDir.canWrite()));
                 FileOutputStream os = new FileOutputStream(fileDir);
 
                 Log.e("是否写入成功：", String.valueOf(bitmap.compress(Bitmap.CompressFormat.PNG, 100, os)));
                 os.flush();
                 os.close();
-                Toast.makeText(this, "地址："+fileDir.getAbsolutePath(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "地址：" + fileDir.getAbsolutePath(), Toast.LENGTH_SHORT).show();
             } catch (Exception e) {
-                Log.e("错误：",e.getMessage().toString()+"\r\n"+e.getStackTrace().toString());
+                Log.e("错误：", e.getMessage().toString() + "\r\n" + e.getStackTrace().toString());
                 Toast.makeText(this, "截图失败", Toast.LENGTH_SHORT).show();
-            }}
+            }
+        }
     }
 
     private Bitmap screenShots() {
@@ -130,23 +132,23 @@ public class AllBaseActivity extends FragmentActivity {
         return bitmap;
     }
 
-    public void createDir (String dirPath) {
+    public void createDir(String dirPath) {
 
         File dir = new File(dirPath);
         //文件夹是否已经存在
         if (dir.exists()) {
-            Log.w(TAG,"The directory [ " + dirPath + " ] has already exists");
-            return ;
+            Log.w(TAG, "The directory [ " + dirPath + " ] has already exists");
+            return;
         }
         if (!dirPath.endsWith(File.separator)) {//不是以 路径分隔符 "/" 结束，则添加路径分隔符 "/"
             dirPath = dirPath + File.separator;
         }
         if (dir.mkdirs()) {
-            Log.d(TAG,"create directory [ "+ dirPath + " ] success");
+            Log.d(TAG, "create directory [ " + dirPath + " ] success");
 //            return FLAG_SUCCESS;
         }
 
-        Log.e(TAG,"create directory [ "+ dirPath + " ] failed");
+        Log.e(TAG, "create directory [ " + dirPath + " ] failed");
     }
 
     private int getScreenWidth() {
@@ -155,6 +157,7 @@ public class AllBaseActivity extends FragmentActivity {
         windowManager.getDefaultDisplay().getMetrics(displayMetrics);
         return displayMetrics.widthPixels;
     }
+
     public static int getScreenHeight(Context context) {
         WindowManager wm = (WindowManager) context
                 .getSystemService(Context.WINDOW_SERVICE);
@@ -165,6 +168,7 @@ public class AllBaseActivity extends FragmentActivity {
 
     /**
      * 设置亮度
+     *
      * @param
      * @param
      */
@@ -172,14 +176,13 @@ public class AllBaseActivity extends FragmentActivity {
         Window window = getWindow();
         WindowManager.LayoutParams lp = window.getAttributes();
         lp.screenBrightness += 0.25;
-        if (lp.screenBrightness > 1){
+        if (lp.screenBrightness > 1) {
             lp.screenBrightness = 0;
         }
         log.e("--------------" + lp.screenBrightness);
         AppConfig.getInstance().setDefault_brightness((int) (255 * lp.screenBrightness));
         window.setAttributes(lp);
     }
-
 
 
 }

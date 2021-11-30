@@ -1,7 +1,6 @@
 package com.cem.powerqualityanalyser.activity;
 
 
-
 import com.cem.powerqualityanalyser.R;
 import com.cem.powerqualityanalyser.newchart.PowerEnergyView;
 import com.cem.powerqualityanalyser.fragment.BaseFragmentTrend;
@@ -30,8 +29,8 @@ public class PowerEnergyTrend extends BaseFragmentTrend {
 
     @Override
     public void setShowMeterData(final ModelAllData modelAllData, final int funTypeIndex) {
-        if(modelAllData!=null)
-            if(powerEnergyView!=null) {
+        if (modelAllData != null)
+            if (powerEnergyView != null) {
                 powerEnergyView.post(new Runnable() {
                     @Override
                     public void run() {
@@ -64,12 +63,12 @@ public class PowerEnergyTrend extends BaseFragmentTrend {
         powerEnergyView = (PowerEnergyView) findViewById(R.id.powerenergyView);
         powerEnergyView.setDragEnabled(true);
         powerEnergyView.setScanleEnable(true);
-        String[] showItem2=getString(R.string.set_wir_item).split(",");
-        powerEnergyView.setPowerEnergyTopView(20f,configV + "      " + configHz + "      " +  showItem2[wir_index]);
-        topBgRes = new Integer[]{R.mipmap.top_black_bg,R.mipmap.top_yellow_bg,R.mipmap.top_red_bg,R.mipmap.top_blue_bg,R.mipmap.top_green_bg};
+        String[] showItem2 = getString(R.string.set_wir_item).split(",");
+        powerEnergyView.setPowerEnergyTopView(20f, configV + "      " + configHz + "      " + showItem2[wir_index]);
+        topBgRes = new Integer[]{R.mipmap.top_black_bg, R.mipmap.top_yellow_bg, R.mipmap.top_red_bg, R.mipmap.top_blue_bg, R.mipmap.top_green_bg};
 //        topBgRes = getResources().getIntArray(R.array.top_backgroud_res_array);
-        powerEnergyView.setTopBag(topBgRes[config.getSetup_Show_Color_VL1()-1],topBgRes[config.getSetup_Show_Color_VL2()-1],topBgRes[config.getSetup_Show_Color_VL3()-1],topBgRes[config.getSetup_Show_Color_VN()-1]);
-        setPowerModeIndex(wir_index,0,0);
+        powerEnergyView.setTopBag(topBgRes[config.getSetup_Show_Color_VL1() - 1], topBgRes[config.getSetup_Show_Color_VL2() - 1], topBgRes[config.getSetup_Show_Color_VL3() - 1], topBgRes[config.getSetup_Show_Color_VN() - 1]);
+        setPowerModeIndex(wir_index, 0, 0);
     }
 
 
@@ -79,10 +78,9 @@ public class PowerEnergyTrend extends BaseFragmentTrend {
     }
 
 
-
-    public void setPowerModeIndex(int wir_index,int wir_right_index,int positio) {
+    public void setPowerModeIndex(int wir_index, int wir_right_index, int positio) {
         if (powerEnergyView != null) {
-            powerEnergyView.setPowerModeIndex(wir_index,wir_right_index,positio);
+            powerEnergyView.setPowerModeIndex(wir_index, wir_right_index, positio);
             if (lastPosition != positio) {
                 lastPosition = positio;
                 powerEnergyView.setNewData(true);
@@ -90,9 +88,9 @@ public class PowerEnergyTrend extends BaseFragmentTrend {
         }
     }
 
-    public void setEnergyModeIndex(int wir_index,int wir_right_index,int positio) {
+    public void setEnergyModeIndex(int wir_index, int wir_right_index, int positio) {
         if (powerEnergyView != null) {
-            powerEnergyView.setPowerModeIndex(wir_index,wir_right_index,positio);
+            powerEnergyView.setPowerModeIndex(wir_index, wir_right_index, positio);
             if (lastPosition != positio) {
                 lastPosition = positio;
                 powerEnergyView.setNewData(true);
@@ -100,9 +98,14 @@ public class PowerEnergyTrend extends BaseFragmentTrend {
         }
     }
 
+    public void showCursor(boolean enable) {
+        if (powerEnergyView != null)
+            powerEnergyView.showCursor(enable);
+    }
 
-    private void zoomScale(float yScale) {
-        zoomScale(0f, yScale);
+
+    public void zoomScale(float yScale) {
+        zoomScale(yScale, 1f);
     }
 
     private void zoomScale(float xScale, float yScale) {

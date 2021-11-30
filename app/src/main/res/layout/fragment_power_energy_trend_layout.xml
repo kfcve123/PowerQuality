@@ -18,8 +18,8 @@
             android:id="@+id/tv_hz"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@mipmap/textview_bg3"
             android:layout_centerHorizontal="true"
+            android:background="@mipmap/textview_bg3"
             android:gravity="center"
             android:text="50.00Hz"
             android:textColor="@color/colorwhite"
@@ -33,19 +33,19 @@
             android:layout_below="@+id/tv_hz"
             android:layout_marginTop="@dimen/dimen_8"
             android:gravity="center"
-            android:orientation="vertical"/>
+            android:orientation="vertical" />
 
     </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_alignBottom="@+id/rightmodeview"
         android:layout_marginLeft="@dimen/dimen_13"
         android:layout_marginTop="@dimen/dimen_23"
-        android:layout_marginBottom="6dp"
         android:layout_marginRight="@dimen/dimen_5"
+        android:layout_marginBottom="6dp"
         android:layout_toLeftOf="@+id/rightmodeview"
-        android:layout_alignBottom="@+id/rightmodeview"
         android:background="@mipmap/left_table_bg"
         android:orientation="vertical">
 
@@ -56,17 +56,26 @@
             android:paddingLeft="@dimen/dimen_10"
             android:paddingRight="@dimen/dimen_10">
 
+            <ImageView
+                android:id="@+id/icon_left_focus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/dimen_10"
+                android:src="@mipmap/icon_up"
+                android:visibility="gone"/>
 
             <ImageView
                 android:id="@+id/iv_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
                 android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
                 android:layout_marginLeft="@dimen/dimen_30"
                 android:layout_marginRight="@dimen/dimen_5"
-                android:visibility="gone"
-                android:src="@mipmap/time_icon" />
+                android:src="@mipmap/time_icon"
+                android:visibility="gone" />
+
 
             <TextView
                 android:id="@+id/Group_list_leftText"
@@ -96,8 +105,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:visibility="invisible"
-                android:src="@mipmap/power_icon" />
+                android:src="@mipmap/power_icon"
+                android:visibility="invisible" />
 
             <TextView
                 android:id="@+id/Group_list_rightText"
@@ -119,9 +128,9 @@
         <com.cem.powerqualityanalyser.view.datalist.MyTableListView
             android:id="@+id/sticky_layout"
             android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:focusable="false"
-            android:focusableInTouchMode="false"
-            android:layout_height="match_parent">
+            android:focusableInTouchMode="false">
 
         </com.cem.powerqualityanalyser.view.datalist.MyTableListView>
     </LinearLayout>

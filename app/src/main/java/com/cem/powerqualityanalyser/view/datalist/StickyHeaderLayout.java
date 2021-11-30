@@ -34,19 +34,19 @@ public class StickyHeaderLayout extends FrameLayout {
     //吸顶容器，用于承载吸顶布局。
     private FrameLayout mStickyLayout;
 
-    public void setListClickAble(boolean able){
+    public void setListClickAble(boolean able) {
         mRecyclerView.setClickable(able);
     }
 
-    public void setListToucheAble(boolean able){
+    public void setListToucheAble(boolean able) {
         mRecyclerView.setFocusableInTouchMode(able);
     }
 
-    public void setListFocusAble(boolean able){
+    public void setListFocusAble(boolean able) {
         mRecyclerView.setFocusable(false);
     }
 
-    public void getViewFoucs(){
+    public void getViewFoucs() {
         setListFocusAble(true);
         mRecyclerView.requestFocus();
     }
@@ -303,7 +303,7 @@ public class StickyHeaderLayout extends FrameLayout {
     /**
      * 获取当前第一个显示的item .
      */
-    private int getFirstVisibleItem() {
+    public int getFirstVisibleItem() {
         int firstVisibleItem = -1;
         RecyclerView.LayoutManager layout = mRecyclerView.getLayoutManager();
         if (layout != null) {
@@ -318,6 +318,26 @@ public class StickyHeaderLayout extends FrameLayout {
             }
         }
         return firstVisibleItem;
+    }
+
+    /**
+     * 获取当前第一个显示的item .
+     */
+    public int getLastVisibleItem() {
+        int lastVisibleItem = -1;
+        RecyclerView.LayoutManager layout = mRecyclerView.getLayoutManager();
+        if (layout != null) {
+            if (layout instanceof GridLayoutManager) {
+                lastVisibleItem = ((GridLayoutManager) layout).findLastVisibleItemPosition();
+            } else if (layout instanceof LinearLayoutManager) {
+                lastVisibleItem = ((LinearLayoutManager) layout).findLastVisibleItemPosition();
+            } else if (layout instanceof StaggeredGridLayoutManager) {
+                /*int[] firstPositions = new int[((StaggeredGridLayoutManager) layout).getSpanCount()];
+                ((StaggeredGridLayoutManager) layout).findFirstVisibleItemPositions(firstPositions);
+                firstVisibleItem = getMin(firstPositions);*/
+            }
+        }
+        return lastVisibleItem;
     }
 
     private int getMin(int[] arr) {
@@ -404,7 +424,7 @@ public class StickyHeaderLayout extends FrameLayout {
     @Override
     public void scrollBy(int x, int y) {
         if (mRecyclerView != null) {
-            mRecyclerView.scrollBy(x,y);
+            mRecyclerView.scrollBy(x, y);
         } else {
             super.scrollBy(x, y);
         }
@@ -413,7 +433,7 @@ public class StickyHeaderLayout extends FrameLayout {
     @Override
     public void scrollTo(int x, int y) {
         if (mRecyclerView != null) {
-            mRecyclerView.scrollTo(x,y);
+            mRecyclerView.scrollTo(x, y);
         } else {
             super.scrollTo(x, y);
         }

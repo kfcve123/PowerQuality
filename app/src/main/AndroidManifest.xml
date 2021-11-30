@@ -73,6 +73,7 @@
             </activity>
 
             <activity android:name=".activity.ConfigActiity"/>
+            <activity android:name=".activity.ConfigUserListActiity"/>
             <activity android:name=".activity.ConfigLimitInfoActivity"/>
             <activity android:name=".activity.ConfigVnomInfoActivity"/>
             <activity android:name=".activity.ConfigHzInfoActivity"/>
@@ -131,6 +132,8 @@
             <activity android:name=".activity.CsvFileActivity" />
             <activity android:name=".activity.InrushHistoryActivity" />
             <activity android:name=".activity.DipsSwellHistoryLoggerActivity" />
+            <activity android:name=".activity.TransientHistoryLoggerActivity" />
+
             <!--<activity
                 android:name=".activity.MonitorActivity"
                 android:windowSoftInputMode="stateHidden" />

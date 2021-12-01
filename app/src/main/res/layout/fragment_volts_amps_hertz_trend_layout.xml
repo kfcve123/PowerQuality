@@ -9,7 +9,7 @@
         android:id="@+id/rightmodeview"
         android:layout_width="184dp"
         android:layout_height="match_parent"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_gravity="center_vertical"
         android:layout_marginTop="@dimen/dimen_23"
         android:layout_marginBottom="@dimen/dimen_6">
@@ -21,7 +21,6 @@
             android:layout_centerHorizontal="true"
             android:background="@mipmap/textview_bg3"
             android:gravity="center"
-            android:text="50.00Hz"
             android:textColor="@color/colorwhite"
             android:textSize="@dimen/grid_titleTextSize" />
 
@@ -88,7 +87,7 @@
                 android:id="@+id/Group_list_rightview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:src="@mipmap/power_icon"
                 android:visibility="invisible" />
@@ -97,9 +96,9 @@
                 android:id="@+id/Group_list_rightText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="@dimen/dimen_10"
+                android:layout_marginEnd="@dimen/dimen_10"
                 android:textColor="@color/colorwhite"
                 android:textSize="25sp" />
 
@@ -111,10 +110,12 @@
             android:background="@color/colorwhite" />
         <!-- android:focusable="false"
          android:focusableInTouchMode="false"-->
+
         <com.cem.powerqualityanalyser.view.datalist.MyTableListView
             android:id="@+id/sticky_layout"
             android:layout_width="match_parent"
-
+            android:focusable="false"
+            android:focusableInTouchMode="false"
             android:layout_height="match_parent">
 
         </com.cem.powerqualityanalyser.view.datalist.MyTableListView>

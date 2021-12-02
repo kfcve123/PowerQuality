@@ -28,6 +28,15 @@
                 android:layout_height="@dimen/dimen_48"
                 android:paddingLeft="@dimen/dimen_10">
 
+                <ImageView
+                    android:id="@+id/icon_left_focus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/dimen_10"
+                    android:src="@mipmap/icon_up"
+                    android:visibility="gone"/>
+
                 <TextView
                     android:id="@+id/Group_list_leftText"
                     android:layout_width="wrap_content"

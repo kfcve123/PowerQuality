@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Toast;
@@ -37,13 +38,17 @@ public class VoltsAmpsHertzActivity extends BaseActivity implements BaseFragment
     private MeterTypeValue meterTypeValue = MeterTypeValue.VoltsAmpsHertz;
     private List<DataModel> dataModels = new ArrayList<>();
 
-    private int popwindowsIndex=0;
+    private int popwindowsIndex = 0;
     private int wir_right_index = 0;
+    private int secondPopIndex = -1;//第二个PopWindow的选中角标，例如L1 L2 L3 N
     private VoltsAmpsHertzMeter Fragment_first;
     private VoltsAmpsHertzTrend Fragment_Second;
     private FragmentTransaction fragmentTransaction;
     private FragmentManager fragmentManager;
 
+    private int currentFragmentIndex = 0;
+    private boolean cursorEnable;//开启光标显示
+    private int zoomSize = 1; //放大比例
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,53 +65,54 @@ public class VoltsAmpsHertzActivity extends BaseActivity implements BaseFragment
 
     @Override
     public byte[] getMode() {
-        return sendOrderData(config.getSet_Wir(),wir_right_index);
+        return sendOrderData(config.getSet_Wir(), wir_right_index);
     }
 
 
     private BaseBottomAdapterObj baseBottomAdapterObj = null;
-    public void updateWirData(int wir_index, int wir_right_index){
+
+    public void updateWirData(int wir_index, int wir_right_index) {
         switch (wir_index) {
             case 9://1Q +NEUTRAL
                 switch (wir_right_index) {//切换右边选项
                     case 0://2V
-                        baseBottomAdapterObj = new BaseBottomAdapterObj(2,"RMS(V≃)",new String[]{"RMS(V≃)","DC(V=)","PEAK+(V=)","PEAK-(V=)","MAX(V≃)","MIN(V≃)","CF","THD(%f)","THD(%r)","PST","PLT"});
+                        baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS(V≃)", new String[]{"RMS(V≃)", "DC(V=)", "PEAK+(V=)", "PEAK-(V=)", "MAX(V≃)", "MIN(V≃)", "CF", "THD(%f)", "THD(%r)", "PST", "PLT"});
                         break;
                     case 1://2A
-                        baseBottomAdapterObj = new BaseBottomAdapterObj(2,"RMS(A≃)",new String[]{"RMS(A≃)","PEAK+(A=)","PEAK-(A=)","MAX(A≃)","MIN(A≃)","CF","THD(%f)","THD(%r)","FHL","FK"});
+                        baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS(A≃)", new String[]{"RMS(A≃)", "PEAK+(A=)", "PEAK-(A=)", "MAX(A≃)", "MIN(A≃)", "CF", "THD(%f)", "THD(%r)", "FHL", "FK"});
                         break;
                     case 2://L1
-                        baseBottomAdapterObj = new BaseBottomAdapterObj(2,"RMS",new String[]{"RMS","DC","PEAK+","PEAK-","MAX","MIN","CF","THD%f","THD%r","PST","PLT","FHL","FK"});
+                        baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS", new String[]{"RMS", "DC", "PEAK+", "PEAK-", "MAX", "MIN", "CF", "THD%f", "THD%r", "PST", "PLT", "FHL", "FK"});
                         break;
                     case 3://N
-                        baseBottomAdapterObj = new BaseBottomAdapterObj(2,"RMS",new String[]{"RMS","DC","PEAK+","PEAK-","CF","THD%f","THD%r"});
+                        baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS", new String[]{"RMS", "DC", "PEAK+", "PEAK-", "CF", "THD%f", "THD%r"});
                         break;
                 }
                 break;
             case 8://1Q IT NO NEUTRAL
-                switch (wir_right_index){//切换右边选项
+                switch (wir_right_index) {//切换右边选项
                     case 0://U
-                        baseBottomAdapterObj = new BaseBottomAdapterObj(2,"RMS(V≃)",new String[]{"RMS(V≃)","DC(V=)","PEAK+(V=)","PEAK-(V=)","MAX(V≃)","MIN(V≃)","CF","THD(%f)","THD(%r)","PST","PLT"});
+                        baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS(V≃)", new String[]{"RMS(V≃)", "DC(V=)", "PEAK+(V=)", "PEAK-(V=)", "MAX(V≃)", "MIN(V≃)", "CF", "THD(%f)", "THD(%r)", "PST", "PLT"});
                         break;
                     case 1://A
-                        baseBottomAdapterObj = new BaseBottomAdapterObj(2,"RMS(A≃)",new String[]{"RMS(A≃)","PEAK+(A=)","PEAK-(A=)","MAX(A≃)","MIN(A≃)","CF","THD(%f)","THD(%r)","FHL","FK"});
+                        baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS(A≃)", new String[]{"RMS(A≃)", "PEAK+(A=)", "PEAK-(A=)", "MAX(A≃)", "MIN(A≃)", "CF", "THD(%f)", "THD(%r)", "FHL", "FK"});
                         break;
                 }
                 break;
             case 7://1Q SPLIT PHASE
                 switch (wir_right_index) {//切换右边选项
                     case 0://3V
-                        baseBottomAdapterObj = new BaseBottomAdapterObj(2,"RMS(V≃)",new String[]{"RMS(V≃)","DC(V=)","PEAK+(V=)","PEAK-(V=)","MAX(V≃)","MIN(V≃)","CF","THD(%f)","THD(%r)","PST","PLT"});
+                        baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS(V≃)", new String[]{"RMS(V≃)", "DC(V=)", "PEAK+(V=)", "PEAK-(V=)", "MAX(V≃)", "MIN(V≃)", "CF", "THD(%f)", "THD(%r)", "PST", "PLT"});
                         break;
                     case 1://3A
-                        baseBottomAdapterObj = new BaseBottomAdapterObj(2,"RMS(A≃)",new String[]{"RMS(A≃)","PEAK+(A=)","PEAK-(A=)","MAX(A≃)","MIN(A≃)","CF","THD(%f)","THD(%r)","FHL","FK"});
+                        baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS(A≃)", new String[]{"RMS(A≃)", "PEAK+(A=)", "PEAK-(A=)", "MAX(A≃)", "MIN(A≃)", "CF", "THD(%f)", "THD(%r)", "FHL", "FK"});
                         break;
                     case 2://L1
                     case 3://L2
-                        baseBottomAdapterObj = new BaseBottomAdapterObj(2,"RMS",new String[]{"RMS","DC","PEAK+","PEAK-","MAX","MIN","CF","THD%f","THD%r","PST","PLT","FHL","FK"});
+                        baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS", new String[]{"RMS", "DC", "PEAK+", "PEAK-", "MAX", "MIN", "CF", "THD%f", "THD%r", "PST", "PLT", "FHL", "FK"});
                         break;
                     case 4://N
-                        baseBottomAdapterObj = new BaseBottomAdapterObj(2,"RMS",new String[]{"RMS","DC","PEAK+","PEAK-","CF","THD%f","THD%r"});
+                        baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS", new String[]{"RMS", "DC", "PEAK+", "PEAK-", "CF", "THD%f", "THD%r"});
                         break;
 
                 }
@@ -115,21 +121,21 @@ public class VoltsAmpsHertzActivity extends BaseActivity implements BaseFragment
             case 5://3QHIGH LEG
                 switch (wir_right_index) {//切换右边选项
                     case 0://3V
-                        baseBottomAdapterObj = new BaseBottomAdapterObj(2,"RMS(V≃)",new String[]{"RMS(V≃)","PEAK+(V=)","PEAK-(V=)","MAX(V≃)","MIN(V≃)","CF","THD(%f)","THD(%r)","PST","PLT"});
+                        baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS(V≃)", new String[]{"RMS(V≃)", "PEAK+(V=)", "PEAK-(V=)", "MAX(V≃)", "MIN(V≃)", "CF", "THD(%f)", "THD(%r)", "PST", "PLT"});
                         break;
                     case 1://3U
-                        baseBottomAdapterObj = new BaseBottomAdapterObj(2,"RMS(V≃)",new String[]{"RMS(V≃)","DC(V=)","PEAK+(V=)","PEAK-(V=)","MAX(V≃)","MIN(V≃)","CF","THD(%f)","THD(%r)","PST","PLT"});
+                        baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS(V≃)", new String[]{"RMS(V≃)", "DC(V=)", "PEAK+(V=)", "PEAK-(V=)", "MAX(V≃)", "MIN(V≃)", "CF", "THD(%f)", "THD(%r)", "PST", "PLT"});
                         break;
                     case 2://3A
-                        baseBottomAdapterObj = new BaseBottomAdapterObj(2,"RMS(V≃)",new String[]{"RMS(A≃)","PEAK+(A=)","PEAK-(A=)","MAX(A≃)","MIN(A≃)","CF","THD(%f)","THD(%r)","FHL","FK"});
+                        baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS(V≃)", new String[]{"RMS(A≃)", "PEAK+(A=)", "PEAK-(A=)", "MAX(A≃)", "MIN(A≃)", "CF", "THD(%f)", "THD(%r)", "FHL", "FK"});
                         break;
                     case 3://L1
                     case 4://L2
                     case 5://L3
-                        baseBottomAdapterObj = new BaseBottomAdapterObj(2,"RMS",new String[]{"RMS","DC","PEAK+","PEAK-","MAX","MIN","CF","THD%f","THD%r","PST","PLT","FHL","FK"});
+                        baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS", new String[]{"RMS", "DC", "PEAK+", "PEAK-", "MAX", "MIN", "CF", "THD%f", "THD%r", "PST", "PLT", "FHL", "FK"});
                         break;
                     case 6://N
-                        baseBottomAdapterObj = new BaseBottomAdapterObj(2,"RMS",new String[]{"RMS","DC","PEAK+","PEAK-","CF","THD%f","THD%r"});
+                        baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS", new String[]{"RMS", "DC", "PEAK+", "PEAK-", "CF", "THD%f", "THD%r"});
                         break;
                 }
                 break;
@@ -139,59 +145,42 @@ public class VoltsAmpsHertzActivity extends BaseActivity implements BaseFragment
             case 1://3QOPEN LEG
                 switch (wir_right_index) {//切换右边选项
                     case 0://3V
-                        baseBottomAdapterObj = new BaseBottomAdapterObj(2,"RMS(V≃)",new String[]{"RMS(V≃)","PEAK+(V=)","PEAK-(V=)","MAX(V≃)","MIN(V≃)","CF","THD(%f)","THD(%r)","PST","PLT"});
+                        baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS(V≃)", new String[]{"RMS(V≃)", "PEAK+(V=)", "PEAK-(V=)", "MAX(V≃)", "MIN(V≃)", "CF", "THD(%f)", "THD(%r)", "PST", "PLT"});
                         break;
                     case 1://3U
-                        baseBottomAdapterObj = new BaseBottomAdapterObj(2,"RMS(V≃)",new String[]{"RMS(V≃)","DC(V=)","PEAK+(V=)","PEAK-(V=)","MAX(V≃)","MIN(V≃)","CF","THD(%f)","THD(%r)","PST","PLT"});
+                        baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS(V≃)", new String[]{"RMS(V≃)", "DC(V=)", "PEAK+(V=)", "PEAK-(V=)", "MAX(V≃)", "MIN(V≃)", "CF", "THD(%f)", "THD(%r)", "PST", "PLT"});
                         break;
                     case 2://3A
-                        baseBottomAdapterObj = new BaseBottomAdapterObj(2,"RMS(V≃)",new String[]{"RMS(A≃)","PEAK+(A=)","PEAK-(A=)","MAX(A≃)","MIN(A≃)","CF","THD(%f)","THD(%r)","FHL","FK"});
+                        baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS(V≃)", new String[]{"RMS(A≃)", "PEAK+(A=)", "PEAK-(A=)", "MAX(A≃)", "MIN(A≃)", "CF", "THD(%f)", "THD(%r)", "FHL", "FK"});
                         break;
 
                 }
                 break;
             case 0://3QWYE
-                switch (wir_right_index){
+                switch (wir_right_index) {
                     case 0://4V
                     case 1://3U
-                        baseBottomAdapterObj = new BaseBottomAdapterObj(2,"RMS(V≃)",new String[]{"RMS(V≃)","DC(V=)","PEAK+(V=)","PEAK-(V=)","MAX(V≃)","MIN(V≃)","CF","THD(%f)","THD(%r)","PST","PLT"});
+                        baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS(V≃)", new String[]{"RMS(V≃)", "DC(V=)", "PEAK+(V=)", "PEAK-(V=)", "MAX(V≃)", "MIN(V≃)", "CF", "THD(%f)", "THD(%r)", "PST", "PLT"});
                         break;
                     case 2://4A
-                        baseBottomAdapterObj = new BaseBottomAdapterObj(2,"RMS(V≃)",new String[]{"RMS(A≃)","PEAK+(A≃)","PEAK-(A≃)","MAX(A≃)","MIN(A≃)","CF","THD(%f)","THD(%r)","PST","PLT"});
+                        baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS(V≃)", new String[]{"RMS(A≃)", "PEAK+(A≃)", "PEAK-(A≃)", "MAX(A≃)", "MIN(A≃)", "CF", "THD(%f)", "THD(%r)", "PST", "PLT"});
                         break;
                     case 3://L1
                     case 4://L2
                     case 5://L3
-                        baseBottomAdapterObj = new BaseBottomAdapterObj(2,"RMS(V≃)",new String[]{"RMS","DC","PEAK+","PEAK-","MAX","MIN","CF","THD(%f)","THD(%r)","PST","PLT","FHL","FK"});
+                        baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS(V≃)", new String[]{"RMS", "DC", "PEAK+", "PEAK-", "MAX", "MIN", "CF", "THD(%f)", "THD(%r)", "PST", "PLT", "FHL", "FK"});
                         break;
                     case 6://N
-                        baseBottomAdapterObj = new BaseBottomAdapterObj(2,"RMS",new String[]{"RMS","DC","PEAK+","PEAK-","CF","THD%f","THD%r"});
+                        baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS", new String[]{"RMS", "DC", "PEAK+", "PEAK-", "CF", "THD%f", "THD%r"});
                         break;
 
                 }
                 break;
         }
-       updateBottomData(baseBottomAdapterObj,2);
+        updateBottomData(baseBottomAdapterObj, 2);
     }
 
-    private void setViewShow(int index){
-        if (index==0){
-            if (null == Fragment_Second) {
-                Fragment_Second = new VoltsAmpsHertzTrend();
-            }
-            showFragment(Fragment_Second,Res2String(R.string.Trend));
-            updateWirData(wir_index,wir_right_index);
-        }else {
-            if (null == Fragment_first) {
-                Fragment_first = new VoltsAmpsHertzMeter();
-            }
-            updateBottomView(new BaseBottomAdapterObj(0,null),2);
-            Fragment_first.setOnWirAndRightIndexCallBack(this);
-            showFragment(Fragment_first,Res2String(R.string.Meter));
-        }
-    }
-
-    private void showFragment(Fragment  fragment,String tag){
+    private void showFragment(Fragment fragment, String tag) {
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.userView, fragment, tag);
         fragmentTransaction.commit();
@@ -206,74 +195,114 @@ public class VoltsAmpsHertzActivity extends BaseActivity implements BaseFragment
     @Override
     protected List<BaseBottomAdapterObj> initBottomData() {
 
-        List<BaseBottomAdapterObj> data=new ArrayList<>();
-        data.add(new BaseBottomAdapterObj(0,Res2String(R.string.Trend)));
-        data.add(new BaseBottomAdapterObj(1,Res2String(R.string.Meter)));
-        data.add(new BaseBottomAdapterObj(2,null));
+        List<BaseBottomAdapterObj> data = new ArrayList<>();
+        data.add(new BaseBottomAdapterObj(0, null, Res2String(R.string.Trend), Res2String(R.string.Meter)));
+//        data.add(new BaseBottomAdapterObj(0, Res2String(R.string.Trend)));
+        data.add(new BaseBottomAdapterObj(1, null));
+        data.add(new BaseBottomAdapterObj(2, null));
 //        data.add(new BaseBottomAdapterObj(2,Res2Stringarr(R.array.VrmsKW_array)[0],Res2Stringarr(R.array.VrmsKW_array)));
-        data.add(new BaseBottomAdapterObj(3,null));
-        data.add(new BaseBottomAdapterObj(4,null,Res2String(R.string.Hold),Res2String(R.string.run)));
+        data.add(new BaseBottomAdapterObj(3, null));
+        data.add(new BaseBottomAdapterObj(4, null, Res2String(R.string.Hold), Res2String(R.string.run)));
         return data;
     }
 
     @Override
-    protected void PopupWindowItemClick(BaseBottomAdapterObj obj, int positio) {
-        popwindowsIndex=positio;
-        switch (obj.getId()){
+    protected void PopupWindowItemClick(BaseBottomAdapterObj obj, int position) {
+        popwindowsIndex = position;
+        switch (obj.getId()) {
             case 2:
-                if(null!=Fragment_Second){
-                    Fragment_Second.setVoltsModeIndex(wir_index,wir_right_index,positio);
+                if (null != Fragment_Second) {
+                    Fragment_Second.setVoltsModeIndex(wir_index, wir_right_index, position);
+                }
+                break;
+            case 3://L1.L2.L3,N切换不发命令，筛选数据
+                if (null != Fragment_Second) {
+                    secondPopIndex = position;
+                    Fragment_Second.updateTrendRightAndPopMode(wir_index, wir_right_index, secondPopIndex);
+                    Fragment_Second.openCursorTopShow(wir_index, wir_right_index, secondPopIndex);
                 }
                 break;
         }
     }
 
-    protected void updateBottomData(BaseBottomAdapterObj obj,int position){
-        if(bottomData!=null && bottomData.size()>position + 1) {
+    protected void updateBottomData(BaseBottomAdapterObj obj, int position) {
+        if (bottomData != null && bottomData.size() > position + 1) {
             bottomData.remove(position);
             bottomData.add(position, obj);
-            updateBottomView(bottomData.get(position),position);
+            updateBottomView(bottomData.get(position), position);
         }
     }
 
     private byte[] cmd;
+
     @Override
     protected void BottomViewClick(View view, BaseBottomAdapterObj obj) {
-        switch (obj.getId()){
+        switch (obj.getId()) {
             case 0://TREND切换
-                setViewShow(0);
- //               updateBottomData(obj,2);
- //               updateBottomView(new BaseBottomAdapterObj(2,Res2Stringarr(R.array.VrmsKW_array)[0],Res2Stringarr(R.array.VrmsKW_array)),2);
+                setViewShow(obj.getSwitchindex());
+                //               updateBottomData(obj,2);
+                //               updateBottomView(new BaseBottomAdapterObj(2,Res2Stringarr(R.array.VrmsKW_array)[0],Res2Stringarr(R.array.VrmsKW_array)),2);
                 break;
-            case 1:
-                setViewShow(1);
- //               updateBottomView(new BaseBottomAdapterObj(2,null),2);
+            case 1://第二个按键改成曲线状态下光标的显示和关闭
+//                setViewShow(1);
+                //               updateBottomView(new BaseBottomAdapterObj(2,null),2);
+                if (currentFragmentIndex == 0) {
+                    cursorEnable = obj.getSwitchindex() == 0 ? true : false;
+                    if (Fragment_Second != null)
+                        Fragment_Second.showCursor(cursorEnable);
+                }
                 break;
             case 2:
 
                 break;
-            case 3:
-
+            case 3://第四个按键改成曲线状态下x轴的缩放倍数,按下显示L1L2L3N的切换
+                if (Fragment_Second != null) {
+                    Fragment_Second.fitScreen();
+                }
                 break;
             case 4://HOLD
                 isHold = obj.getSwitchindex() == 0 ? true : false;
                 break;
         }
+    }
 
+    private void setViewShow(int index) {
+        currentFragmentIndex = index;
+        if (index == 0) {
+            if (null == Fragment_Second) {
+                Fragment_Second = new VoltsAmpsHertzTrend();
+            }
+            updateBottomView(new BaseBottomAdapterObj(1, Res2String(R.string.Cursor), Res2String(R.string.On), Res2String(R.string.Off)), 1);
+//            updateBottomView(new BaseBottomAdapterObj(3, Res2String(R.string.Cursor), R.mipmap.left_right, AppConfig.getInstance().getMaxZoom()), 3);
+            updateBottomView(new BaseBottomAdapterObj(3, Res2String(R.string.Cursor_zoom_no), R.mipmap.zoomimg, Res2Stringarr(R.array.inrush_l1l2l3n_array)), 3);
+            showFragment(Fragment_Second, Res2String(R.string.Trend));
+            Fragment_Second.updateTrendRightAndPopMode(wir_index, wir_right_index, -1);
+            updateWirData(wir_index, wir_right_index);
+        } else {
+            if (null == Fragment_first) {
+                Fragment_first = new VoltsAmpsHertzMeter();
+            }
+            updateBottomView(new BaseBottomAdapterObj(1, null), 1);
+            updateBottomView(new BaseBottomAdapterObj(2, null), 2);
+            updateBottomView(new BaseBottomAdapterObj(3, null), 3);
+
+            Fragment_first.setOnWirAndRightIndexCallBack(this);
+            showFragment(Fragment_first, Res2String(R.string.Meter));
+        }
     }
 
     @Override
     public void onDataReceived(byte[] bytes) {
- //       log.e("----------" + BleUtil.dec_hex(bytes));
+        //       log.e("----------" + BleUtil.dec_hex(bytes));
     }
 
     //对象列表
     @Override
     public void onDataReceivedModel(ModelAllData modelAllData) {
-        if(!isStart)
+        if (!isStart)
             isStart = true;
-        if(modelAllData!=null && modelAllData.getValueType() == ModelAllData.AllData_valueType.E0_Voltage_and_current) {
- //           dissLoading();
+        if (modelAllData != null && modelAllData.getValueType() == ModelAllData.AllData_valueType.E0_Voltage_and_current) {
+            //           dissLoading();
             if (!isHold) {
                 if (Fragment_first != null && Fragment_first.isAdded()) {
                     Fragment_first.setShowMeterData(modelAllData);
@@ -300,31 +329,61 @@ public class VoltsAmpsHertzActivity extends BaseActivity implements BaseFragment
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         View rootview = getWindow().getDecorView();
-        View currentView= rootview.findFocus();
+        View currentView = rootview.findFocus();
         //TAG为当前Activity名称
-        if(currentView!=null)
-            log.e("当前焦点所在View："+currentView.toString());
+      /*  if (currentView != null)
+            log.e("当前焦点所在View：" + currentView.toString());
         else
-            log.e("当前焦点所在View："+currentView);
+            log.e("当前焦点所在View：" + currentView);*/
 
         MeterKeyValue key = MeterKeyValue.valueOf(keyCode);
-        log.e("========" + key.toString());
+//        log.e("========" + key.toString());
         switch (key) {
             case Up:
+                if (Fragment_first != null && Fragment_first.isAdded()) {
+                    if (currentView != null && currentView.isFocusable() && currentView instanceof RecyclerView) {
+                        Fragment_first.leftUpScroll();
+                    }
+                } else if (null != Fragment_Second && Fragment_Second.isAdded()) {
+                    if (cursorEnable) {
+                        if (zoomSize < 3) {
+                            zoomSize++;
+                            AppConfig.getInstance().setMaxZoom(zoomSize);
+                        }
+                        Fragment_Second.zoomScale(zoomSize);
+                        updateBottomView(new BaseBottomAdapterObj(3, Res2String(R.string.Cursor), R.mipmap.left_right, AppConfig.getInstance().getMaxZoom()), 3);
+                    } else {
 
+                    }
+                }
                 break;
             case Down:
+                if (Fragment_first != null && Fragment_first.isAdded()) {
+                    if (currentView != null && currentView.isFocusable() && currentView instanceof RecyclerView) {
+                        Fragment_first.leftDownScroll();
+                    }
+                } else if (null != Fragment_Second && Fragment_Second.isAdded()) {
+                    if (cursorEnable) {
+                        if (zoomSize > 1) {
+                            zoomSize--;
+                            AppConfig.getInstance().setMaxZoom(zoomSize);
+                        }
+                        Fragment_Second.zoomScale(zoomSize);
+                        updateBottomView(new BaseBottomAdapterObj(3, Res2String(R.string.Cursor), R.mipmap.left_right, AppConfig.getInstance().getMaxZoom()), 3);
+                    } else {
 
+                    }
+                }
                 break;
             case Left:
-                if(Fragment_Second!=null && Fragment_Second.isAdded())
+                if (Fragment_Second != null && Fragment_Second.isAdded())
                     Fragment_Second.moveCursor(-1);
                 else if (Fragment_first != null && Fragment_first.isAdded()) {
                     Fragment_first.setFocusOnLeft();
                 }
                 break;
             case Right:
-                if(Fragment_Second!=null && Fragment_Second.isAdded())
+                if (Fragment_Second != null && Fragment_Second.isAdded())
                     Fragment_Second.moveCursor(1);
                 else if (Fragment_first != null && Fragment_first.isAdded()) {
                     Fragment_first.setFocusOnRight();
@@ -332,7 +391,7 @@ public class VoltsAmpsHertzActivity extends BaseActivity implements BaseFragment
                 break;
             case Menu:
             case Back:
-                if(isStart){
+                if (isStart) {
                     isStartAlert(Res2String(R.string.voltsamps));
                 }
                 break;
@@ -342,19 +401,19 @@ public class VoltsAmpsHertzActivity extends BaseActivity implements BaseFragment
                 break;
 
         }
-        if(currentView instanceof RightModeView){
+        if (currentView instanceof RightModeView) {
             //          return true;
         }
         return super.onKeyDown(keyCode, event);
     }
 
 
-    private void posskey(int keyCode){
+    private void posskey(int keyCode) {
         View rootview = getWindow().getDecorView();
-        View currentView= rootview.findFocus();
+        View currentView = rootview.findFocus();
         //TAG为当前Activity名称
-        if(currentView!=null)
-            log.e("当前焦点所在View："+currentView.toString());
+        if (currentView != null)
+            log.e("当前焦点所在View：" + currentView.toString());
         MeterKeyValue key = MeterKeyValue.valueOf(keyCode);
         log.e("========" + key.toString());
         switch (key) {
@@ -365,11 +424,11 @@ public class VoltsAmpsHertzActivity extends BaseActivity implements BaseFragment
 
                 break;
             case Left:
-                if(Fragment_Second!=null)
+                if (Fragment_Second != null)
                     Fragment_Second.moveCursor(-1);
                 break;
             case Right:
-                if(Fragment_Second!=null)
+                if (Fragment_Second != null)
                     Fragment_Second.moveCursor(1);
                 break;
 
@@ -380,7 +439,7 @@ public class VoltsAmpsHertzActivity extends BaseActivity implements BaseFragment
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(serialHelper!=null){
+        if (serialHelper != null) {
             serialHelper.closeSerialPort();
             serialHelper = null;
         }
@@ -389,10 +448,10 @@ public class VoltsAmpsHertzActivity extends BaseActivity implements BaseFragment
     @Override
     public void returnWirAndRight(int wir, int right) {
         this.wir_right_index = right;
-        if(serialHelper!=null) {
-            if(null!=Fragment_Second){
-                Fragment_Second.setVoltsModeIndex(wir_index,wir_right_index,0);
- //               updateWirData(wir_index,wir_right_index);
+        if (serialHelper != null) {
+            if (null != Fragment_Second) {
+                Fragment_Second.setVoltsModeIndex(wir_index, wir_right_index, 0);
+                //               updateWirData(wir_index,wir_right_index);
             }
             serialHelper.sendData(sendOrderData(wir, right));
         }
@@ -401,15 +460,16 @@ public class VoltsAmpsHertzActivity extends BaseActivity implements BaseFragment
 
     /**
      * 根据接线方式和右边选择栏更换命令传输数据
+     *
      * @param wir
      * @param right
      * @return
      */
-    private byte[] sendOrderData(int wir,int right){
+    private byte[] sendOrderData(int wir, int right) {
         byte[] order = new byte[0];
-        switch (wir){
+        switch (wir) {
             case 0://3QWYE
-                switch (right){
+                switch (right) {
                     case 0://4V
                         order = Commad.E0_3_WYE_4V;
                         break;
@@ -435,7 +495,7 @@ public class VoltsAmpsHertzActivity extends BaseActivity implements BaseFragment
                 }
                 break;
             case 1://3QOPEN LEG
-                switch (right){
+                switch (right) {
                     case 0://3V
                         order = Commad.E0_3_OPEN_3V;
                         break;
@@ -449,7 +509,7 @@ public class VoltsAmpsHertzActivity extends BaseActivity implements BaseFragment
                 }
                 break;
             case 2://3QIT
-                switch (right){
+                switch (right) {
                     case 0://3V
                         order = Commad.E0_3_IT_3V;
                         break;
@@ -463,7 +523,7 @@ public class VoltsAmpsHertzActivity extends BaseActivity implements BaseFragment
                 }
                 break;
             case 5://3QHIGH LEG
-                switch (right){
+                switch (right) {
                     case 0:
                         order = Commad.E0_3_HIGH_3V;
                         break;
@@ -491,7 +551,7 @@ public class VoltsAmpsHertzActivity extends BaseActivity implements BaseFragment
                 }
                 break;
             case 4://3QDELTA
-                switch (right){
+                switch (right) {
                     case 0://3V
                         order = Commad.E0_3_DELTA_3V;
                         break;
@@ -505,7 +565,7 @@ public class VoltsAmpsHertzActivity extends BaseActivity implements BaseFragment
                 }
                 break;
             case 3://2-ELEMENT
-                switch (right){
+                switch (right) {
                     case 0://3V
                         order = Commad.E0_2_ELEMENT_3V;
                         break;
@@ -519,7 +579,7 @@ public class VoltsAmpsHertzActivity extends BaseActivity implements BaseFragment
                 }
                 break;
             case 6://2½-ELEMENT
-                switch (right){
+                switch (right) {
                     case 0:
                         order = Commad.E0_21_ELEMENT_3A;
 
@@ -551,7 +611,7 @@ public class VoltsAmpsHertzActivity extends BaseActivity implements BaseFragment
                 }
                 break;
             case 7://1Q SPLIT PHASE
-                switch (right){
+                switch (right) {
                     case 0:
                         order = Commad.E0_1_SPLIT_3V;
                         break;
@@ -570,7 +630,7 @@ public class VoltsAmpsHertzActivity extends BaseActivity implements BaseFragment
                 }
                 break;
             case 8://1Q IT NO NEUTRAL
-                switch (right){
+                switch (right) {
                     case 0://3U
                         order = Commad.E0_1_IT_U;
                         break;
@@ -580,7 +640,7 @@ public class VoltsAmpsHertzActivity extends BaseActivity implements BaseFragment
                 }
                 break;
             case 9://1Q +NEUTRAL
-                switch (right){
+                switch (right) {
                     case 1:
                         order = Commad.E0_1_NEUTRAL_2A;
                         break;
@@ -596,8 +656,8 @@ public class VoltsAmpsHertzActivity extends BaseActivity implements BaseFragment
                 }
                 break;
         }
-        if(openLog)
-            Toast.makeText(this, BleUtil.dec_hex(order),Toast.LENGTH_SHORT).show();
+        if (openLog)
+            Toast.makeText(this, BleUtil.dec_hex(order), Toast.LENGTH_SHORT).show();
         return order;
     }
 

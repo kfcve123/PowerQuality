@@ -409,7 +409,7 @@ public class TransientTrend extends BaseFragmentTrend {
     }
 
     public void zoomScale(float yScale){
-        zoomScale(0f,yScale);
+        zoomScale(yScale,1f);
     }
 
     private void zoomScale(float xScale,float yScale){

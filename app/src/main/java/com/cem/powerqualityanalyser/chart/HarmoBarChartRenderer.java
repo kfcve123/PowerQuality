@@ -2,7 +2,7 @@ package com.cem.powerqualityanalyser.chart;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
+import android.util.Log;
 
 import com.github.mikephil.charting.animation.ChartAnimator;
 import com.github.mikephil.charting.data.BarData;
@@ -15,15 +15,10 @@ import com.github.mikephil.charting.renderer.BarChartRenderer;
 import com.github.mikephil.charting.utils.Transformer;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 
-public class MonitorBarChartRenderer extends BarChartRenderer {
+public class HarmoBarChartRenderer extends BarChartRenderer {
 
-    public MonitorBarChartRenderer(BarDataProvider chart, ChartAnimator animator, ViewPortHandler viewPortHandler) {
+    public HarmoBarChartRenderer(BarDataProvider chart, ChartAnimator animator, ViewPortHandler viewPortHandler) {
         super(chart, animator, viewPortHandler);
-
-        //       mHighlightPaint.setColor(Color.rgb(254, 199, 109));
-        mHighlightPaint.setStyle(Paint.Style.STROKE);
-        mRenderPaint.setStyle(Paint.Style.STROKE);
-
     }
 
     @Override
@@ -46,8 +41,7 @@ public class MonitorBarChartRenderer extends BarChartRenderer {
 
 //            mHighlightPaint.setColor(set.getHighLightColor());
 //            mHighlightPaint.setAlpha(set.getHighLightAlpha());
-//            mHighlightPaint.setColor(Color.rgb(254, 199, 109));
-            mHighlightPaint.setColor(Color.RED);
+            mHighlightPaint.setColor(Color.BLUE);
 
             boolean isStack = (high.getStackIndex() >= 0 && e.isStacked()) ? true : false;
 
@@ -73,26 +67,14 @@ public class MonitorBarChartRenderer extends BarChartRenderer {
                 y2 = 0.f;
             }
 
-            prepareBarHighlight(e.getX(), mChart.getYChartMax(), y2, barData.getBarWidth() / 5f - 0.03f, trans);
+            Log.e("e.getX()", e.getX() + "===" + (barData.getBarWidth() / 2f));
+            prepareBarHighlight(e.getX(), mChart.getYChartMax(), y2, barData.getBarWidth() / 5f, trans);
 
 
             setHighlightDrawPos(high, mBarRect);
-            //c.drawRect(mBarRect, mHighlightPaint);
-            c.drawLine(mBarRect.left / 2 + mBarRect.right / 2, mBarRect.bottom, mBarRect.left / 2 + mBarRect.right / 2, mBarRect.top - 200, mHighlightPaint);
+            c.drawRect(mBarRect, mHighlightPaint);
+            //c.drawLine(mBarRect.left / 2 + mBarRect.right / 2, mBarRect.bottom, mBarRect.left / 2 + mBarRect.right / 2, mBarRect.top - 200, mHighlightPaint);
         }
 
-
-    }
-
-    protected void prepareBarHighlight(float x, float y1, float y2, float barWidthHalf, Transformer trans) {
-
-        float left = x - barWidthHalf;
-        float right = x + barWidthHalf;
-        float top = y1;
-        float bottom = y2;
-
-        mBarRect.set(left, top, right, bottom);
-
-        trans.rectToPixelPhase(mBarRect, mAnimator.getPhaseY());
     }
 }

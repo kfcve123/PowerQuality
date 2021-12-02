@@ -2,6 +2,7 @@ package com.cem.powerqualityanalyser.chart;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -24,48 +25,48 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
 
-public class VoltsAmpsHertzBaseView extends MPChartBaseView implements OnChartValueSelectedListener{
+public class VoltsAmpsHertzBaseView extends MPChartBaseView implements OnChartValueSelectedListener {
 
     protected TextView textview_l1, textview_l2, textview_l3, textview_l4;
-    protected VoltsAmpsHertzLineChart mChart, mChart2,mChart3,mChart4;
+    protected VoltsAmpsHertzLineChart mChart, mChart2, mChart3, mChart4;
     protected ArrayList<VoltsAmpsHertzLineChart> charts;
-    protected RelativeLayout voltsampshertzlinechart_rl,linechart_n_rl;
-    protected TextView right_tv,right_tv2,right_tv3,right_tv4;
+    protected RelativeLayout inrushchart_l1_rl, inrushchart_l2_rl, inrushchart_l3_rl, linechart_n_rl;
+    protected TextView right_tv, right_tv2, right_tv3, right_tv4;
     protected View rootView;
     protected boolean cursorEnable;
-    protected TextView l1a,l1b,l1c,n1;
-    protected RelativeLayout top_n1_rl,top_l1a_rl,top_l1b_rl,top_l1c_rl;
+    protected TextView l1a, l1b, l1c, n1;
+    protected RelativeLayout top_n1_rl, top_l1a_rl, top_l1b_rl, top_l1c_rl;
 
-    public void setTopBag(int l1a,int l1b,int l1c,int n1){
+    public void setTopBag(int l1a, int l1b, int l1c, int n1) {
         top_l1a_rl.setBackgroundResource(l1a);
         top_l1b_rl.setBackgroundResource(l1b);
         top_l1c_rl.setBackgroundResource(l1c);
         top_n1_rl.setBackgroundResource(n1);
     }
 
-    public void setTopLeftTitle(String l1,String l2,String l3,String ln) {
+    public void setTopLeftTitle(String l1, String l2, String l3, String ln) {
         l1a.setText(l1);
         l1b.setText(l2);
         l1c.setText(l3);
         n1.setText(ln);
     }
 
-    public void showTopViewValue(String l1,String l2,String l3,String n){
-        if(l1!=null)
+    public void showTopViewValue(String l1, String l2, String l3, String n) {
+        if (l1 != null)
             textview_l1.setText(l1);
-        if(l2!=null)
+        if (l2 != null)
             textview_l2.setText(l2);
-        if(l3!=null)
+        if (l3 != null)
             textview_l3.setText(l3);
-        if(n!=null)
+        if (n != null)
             textview_l4.setText(n);
     }
 
-    public void showTopViewValue(float l1,float l2,float l3,float n){
-            textview_l1.setText(l1+"");
-            textview_l2.setText(l2+"");
-            textview_l3.setText(l3+"");
-            textview_l4.setText(n+"");
+    public void showTopViewValue(float l1, float l2, float l3, float n) {
+        textview_l1.setText(l1 + "");
+        textview_l2.setText(l2 + "");
+        textview_l3.setText(l3 + "");
+        textview_l4.setText(n + "");
     }
 
 
@@ -140,12 +141,14 @@ public class VoltsAmpsHertzBaseView extends MPChartBaseView implements OnChartVa
         l1c = rootView.findViewById(R.id.l1c);
         n1 = rootView.findViewById(R.id.n1);
 
-        voltsampshertzlinechart_rl = findViewById(R.id.voltsampshertzlinechart_rl);
         right_tv = rootView.findViewById(R.id.right_tv);
         right_tv2 = rootView.findViewById(R.id.right_tv2);
         right_tv3 = rootView.findViewById(R.id.right_tv3);
         right_tv4 = rootView.findViewById(R.id.right_tv4);
 
+        inrushchart_l1_rl = findViewById(R.id.inrushchart_l1_rl);
+        inrushchart_l2_rl = findViewById(R.id.inrushchart_l2_rl);
+        inrushchart_l3_rl = findViewById(R.id.inrushchart_l3_rl);
         linechart_n_rl = findViewById(R.id.linechart_n_rl);
         setLableCount(2);// < 2 == 2
 
@@ -154,35 +157,73 @@ public class VoltsAmpsHertzBaseView extends MPChartBaseView implements OnChartVa
         setViewThree();
         setViewFour();
 
- //       setDefaultValue();
+        //       setDefaultValue();
         initChartListener();
     }
 
 
-
-
-    public void showRightLegend(){
+    public void showRightLegend() {
         right_tv.setVisibility(VISIBLE);
         right_tv2.setVisibility(VISIBLE);
         right_tv3.setVisibility(VISIBLE);
         right_tv3.setVisibility(VISIBLE);
     }
 
-    public void goneRightLegend(){
+    public void goneRightLegend() {
         right_tv.setVisibility(GONE);
         right_tv2.setVisibility(GONE);
         right_tv3.setVisibility(GONE);
         right_tv3.setVisibility(GONE);
     }
 
+    public void setL1ChartVisable(int l1ChartVisable) {
+        if (inrushchart_l1_rl != null) {
+            inrushchart_l1_rl.setVisibility(l1ChartVisable);
+            /*if(l1ChartVisable == View.VISIBLE){
+                mChart.getAxisLeft().setLabelCount(5);
+                mChart.getXAxis().setEnabled(true);
+                mChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+                mChart.setViewPortOffsets(40,0,25,20);
+                mChart.setExtraBottomOffset(6);//底部文字被遮挡处理
+            }*/
+        }
+    }
 
-    public void setNChartVisable(int nChartVisable){
+    public void setL2ChartVisable(int l2ChartVisable) {
+        if (inrushchart_l2_rl != null) {
+            inrushchart_l2_rl.setVisibility(l2ChartVisable);
+            /*if(l2ChartVisable == View.VISIBLE){
+                mChart2.getAxisLeft().setLabelCount(5);
+                mChart2.getXAxis().setEnabled(true);
+                mChart2.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+                mChart2.setViewPortOffsets(40,0,25,20);
+                mChart2.setExtraBottomOffset(6);//底部文字被遮挡处理
+            }*/
+        }
+    }
+
+    public void setL3ChartVisable(int l3ChartVisable) {
+        if (inrushchart_l3_rl != null) {
+            inrushchart_l3_rl.setVisibility(l3ChartVisable);
+            /*if(l3ChartVisable == VISIBLE){
+                mChart3.getAxisLeft().setLabelCount(5);
+                mChart3.getXAxis().setEnabled(true);
+                mChart3.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+                mChart3.setViewPortOffsets(40,0,25,20);
+                mChart3.setExtraBottomOffset(6);//底部文字被遮挡处理
+            }*/
+        }
+    }
+
+
+    public void setNChartVisable(int nChartVisable) {
         linechart_n_rl.setVisibility(nChartVisable);
     }
 
-    protected void initChartListener(){}
+    protected void initChartListener() {
+    }
 
-    private void setDefaultValue(){
+    private void setDefaultValue() {
 
         ArrayList<Entry> values1 = new ArrayList<>();
         ArrayList<Entry> values2 = new ArrayList<>();
@@ -196,7 +237,7 @@ public class VoltsAmpsHertzBaseView extends MPChartBaseView implements OnChartVa
             values3.add(new Entry(i, val));
             values4.add(new Entry(i, val));
         }
-        LineDataSet set1, set2, set3,set4;
+        LineDataSet set1, set2, set3, set4;
 
         if (mChart.getData() != null &&
                 mChart.getData().getDataSetCount() > 0) {
@@ -304,7 +345,7 @@ public class VoltsAmpsHertzBaseView extends MPChartBaseView implements OnChartVa
         mChart.setTouchEnabled(true);
         mChart.setDragEnabled(false);
         mChart.setScaleEnabled(false);
- //       mChart.setViewPortOffsets(40, 0, 10, 0);
+        //       mChart.setViewPortOffsets(40, 0, 10, 0);
     }
 
     private void setAxisLeftOne() {
@@ -314,9 +355,9 @@ public class VoltsAmpsHertzBaseView extends MPChartBaseView implements OnChartVa
         leftAxis.setLabelCount(lableCount, true);
         leftAxis.setDrawLabels(true);
         leftAxis.setDrawZeroLine(false);
-        leftAxis.enableAxisLineDashedLine(40,40,10);
- //       leftAxis.enableGridDashedLine(5f, 5f, 0f);
- //       leftAxis.setYOffset(10);
+        leftAxis.enableAxisLineDashedLine(40, 40, 10);
+        //       leftAxis.enableGridDashedLine(5f, 5f, 0f);
+        //       leftAxis.setYOffset(10);
     }
 
     private void setAxisRight0ne() {
@@ -366,8 +407,8 @@ public class VoltsAmpsHertzBaseView extends MPChartBaseView implements OnChartVa
         leftAxis.setTextColor(ColorList.VOLTS_LINE_COLOR[1]);
         leftAxis.setLabelCount(lableCount, true);
         leftAxis.setDrawZeroLine(false);
-        leftAxis.enableAxisLineDashedLine(5f,5f,0);
- //       leftAxis.enableGridDashedLine(5f, 5f, 0f);
+        leftAxis.enableAxisLineDashedLine(5f, 5f, 0);
+        //       leftAxis.enableGridDashedLine(5f, 5f, 0f);
 //        leftAxis.setYOffset(10f);
 //        leftAxis.setSpaceBottom(40f);
 //        leftAxis.setYOffset(10);
@@ -432,7 +473,7 @@ public class VoltsAmpsHertzBaseView extends MPChartBaseView implements OnChartVa
         leftAxis.setTextColor(ColorList.VOLTS_LINE_COLOR[2]);
         leftAxis.setLabelCount(2, true);
         leftAxis.setDrawZeroLine(false);
-        leftAxis.enableAxisLineDashedLine(40,40,10);
+        leftAxis.enableAxisLineDashedLine(40, 40, 10);
 //        leftAxis.enableGridDashedLine(5f, 5f, 0f);
         leftAxis.setYOffset(10);
     }
@@ -443,7 +484,7 @@ public class VoltsAmpsHertzBaseView extends MPChartBaseView implements OnChartVa
         leftAxis.setTextColor(ColorList.VOLTS_LINE_COLOR[3]);
         leftAxis.setLabelCount(lableCount, true);
         leftAxis.setDrawZeroLine(false);
-        leftAxis.enableAxisLineDashedLine(40,40,10);
+        leftAxis.enableAxisLineDashedLine(40, 40, 10);
         leftAxis.enableGridDashedLine(5f, 5f, 0f);
         leftAxis.setYOffset(10);
     }
@@ -513,12 +554,9 @@ public class VoltsAmpsHertzBaseView extends MPChartBaseView implements OnChartVa
     }
 
 
-
-
-
     @Override
     public void onNothingSelected() {
-        log.e("=====onNothingSelected0000000000===="  + iLastEntry);
+        log.e("=====onNothingSelected0000000000====" + iLastEntry);
         mChart.highlightValues(null);
         mChart2.highlightValues(null);
         mChart3.highlightValues(null);
@@ -527,25 +565,25 @@ public class VoltsAmpsHertzBaseView extends MPChartBaseView implements OnChartVa
         cursorEnable = false;
     }
 
-    protected int iLastEntry ;
+    protected int iLastEntry;
 
     @Override
     public void onValueSelected(Entry e, Highlight h) {
         int iEntry = (int) e.getX();
-        int valEntry = (int)e.getY();
+        int valEntry = (int) e.getY();
         //log.e("e.getX() = " + iEntry + "     e.getY() = " + valEntry);
         // 获取选中value的坐标
 //        MPPointD p = getPixelForValues(e.getX(), e.getY(), YAxis.AxisDependency.LEFT);
         cursorEnable = true;
-        if(iLastEntry!=iEntry) {
+        if (iLastEntry != iEntry) {
             //           log.e("=====隐藏所有的高亮0000000000===="  + iEntry);
             iLastEntry = iEntry;
-            mChart.highlightValue(iLastEntry,0);
-            mChart2.highlightValue(iLastEntry,0);
-            mChart3.highlightValue(iLastEntry,0);
-            mChart4.highlightValue(iLastEntry,0);
-            showTopViewValue(mChart.getData().getEntryForHighlight(h).getY(),mChart2.getData().getEntryForHighlight(h).getY(),mChart3.getData().getEntryForHighlight(h).getY(),mChart4.getData().getEntryForHighlight(h).getY());
-        }else{
+            mChart.highlightValue(iLastEntry, 0);
+            mChart2.highlightValue(iLastEntry, 0);
+            mChart3.highlightValue(iLastEntry, 0);
+            mChart4.highlightValue(iLastEntry, 0);
+            showTopViewValue(mChart.getData().getEntryForHighlight(h).getY(), mChart2.getData().getEntryForHighlight(h).getY(), mChart3.getData().getEntryForHighlight(h).getY(), mChart4.getData().getEntryForHighlight(h).getY());
+        } else {
             //           log.e("=====隐藏所有的高亮222222222===="  + iEntry);
         }
 
@@ -555,9 +593,9 @@ public class VoltsAmpsHertzBaseView extends MPChartBaseView implements OnChartVa
         getPixelForValues(e.getX(), e.getY(), YAxis.AxisDependency.LEFT);
     }*/
 
-    public void moveCursor(int i){
-        if(mChart!=null) {
-            if(showCurson) {
+    public void moveCursor(int i) {
+        if (mChart != null) {
+            if (showCurson) {
 
 //                if(cursorEnable && showCurson) {
                 if (iLastEntry + i > 0 && iLastEntry + i < mChart.getLineData().getEntryCount() - 1) {
@@ -568,26 +606,38 @@ public class VoltsAmpsHertzBaseView extends MPChartBaseView implements OnChartVa
         }
     }
 
-    private void showSelectValue(int index){
-        if(index>0 && index < mChart.getLineData().getEntryCount() - 1) {
+    private void showSelectValue(int index) {
+        if (index > 0 && index < mChart.getLineData().getEntryCount() - 1) {
             ArrayList<Float> values = new ArrayList<>();
             for (int i = 0; i < mChart.getLineData().getDataSetCount(); i++) {
                 float value = mChart.getLineData().getDataSetByIndex(i).getEntryForIndex(index).getY();
                 values.add(value);
             }
             showTextValue(values);
-        }else{//显示最后一组值,隐藏Cursor
+        } else {//显示最后一组值,隐藏Cursor
 
         }
     }
-    private void showTextValue(ArrayList<Float> values){
 
+    private void showTextValue(ArrayList<Float> values) {
 
 
     }
 
     public void zoomScale(float xScale, float yScale) {
-
+        //缩放第一种方式  
+        /*Matrix matrix = new Matrix();
+        mChart.fitScreen();
+        matrix.postScale(xScale, yScale);
+        mChart.getViewPortHandler().refresh(matrix, mChart, false);*/
+        for (int i = 0; i < charts.size(); i++) {
+            /*charts.get(i).fitScreen();
+            charts.get(i).getViewPortHandler().getMatrixTouch().postScale(xScale, yScale);*/
+            Matrix matrix = new Matrix();
+            charts.get(i).fitScreen();
+            matrix.postScale(xScale, yScale);
+            charts.get(i).getViewPortHandler().refresh(matrix, charts.get(i), false);
+        }
 
     }
 
@@ -595,13 +645,13 @@ public class VoltsAmpsHertzBaseView extends MPChartBaseView implements OnChartVa
 
     public void showCursor(boolean enable) {
         this.showCurson = enable;
-        if(enable){
+        if (enable) {
             for (int i = 0; i < charts.size(); i++) {
-                charts.get(i).highlightValue(iLastEntry,0);
+                charts.get(i).highlightValue(iLastEntry, 0);
                 charts.get(i).getData().setHighlightEnabled(true);
 
             }
-        }else {
+        } else {
             for (int i = 0; i < charts.size(); i++) {
                 charts.get(i).highlightValue(null);
                 charts.get(i).getData().setHighlightEnabled(false);
@@ -611,34 +661,34 @@ public class VoltsAmpsHertzBaseView extends MPChartBaseView implements OnChartVa
     }
 
 
-    protected void showL1L2L3L4(boolean l1show,boolean l2show,boolean l3show,boolean l4show){
-        if(l1show){
-            if(top_l1a_rl.getVisibility()!= View.VISIBLE)
+    protected void showL1L2L3L4(boolean l1show, boolean l2show, boolean l3show, boolean l4show) {
+        if (l1show) {
+            if (top_l1a_rl.getVisibility() != View.VISIBLE)
                 top_l1a_rl.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             if (top_l1a_rl.getVisibility() != View.INVISIBLE)
                 top_l1a_rl.setVisibility(View.INVISIBLE);
         }
-        if(l2show){
-            if(top_l1b_rl.getVisibility()!= View.VISIBLE)
+        if (l2show) {
+            if (top_l1b_rl.getVisibility() != View.VISIBLE)
                 top_l1b_rl.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             if (top_l1b_rl.getVisibility() != View.INVISIBLE)
                 top_l1b_rl.setVisibility(View.INVISIBLE);
         }
 
-        if(l3show){
-            if(top_l1c_rl.getVisibility()!= View.VISIBLE)
+        if (l3show) {
+            if (top_l1c_rl.getVisibility() != View.VISIBLE)
                 top_l1c_rl.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             if (top_l1c_rl.getVisibility() != View.INVISIBLE)
                 top_l1c_rl.setVisibility(View.INVISIBLE);
         }
 
-        if(l4show){
-            if(top_n1_rl.getVisibility()!= View.VISIBLE)
+        if (l4show) {
+            if (top_n1_rl.getVisibility() != View.VISIBLE)
                 top_n1_rl.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             if (top_n1_rl.getVisibility() != View.INVISIBLE)
                 top_n1_rl.setVisibility(View.INVISIBLE);
         }
@@ -647,17 +697,40 @@ public class VoltsAmpsHertzBaseView extends MPChartBaseView implements OnChartVa
 
     /**
      * 修改接线的颜色
+     *
      * @param color
      * @param color2
      * @param color3
      * @param color4
      */
-    protected void setTopTextViewBgColor(int color,int color2,int color3,int color4){
+    protected void setTopTextViewBgColor(int color, int color2, int color3, int color4) {
         textview_l1.setBackgroundColor(color);
         textview_l2.setBackgroundColor(color2);
         textview_l3.setBackgroundColor(color3);
         textview_l4.setBackgroundColor(color4);
     }
 
+    public void setRightLegend(String legendL1, String legendL2, String legendL3, String legendLn, int legendTextSize) {
+        if (right_tv != null) {
+            right_tv.setText(legendL1);
+            if (legendTextSize != 0)
+                right_tv.setTextSize(legendTextSize);
+        }
+        if (right_tv2 != null) {
+            right_tv2.setText(legendL2);
+            if (legendTextSize != 0)
+                right_tv2.setTextSize(legendTextSize);
+        }
+        if (right_tv3 != null) {
+            right_tv3.setText(legendL3);
+            if (legendTextSize != 0)
+                right_tv3.setTextSize(legendTextSize);
+        }
+        if (right_tv4 != null) {
+            right_tv4.setText(legendLn);
+            if (legendTextSize != 0)
+                right_tv4.setTextSize(legendTextSize);
+        }
 
+    }
 }

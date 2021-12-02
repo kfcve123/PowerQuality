@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
 import android.view.View;
 
@@ -80,9 +81,9 @@ public class TransientActivity extends BaseActivity {
                 if (firstPopIndex != position) {
                     firstPopIndex = position;
                     Fragment_Third.updateTrendRightAndPopMode(wir_index, firstPopIndex, secondPopIndex);
-                    if(cursorZoom) {
+                    if (cursorZoom) {
                         if (firstPopIndex == 2) {//F
-                            updateBottomView(new BaseBottomAdapterObj(3, Res2String(R.string.Cursor_zoom_no), R.mipmap.zoomimg, Res2Stringarr(R.array.inrush_l1_array),true), 3,true);
+                            updateBottomView(new BaseBottomAdapterObj(3, Res2String(R.string.Cursor_zoom_no), R.mipmap.zoomimg, Res2Stringarr(R.array.inrush_l1_array), true), 3, true);
                         } else {//V  A
                             switch (wir_index) {
                                 case 0://3QWYE
@@ -130,12 +131,12 @@ public class TransientActivity extends BaseActivity {
             case 1:
                 if (currentFragmentIndex == 2) {
                     cursorZoom = !cursorZoom;
-                    if(cursorZoom){
-                        updateBottomView(new BaseBottomAdapterObj(1,Res2String(R.string.back)),1);
-                        updateBottomView(new BaseBottomAdapterObj(2,Res2String(R.string.Cursor),Res2String(R.string.On),Res2String(R.string.Off)),2);
-                        if(firstPopIndex == 2){//F
+                    if (cursorZoom) {
+                        updateBottomView(new BaseBottomAdapterObj(1, Res2String(R.string.back)), 1);
+                        updateBottomView(new BaseBottomAdapterObj(2, Res2String(R.string.Cursor), Res2String(R.string.On), Res2String(R.string.Off)), 2);
+                        if (firstPopIndex == 2) {//F
                             updateBottomView(new BaseBottomAdapterObj(3, Res2String(R.string.Cursor_zoom_no), R.mipmap.zoomimg, Res2Stringarr(R.array.inrush_l1_array)), 3);
-                        }else {//V  A
+                        } else {//V  A
                             switch (wir_index) {
                                 case 0://3QWYE
                                 case 5://3QHIGH LEG
@@ -159,10 +160,10 @@ public class TransientActivity extends BaseActivity {
                                     break;
                             }
                         }
-                    }else{
-                        updateBottomView(new BaseBottomAdapterObj(1,Res2String(R.string.Cursor_zoom)),1);
-                        updateBottomView(new BaseBottomAdapterObj(2,null,Res2String(R.string.Meter),Res2String(R.string.Trend)),2);
-                        updateBottomView(new BaseBottomAdapterObj(3,Res2String(R.string.Event)),3);
+                    } else {
+                        updateBottomView(new BaseBottomAdapterObj(1, Res2String(R.string.Cursor_zoom)), 1);
+                        updateBottomView(new BaseBottomAdapterObj(2, null, Res2String(R.string.Meter), Res2String(R.string.Trend)), 2);
+                        updateBottomView(new BaseBottomAdapterObj(3, Res2String(R.string.Event)), 3);
                         secondPopIndex = -1;
                         Fragment_Third.updateTrendRightAndPopMode(wir_index, firstPopIndex, secondPopIndex);
                         cursorEnable = false;
@@ -172,9 +173,9 @@ public class TransientActivity extends BaseActivity {
                 }
                 break;
             case 2:
-                if (isSetMode){
+                if (isSetMode) {
                     showLeftRight(obj.getSwitchindex());
-                }else{
+                } else {
                     if (currentFragmentIndex == 2 && cursorZoom) {
                         cursorEnable = !cursorEnable;
                         if (Fragment_Third != null)
@@ -183,26 +184,26 @@ public class TransientActivity extends BaseActivity {
                             updateBottomView(new BaseBottomAdapterObj(3, Res2String(R.string.Cursor), R.mipmap.left_right, AppConfig.getInstance().getMaxZoom()), 3);
                             Fragment_Third.openCursorTopShow(wir_index, firstPopIndex, secondPopIndex);
                         } else {
-                            switch (wir_index){
+                            switch (wir_index) {
                                 case 0://3QWYE
                                 case 5://3QHIGH LEG
                                 case 6://2½-ELEMENT
-                                    updateBottomView(new BaseBottomAdapterObj(3,Res2String(R.string.Cursor_zoom_no), R.mipmap.zoomimg,Res2Stringarr(R.array.inrush_l1l2l3n_array)),3);
+                                    updateBottomView(new BaseBottomAdapterObj(3, Res2String(R.string.Cursor_zoom_no), R.mipmap.zoomimg, Res2Stringarr(R.array.inrush_l1l2l3n_array)), 3);
                                     break;
                                 case 1://3QOPEN LEG
                                 case 2://3QIT
                                 case 3://2-ELEMENT
                                 case 4://3QDELTA
-                                    updateBottomView(new BaseBottomAdapterObj(3,Res2String(R.string.Cursor_zoom_no), R.mipmap.zoomimg,Res2Stringarr(R.array.inrush_l1l2l3_array)),3);
+                                    updateBottomView(new BaseBottomAdapterObj(3, Res2String(R.string.Cursor_zoom_no), R.mipmap.zoomimg, Res2Stringarr(R.array.inrush_l1l2l3_array)), 3);
                                     break;
                                 case 7://1Q SPLIT PHASE
-                                    updateBottomView(new BaseBottomAdapterObj(3,Res2String(R.string.Cursor_zoom_no), R.mipmap.zoomimg,Res2Stringarr(R.array.inrush_l1l2n_array)),3);
+                                    updateBottomView(new BaseBottomAdapterObj(3, Res2String(R.string.Cursor_zoom_no), R.mipmap.zoomimg, Res2Stringarr(R.array.inrush_l1l2n_array)), 3);
                                     break;
                                 case 8://1Q IT NO NEUTRAL
-                                    updateBottomView(new BaseBottomAdapterObj(3,Res2String(R.string.Cursor_zoom_no), R.mipmap.zoomimg,Res2Stringarr(R.array.inrush_l1_array)),3);
+                                    updateBottomView(new BaseBottomAdapterObj(3, Res2String(R.string.Cursor_zoom_no), R.mipmap.zoomimg, Res2Stringarr(R.array.inrush_l1_array)), 3);
                                     break;
                                 case 9://1Q +NEUTRAL
-                                    updateBottomView(new BaseBottomAdapterObj(3,Res2String(R.string.Cursor_zoom_no), R.mipmap.zoomimg,Res2Stringarr(R.array.inrush_l1n_array)),3);
+                                    updateBottomView(new BaseBottomAdapterObj(3, Res2String(R.string.Cursor_zoom_no), R.mipmap.zoomimg, Res2Stringarr(R.array.inrush_l1n_array)), 3);
                                     break;
                             }
                             Fragment_Third.updateTrendRightAndPopMode(wir_index, firstPopIndex, secondPopIndex);
@@ -217,7 +218,7 @@ public class TransientActivity extends BaseActivity {
                     AppConfig.getInstance().setTransientSet_Default(true);
                     if (Fragment_First != null)
                         Fragment_First.resetSet();
-                    updateBottomView(new BaseBottomAdapterObj(2, null, Res2String(R.string.trigger), Res2String(R.string.time)),2);
+                    updateBottomView(new BaseBottomAdapterObj(2, null, Res2String(R.string.trigger), Res2String(R.string.time)), 2);
                 }
                 break;
             case 4:
@@ -253,8 +254,8 @@ public class TransientActivity extends BaseActivity {
             if (null == Fragment_Second) {
                 Fragment_Second = new TransientMeter();
             }
-            updateBottomView(new BaseBottomAdapterObj(0,null),0);
-            updateBottomView(new BaseBottomAdapterObj(1,null),1);
+            updateBottomView(new BaseBottomAdapterObj(0, null), 0);
+            updateBottomView(new BaseBottomAdapterObj(1, null), 1);
             showFragment(Fragment_Second, Res2String(R.string.Meter));
         } else if (index == 0) {
             isSetMode = true;
@@ -262,17 +263,17 @@ public class TransientActivity extends BaseActivity {
                 Fragment_First = new TransientSet();
             }
             showFragment(Fragment_First, Res2String(R.string.set));
-        } else if(index == 2){
+        } else if (index == 2) {
             isSetMode = false;
-            if(null == Fragment_Third){
+            if (null == Fragment_Third) {
                 Fragment_Third = new TransientTrend();
             }
-            updateBottomView(new BaseBottomAdapterObj(0,Res2Stringarr(R.array.transient_avf_array)[firstPopIndex], Res2Stringarr(R.array.transient_avf_array)),0,true);
-            updateBottomView(new BaseBottomAdapterObj(1,Res2String(R.string.Cursor_zoom)),1);
-            updateBottomView(new BaseBottomAdapterObj(2,null,Res2String(R.string.Meter),Res2String(R.string.Trend)),2);
+            updateBottomView(new BaseBottomAdapterObj(0, Res2Stringarr(R.array.transient_avf_array)[firstPopIndex], Res2Stringarr(R.array.transient_avf_array)), 0, true);
+            updateBottomView(new BaseBottomAdapterObj(1, Res2String(R.string.Cursor_zoom)), 1);
+            updateBottomView(new BaseBottomAdapterObj(2, null, Res2String(R.string.Meter), Res2String(R.string.Trend)), 2);
             updateBottomView(new BaseBottomAdapterObj(3, Res2String(R.string.Event)), 3);
             updateBottomView(new BaseBottomAdapterObj(4, null, Res2String(R.string.Hold), Res2String(R.string.run)), 4);
-            showFragment(Fragment_Third,Res2String(R.string.Trend));
+            showFragment(Fragment_Third, Res2String(R.string.Trend));
 
             Fragment_Third.updateTrendRightAndPopMode(wir_index, firstPopIndex, secondPopIndex);
 
@@ -288,13 +289,13 @@ public class TransientActivity extends BaseActivity {
 
     @Override
     public void onDataReceived(byte[] bytes) {
- //       log.e("------" + BleUtil.dec_hex(bytes));
+        //       log.e("------" + BleUtil.dec_hex(bytes));
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(serialHelper!=null){
+        if (serialHelper != null) {
             serialHelper.closeSerialPort();
             serialHelper = null;
         }
@@ -303,8 +304,8 @@ public class TransientActivity extends BaseActivity {
     @Override
     public void onDataReceivedModel(ModelAllData modelAllData) {
         if (modelAllData != null && modelAllData.getValueType() == ModelAllData.AllData_valueType.E7_Transient) {
- //           dissLoading();
-            if(!isStart)
+            //           dissLoading();
+            if (!isStart)
                 isStart = true;
             if (!isHold) {
                 List<ModelLineData> dataList = modelAllData.getModelLineData();
@@ -329,12 +330,13 @@ public class TransientActivity extends BaseActivity {
         if(currentView!=null)
             log.e("当前焦点所在View："+currentView.toString());*/
     }
+
     private int zoomSize = 1; //放大比例
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         View rootview = getWindow().getDecorView();
-        View currentView= rootview.findFocus();
+        View currentView = rootview.findFocus();
         //TAG为当前Activity名称
 //        if(currentView!=null)
 //            log.e("切换前当前焦点所在View："+currentView.toString());
@@ -343,70 +345,86 @@ public class TransientActivity extends BaseActivity {
 //        log.e("========" + key.toString());
         switch (key) {
             case Up:
-                if(Fragment_First!=null && Fragment_First.isAdded()){
-        //           Fragment_First.upKey();
-                    if(Fragment_First.forbidMoveUp())
+                if (Fragment_First != null && Fragment_First.isAdded()) {
+                    //           Fragment_First.upKey();
+                    if (Fragment_First.forbidMoveUp())
                         return true;
-                } else if(null!=Fragment_Third && Fragment_Third.isAdded()){
-                    if(cursorEnable) {
+                } else if (null != Fragment_Third && Fragment_Third.isAdded()) {
+                    if (cursorEnable) {
                         if (zoomSize < 3) {
                             zoomSize++;
+                            AppConfig.getInstance().setMaxZoom(zoomSize);
                         }
                         Fragment_Third.zoomScale(zoomSize);
-                    }else{
+                        updateBottomView(new BaseBottomAdapterObj(3, Res2String(R.string.Cursor), R.mipmap.left_right, AppConfig.getInstance().getMaxZoom()), 3);
+                    } else {
 
+                    }
+                } else if (Fragment_Second != null && Fragment_Second.isAdded()) {
+                    if (currentView != null && currentView.isFocusable() && currentView instanceof RecyclerView) {
+                        Fragment_Second.leftUpScroll();
                     }
                 }
                 break;
             case Down:
                 if (Fragment_First != null && Fragment_First.isAdded()) {
                     Fragment_First.downKey();
-                    if(Fragment_First.forbidMoveDown())
+                    if (Fragment_First.forbidMoveDown())
                         return true;
-                } else if(null!=Fragment_Third && Fragment_Third.isAdded()) {
-                    if(cursorEnable) {
+                } else if (null != Fragment_Third && Fragment_Third.isAdded()) {
+                    if (cursorEnable) {
                         if (zoomSize > 1) {
                             zoomSize--;
+                            AppConfig.getInstance().setMaxZoom(zoomSize);
                         }
                         Fragment_Third.zoomScale(zoomSize);
-                    }else {
+                        updateBottomView(new BaseBottomAdapterObj(3, Res2String(R.string.Cursor), R.mipmap.left_right, AppConfig.getInstance().getMaxZoom()), 3);
+                    } else {
 
+                    }
+                } else if (Fragment_Second != null && Fragment_Second.isAdded()) {
+                    if (currentView != null && currentView.isFocusable() && currentView instanceof RecyclerView) {
+                        Fragment_Second.leftDownScroll();
                     }
                 }
                 break;
 
             case Left:
-                if (Fragment_First != null && Fragment_First.isAdded()){
+                if (Fragment_First != null && Fragment_First.isAdded()) {
                     Fragment_First.moveCursor(-1);
-                    if(!Fragment_First.forbidMoveRight()){
+                    if (!Fragment_First.forbidMoveRight()) {
                         return true;
                     }
 
-                } else if(Fragment_Third!=null && Fragment_Third.isAdded()){
+                } else if (Fragment_Third != null && Fragment_Third.isAdded()) {
                     Fragment_Third.moveCursor(-1);
+                } else if (Fragment_Second != null && Fragment_Second.isAdded()) {
+                    Fragment_Second.setFocusOnLeft();
                 }
 
                 break;
             case Right:
-                if (Fragment_First != null && Fragment_First.isAdded()){
+                if (Fragment_First != null && Fragment_First.isAdded()) {
                     Fragment_First.moveCursor(1);
-                    if(Fragment_First.forbidMoveRight() || Fragment_First.forbidTimeMoveRight()){
+                    if (Fragment_First.forbidMoveRight() || Fragment_First.forbidTimeMoveRight()) {
                         return true;
                     }
                 } else if (Fragment_Third != null && Fragment_Third.isAdded()) {
                     Fragment_Third.moveCursor(1);
+                } else if (Fragment_Second != null && Fragment_Second.isAdded()) {
+                    Fragment_Second.setFocusOnRight();
                 }
 
                 break;
             case Back:
             case Menu:
-                if(currentFragmentIndex!=0) {
+                if (currentFragmentIndex != 0) {
                     setViewShow(0);
-                    updateBottomView(new BaseBottomAdapterObj(0,null),0);
-                    updateBottomView(new BaseBottomAdapterObj(1,null),1);
-                    updateBottomView(new BaseBottomAdapterObj(2, null, Res2String(R.string.trigger), Res2String(R.string.time)),2);
-                    updateBottomView(new BaseBottomAdapterObj(3,Res2String(R.string.defaults)),3);
-                    updateBottomView(new BaseBottomAdapterObj(4,Res2String(R.string.Start)),4);
+                    updateBottomView(new BaseBottomAdapterObj(0, null), 0);
+                    updateBottomView(new BaseBottomAdapterObj(1, null), 1);
+                    updateBottomView(new BaseBottomAdapterObj(2, null, Res2String(R.string.trigger), Res2String(R.string.time)), 2);
+                    updateBottomView(new BaseBottomAdapterObj(3, Res2String(R.string.defaults)), 3);
+                    updateBottomView(new BaseBottomAdapterObj(4, Res2String(R.string.Start)), 4);
                     return true;
                 }
 

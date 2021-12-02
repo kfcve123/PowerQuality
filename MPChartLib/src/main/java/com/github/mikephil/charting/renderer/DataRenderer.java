@@ -7,6 +7,8 @@ import android.graphics.Paint.Align;
 import android.graphics.Paint.Style;
 
 import com.github.mikephil.charting.animation.ChartAnimator;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.formatter.IValueFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.dataprovider.ChartInterface;
 import com.github.mikephil.charting.interfaces.datasets.IDataSet;
@@ -140,6 +142,11 @@ public abstract class DataRenderer extends Renderer {
      * @param color
      */
     public abstract void drawValue(Canvas c, String valueText, float x, float y, int color);
+
+    public void drawValue(Canvas c, IValueFormatter formatter, float value, Entry entry, int dataSetIndex, float x, float y, int color) {
+        mValuePaint.setColor(color);
+        c.drawText(formatter.getFormattedValue(value, entry, dataSetIndex, mViewPortHandler), x, y, mValuePaint);
+    }
 
     /**
      * Draws any kind of additional information (e.g. line-circles).

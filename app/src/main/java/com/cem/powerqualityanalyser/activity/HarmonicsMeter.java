@@ -1,9 +1,11 @@
 package com.cem.powerqualityanalyser.activity;
 
 
+import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cem.powerqualityanalyser.AppConfig.AppConfig;
 import com.cem.powerqualityanalyser.R;
@@ -31,8 +33,8 @@ public class HarmonicsMeter extends BaseFragmentTrend {
 
     private MyTableListView stickyLayout;
     private MeterGroupListObj groupListObj1;
-    private TextView Group_list_middleText,Group_list_leftText,Group_list_rightText;
-    private ImageView Group_list_rightview;
+    private TextView Group_list_middleText, Group_list_leftText, Group_list_rightText;
+    private ImageView Group_list_rightview, leftFocusIv;
     private RightModeView rightModeView;
     private int wir_index = 0; //接线方式
     private int wir_right_index = 0;
@@ -50,13 +52,13 @@ public class HarmonicsMeter extends BaseFragmentTrend {
 
     }
 
-    public void setHarmonicsType(int type){
+    public void setHarmonicsType(int type) {
         this.harmonicsType = type;
-        updateRightList(wir_index,harmonicsType);
+        updateRightList(wir_index, harmonicsType);
         stickyLayout.post(new Runnable() {
             @Override
             public void run() {
-                if (stickyLayout.showItemsCount()<1) {
+                if (stickyLayout.showItemsCount() < 1) {
                     stickyLayout.addItem(groupListObj1);
                 }
                 stickyLayout.notifyChildChanged();
@@ -71,7 +73,7 @@ public class HarmonicsMeter extends BaseFragmentTrend {
     }
 
     @Override
-    public void setShowMeterData(final ModelAllData list,int funTypeIndex) {
+    public void setShowMeterData(final ModelAllData list, int funTypeIndex) {
         try {
             List<ModelLineData> modelLineData = list.getModelLineData();
             if (modelLineData != null) {
@@ -121,21 +123,24 @@ public class HarmonicsMeter extends BaseFragmentTrend {
         Group_list_leftText = (TextView) findViewById(R.id.Group_list_leftText);
         Group_list_rightText = (TextView) findViewById(R.id.Group_list_rightText);
         Group_list_rightview = (ImageView) findViewById(R.id.Group_list_rightview);
-        strList =  new ArrayList();
+        strList = new ArrayList();
         rightModeView = (RightModeView) findViewById(R.id.modeview);
 
         tv_hz = (TextView) findViewById(R.id.tv_hz);
         tv_hz.setVisibility(View.INVISIBLE);
+
+        leftFocusIv = (ImageView) findViewById(R.id.icon_left_focus);
+
         stickyLayout = (MyTableListView) findViewById(R.id.sticky_layout);
         stickyLayout.setListFocusAble(false);
         rightModeView.getViewFoucs();
 
-        groupListObj1=new MeterGroupListObj();
+        groupListObj1 = new MeterGroupListObj();
         rightModeView.setUpDownClick(false);
 
-        String[] showItem2=getString(R.string.set_wir_item).split(",");
+        String[] showItem2 = getString(R.string.set_wir_item).split(",");
         Group_list_rightText.setTextSize(18f);
-        Group_list_rightText.setText(configV + "  " + configHz + "  " +  showItem2[wir_index]);
+        Group_list_rightText.setText(configV + "  " + configHz + "  " + showItem2[wir_index]);
         Group_list_middleText.setText(R.string.allmeter_harmonics);
         ModelLineData modelLineData = new ModelLineData();
         ModelBaseData modelBaseData = new ModelBaseData("---");
@@ -160,17 +165,17 @@ public class HarmonicsMeter extends BaseFragmentTrend {
                 strList.add(new RightListViewItemObj("L2", -1));
                 strList.add(new RightListViewItemObj("L3", -1));
                 strList.add(new RightListViewItemObj("N", -1));
-  //              strList.add(new RightListViewItemObj("-_+", -1));
+                //              strList.add(new RightListViewItemObj("-_+", -1));
 
-                addMeterData(getSpannableString("RMS"), 0, groupListObj1,modelLineData, showItem,"");
-                addMeterData(getSpannableString("Vfund",1,5), 1,groupListObj1, modelLineData, showItem,"");
-                addMeterData(getSpannableString("ØV(°)"), 2,groupListObj1, modelLineData, showItem,"");
-                addMeterData(getSpannableString("THD(%f)"), 3,groupListObj1, modelLineData, showItem,"");
-                addMeterData(getSpannableString("DC(%f)"), 4,groupListObj1, modelLineData, showItem,"");
-                for(int i = 1;i<=50;i++) {
-                    addMeterData(getSpannableString("H" + i + "(%f)"), 4+i, groupListObj1, modelLineData, showItem,"");
+                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem, "");
+                addMeterData(getSpannableString("Vfund", 1, 5), 1, groupListObj1, modelLineData, showItem, "");
+                addMeterData(getSpannableString("ØV(°)"), 2, groupListObj1, modelLineData, showItem, "");
+                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem, "");
+                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem, "");
+                for (int i = 1; i <= 50; i++) {
+                    addMeterData(getSpannableString("H" + i + "(%f)"), 4 + i, groupListObj1, modelLineData, showItem, "");
                 }
-                baseBottomAdapterObj = new BaseBottomAdapterObj(2,"RMS(V≃)",new String[]{"RMS(V≃)","DC(V=)","PEAK+(V=)","PEAK-(V=)","MAX(V≃)","MIN(V≃)","CF","THD(%f)","THD(%r)","PST","PLT"});
+                baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS(V≃)", new String[]{"RMS(V≃)", "DC(V=)", "PEAK+(V=)", "PEAK-(V=)", "MAX(V≃)", "MIN(V≃)", "CF", "THD(%f)", "THD(%r)", "PST", "PLT"});
 
                 break;
             case 7://1Q SPLIT PHASE
@@ -185,15 +190,15 @@ public class HarmonicsMeter extends BaseFragmentTrend {
                 strList.add(new RightListViewItemObj("L2", -1));
                 strList.add(new RightListViewItemObj("N", -1));
 
-                addMeterData(getSpannableString("RMS"), 0, groupListObj1,modelLineData, showItem,"");
-                addMeterData(getSpannableString("Vfund",1,5), 1,groupListObj1, modelLineData, showItem,"");
-                addMeterData(getSpannableString("ØV(°)"), 2,groupListObj1, modelLineData, showItem,"");
-                addMeterData(getSpannableString("THD(%f)"), 3,groupListObj1, modelLineData, showItem,"");
-                addMeterData(getSpannableString("DC(%f)"), 4,groupListObj1, modelLineData, showItem,"");
-                for(int i = 1;i<=50;i++) {
-                    addMeterData(getSpannableString("H" + i + "(%f)"), 4+i, groupListObj1, modelLineData, showItem,"");
+                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem, "");
+                addMeterData(getSpannableString("Vfund", 1, 5), 1, groupListObj1, modelLineData, showItem, "");
+                addMeterData(getSpannableString("ØV(°)"), 2, groupListObj1, modelLineData, showItem, "");
+                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem, "");
+                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem, "");
+                for (int i = 1; i <= 50; i++) {
+                    addMeterData(getSpannableString("H" + i + "(%f)"), 4 + i, groupListObj1, modelLineData, showItem, "");
                 }
-                baseBottomAdapterObj = new BaseBottomAdapterObj(2,"RMS(V≃)",new String[]{"RMS(V≃)","DC(V=)","PEAK+(V≃)","PEAK-(V≃)","MAX(V≃)","MIN(V≃)","CF","THD(%f)","THD(%r)","PST","PLT"});
+                baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS(V≃)", new String[]{"RMS(V≃)", "DC(V=)", "PEAK+(V≃)", "PEAK-(V≃)", "MAX(V≃)", "MIN(V≃)", "CF", "THD(%f)", "THD(%r)", "PST", "PLT"});
                 break;
             case 8://1Q IT NO NEUTRAL
                 rightModeView.hideUpDownView();
@@ -203,18 +208,18 @@ public class HarmonicsMeter extends BaseFragmentTrend {
                 groupListObj1.addHeader(getResources().getStringArray(R.array.L1L2_array));
                 strList.clear();
 
-                addMeterData(getSpannableString("RMS"), 0, groupListObj1,modelLineData, showItem,"");
-                addMeterData(getSpannableString("Ufund",1,5), 1,groupListObj1, modelLineData, showItem,"");
-                addMeterData(getSpannableString("ØU(°)"), 2,groupListObj1, modelLineData, showItem,"");
-                addMeterData(getSpannableString("THD(%f)"), 3,groupListObj1, modelLineData, showItem,"");
-                addMeterData(getSpannableString("MAX(%f)"), 4,groupListObj1, modelLineData, showItem,"");
-                addMeterData(getSpannableString("MIN(%f)"), 5,groupListObj1, modelLineData, showItem,"");
+                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem, "");
+                addMeterData(getSpannableString("Ufund", 1, 5), 1, groupListObj1, modelLineData, showItem, "");
+                addMeterData(getSpannableString("ØU(°)"), 2, groupListObj1, modelLineData, showItem, "");
+                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem, "");
+                addMeterData(getSpannableString("MAX(%f)"), 4, groupListObj1, modelLineData, showItem, "");
+                addMeterData(getSpannableString("MIN(%f)"), 5, groupListObj1, modelLineData, showItem, "");
 
-                for(int i = 1;i<=50;i++) {
-                    addMeterData(getSpannableString("H" + i + "(%f)"), 5+i, groupListObj1, modelLineData, showItem,"");
+                for (int i = 1; i <= 50; i++) {
+                    addMeterData(getSpannableString("H" + i + "(%f)"), 5 + i, groupListObj1, modelLineData, showItem, "");
                 }
 
-                baseBottomAdapterObj = new BaseBottomAdapterObj(2,"RMS(V≃)",new String[]{"RMS(V≃)","DC(V=)","PEAK+(V≃)","PEAK-(V≃)","MAX(V≃)","MIN(V≃)","CF","THD(%f)","THD(%r)","PST","PLT"});
+                baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS(V≃)", new String[]{"RMS(V≃)", "DC(V=)", "PEAK+(V≃)", "PEAK-(V≃)", "MAX(V≃)", "MIN(V≃)", "CF", "THD(%f)", "THD(%r)", "PST", "PLT"});
 
                 break;
             case 9://1Q +NEUTRAL
@@ -227,18 +232,18 @@ public class HarmonicsMeter extends BaseFragmentTrend {
                 strList.add(new RightListViewItemObj("L1", -1));
                 strList.add(new RightListViewItemObj("N", -1));
 
-                addMeterData(getSpannableString("RMS"), 0, groupListObj1,modelLineData, showItem,"");
-                addMeterData(getSpannableString("Vfund",1,5), 1,groupListObj1, modelLineData, showItem,"");
-                addMeterData(getSpannableString("ØV(°)"), 2,groupListObj1, modelLineData, showItem,"");
-                addMeterData(getSpannableString("THD(%f)"), 3,groupListObj1, modelLineData, showItem,"");
-                addMeterData(getSpannableString("DC(%f)"), 4,groupListObj1, modelLineData, showItem,"");
-                addMeterData(getSpannableString("MAX(%f)"), 5,groupListObj1, modelLineData, showItem,"");
-                addMeterData(getSpannableString("MIN(%f)"), 6,groupListObj1, modelLineData, showItem,"");
-                addMeterData(getSpannableString("Vd"), 7,groupListObj1, modelLineData, showItem,"");
-                for(int i = 1;i<=50;i++) {
-                    addMeterData(getSpannableString("H" + i + "(%f)"), 7+i, groupListObj1, modelLineData, showItem,"");
+                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem, "");
+                addMeterData(getSpannableString("Vfund", 1, 5), 1, groupListObj1, modelLineData, showItem, "");
+                addMeterData(getSpannableString("ØV(°)"), 2, groupListObj1, modelLineData, showItem, "");
+                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem, "");
+                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem, "");
+                addMeterData(getSpannableString("MAX(%f)"), 5, groupListObj1, modelLineData, showItem, "");
+                addMeterData(getSpannableString("MIN(%f)"), 6, groupListObj1, modelLineData, showItem, "");
+                addMeterData(getSpannableString("Vd"), 7, groupListObj1, modelLineData, showItem, "");
+                for (int i = 1; i <= 50; i++) {
+                    addMeterData(getSpannableString("H" + i + "(%f)"), 7 + i, groupListObj1, modelLineData, showItem, "");
                 }
-                baseBottomAdapterObj = new BaseBottomAdapterObj(2,"RMS(V≃)",new String[]{"RMS(V≃)","DC(V=)","PEAK+(V≃)","PEAK-(V≃)","MAX(V≃)","MIN(V≃)","CF","THD(%f)","THD(%r)","PST","PLT"});
+                baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS(V≃)", new String[]{"RMS(V≃)", "DC(V=)", "PEAK+(V≃)", "PEAK-(V≃)", "MAX(V≃)", "MIN(V≃)", "CF", "THD(%f)", "THD(%r)", "PST", "PLT"});
                 break;
             case 1://3QOPEN LEG
             case 2://3QIT
@@ -256,25 +261,25 @@ public class HarmonicsMeter extends BaseFragmentTrend {
                 strList.add(new RightListViewItemObj("L3L1", -1));
                 //              strList.add(new RightListViewItemObj("-_+", -1));
 
-                addMeterData(getSpannableString("RMS"), 0, groupListObj1,modelLineData, showItem,"");
-                addMeterData(getSpannableString("Ufund",1,5), 1,groupListObj1, modelLineData, showItem,"");
-                addMeterData(getSpannableString("ØU(°)"), 2,groupListObj1, modelLineData, showItem,"");
-                addMeterData(getSpannableString("THD(%f)"), 3,groupListObj1, modelLineData, showItem,"");
-                addMeterData(getSpannableString("DC(%f)"), 4,groupListObj1, modelLineData, showItem,"");
+                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem, "");
+                addMeterData(getSpannableString("Ufund", 1, 5), 1, groupListObj1, modelLineData, showItem, "");
+                addMeterData(getSpannableString("ØU(°)"), 2, groupListObj1, modelLineData, showItem, "");
+                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem, "");
+                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem, "");
 
-                for(int i = 1;i<=50;i++) {
-                    addMeterData(getSpannableString("H" + i + "(%f)"), 4+i, groupListObj1, modelLineData, showItem,"");
+                for (int i = 1; i <= 50; i++) {
+                    addMeterData(getSpannableString("H" + i + "(%f)"), 4 + i, groupListObj1, modelLineData, showItem, "");
                 }
 
-                baseBottomAdapterObj = new BaseBottomAdapterObj(2,"RMS(V≃)",new String[]{"RMS(V≃)","PEAK+(V≃)","PEAK-(V≃)","MAX(V≃)","MIN(V≃)","CF","THD(%f)","THD(%r)","PST","PLT"});
+                baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS(V≃)", new String[]{"RMS(V≃)", "PEAK+(V≃)", "PEAK-(V≃)", "MAX(V≃)", "MIN(V≃)", "CF", "THD(%f)", "THD(%r)", "PST", "PLT"});
                 break;
         }
-        ((HarmonicsActivity)getActivity()).updateBottomData(baseBottomAdapterObj,2);
+        ((HarmonicsActivity) getActivity()).updateBottomData(baseBottomAdapterObj, 2);
         rightModeView.setModeList(strList);
         stickyLayout.post(new Runnable() {
             @Override
             public void run() {
-                if (stickyLayout.showItemsCount()<1) {
+                if (stickyLayout.showItemsCount() < 1) {
                     stickyLayout.addItem(groupListObj1);
                 }
                 stickyLayout.notifyChildChanged();
@@ -286,8 +291,9 @@ public class HarmonicsMeter extends BaseFragmentTrend {
             public void onItemCheck(int item) {
                 wir_right_index = item;
                 changeRightIndex = true;
-                onWirAndRightIndexCallBack.returnWirAndRight(wir_index,wir_right_index);
-                updateWirData(wir_index,wir_right_index,harmonicsType);
+                onWirAndRightIndexCallBack.returnWirAndRight(wir_index, wir_right_index);
+                updateWirData(wir_index, wir_right_index, harmonicsType);
+                setFocusOnRight();
             }
         });
         rightModeView.setSelection(0);
@@ -296,6 +302,7 @@ public class HarmonicsMeter extends BaseFragmentTrend {
 
     /**
      * A , S  ,V 切换
+     *
      * @param wir_index
      * @param harmonicsType
      */
@@ -307,11 +314,11 @@ public class HarmonicsMeter extends BaseFragmentTrend {
         modelLineData.setbValue(modelBaseData);
         modelLineData.setcValue(modelBaseData);
         modelLineData.setnValue(modelBaseData);
-        switch (wir_index){
+        switch (wir_index) {
             case 0://3QWYE
             case 5://3QHIGH LEG
             case 6:// 2½-ELEMENT
-                switch (harmonicsType){
+                switch (harmonicsType) {
                     case 2://A
                         showItem = 5;
                         groupListObj1.Clear();
@@ -326,14 +333,14 @@ public class HarmonicsMeter extends BaseFragmentTrend {
                         strList.add(new RightListViewItemObj("N", -1));
                         //              strList.add(new RightListViewItemObj("-_+", -1));
 
-                        addMeterData(getSpannableString("RMS"), 0, groupListObj1,modelLineData, showItem,"");
-                        addMeterData(getSpannableString("Afund",1,5), 1,groupListObj1, modelLineData, showItem,"");
-                        addMeterData(getSpannableString("ØA(°)"), 2,groupListObj1, modelLineData, showItem,"");
-                        addMeterData(getSpannableString("THD(%f)"), 3,groupListObj1, modelLineData, showItem,"");
-                        addMeterData(getSpannableString("DC(%f)"), 4,groupListObj1, modelLineData, showItem,"");
-                        addMeterData(getSpannableString("K-factor"), 5,groupListObj1, modelLineData, showItem,"");
-                        for(int i = 1;i<=50;i++) {
-                            addMeterData(getSpannableString("H" + i + "(%f)"), 5+i, groupListObj1, modelLineData, showItem,"");
+                        addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("ØA(°)"), 2, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("K-factor"), 5, groupListObj1, modelLineData, showItem, "");
+                        for (int i = 1; i <= 50; i++) {
+                            addMeterData(getSpannableString("H" + i + "(%f)"), 5 + i, groupListObj1, modelLineData, showItem, "");
                         }
 
                         break;
@@ -350,12 +357,12 @@ public class HarmonicsMeter extends BaseFragmentTrend {
                         strList.add(new RightListViewItemObj("L3", -1));
                         //              strList.add(new RightListViewItemObj("-_+", -1));
 
-                        addMeterData(getSpannableString("THD(%f)"), 0, groupListObj1, modelLineData, showItem,"");
-                        addMeterData(getSpannableString("DC(%f)"), 1, groupListObj1, modelLineData, showItem,"");
-                        addMeterData(getSpannableString("K-factor"), 2, groupListObj1, modelLineData, showItem,"");
+                        addMeterData(getSpannableString("THD(%f)"), 0, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("DC(%f)"), 1, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("K-factor"), 2, groupListObj1, modelLineData, showItem, "");
 
                         for (int i = 1; i <= 50; i++) {
-                            addMeterData(getSpannableString("H" + i + "(%f)"), 2 + i, groupListObj1, modelLineData, showItem,"");
+                            addMeterData(getSpannableString("H" + i + "(%f)"), 2 + i, groupListObj1, modelLineData, showItem, "");
                         }
 
 
@@ -374,19 +381,19 @@ public class HarmonicsMeter extends BaseFragmentTrend {
                         strList.add(new RightListViewItemObj("N", -1));
                         //              strList.add(new RightListViewItemObj("-_+", -1));
 
-                        addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem,"");
-                        addMeterData(getSpannableString("Vfund", 1, 5), 1, groupListObj1, modelLineData, showItem,"");
-                        addMeterData(getSpannableString("ØV(°)"), 2, groupListObj1, modelLineData, showItem,"");
-                        addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem,"");
-                        addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem,"");
+                        addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("Vfund", 1, 5), 1, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("ØV(°)"), 2, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem, "");
                         for (int i = 1; i <= 50; i++) {
-                            addMeterData(getSpannableString("H" + i + "(%f)"), 4 + i, groupListObj1, modelLineData, showItem,"");
+                            addMeterData(getSpannableString("H" + i + "(%f)"), 4 + i, groupListObj1, modelLineData, showItem, "");
                         }
                         break;
                 }
                 break;
             case 7://1Q SPLIT PHASE
-                switch (harmonicsType){
+                switch (harmonicsType) {
                     case 2://A
                         showItem = 4;
                         groupListObj1.Clear();
@@ -400,14 +407,14 @@ public class HarmonicsMeter extends BaseFragmentTrend {
                         strList.add(new RightListViewItemObj("N", -1));
                         //              strList.add(new RightListViewItemObj("-_+", -1));
 
-                        addMeterData(getSpannableString("RMS"), 0, groupListObj1,modelLineData, showItem,"");
-                        addMeterData(getSpannableString("Afund",1,5), 1,groupListObj1, modelLineData, showItem,"");
-                        addMeterData(getSpannableString("ØA(°)"), 2,groupListObj1, modelLineData, showItem,"");
-                        addMeterData(getSpannableString("THD(%f)"), 3,groupListObj1, modelLineData, showItem,"");
-                        addMeterData(getSpannableString("DC(%f)"), 4,groupListObj1, modelLineData, showItem,"");
-                        addMeterData(getSpannableString("K-factor"), 5,groupListObj1, modelLineData, showItem,"");
-                        for(int i = 1;i<=50;i++) {
-                            addMeterData(getSpannableString("H" + i + "(%f)"), 5+i, groupListObj1, modelLineData, showItem,"");
+                        addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("ØA(°)"), 2, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("K-factor"), 5, groupListObj1, modelLineData, showItem, "");
+                        for (int i = 1; i <= 50; i++) {
+                            addMeterData(getSpannableString("H" + i + "(%f)"), 5 + i, groupListObj1, modelLineData, showItem, "");
                         }
 
                         break;
@@ -423,12 +430,12 @@ public class HarmonicsMeter extends BaseFragmentTrend {
                         strList.add(new RightListViewItemObj("L2", -1));
                         //              strList.add(new RightListViewItemObj("-_+", -1));
 
-                        addMeterData(getSpannableString("THD(%f)"), 0, groupListObj1, modelLineData, showItem,"");
-                        addMeterData(getSpannableString("DC(%f)"), 1, groupListObj1, modelLineData, showItem,"");
-                        addMeterData(getSpannableString("K-factor"), 2, groupListObj1, modelLineData, showItem,"");
+                        addMeterData(getSpannableString("THD(%f)"), 0, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("DC(%f)"), 1, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("K-factor"), 2, groupListObj1, modelLineData, showItem, "");
 
                         for (int i = 1; i <= 50; i++) {
-                            addMeterData(getSpannableString("H" + i + "(%f)"), 2 + i, groupListObj1, modelLineData, showItem,"");
+                            addMeterData(getSpannableString("H" + i + "(%f)"), 2 + i, groupListObj1, modelLineData, showItem, "");
                         }
 
 
@@ -446,19 +453,19 @@ public class HarmonicsMeter extends BaseFragmentTrend {
                         strList.add(new RightListViewItemObj("N", -1));
                         //              strList.add(new RightListViewItemObj("-_+", -1));
 
-                        addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem,"");
-                        addMeterData(getSpannableString("Vfund", 1, 5), 1, groupListObj1, modelLineData, showItem,"");
-                        addMeterData(getSpannableString("ØV(°)"), 2, groupListObj1, modelLineData, showItem,"");
-                        addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem,"");
-                        addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem,"");
+                        addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("Vfund", 1, 5), 1, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("ØV(°)"), 2, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem, "");
                         for (int i = 1; i <= 50; i++) {
-                            addMeterData(getSpannableString("H" + i + "(%f)"), 4 + i, groupListObj1, modelLineData, showItem,"");
+                            addMeterData(getSpannableString("H" + i + "(%f)"), 4 + i, groupListObj1, modelLineData, showItem, "");
                         }
                         break;
                 }
                 break;
             case 9://1Q +NEUTRAL
-                switch (harmonicsType){
+                switch (harmonicsType) {
                     case 2://A
                         showItem = 2;
                         groupListObj1.Clear();
@@ -470,17 +477,17 @@ public class HarmonicsMeter extends BaseFragmentTrend {
                         strList.add(new RightListViewItemObj("N", -1));
                         //              strList.add(new RightListViewItemObj("-_+", -1));
 
-                        addMeterData(getSpannableString("RMS"), 0, groupListObj1,modelLineData, showItem,"");
-                        addMeterData(getSpannableString("Afund",1,5), 1,groupListObj1, modelLineData, showItem,"");
-                        addMeterData(getSpannableString("ØA(°)"), 2,groupListObj1, modelLineData, showItem,"");
-                        addMeterData(getSpannableString("THD(%f)"), 3,groupListObj1, modelLineData, showItem,"");
-                        addMeterData(getSpannableString("DC(%f)"), 4,groupListObj1, modelLineData, showItem,"");
-                        addMeterData(getSpannableString("K-factor"), 5,groupListObj1, modelLineData, showItem,"");
-                        addMeterData(getSpannableString("MAX(%f)"), 6,groupListObj1, modelLineData, showItem,"");
-                        addMeterData(getSpannableString("MIN(%f)"), 7,groupListObj1, modelLineData, showItem,"");
-                        addMeterData(getSpannableString("Ad"), 8,groupListObj1, modelLineData, showItem,"");
-                        for(int i = 1;i<=50;i++) {
-                            addMeterData(getSpannableString("H" + i + "(%f)"), 8+i, groupListObj1, modelLineData, showItem,"");
+                        addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("ØA(°)"), 2, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("K-factor"), 5, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("MAX(%f)"), 6, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("MIN(%f)"), 7, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("Ad"), 8, groupListObj1, modelLineData, showItem, "");
+                        for (int i = 1; i <= 50; i++) {
+                            addMeterData(getSpannableString("H" + i + "(%f)"), 8 + i, groupListObj1, modelLineData, showItem, "");
                         }
 
                         break;
@@ -491,15 +498,15 @@ public class HarmonicsMeter extends BaseFragmentTrend {
                         groupListObj1.addHeader(getResources().getStringArray(R.array.l1_array));
                         strList.clear();
 
-                        addMeterData(getSpannableString("THD(%f)"), 0,groupListObj1, modelLineData, showItem,"");
-                        addMeterData(getSpannableString("DC(%f)"), 1,groupListObj1, modelLineData, showItem,"");
-                        addMeterData(getSpannableString("K-factor"), 2,groupListObj1, modelLineData, showItem,"");
-                        addMeterData(getSpannableString("ØW(°)"), 3,groupListObj1, modelLineData, showItem,"");
-                        addMeterData(getSpannableString("MAX(%f)"), 4,groupListObj1, modelLineData, showItem,"");
-                        addMeterData(getSpannableString("MIN(%f)"), 5,groupListObj1, modelLineData, showItem,"");
+                        addMeterData(getSpannableString("THD(%f)"), 0, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("DC(%f)"), 1, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("K-factor"), 2, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("ØW(°)"), 3, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("MAX(%f)"), 4, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("MIN(%f)"), 5, groupListObj1, modelLineData, showItem, "");
 
                         for (int i = 1; i <= 50; i++) {
-                            addMeterData(getSpannableString("H" + i + "(%f)"), 5 + i, groupListObj1, modelLineData, showItem,"");
+                            addMeterData(getSpannableString("H" + i + "(%f)"), 5 + i, groupListObj1, modelLineData, showItem, "");
                         }
 
 
@@ -514,16 +521,16 @@ public class HarmonicsMeter extends BaseFragmentTrend {
                         strList.add(new RightListViewItemObj("L1", -1));
                         strList.add(new RightListViewItemObj("N", -1));
 
-                        addMeterData(getSpannableString("RMS"), 0, groupListObj1,modelLineData, showItem,"");
-                        addMeterData(getSpannableString("Vfund",1,5), 1,groupListObj1, modelLineData, showItem,"");
-                        addMeterData(getSpannableString("ØV(°)"), 2,groupListObj1, modelLineData, showItem,"");
-                        addMeterData(getSpannableString("THD(%f)"), 3,groupListObj1, modelLineData, showItem,"");
-                        addMeterData(getSpannableString("DC(%f)"), 4,groupListObj1, modelLineData, showItem,"");
-                        addMeterData(getSpannableString("MAX(%f)"), 5,groupListObj1, modelLineData, showItem,"");
-                        addMeterData(getSpannableString("MIN(%f)"), 6,groupListObj1, modelLineData, showItem,"");
-                        addMeterData(getSpannableString("Vd"), 7,groupListObj1, modelLineData, showItem,"");
-                        for(int i = 1;i<=50;i++) {
-                            addMeterData(getSpannableString("H" + i + "(%f)"), 7+i, groupListObj1, modelLineData, showItem,"");
+                        addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("Vfund", 1, 5), 1, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("ØV(°)"), 2, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("MAX(%f)"), 5, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("MIN(%f)"), 6, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("Vd"), 7, groupListObj1, modelLineData, showItem, "");
+                        for (int i = 1; i <= 50; i++) {
+                            addMeterData(getSpannableString("H" + i + "(%f)"), 7 + i, groupListObj1, modelLineData, showItem, "");
                         }
                         break;
                 }
@@ -532,7 +539,7 @@ public class HarmonicsMeter extends BaseFragmentTrend {
             case 2://3QIT
             case 3://2-ELEMENT
             case 4://3QDELTA
-                switch (harmonicsType){
+                switch (harmonicsType) {
                     case 2://A
                         showItem = 4;
                         groupListObj1.Clear();
@@ -546,13 +553,13 @@ public class HarmonicsMeter extends BaseFragmentTrend {
                         strList.add(new RightListViewItemObj("L3L1", -1));
                         //              strList.add(new RightListViewItemObj("-_+", -1));
 
-                        addMeterData(getSpannableString("RMS"), 0, groupListObj1,modelLineData, showItem,"");
-                        addMeterData(getSpannableString("Afund",1,5), 1,groupListObj1, modelLineData, showItem,"");
-                        addMeterData(getSpannableString("ØA(°)"), 2,groupListObj1, modelLineData, showItem,"");
-                        addMeterData(getSpannableString("THD(%f)"), 3,groupListObj1, modelLineData, showItem,"");
-                        addMeterData(getSpannableString("DC(%f)"), 4,groupListObj1, modelLineData, showItem,"");
-                        for(int i = 1;i<=50;i++) {
-                            addMeterData(getSpannableString("H" + i + "(%f)"), 4+i, groupListObj1, modelLineData, showItem,"");
+                        addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("ØA(°)"), 2, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem, "");
+                        for (int i = 1; i <= 50; i++) {
+                            addMeterData(getSpannableString("H" + i + "(%f)"), 4 + i, groupListObj1, modelLineData, showItem, "");
                         }
 
                         break;
@@ -568,12 +575,12 @@ public class HarmonicsMeter extends BaseFragmentTrend {
                         strList.add(new RightListViewItemObj("L2L3", -1));
                         strList.add(new RightListViewItemObj("L3L1", -1));
 
-                        addMeterData(getSpannableString("THD(%f)"), 0, groupListObj1, modelLineData, showItem,"");
-                        addMeterData(getSpannableString("DC(%f)"), 1, groupListObj1, modelLineData, showItem,"");
-                        addMeterData(getSpannableString("K-factor"), 2, groupListObj1, modelLineData, showItem,"");
+                        addMeterData(getSpannableString("THD(%f)"), 0, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("DC(%f)"), 1, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("K-factor"), 2, groupListObj1, modelLineData, showItem, "");
 
                         for (int i = 1; i <= 30; i++) {
-                            addMeterData(getSpannableString("H" + i + "(%f)"), 2 + i, groupListObj1, modelLineData, showItem,"");
+                            addMeterData(getSpannableString("H" + i + "(%f)"), 2 + i, groupListObj1, modelLineData, showItem, "");
                         }
 
 
@@ -591,19 +598,19 @@ public class HarmonicsMeter extends BaseFragmentTrend {
                         strList.add(new RightListViewItemObj("L3L1", -1));
                         //              strList.add(new RightListViewItemObj("-_+", -1));
 
-                        addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem,"");
-                        addMeterData(getSpannableString("Ufund", 1, 5), 1, groupListObj1, modelLineData, showItem,"");
-                        addMeterData(getSpannableString("ØU(°)"), 2, groupListObj1, modelLineData, showItem,"");
-                        addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem,"");
-                        addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem,"");
+                        addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("Ufund", 1, 5), 1, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("ØU(°)"), 2, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem, "");
                         for (int i = 1; i <= 50; i++) {
-                            addMeterData(getSpannableString("H" + i + "(%f)"), 4 + i, groupListObj1, modelLineData, showItem,"");
+                            addMeterData(getSpannableString("H" + i + "(%f)"), 4 + i, groupListObj1, modelLineData, showItem, "");
                         }
                         break;
                 }
                 break;
             case 8://1Q IT NO NEUTRAL
-                switch (harmonicsType){
+                switch (harmonicsType) {
                     case 2://A
                         showItem = 2;
                         groupListObj1.Clear();
@@ -611,14 +618,14 @@ public class HarmonicsMeter extends BaseFragmentTrend {
                         groupListObj1.addHeader(getResources().getStringArray(R.array.L1L2_array));
                         strList.clear();
 
-                        addMeterData(getSpannableString("RMS"), 0, groupListObj1,modelLineData, showItem,"");
-                        addMeterData(getSpannableString("Afund",1,5), 1,groupListObj1, modelLineData, showItem,"");
-                        addMeterData(getSpannableString("THD(%f)"), 2,groupListObj1, modelLineData, showItem,"");
-                        addMeterData(getSpannableString("DC(%f)"), 3,groupListObj1, modelLineData, showItem,"");
-                        addMeterData(getSpannableString("MAX(%f)"), 4,groupListObj1, modelLineData, showItem,"");
-                        addMeterData(getSpannableString("MIN(%f)"), 5,groupListObj1, modelLineData, showItem,"");
-                        for(int i = 1;i<=50;i++) {
-                            addMeterData(getSpannableString("H" + i + "(%f)"), 5+i, groupListObj1, modelLineData, showItem,"");
+                        addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("THD(%f)"), 2, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("DC(%f)"), 3, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("MAX(%f)"), 4, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("MIN(%f)"), 5, groupListObj1, modelLineData, showItem, "");
+                        for (int i = 1; i <= 50; i++) {
+                            addMeterData(getSpannableString("H" + i + "(%f)"), 5 + i, groupListObj1, modelLineData, showItem, "");
                         }
 
                         break;
@@ -629,15 +636,15 @@ public class HarmonicsMeter extends BaseFragmentTrend {
                         groupListObj1.addHeader(getResources().getStringArray(R.array.L1L2_array));
                         strList.clear();
 
-                        addMeterData(getSpannableString("THD(%f)"), 0, groupListObj1, modelLineData, showItem,"");
-                        addMeterData(getSpannableString("DC(%f)"), 1, groupListObj1, modelLineData, showItem,"");
-                        addMeterData(getSpannableString("K-factor"), 2, groupListObj1, modelLineData, showItem,"");
-                        addMeterData(getSpannableString("ØW(°)"), 3,groupListObj1, modelLineData, showItem,"");
-                        addMeterData(getSpannableString("MAX(%f)"), 4,groupListObj1, modelLineData, showItem,"");
-                        addMeterData(getSpannableString("MIN(%f)"), 5,groupListObj1, modelLineData, showItem,"");
+                        addMeterData(getSpannableString("THD(%f)"), 0, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("DC(%f)"), 1, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("K-factor"), 2, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("ØW(°)"), 3, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("MAX(%f)"), 4, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("MIN(%f)"), 5, groupListObj1, modelLineData, showItem, "");
 
                         for (int i = 1; i <= 30; i++) {
-                            addMeterData(getSpannableString("H" + i + "(%f)"), 5 + i, groupListObj1, modelLineData, showItem,"");
+                            addMeterData(getSpannableString("H" + i + "(%f)"), 5 + i, groupListObj1, modelLineData, showItem, "");
                         }
 
 
@@ -649,19 +656,19 @@ public class HarmonicsMeter extends BaseFragmentTrend {
                         groupListObj1.addHeader(getResources().getStringArray(R.array.L1L2_array));
                         strList.clear();
 
-                        addMeterData(getSpannableString("RMS"), 0, groupListObj1,modelLineData, showItem,"");
-                        addMeterData(getSpannableString("Ufund",1,5), 1,groupListObj1, modelLineData, showItem,"");
-                        addMeterData(getSpannableString("ØU(°)"), 2,groupListObj1, modelLineData, showItem,"");
-                        addMeterData(getSpannableString("THD(%f)"), 3,groupListObj1, modelLineData, showItem,"");
-                        addMeterData(getSpannableString("MAX(%f)"), 4,groupListObj1, modelLineData, showItem,"");
-                        addMeterData(getSpannableString("MIN(%f)"), 5,groupListObj1, modelLineData, showItem,"");
-                        for(int i = 1;i<=50;i++) {
-                            addMeterData(getSpannableString("H" + i + "(%f)"), 5+i, groupListObj1, modelLineData, showItem,"");
+                        addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("Ufund", 1, 5), 1, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("ØU(°)"), 2, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("MAX(%f)"), 4, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("MIN(%f)"), 5, groupListObj1, modelLineData, showItem, "");
+                        for (int i = 1; i <= 50; i++) {
+                            addMeterData(getSpannableString("H" + i + "(%f)"), 5 + i, groupListObj1, modelLineData, showItem, "");
                         }
                         break;
                 }
                 break;
-         }
+        }
         rightModeView.setSelection(0);
         rightModeView.hideUpDownView();
         rightModeView.notifyDataSetChanged();
@@ -670,81 +677,82 @@ public class HarmonicsMeter extends BaseFragmentTrend {
 
     /**
      * 实时值
+     *
      * @param wir_index
      * @param wir_right_index
-     * @param list  如何定义
+     * @param list            如何定义
      */
-    public void addSelectMeterData(int wir_index,int wir_right_index,ModelAllData list,int harmonicsType){
-        switch (wir_index){
+    public void addSelectMeterData(int wir_index, int wir_right_index, ModelAllData list, int harmonicsType) {
+        switch (wir_index) {
             case 0://3QWYE
             case 5://3QHIGH LEG
                 switch (harmonicsType) {
                     case 2://A
                         switch (wir_right_index) {
                             case 0://3L
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem,"");
-                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem,"");
-                                addMeterData(getSpannableString("ØA(°)"), 2, groupListObj1, list.getModelLineData().get(2), showItem,"");
-                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, list.getModelLineData().get(3), showItem,"");
-                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem,"");
-                                addMeterData(getSpannableString("K-factor"), 5, groupListObj1, list.getModelLineData().get(5), showItem,"");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem, "");
+                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem, "");
+                                addMeterData(getSpannableString("ØA(°)"), 2, groupListObj1, list.getModelLineData().get(2), showItem, "");
+                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, list.getModelLineData().get(3), showItem, "");
+                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem, "");
+                                addMeterData(getSpannableString("K-factor"), 5, groupListObj1, list.getModelLineData().get(5), showItem, "");
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 5 + i, groupListObj1, list.getModelLineData().get(i + 8), showItem,"");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 5 + i, groupListObj1, list.getModelLineData().get(i + 8), showItem, "");
                                 }
                                 break;
                             case 1://L1
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem,"L1");
-                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem,"L1");
-                                addMeterData(getSpannableString("ØA(°)"), 2, groupListObj1, list.getModelLineData().get(2), showItem,"L1");
-                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, list.getModelLineData().get(3), showItem,"L1");
-                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem,"L1");
-                                addMeterData(getSpannableString("K-factor"), 5, groupListObj1, list.getModelLineData().get(5), showItem,"L1");
-                                addMeterData(getSpannableString("MAX(%f)"), 6, groupListObj1, list.getModelLineData().get(6), showItem,"L1");
-                                addMeterData(getSpannableString("MIN(%f)"), 7, groupListObj1, list.getModelLineData().get(7), showItem,"L1");
-                                addMeterData(getSpannableString("Ad"), 8, groupListObj1, list.getModelLineData().get(8), showItem,"L1");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem, "L1");
+                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem, "L1");
+                                addMeterData(getSpannableString("ØA(°)"), 2, groupListObj1, list.getModelLineData().get(2), showItem, "L1");
+                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, list.getModelLineData().get(3), showItem, "L1");
+                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem, "L1");
+                                addMeterData(getSpannableString("K-factor"), 5, groupListObj1, list.getModelLineData().get(5), showItem, "L1");
+                                addMeterData(getSpannableString("MAX(%f)"), 6, groupListObj1, list.getModelLineData().get(6), showItem, "L1");
+                                addMeterData(getSpannableString("MIN(%f)"), 7, groupListObj1, list.getModelLineData().get(7), showItem, "L1");
+                                addMeterData(getSpannableString("Ad"), 8, groupListObj1, list.getModelLineData().get(8), showItem, "L1");
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 8 + i, groupListObj1, list.getModelLineData().get(i + 8), showItem,"L1");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 8 + i, groupListObj1, list.getModelLineData().get(i + 8), showItem, "L1");
                                 }
 
                                 break;
                             case 2://L2
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem,"L2");
-                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem,"L2");
-                                addMeterData(getSpannableString("ØA(°)"), 2, groupListObj1, list.getModelLineData().get(2), showItem,"L2");
-                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, list.getModelLineData().get(3), showItem,"L2");
-                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem,"L2");
-                                addMeterData(getSpannableString("K-factor"), 5, groupListObj1, list.getModelLineData().get(5), showItem,"L2");
-                                addMeterData(getSpannableString("MAX(%f)"), 6, groupListObj1, list.getModelLineData().get(6), showItem,"L2");
-                                addMeterData(getSpannableString("MIN(%f)"), 7, groupListObj1, list.getModelLineData().get(7), showItem,"L2");
-                                addMeterData(getSpannableString("Ad"), 8, groupListObj1, list.getModelLineData().get(8), showItem,"L2");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem, "L2");
+                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem, "L2");
+                                addMeterData(getSpannableString("ØA(°)"), 2, groupListObj1, list.getModelLineData().get(2), showItem, "L2");
+                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, list.getModelLineData().get(3), showItem, "L2");
+                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem, "L2");
+                                addMeterData(getSpannableString("K-factor"), 5, groupListObj1, list.getModelLineData().get(5), showItem, "L2");
+                                addMeterData(getSpannableString("MAX(%f)"), 6, groupListObj1, list.getModelLineData().get(6), showItem, "L2");
+                                addMeterData(getSpannableString("MIN(%f)"), 7, groupListObj1, list.getModelLineData().get(7), showItem, "L2");
+                                addMeterData(getSpannableString("Ad"), 8, groupListObj1, list.getModelLineData().get(8), showItem, "L2");
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 8 + i, groupListObj1, list.getModelLineData().get(i + 8), showItem,"L2");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 8 + i, groupListObj1, list.getModelLineData().get(i + 8), showItem, "L2");
                                 }
                                 break;
                             case 3://L3
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem,"L3");
-                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem,"L3");
-                                addMeterData(getSpannableString("ØA(°)"), 2, groupListObj1, list.getModelLineData().get(2), showItem,"L3");
-                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, list.getModelLineData().get(3), showItem,"L3");
-                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem,"L3");
-                                addMeterData(getSpannableString("K-factor"), 5, groupListObj1, list.getModelLineData().get(5), showItem,"L3");
-                                addMeterData(getSpannableString("MAX(%f)"), 6, groupListObj1, list.getModelLineData().get(6), showItem,"L3");
-                                addMeterData(getSpannableString("MIN(%f)"), 7, groupListObj1, list.getModelLineData().get(7), showItem,"L3");
-                                addMeterData(getSpannableString("Ad"), 8, groupListObj1, list.getModelLineData().get(8), showItem,"L3");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem, "L3");
+                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem, "L3");
+                                addMeterData(getSpannableString("ØA(°)"), 2, groupListObj1, list.getModelLineData().get(2), showItem, "L3");
+                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, list.getModelLineData().get(3), showItem, "L3");
+                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem, "L3");
+                                addMeterData(getSpannableString("K-factor"), 5, groupListObj1, list.getModelLineData().get(5), showItem, "L3");
+                                addMeterData(getSpannableString("MAX(%f)"), 6, groupListObj1, list.getModelLineData().get(6), showItem, "L3");
+                                addMeterData(getSpannableString("MIN(%f)"), 7, groupListObj1, list.getModelLineData().get(7), showItem, "L3");
+                                addMeterData(getSpannableString("Ad"), 8, groupListObj1, list.getModelLineData().get(8), showItem, "L3");
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 8 + i, groupListObj1, list.getModelLineData().get(i + 8), showItem,"L3");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 8 + i, groupListObj1, list.getModelLineData().get(i + 8), showItem, "L3");
                                 }
 
                                 break;
                             case 4://N
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem,"N");
-                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem,"N");
-                                addMeterData(getSpannableString("THD(%r)"), 2, groupListObj1, list.getModelLineData().get(3), showItem,"N");
-                                addMeterData(getSpannableString("MAX(%r)"), 3, groupListObj1, list.getModelLineData().get(6), showItem,"N");
-                                addMeterData(getSpannableString("MIN(%r)"), 4, groupListObj1, list.getModelLineData().get(7), showItem,"N");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem, "N");
+                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem, "N");
+                                addMeterData(getSpannableString("THD(%r)"), 2, groupListObj1, list.getModelLineData().get(3), showItem, "N");
+                                addMeterData(getSpannableString("MAX(%r)"), 3, groupListObj1, list.getModelLineData().get(6), showItem, "N");
+                                addMeterData(getSpannableString("MIN(%r)"), 4, groupListObj1, list.getModelLineData().get(7), showItem, "N");
 
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%r)"), 4 + i, groupListObj1, list.getModelLineData().get(i + 8), showItem,"N");
+                                    addMeterData(getSpannableString("H" + i + "(%r)"), 4 + i, groupListObj1, list.getModelLineData().get(i + 8), showItem, "N");
                                 }
 
                                 break;
@@ -753,45 +761,45 @@ public class HarmonicsMeter extends BaseFragmentTrend {
                     case 1://S
                         switch (wir_right_index) {
                             case 0://3L
-                                addMeterData(getSpannableString("THD(%f)"), 0, groupListObj1, list.getModelLineData().get(0), showItem,"");
-                                addMeterData(getSpannableString("DC(%f)"), 1, groupListObj1, list.getModelLineData().get(1), showItem,"");
-                                addMeterData(getSpannableString("K-factor"), 2, groupListObj1, list.getModelLineData().get(2), showItem,"");
+                                addMeterData(getSpannableString("THD(%f)"), 0, groupListObj1, list.getModelLineData().get(0), showItem, "");
+                                addMeterData(getSpannableString("DC(%f)"), 1, groupListObj1, list.getModelLineData().get(1), showItem, "");
+                                addMeterData(getSpannableString("K-factor"), 2, groupListObj1, list.getModelLineData().get(2), showItem, "");
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 2 + i, groupListObj1, list.getModelLineData().get(i + 5), showItem,"");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 2 + i, groupListObj1, list.getModelLineData().get(i + 5), showItem, "");
                                 }
                                 break;
                             case 1://L1
-                                addMeterData(getSpannableString("THD(%f)"), 0, groupListObj1, list.getModelLineData().get(0), showItem,"L1");
-                                addMeterData(getSpannableString("DC(%f)"), 1, groupListObj1, list.getModelLineData().get(1), showItem,"L1");
-                                addMeterData(getSpannableString("K-factor"), 2, groupListObj1, list.getModelLineData().get(2), showItem,"L1");
-                                addMeterData(getSpannableString("ØW(°)"), 3, groupListObj1, list.getModelLineData().get(3), showItem,"L1");
-                                addMeterData(getSpannableString("MAX(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem,"L1");
-                                addMeterData(getSpannableString("MIN(%f)"), 5, groupListObj1, list.getModelLineData().get(5), showItem,"L1");
+                                addMeterData(getSpannableString("THD(%f)"), 0, groupListObj1, list.getModelLineData().get(0), showItem, "L1");
+                                addMeterData(getSpannableString("DC(%f)"), 1, groupListObj1, list.getModelLineData().get(1), showItem, "L1");
+                                addMeterData(getSpannableString("K-factor"), 2, groupListObj1, list.getModelLineData().get(2), showItem, "L1");
+                                addMeterData(getSpannableString("ØW(°)"), 3, groupListObj1, list.getModelLineData().get(3), showItem, "L1");
+                                addMeterData(getSpannableString("MAX(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem, "L1");
+                                addMeterData(getSpannableString("MIN(%f)"), 5, groupListObj1, list.getModelLineData().get(5), showItem, "L1");
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 5 + i, groupListObj1, list.getModelLineData().get(i + 5), showItem,"L1");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 5 + i, groupListObj1, list.getModelLineData().get(i + 5), showItem, "L1");
                                 }
                                 break;
                             case 2://L2
-                                addMeterData(getSpannableString("THD(%f)"), 0, groupListObj1, list.getModelLineData().get(0), showItem,"L2");
-                                addMeterData(getSpannableString("DC(%f)"), 1, groupListObj1, list.getModelLineData().get(1), showItem,"L2");
-                                addMeterData(getSpannableString("K-factor"), 2, groupListObj1, list.getModelLineData().get(2), showItem,"L2");
-                                addMeterData(getSpannableString("ØW(°)"), 3, groupListObj1, list.getModelLineData().get(3), showItem,"L2");
-                                addMeterData(getSpannableString("MAX(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem,"L2");
-                                addMeterData(getSpannableString("MIN(%f)"), 5, groupListObj1, list.getModelLineData().get(5), showItem,"L2");
+                                addMeterData(getSpannableString("THD(%f)"), 0, groupListObj1, list.getModelLineData().get(0), showItem, "L2");
+                                addMeterData(getSpannableString("DC(%f)"), 1, groupListObj1, list.getModelLineData().get(1), showItem, "L2");
+                                addMeterData(getSpannableString("K-factor"), 2, groupListObj1, list.getModelLineData().get(2), showItem, "L2");
+                                addMeterData(getSpannableString("ØW(°)"), 3, groupListObj1, list.getModelLineData().get(3), showItem, "L2");
+                                addMeterData(getSpannableString("MAX(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem, "L2");
+                                addMeterData(getSpannableString("MIN(%f)"), 5, groupListObj1, list.getModelLineData().get(5), showItem, "L2");
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 5 + i, groupListObj1, list.getModelLineData().get(i + 5), showItem,"L2");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 5 + i, groupListObj1, list.getModelLineData().get(i + 5), showItem, "L2");
                                 }
 
                                 break;
                             case 3://L3
-                                addMeterData(getSpannableString("THD(%f)"), 0, groupListObj1, list.getModelLineData().get(0), showItem,"L3");
-                                addMeterData(getSpannableString("DC(%f)"), 1, groupListObj1, list.getModelLineData().get(1), showItem,"L3");
-                                addMeterData(getSpannableString("K-factor"), 2, groupListObj1, list.getModelLineData().get(2), showItem,"L3");
-                                addMeterData(getSpannableString("ØW(°)"), 3, groupListObj1, list.getModelLineData().get(3), showItem,"L3");
-                                addMeterData(getSpannableString("MAX(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem,"L3");
-                                addMeterData(getSpannableString("MIN(%f)"), 5, groupListObj1, list.getModelLineData().get(5), showItem,"L3");
+                                addMeterData(getSpannableString("THD(%f)"), 0, groupListObj1, list.getModelLineData().get(0), showItem, "L3");
+                                addMeterData(getSpannableString("DC(%f)"), 1, groupListObj1, list.getModelLineData().get(1), showItem, "L3");
+                                addMeterData(getSpannableString("K-factor"), 2, groupListObj1, list.getModelLineData().get(2), showItem, "L3");
+                                addMeterData(getSpannableString("ØW(°)"), 3, groupListObj1, list.getModelLineData().get(3), showItem, "L3");
+                                addMeterData(getSpannableString("MAX(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem, "L3");
+                                addMeterData(getSpannableString("MIN(%f)"), 5, groupListObj1, list.getModelLineData().get(5), showItem, "L3");
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 5 + i, groupListObj1, list.getModelLineData().get(i + 5), showItem,"L3");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 5 + i, groupListObj1, list.getModelLineData().get(i + 5), showItem, "L3");
                                 }
 
                                 break;
@@ -804,64 +812,64 @@ public class HarmonicsMeter extends BaseFragmentTrend {
                     case 0://V
                         switch (wir_right_index) {
                             case 0://3L
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem,"");
-                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem,"");
-                                addMeterData(getSpannableString("ØV(°)"), 2, groupListObj1, list.getModelLineData().get(2), showItem,"");
-                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, list.getModelLineData().get(3), showItem,"");
-                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem,"");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem, "");
+                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem, "");
+                                addMeterData(getSpannableString("ØV(°)"), 2, groupListObj1, list.getModelLineData().get(2), showItem, "");
+                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, list.getModelLineData().get(3), showItem, "");
+                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem, "");
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 4 + i, groupListObj1, list.getModelLineData().get(i + 7), showItem,"");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 4 + i, groupListObj1, list.getModelLineData().get(i + 7), showItem, "");
                                 }
                                 break;
                             case 1://L1
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem,"L1");
-                                addMeterData(getSpannableString("Vfund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem,"L1");
-                                addMeterData(getSpannableString("ØV(°)"), 2, groupListObj1, list.getModelLineData().get(2), showItem,"L1");
-                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, list.getModelLineData().get(3), showItem,"L1");
-                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem,"L1");
-                                addMeterData(getSpannableString("MAX(%f)"), 5, groupListObj1, list.getModelLineData().get(5), showItem,"L1");
-                                addMeterData(getSpannableString("MIN(%f)"), 6, groupListObj1, list.getModelLineData().get(6), showItem,"L1");
-                                addMeterData(getSpannableString("Ad"), 7, groupListObj1, list.getModelLineData().get(7), showItem,"L1");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem, "L1");
+                                addMeterData(getSpannableString("Vfund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem, "L1");
+                                addMeterData(getSpannableString("ØV(°)"), 2, groupListObj1, list.getModelLineData().get(2), showItem, "L1");
+                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, list.getModelLineData().get(3), showItem, "L1");
+                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem, "L1");
+                                addMeterData(getSpannableString("MAX(%f)"), 5, groupListObj1, list.getModelLineData().get(5), showItem, "L1");
+                                addMeterData(getSpannableString("MIN(%f)"), 6, groupListObj1, list.getModelLineData().get(6), showItem, "L1");
+                                addMeterData(getSpannableString("Ad"), 7, groupListObj1, list.getModelLineData().get(7), showItem, "L1");
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 7 + i, groupListObj1, list.getModelLineData().get(i + 7), showItem,"L1");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 7 + i, groupListObj1, list.getModelLineData().get(i + 7), showItem, "L1");
                                 }
                                 break;
                             case 2://L2
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem,"L2");
-                                addMeterData(getSpannableString("Vfund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem,"L2");
-                                addMeterData(getSpannableString("ØV(°)"), 2, groupListObj1, list.getModelLineData().get(2), showItem,"L2");
-                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, list.getModelLineData().get(3), showItem,"L2");
-                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem,"L2");
-                                addMeterData(getSpannableString("MAX(%f)"), 5, groupListObj1, list.getModelLineData().get(5), showItem,"L2");
-                                addMeterData(getSpannableString("MIN(%f)"), 6, groupListObj1, list.getModelLineData().get(6), showItem,"L2");
-                                addMeterData(getSpannableString("Ad"), 7, groupListObj1, list.getModelLineData().get(7), showItem,"L2");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem, "L2");
+                                addMeterData(getSpannableString("Vfund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem, "L2");
+                                addMeterData(getSpannableString("ØV(°)"), 2, groupListObj1, list.getModelLineData().get(2), showItem, "L2");
+                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, list.getModelLineData().get(3), showItem, "L2");
+                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem, "L2");
+                                addMeterData(getSpannableString("MAX(%f)"), 5, groupListObj1, list.getModelLineData().get(5), showItem, "L2");
+                                addMeterData(getSpannableString("MIN(%f)"), 6, groupListObj1, list.getModelLineData().get(6), showItem, "L2");
+                                addMeterData(getSpannableString("Ad"), 7, groupListObj1, list.getModelLineData().get(7), showItem, "L2");
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 7 + i, groupListObj1, list.getModelLineData().get(i + 7), showItem,"L2");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 7 + i, groupListObj1, list.getModelLineData().get(i + 7), showItem, "L2");
                                 }
                                 break;
                             case 3://L3
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem,"L3");
-                                addMeterData(getSpannableString("Vfund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem,"L3");
-                                addMeterData(getSpannableString("ØV(°)"), 2, groupListObj1, list.getModelLineData().get(2), showItem,"L3");
-                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, list.getModelLineData().get(3), showItem,"L3");
-                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem,"L3");
-                                addMeterData(getSpannableString("MAX(%f)"), 5, groupListObj1, list.getModelLineData().get(5), showItem,"L3");
-                                addMeterData(getSpannableString("MIN(%f)"), 6, groupListObj1, list.getModelLineData().get(6), showItem,"L3");
-                                addMeterData(getSpannableString("Ad"), 7, groupListObj1, list.getModelLineData().get(7), showItem,"L3");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem, "L3");
+                                addMeterData(getSpannableString("Vfund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem, "L3");
+                                addMeterData(getSpannableString("ØV(°)"), 2, groupListObj1, list.getModelLineData().get(2), showItem, "L3");
+                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, list.getModelLineData().get(3), showItem, "L3");
+                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem, "L3");
+                                addMeterData(getSpannableString("MAX(%f)"), 5, groupListObj1, list.getModelLineData().get(5), showItem, "L3");
+                                addMeterData(getSpannableString("MIN(%f)"), 6, groupListObj1, list.getModelLineData().get(6), showItem, "L3");
+                                addMeterData(getSpannableString("Ad"), 7, groupListObj1, list.getModelLineData().get(7), showItem, "L3");
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 7 + i, groupListObj1, list.getModelLineData().get(i + 7), showItem,"L3");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 7 + i, groupListObj1, list.getModelLineData().get(i + 7), showItem, "L3");
                                 }
 
                                 break;
                             case 4://N
 
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem,"N");
-                                addMeterData(getSpannableString("Vfund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem,"N");
-                                addMeterData(getSpannableString("THD(%r)"), 2, groupListObj1, list.getModelLineData().get(3), showItem,"N");
-                                addMeterData(getSpannableString("MAX(%r)"), 3, groupListObj1, list.getModelLineData().get(5), showItem,"N");
-                                addMeterData(getSpannableString("MIN(%r)"), 4, groupListObj1, list.getModelLineData().get(6), showItem,"N");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem, "N");
+                                addMeterData(getSpannableString("Vfund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem, "N");
+                                addMeterData(getSpannableString("THD(%r)"), 2, groupListObj1, list.getModelLineData().get(3), showItem, "N");
+                                addMeterData(getSpannableString("MAX(%r)"), 3, groupListObj1, list.getModelLineData().get(5), showItem, "N");
+                                addMeterData(getSpannableString("MIN(%r)"), 4, groupListObj1, list.getModelLineData().get(6), showItem, "N");
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%r)"), 7 + i, groupListObj1, list.getModelLineData().get(i + 7), showItem,"N");
+                                    addMeterData(getSpannableString("H" + i + "(%r)"), 7 + i, groupListObj1, list.getModelLineData().get(i + 7), showItem, "N");
                                 }
 
                                 break;
@@ -878,55 +886,55 @@ public class HarmonicsMeter extends BaseFragmentTrend {
                     case 2://A
                         switch (wir_right_index) {
                             case 0://3L
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem,"");
-                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem,"");
-                                addMeterData(getSpannableString("ØA(°)"), 2, groupListObj1, list.getModelLineData().get(2), showItem,"");
-                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, list.getModelLineData().get(3), showItem,"");
-                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem,"");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem, "");
+                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem, "");
+                                addMeterData(getSpannableString("ØA(°)"), 2, groupListObj1, list.getModelLineData().get(2), showItem, "");
+                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, list.getModelLineData().get(3), showItem, "");
+                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem, "");
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 4 + i, groupListObj1, list.getModelLineData().get(i + 8), showItem,"");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 4 + i, groupListObj1, list.getModelLineData().get(i + 8), showItem, "");
                                 }
                                 break;
                             case 1://L1L2
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem,"L1");
-                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem,"L1");
-                                addMeterData(getSpannableString("ØA(°)"), 2, groupListObj1, list.getModelLineData().get(2), showItem,"L1");
-                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, list.getModelLineData().get(3), showItem,"L1");
-                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem,"L1");
-                                addMeterData(getSpannableString("K-factor"), 5, groupListObj1, list.getModelLineData().get(5), showItem,"L1");
-                                addMeterData(getSpannableString("MAX(%f)"), 6, groupListObj1, list.getModelLineData().get(6), showItem,"L1");
-                                addMeterData(getSpannableString("MIN(%f)"), 7, groupListObj1, list.getModelLineData().get(7), showItem,"L1");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem, "L1");
+                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem, "L1");
+                                addMeterData(getSpannableString("ØA(°)"), 2, groupListObj1, list.getModelLineData().get(2), showItem, "L1");
+                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, list.getModelLineData().get(3), showItem, "L1");
+                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem, "L1");
+                                addMeterData(getSpannableString("K-factor"), 5, groupListObj1, list.getModelLineData().get(5), showItem, "L1");
+                                addMeterData(getSpannableString("MAX(%f)"), 6, groupListObj1, list.getModelLineData().get(6), showItem, "L1");
+                                addMeterData(getSpannableString("MIN(%f)"), 7, groupListObj1, list.getModelLineData().get(7), showItem, "L1");
 
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 7 + i, groupListObj1, list.getModelLineData().get(i + 8), showItem,"L1");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 7 + i, groupListObj1, list.getModelLineData().get(i + 8), showItem, "L1");
                                 }
                                 break;
                             case 2://L2L3
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem,"L2");
-                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem,"L2");
-                                addMeterData(getSpannableString("ØA(°)"), 2, groupListObj1, list.getModelLineData().get(2), showItem,"L2");
-                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, list.getModelLineData().get(3), showItem,"L2");
-                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem,"L2");
-                                addMeterData(getSpannableString("K-factor"), 5, groupListObj1, list.getModelLineData().get(5), showItem,"L2");
-                                addMeterData(getSpannableString("MAX(%f)"), 6, groupListObj1, list.getModelLineData().get(6), showItem,"L2");
-                                addMeterData(getSpannableString("MIN(%f)"), 7, groupListObj1, list.getModelLineData().get(7), showItem,"L2");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem, "L2");
+                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem, "L2");
+                                addMeterData(getSpannableString("ØA(°)"), 2, groupListObj1, list.getModelLineData().get(2), showItem, "L2");
+                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, list.getModelLineData().get(3), showItem, "L2");
+                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem, "L2");
+                                addMeterData(getSpannableString("K-factor"), 5, groupListObj1, list.getModelLineData().get(5), showItem, "L2");
+                                addMeterData(getSpannableString("MAX(%f)"), 6, groupListObj1, list.getModelLineData().get(6), showItem, "L2");
+                                addMeterData(getSpannableString("MIN(%f)"), 7, groupListObj1, list.getModelLineData().get(7), showItem, "L2");
 
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 7 + i, groupListObj1, list.getModelLineData().get(i + 8), showItem,"L2");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 7 + i, groupListObj1, list.getModelLineData().get(i + 8), showItem, "L2");
                                 }
                                 break;
                             case 3://L3L1
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem,"L3");
-                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem,"L3");
-                                addMeterData(getSpannableString("ØA(°)"), 2, groupListObj1, list.getModelLineData().get(2), showItem,"L3");
-                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, list.getModelLineData().get(3), showItem,"L3");
-                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem,"L3");
-                                addMeterData(getSpannableString("K-factor"), 5, groupListObj1, list.getModelLineData().get(5), showItem,"L3");
-                                addMeterData(getSpannableString("MAX(%f)"), 6, groupListObj1, list.getModelLineData().get(6), showItem,"L3");
-                                addMeterData(getSpannableString("MIN(%f)"), 7, groupListObj1, list.getModelLineData().get(7), showItem,"L3");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem, "L3");
+                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem, "L3");
+                                addMeterData(getSpannableString("ØA(°)"), 2, groupListObj1, list.getModelLineData().get(2), showItem, "L3");
+                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, list.getModelLineData().get(3), showItem, "L3");
+                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem, "L3");
+                                addMeterData(getSpannableString("K-factor"), 5, groupListObj1, list.getModelLineData().get(5), showItem, "L3");
+                                addMeterData(getSpannableString("MAX(%f)"), 6, groupListObj1, list.getModelLineData().get(6), showItem, "L3");
+                                addMeterData(getSpannableString("MIN(%f)"), 7, groupListObj1, list.getModelLineData().get(7), showItem, "L3");
 
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 7 + i, groupListObj1, list.getModelLineData().get(i + 8), showItem,"L3");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 7 + i, groupListObj1, list.getModelLineData().get(i + 8), showItem, "L3");
                                 }
                                 break;
                         }
@@ -934,47 +942,47 @@ public class HarmonicsMeter extends BaseFragmentTrend {
                     case 1://S
                         switch (wir_right_index) {
                             case 0://3L
-                                addMeterData(getSpannableString("THD(%f)"), 0, groupListObj1, list.getModelLineData().get(0), showItem,"");
-                                addMeterData(getSpannableString("DC(%f)"), 1, groupListObj1, list.getModelLineData().get(1), showItem,"");
-                                addMeterData(getSpannableString("K-factor"), 2, groupListObj1, list.getModelLineData().get(2), showItem,"");
+                                addMeterData(getSpannableString("THD(%f)"), 0, groupListObj1, list.getModelLineData().get(0), showItem, "");
+                                addMeterData(getSpannableString("DC(%f)"), 1, groupListObj1, list.getModelLineData().get(1), showItem, "");
+                                addMeterData(getSpannableString("K-factor"), 2, groupListObj1, list.getModelLineData().get(2), showItem, "");
                                 for (int i = 1; i <= 30; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 3 + i, groupListObj1, list.getModelLineData().get(i+4), showItem,"");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 3 + i, groupListObj1, list.getModelLineData().get(i + 4), showItem, "");
                                 }
-                                     break;
+                                break;
                             case 1://L1L2
-                                addMeterData(getSpannableString("THD(%f)"), 0, groupListObj1, list.getModelLineData().get(0), showItem,"L1");
-                                addMeterData(getSpannableString("DC(%f)"), 1, groupListObj1, list.getModelLineData().get(1), showItem,"L1");
-                                addMeterData(getSpannableString("K-factor"), 2, groupListObj1, list.getModelLineData().get(2), showItem,"L1");
-                                addMeterData(getSpannableString("ØW(°)"), 3, groupListObj1, list.getModelLineData().get(3), showItem,"L1");
-                                addMeterData(getSpannableString("MAX(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem,"L1");
-                                addMeterData(getSpannableString("MIN(%f)"), 5, groupListObj1, list.getModelLineData().get(5), showItem,"L1");
+                                addMeterData(getSpannableString("THD(%f)"), 0, groupListObj1, list.getModelLineData().get(0), showItem, "L1");
+                                addMeterData(getSpannableString("DC(%f)"), 1, groupListObj1, list.getModelLineData().get(1), showItem, "L1");
+                                addMeterData(getSpannableString("K-factor"), 2, groupListObj1, list.getModelLineData().get(2), showItem, "L1");
+                                addMeterData(getSpannableString("ØW(°)"), 3, groupListObj1, list.getModelLineData().get(3), showItem, "L1");
+                                addMeterData(getSpannableString("MAX(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem, "L1");
+                                addMeterData(getSpannableString("MIN(%f)"), 5, groupListObj1, list.getModelLineData().get(5), showItem, "L1");
 
                                 for (int i = 1; i <= 30; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 5 + i, groupListObj1, list.getModelLineData().get(i+5), showItem,"L1");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 5 + i, groupListObj1, list.getModelLineData().get(i + 5), showItem, "L1");
                                 }
                                 break;
                             case 2://L2L3
-                                addMeterData(getSpannableString("THD(%f)"), 0, groupListObj1, list.getModelLineData().get(0), showItem,"L2");
-                                addMeterData(getSpannableString("DC(%f)"), 1, groupListObj1, list.getModelLineData().get(1), showItem,"L2");
-                                addMeterData(getSpannableString("K-factor"), 2, groupListObj1, list.getModelLineData().get(2), showItem,"L2");
-                                addMeterData(getSpannableString("ØW(°)"), 3, groupListObj1, list.getModelLineData().get(3), showItem,"L2");
-                                addMeterData(getSpannableString("MAX(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem,"L2");
-                                addMeterData(getSpannableString("MIN(%f)"), 5, groupListObj1, list.getModelLineData().get(5), showItem,"L2");
+                                addMeterData(getSpannableString("THD(%f)"), 0, groupListObj1, list.getModelLineData().get(0), showItem, "L2");
+                                addMeterData(getSpannableString("DC(%f)"), 1, groupListObj1, list.getModelLineData().get(1), showItem, "L2");
+                                addMeterData(getSpannableString("K-factor"), 2, groupListObj1, list.getModelLineData().get(2), showItem, "L2");
+                                addMeterData(getSpannableString("ØW(°)"), 3, groupListObj1, list.getModelLineData().get(3), showItem, "L2");
+                                addMeterData(getSpannableString("MAX(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem, "L2");
+                                addMeterData(getSpannableString("MIN(%f)"), 5, groupListObj1, list.getModelLineData().get(5), showItem, "L2");
 
                                 for (int i = 1; i <= 30; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 5 + i, groupListObj1, list.getModelLineData().get(i+5), showItem,"L2");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 5 + i, groupListObj1, list.getModelLineData().get(i + 5), showItem, "L2");
                                 }
                                 break;
                             case 3://L3L1
-                                addMeterData(getSpannableString("THD(%f)"), 0, groupListObj1, list.getModelLineData().get(0), showItem,"L3");
-                                addMeterData(getSpannableString("DC(%f)"), 1, groupListObj1, list.getModelLineData().get(1), showItem,"L3");
-                                addMeterData(getSpannableString("K-factor"), 2, groupListObj1, list.getModelLineData().get(2), showItem,"L3");
-                                addMeterData(getSpannableString("ØW(°)"), 3, groupListObj1, list.getModelLineData().get(3), showItem,"L3");
-                                addMeterData(getSpannableString("MAX(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem,"L3");
-                                addMeterData(getSpannableString("MIN(%f)"), 5, groupListObj1, list.getModelLineData().get(5), showItem,"L3");
+                                addMeterData(getSpannableString("THD(%f)"), 0, groupListObj1, list.getModelLineData().get(0), showItem, "L3");
+                                addMeterData(getSpannableString("DC(%f)"), 1, groupListObj1, list.getModelLineData().get(1), showItem, "L3");
+                                addMeterData(getSpannableString("K-factor"), 2, groupListObj1, list.getModelLineData().get(2), showItem, "L3");
+                                addMeterData(getSpannableString("ØW(°)"), 3, groupListObj1, list.getModelLineData().get(3), showItem, "L3");
+                                addMeterData(getSpannableString("MAX(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem, "L3");
+                                addMeterData(getSpannableString("MIN(%f)"), 5, groupListObj1, list.getModelLineData().get(5), showItem, "L3");
 
                                 for (int i = 1; i <= 30; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 5 + i, groupListObj1, list.getModelLineData().get(i+5), showItem,"L3");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 5 + i, groupListObj1, list.getModelLineData().get(i + 5), showItem, "L3");
                                 }
                                 break;
 
@@ -983,54 +991,54 @@ public class HarmonicsMeter extends BaseFragmentTrend {
                     case 0://U
                         switch (wir_right_index) {
                             case 0://3L
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem,"");
-                                addMeterData(getSpannableString("Ufund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem,"");
-                                addMeterData(getSpannableString("ØU(°)"), 2, groupListObj1, list.getModelLineData().get(2), showItem,"");
-                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, list.getModelLineData().get(3), showItem,"");
-                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem,"");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem, "");
+                                addMeterData(getSpannableString("Ufund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem, "");
+                                addMeterData(getSpannableString("ØU(°)"), 2, groupListObj1, list.getModelLineData().get(2), showItem, "");
+                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, list.getModelLineData().get(3), showItem, "");
+                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem, "");
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 4 + i, groupListObj1, list.getModelLineData().get(i+6), showItem,"");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 4 + i, groupListObj1, list.getModelLineData().get(i + 6), showItem, "");
                                 }
-                                              break;
+                                break;
                             case 1://L1L2
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem,"L1");
-                                addMeterData(getSpannableString("Ufund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem,"L1");
-                                addMeterData(getSpannableString("ØU(°)"), 2, groupListObj1, list.getModelLineData().get(2), showItem,"L1");
-                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, list.getModelLineData().get(3), showItem,"L1");
-                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem,"L1");
-                                addMeterData(getSpannableString("MAX(%f)"), 5, groupListObj1, list.getModelLineData().get(5), showItem,"L1");
-                                addMeterData(getSpannableString("MIN(%f)"), 6, groupListObj1, list.getModelLineData().get(6), showItem,"L1");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem, "L1");
+                                addMeterData(getSpannableString("Ufund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem, "L1");
+                                addMeterData(getSpannableString("ØU(°)"), 2, groupListObj1, list.getModelLineData().get(2), showItem, "L1");
+                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, list.getModelLineData().get(3), showItem, "L1");
+                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem, "L1");
+                                addMeterData(getSpannableString("MAX(%f)"), 5, groupListObj1, list.getModelLineData().get(5), showItem, "L1");
+                                addMeterData(getSpannableString("MIN(%f)"), 6, groupListObj1, list.getModelLineData().get(6), showItem, "L1");
 
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 6 + i, groupListObj1, list.getModelLineData().get(i+6), showItem,"L1");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 6 + i, groupListObj1, list.getModelLineData().get(i + 6), showItem, "L1");
                                 }
 
                                 break;
                             case 2://L2L3
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem,"L2");
-                                addMeterData(getSpannableString("Ufund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem,"L2");
-                                addMeterData(getSpannableString("ØU(°)"), 2, groupListObj1, list.getModelLineData().get(2), showItem,"L2");
-                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, list.getModelLineData().get(3), showItem,"L2");
-                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem,"L2");
-                                addMeterData(getSpannableString("MAX(%f)"), 5, groupListObj1, list.getModelLineData().get(5), showItem,"L2");
-                                addMeterData(getSpannableString("MIN(%f)"), 6, groupListObj1, list.getModelLineData().get(6), showItem,"L2");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem, "L2");
+                                addMeterData(getSpannableString("Ufund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem, "L2");
+                                addMeterData(getSpannableString("ØU(°)"), 2, groupListObj1, list.getModelLineData().get(2), showItem, "L2");
+                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, list.getModelLineData().get(3), showItem, "L2");
+                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem, "L2");
+                                addMeterData(getSpannableString("MAX(%f)"), 5, groupListObj1, list.getModelLineData().get(5), showItem, "L2");
+                                addMeterData(getSpannableString("MIN(%f)"), 6, groupListObj1, list.getModelLineData().get(6), showItem, "L2");
 
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 6 + i, groupListObj1, list.getModelLineData().get(i+6), showItem,"L2");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 6 + i, groupListObj1, list.getModelLineData().get(i + 6), showItem, "L2");
                                 }
 
                                 break;
                             case 3://L3L1
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem,"L3");
-                                addMeterData(getSpannableString("Ufund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem,"L3");
-                                addMeterData(getSpannableString("ØU(°)"), 2, groupListObj1, list.getModelLineData().get(2), showItem,"L3");
-                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, list.getModelLineData().get(3), showItem,"L3");
-                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem,"L3");
-                                addMeterData(getSpannableString("MAX(%f)"), 5, groupListObj1, list.getModelLineData().get(5), showItem,"L3");
-                                addMeterData(getSpannableString("MIN(%f)"), 6, groupListObj1, list.getModelLineData().get(6), showItem,"L3");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem, "L3");
+                                addMeterData(getSpannableString("Ufund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem, "L3");
+                                addMeterData(getSpannableString("ØU(°)"), 2, groupListObj1, list.getModelLineData().get(2), showItem, "L3");
+                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, list.getModelLineData().get(3), showItem, "L3");
+                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem, "L3");
+                                addMeterData(getSpannableString("MAX(%f)"), 5, groupListObj1, list.getModelLineData().get(5), showItem, "L3");
+                                addMeterData(getSpannableString("MIN(%f)"), 6, groupListObj1, list.getModelLineData().get(6), showItem, "L3");
 
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 6 + i, groupListObj1, list.getModelLineData().get(i+6), showItem,"L3");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 6 + i, groupListObj1, list.getModelLineData().get(i + 6), showItem, "L3");
                                 }
 
                                 break;
@@ -1047,67 +1055,67 @@ public class HarmonicsMeter extends BaseFragmentTrend {
                     case 2://A
                         switch (wir_right_index) {
                             case 0://3L
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem,"");
-                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem,"");
-                                addMeterData(getSpannableString("ØA(°)"), 2, groupListObj1, list.getModelLineData().get(2), showItem,"");
-                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, list.getModelLineData().get(3), showItem,"");
-                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem,"");
-                                addMeterData(getSpannableString("K-factor"), 5, groupListObj1, list.getModelLineData().get(5), showItem,"");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem, "");
+                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem, "");
+                                addMeterData(getSpannableString("ØA(°)"), 2, groupListObj1, list.getModelLineData().get(2), showItem, "");
+                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, list.getModelLineData().get(3), showItem, "");
+                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem, "");
+                                addMeterData(getSpannableString("K-factor"), 5, groupListObj1, list.getModelLineData().get(5), showItem, "");
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 5 + i, groupListObj1, list.getModelLineData().get(i+8), showItem,"");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 5 + i, groupListObj1, list.getModelLineData().get(i + 8), showItem, "");
                                 }
                                 break;
                             case 1://L1
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem,"L1");
-                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem,"L1");
-                                addMeterData(getSpannableString("ØA(°)"), 2, groupListObj1, list.getModelLineData().get(2), showItem,"L1");
-                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, list.getModelLineData().get(3), showItem,"L1");
-                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem,"L1");
-                                addMeterData(getSpannableString("K-factor"), 5, groupListObj1, list.getModelLineData().get(5), showItem,"L1");
-                                addMeterData(getSpannableString("MAX(%f)"), 6, groupListObj1, list.getModelLineData().get(6), showItem,"L1");
-                                addMeterData(getSpannableString("MIN(%f)"), 7, groupListObj1, list.getModelLineData().get(7), showItem,"L1");
-                                addMeterData(getSpannableString("Ad"), 8, groupListObj1, list.getModelLineData().get(8), showItem,"L1");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem, "L1");
+                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem, "L1");
+                                addMeterData(getSpannableString("ØA(°)"), 2, groupListObj1, list.getModelLineData().get(2), showItem, "L1");
+                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, list.getModelLineData().get(3), showItem, "L1");
+                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem, "L1");
+                                addMeterData(getSpannableString("K-factor"), 5, groupListObj1, list.getModelLineData().get(5), showItem, "L1");
+                                addMeterData(getSpannableString("MAX(%f)"), 6, groupListObj1, list.getModelLineData().get(6), showItem, "L1");
+                                addMeterData(getSpannableString("MIN(%f)"), 7, groupListObj1, list.getModelLineData().get(7), showItem, "L1");
+                                addMeterData(getSpannableString("Ad"), 8, groupListObj1, list.getModelLineData().get(8), showItem, "L1");
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 8 + i, groupListObj1, list.getModelLineData().get(i+8), showItem,"L1");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 8 + i, groupListObj1, list.getModelLineData().get(i + 8), showItem, "L1");
                                 }
                                 break;
                             case 2://L2
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem,"L2");
-                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem,"L2");
-                                addMeterData(getSpannableString("ØA(°)"), 2, groupListObj1, list.getModelLineData().get(2), showItem,"L2");
-                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, list.getModelLineData().get(3), showItem,"L2");
-                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem,"L2");
-                                addMeterData(getSpannableString("K-factor"), 5, groupListObj1, list.getModelLineData().get(5), showItem,"L2");
-                                addMeterData(getSpannableString("MAX(%f)"), 6, groupListObj1, list.getModelLineData().get(6), showItem,"L2");
-                                addMeterData(getSpannableString("MIN(%f)"), 7, groupListObj1, list.getModelLineData().get(7), showItem,"L2");
-                                addMeterData(getSpannableString("Ad"), 8, groupListObj1, list.getModelLineData().get(8), showItem,"L2");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem, "L2");
+                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem, "L2");
+                                addMeterData(getSpannableString("ØA(°)"), 2, groupListObj1, list.getModelLineData().get(2), showItem, "L2");
+                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, list.getModelLineData().get(3), showItem, "L2");
+                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem, "L2");
+                                addMeterData(getSpannableString("K-factor"), 5, groupListObj1, list.getModelLineData().get(5), showItem, "L2");
+                                addMeterData(getSpannableString("MAX(%f)"), 6, groupListObj1, list.getModelLineData().get(6), showItem, "L2");
+                                addMeterData(getSpannableString("MIN(%f)"), 7, groupListObj1, list.getModelLineData().get(7), showItem, "L2");
+                                addMeterData(getSpannableString("Ad"), 8, groupListObj1, list.getModelLineData().get(8), showItem, "L2");
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 8 + i, groupListObj1, list.getModelLineData().get(i+8), showItem,"L2");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 8 + i, groupListObj1, list.getModelLineData().get(i + 8), showItem, "L2");
                                 }
                                 break;
                             case 3://L3
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem,"L3");
-                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem,"L3");
-                                addMeterData(getSpannableString("ØA(°)"), 2, groupListObj1, list.getModelLineData().get(2), showItem,"L3");
-                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, list.getModelLineData().get(3), showItem,"L3");
-                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem,"L3");
-                                addMeterData(getSpannableString("K-factor"), 5, groupListObj1, list.getModelLineData().get(5), showItem,"L3");
-                                addMeterData(getSpannableString("MAX(%f)"), 6, groupListObj1, list.getModelLineData().get(6), showItem,"L3");
-                                addMeterData(getSpannableString("MIN(%f)"), 7, groupListObj1, list.getModelLineData().get(7), showItem,"L3");
-                                addMeterData(getSpannableString("Ad"), 8, groupListObj1, list.getModelLineData().get(8), showItem,"L3");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem, "L3");
+                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem, "L3");
+                                addMeterData(getSpannableString("ØA(°)"), 2, groupListObj1, list.getModelLineData().get(2), showItem, "L3");
+                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, list.getModelLineData().get(3), showItem, "L3");
+                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem, "L3");
+                                addMeterData(getSpannableString("K-factor"), 5, groupListObj1, list.getModelLineData().get(5), showItem, "L3");
+                                addMeterData(getSpannableString("MAX(%f)"), 6, groupListObj1, list.getModelLineData().get(6), showItem, "L3");
+                                addMeterData(getSpannableString("MIN(%f)"), 7, groupListObj1, list.getModelLineData().get(7), showItem, "L3");
+                                addMeterData(getSpannableString("Ad"), 8, groupListObj1, list.getModelLineData().get(8), showItem, "L3");
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 8 + i, groupListObj1, list.getModelLineData().get(i+8), showItem,"L3");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 8 + i, groupListObj1, list.getModelLineData().get(i + 8), showItem, "L3");
                                 }
                                 break;
                             case 4://N
 
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem,"N");
-                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem,"N");
-                                addMeterData(getSpannableString("THD(%r)"), 2, groupListObj1, list.getModelLineData().get(3), showItem,"N");
-                                addMeterData(getSpannableString("MAX(%r)"), 3, groupListObj1, list.getModelLineData().get(6), showItem,"N");
-                                addMeterData(getSpannableString("MIN(%r)"), 4, groupListObj1, list.getModelLineData().get(7), showItem,"N");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem, "N");
+                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem, "N");
+                                addMeterData(getSpannableString("THD(%r)"), 2, groupListObj1, list.getModelLineData().get(3), showItem, "N");
+                                addMeterData(getSpannableString("MAX(%r)"), 3, groupListObj1, list.getModelLineData().get(6), showItem, "N");
+                                addMeterData(getSpannableString("MIN(%r)"), 4, groupListObj1, list.getModelLineData().get(7), showItem, "N");
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%r)"), 4 + i, groupListObj1, list.getModelLineData().get(i+8), showItem,"N");
+                                    addMeterData(getSpannableString("H" + i + "(%r)"), 4 + i, groupListObj1, list.getModelLineData().get(i + 8), showItem, "N");
                                 }
 
                                 break;
@@ -1117,48 +1125,48 @@ public class HarmonicsMeter extends BaseFragmentTrend {
                     case 1://S
                         switch (wir_right_index) {
                             case 0://3L
-                                addMeterData(getSpannableString("THD(%f)"), 0, groupListObj1, list.getModelLineData().get(0), showItem,"");
-                                addMeterData(getSpannableString("DC(%f)"), 1, groupListObj1, list.getModelLineData().get(1), showItem,"");
-                                addMeterData(getSpannableString("K-factor"), 2, groupListObj1, list.getModelLineData().get(2), showItem,"");
+                                addMeterData(getSpannableString("THD(%f)"), 0, groupListObj1, list.getModelLineData().get(0), showItem, "");
+                                addMeterData(getSpannableString("DC(%f)"), 1, groupListObj1, list.getModelLineData().get(1), showItem, "");
+                                addMeterData(getSpannableString("K-factor"), 2, groupListObj1, list.getModelLineData().get(2), showItem, "");
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 2 + i, groupListObj1, list.getModelLineData().get(i+5), showItem,"");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 2 + i, groupListObj1, list.getModelLineData().get(i + 5), showItem, "");
                                 }
-                                 break;
+                                break;
                             case 1://L1
-                                addMeterData(getSpannableString("THD(%f)"), 0, groupListObj1, list.getModelLineData().get(0), showItem,"L1");
-                                addMeterData(getSpannableString("DC(%f)"), 1, groupListObj1, list.getModelLineData().get(1), showItem,"L1");
-                                addMeterData(getSpannableString("K-factor"), 2, groupListObj1, list.getModelLineData().get(2), showItem,"L1");
-                                addMeterData(getSpannableString("ØW(°)"), 3, groupListObj1, list.getModelLineData().get(3), showItem,"L1");
-                                addMeterData(getSpannableString("MAX(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem,"L1");
-                                addMeterData(getSpannableString("MIN(%f)"), 5, groupListObj1, list.getModelLineData().get(5), showItem,"L1");
+                                addMeterData(getSpannableString("THD(%f)"), 0, groupListObj1, list.getModelLineData().get(0), showItem, "L1");
+                                addMeterData(getSpannableString("DC(%f)"), 1, groupListObj1, list.getModelLineData().get(1), showItem, "L1");
+                                addMeterData(getSpannableString("K-factor"), 2, groupListObj1, list.getModelLineData().get(2), showItem, "L1");
+                                addMeterData(getSpannableString("ØW(°)"), 3, groupListObj1, list.getModelLineData().get(3), showItem, "L1");
+                                addMeterData(getSpannableString("MAX(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem, "L1");
+                                addMeterData(getSpannableString("MIN(%f)"), 5, groupListObj1, list.getModelLineData().get(5), showItem, "L1");
 
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 5 + i, groupListObj1, list.getModelLineData().get(i+5), showItem,"L1");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 5 + i, groupListObj1, list.getModelLineData().get(i + 5), showItem, "L1");
                                 }
                                 break;
                             case 2://L2
-                                addMeterData(getSpannableString("THD(%f)"), 0, groupListObj1, list.getModelLineData().get(0), showItem,"L2");
-                                addMeterData(getSpannableString("DC(%f)"), 1, groupListObj1, list.getModelLineData().get(1), showItem,"L2");
-                                addMeterData(getSpannableString("K-factor"), 2, groupListObj1, list.getModelLineData().get(2), showItem,"L2");
-                                addMeterData(getSpannableString("ØW(°)"), 3, groupListObj1, list.getModelLineData().get(3), showItem,"L2");
-                                addMeterData(getSpannableString("MAX(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem,"L2");
-                                addMeterData(getSpannableString("MIN(%f)"), 5, groupListObj1, list.getModelLineData().get(5), showItem,"L2");
+                                addMeterData(getSpannableString("THD(%f)"), 0, groupListObj1, list.getModelLineData().get(0), showItem, "L2");
+                                addMeterData(getSpannableString("DC(%f)"), 1, groupListObj1, list.getModelLineData().get(1), showItem, "L2");
+                                addMeterData(getSpannableString("K-factor"), 2, groupListObj1, list.getModelLineData().get(2), showItem, "L2");
+                                addMeterData(getSpannableString("ØW(°)"), 3, groupListObj1, list.getModelLineData().get(3), showItem, "L2");
+                                addMeterData(getSpannableString("MAX(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem, "L2");
+                                addMeterData(getSpannableString("MIN(%f)"), 5, groupListObj1, list.getModelLineData().get(5), showItem, "L2");
 
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 5 + i, groupListObj1, list.getModelLineData().get(i+5), showItem,"L2");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 5 + i, groupListObj1, list.getModelLineData().get(i + 5), showItem, "L2");
                                 }
                                 break;
                             case 3://L3
 
-                                addMeterData(getSpannableString("THD(%f)"), 0, groupListObj1, list.getModelLineData().get(0), showItem,"L3");
-                                addMeterData(getSpannableString("DC(%f)"), 1, groupListObj1, list.getModelLineData().get(1), showItem,"L3");
-                                addMeterData(getSpannableString("K-factor"), 2, groupListObj1, list.getModelLineData().get(2), showItem,"L3");
-                                addMeterData(getSpannableString("ØW(°)"), 3, groupListObj1, list.getModelLineData().get(3), showItem,"L3");
-                                addMeterData(getSpannableString("MAX(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem,"L3");
-                                addMeterData(getSpannableString("MIN(%f)"), 5, groupListObj1, list.getModelLineData().get(5), showItem,"L3");
+                                addMeterData(getSpannableString("THD(%f)"), 0, groupListObj1, list.getModelLineData().get(0), showItem, "L3");
+                                addMeterData(getSpannableString("DC(%f)"), 1, groupListObj1, list.getModelLineData().get(1), showItem, "L3");
+                                addMeterData(getSpannableString("K-factor"), 2, groupListObj1, list.getModelLineData().get(2), showItem, "L3");
+                                addMeterData(getSpannableString("ØW(°)"), 3, groupListObj1, list.getModelLineData().get(3), showItem, "L3");
+                                addMeterData(getSpannableString("MAX(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem, "L3");
+                                addMeterData(getSpannableString("MIN(%f)"), 5, groupListObj1, list.getModelLineData().get(5), showItem, "L3");
 
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 5 + i, groupListObj1, list.getModelLineData().get(i+5), showItem,"L3");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 5 + i, groupListObj1, list.getModelLineData().get(i + 5), showItem, "L3");
                                 }
                                 break;
                             case 4://-.+
@@ -1176,65 +1184,65 @@ public class HarmonicsMeter extends BaseFragmentTrend {
                     case 0://V
                         switch (wir_right_index) {
                             case 0://3L
-                               addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem,"");
-                                addMeterData(getSpannableString("Vfund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem,"");
-                                addMeterData(getSpannableString("ØV(°)"), 2, groupListObj1, list.getModelLineData().get(2), showItem,"");
-                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, list.getModelLineData().get(3), showItem,"");
-                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem,"");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem, "");
+                                addMeterData(getSpannableString("Vfund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem, "");
+                                addMeterData(getSpannableString("ØV(°)"), 2, groupListObj1, list.getModelLineData().get(2), showItem, "");
+                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, list.getModelLineData().get(3), showItem, "");
+                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem, "");
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 4 + i, groupListObj1, list.getModelLineData().get(i+7), showItem,"");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 4 + i, groupListObj1, list.getModelLineData().get(i + 7), showItem, "");
                                 }
-                                 break;
+                                break;
                             case 1://L1
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem,"L1");
-                                addMeterData(getSpannableString("Vfund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem,"L1");
-                                addMeterData(getSpannableString("ØV(°)"), 2, groupListObj1, list.getModelLineData().get(2), showItem,"L1");
-                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, list.getModelLineData().get(3), showItem,"L1");
-                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem,"L1");
-                                addMeterData(getSpannableString("MAX(%f)"), 5, groupListObj1, list.getModelLineData().get(5), showItem,"L1");
-                                addMeterData(getSpannableString("MIN(%f)"), 6, groupListObj1, list.getModelLineData().get(6), showItem,"L1");
-                                addMeterData(getSpannableString("Ad"), 7, groupListObj1, list.getModelLineData().get(7), showItem,"L1");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem, "L1");
+                                addMeterData(getSpannableString("Vfund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem, "L1");
+                                addMeterData(getSpannableString("ØV(°)"), 2, groupListObj1, list.getModelLineData().get(2), showItem, "L1");
+                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, list.getModelLineData().get(3), showItem, "L1");
+                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem, "L1");
+                                addMeterData(getSpannableString("MAX(%f)"), 5, groupListObj1, list.getModelLineData().get(5), showItem, "L1");
+                                addMeterData(getSpannableString("MIN(%f)"), 6, groupListObj1, list.getModelLineData().get(6), showItem, "L1");
+                                addMeterData(getSpannableString("Ad"), 7, groupListObj1, list.getModelLineData().get(7), showItem, "L1");
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 7 + i, groupListObj1, list.getModelLineData().get(i+7), showItem,"L1");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 7 + i, groupListObj1, list.getModelLineData().get(i + 7), showItem, "L1");
                                 }
                                 break;
                             case 2://L2
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem,"L2");
-                                addMeterData(getSpannableString("Vfund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem,"L2");
-                                addMeterData(getSpannableString("ØV(°)"), 2, groupListObj1, list.getModelLineData().get(2), showItem,"L2");
-                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, list.getModelLineData().get(3), showItem,"L2");
-                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem,"L2");
-                                addMeterData(getSpannableString("MAX(%f)"), 5, groupListObj1, list.getModelLineData().get(5), showItem,"L2");
-                                addMeterData(getSpannableString("MIN(%f)"), 6, groupListObj1, list.getModelLineData().get(6), showItem,"L2");
-                                addMeterData(getSpannableString("Ad"), 7, groupListObj1, list.getModelLineData().get(7), showItem,"L2");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem, "L2");
+                                addMeterData(getSpannableString("Vfund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem, "L2");
+                                addMeterData(getSpannableString("ØV(°)"), 2, groupListObj1, list.getModelLineData().get(2), showItem, "L2");
+                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, list.getModelLineData().get(3), showItem, "L2");
+                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem, "L2");
+                                addMeterData(getSpannableString("MAX(%f)"), 5, groupListObj1, list.getModelLineData().get(5), showItem, "L2");
+                                addMeterData(getSpannableString("MIN(%f)"), 6, groupListObj1, list.getModelLineData().get(6), showItem, "L2");
+                                addMeterData(getSpannableString("Ad"), 7, groupListObj1, list.getModelLineData().get(7), showItem, "L2");
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 7 + i, groupListObj1, list.getModelLineData().get(i+7), showItem,"L2");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 7 + i, groupListObj1, list.getModelLineData().get(i + 7), showItem, "L2");
                                 }
                                 break;
                             case 3://L3
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem,"L3");
-                                addMeterData(getSpannableString("Vfund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem,"L3");
-                                addMeterData(getSpannableString("ØV(°)"), 2, groupListObj1, list.getModelLineData().get(2), showItem,"L3");
-                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, list.getModelLineData().get(3), showItem,"L3");
-                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem,"L3");
-                                addMeterData(getSpannableString("MAX(%f)"), 5, groupListObj1, list.getModelLineData().get(5), showItem,"L3");
-                                addMeterData(getSpannableString("MIN(%f)"), 6, groupListObj1, list.getModelLineData().get(6), showItem,"L3");
-                                addMeterData(getSpannableString("Ad"), 7, groupListObj1, list.getModelLineData().get(7), showItem,"L3");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem, "L3");
+                                addMeterData(getSpannableString("Vfund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem, "L3");
+                                addMeterData(getSpannableString("ØV(°)"), 2, groupListObj1, list.getModelLineData().get(2), showItem, "L3");
+                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, list.getModelLineData().get(3), showItem, "L3");
+                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem, "L3");
+                                addMeterData(getSpannableString("MAX(%f)"), 5, groupListObj1, list.getModelLineData().get(5), showItem, "L3");
+                                addMeterData(getSpannableString("MIN(%f)"), 6, groupListObj1, list.getModelLineData().get(6), showItem, "L3");
+                                addMeterData(getSpannableString("Ad"), 7, groupListObj1, list.getModelLineData().get(7), showItem, "L3");
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 7 + i, groupListObj1, list.getModelLineData().get(i+7), showItem,"L3");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 7 + i, groupListObj1, list.getModelLineData().get(i + 7), showItem, "L3");
                                 }
                                 break;
                             case 4://N
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem,"N");
-                                addMeterData(getSpannableString("Vfund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem,"N");
-                                addMeterData(getSpannableString("THD(%r)"), 2, groupListObj1, list.getModelLineData().get(3), showItem,"N");
-                                addMeterData(getSpannableString("MAX(%r)"), 3, groupListObj1, list.getModelLineData().get(5), showItem,"N");
-                                addMeterData(getSpannableString("MIN(%r)"), 4, groupListObj1, list.getModelLineData().get(6), showItem,"N");
-                                addMeterData(getSpannableString("ØV(°)"), 5, groupListObj1, list.getModelLineData().get(2), showItem,"N");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem, "N");
+                                addMeterData(getSpannableString("Vfund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem, "N");
+                                addMeterData(getSpannableString("THD(%r)"), 2, groupListObj1, list.getModelLineData().get(3), showItem, "N");
+                                addMeterData(getSpannableString("MAX(%r)"), 3, groupListObj1, list.getModelLineData().get(5), showItem, "N");
+                                addMeterData(getSpannableString("MIN(%r)"), 4, groupListObj1, list.getModelLineData().get(6), showItem, "N");
+                                addMeterData(getSpannableString("ØV(°)"), 5, groupListObj1, list.getModelLineData().get(2), showItem, "N");
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%r)"), 5 + i, groupListObj1, list.getModelLineData().get(i+7), showItem,"N");
+                                    addMeterData(getSpannableString("H" + i + "(%r)"), 5 + i, groupListObj1, list.getModelLineData().get(i + 7), showItem, "N");
                                 }
-                                 break;
+                                break;
 
                         }
                         break;
@@ -1246,55 +1254,55 @@ public class HarmonicsMeter extends BaseFragmentTrend {
                         switch (wir_right_index) {
                             case 0://2L
 
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem,"");
-                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem,"");
-                                addMeterData(getSpannableString("ØA(°)"), 2, groupListObj1, list.getModelLineData().get(2), showItem,"");
-                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, list.getModelLineData().get(3), showItem,"");
-                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem,"");
-                                addMeterData(getSpannableString("K-factor"), 5, groupListObj1, list.getModelLineData().get(5), showItem,"");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem, "");
+                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem, "");
+                                addMeterData(getSpannableString("ØA(°)"), 2, groupListObj1, list.getModelLineData().get(2), showItem, "");
+                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, list.getModelLineData().get(3), showItem, "");
+                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem, "");
+                                addMeterData(getSpannableString("K-factor"), 5, groupListObj1, list.getModelLineData().get(5), showItem, "");
 
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 5 + i, groupListObj1, list.getModelLineData().get(i+8), showItem,"");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 5 + i, groupListObj1, list.getModelLineData().get(i + 8), showItem, "");
                                 }
                                 break;
                             case 1://L1
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem,"L1");
-                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem,"L1");
-                                addMeterData(getSpannableString("ØA(°)"), 2, groupListObj1, list.getModelLineData().get(2), showItem,"L1");
-                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, list.getModelLineData().get(3), showItem,"L1");
-                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem,"L1");
-                                addMeterData(getSpannableString("K-factor"), 5, groupListObj1, list.getModelLineData().get(5), showItem,"L1");
-                                addMeterData(getSpannableString("MAX(%f)"), 6, groupListObj1, list.getModelLineData().get(6), showItem,"L1");
-                                addMeterData(getSpannableString("MIN(%f)"), 7, groupListObj1, list.getModelLineData().get(7), showItem,"L1");
-                                addMeterData(getSpannableString("Ad"), 8, groupListObj1, list.getModelLineData().get(8), showItem,"L1");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem, "L1");
+                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem, "L1");
+                                addMeterData(getSpannableString("ØA(°)"), 2, groupListObj1, list.getModelLineData().get(2), showItem, "L1");
+                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, list.getModelLineData().get(3), showItem, "L1");
+                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem, "L1");
+                                addMeterData(getSpannableString("K-factor"), 5, groupListObj1, list.getModelLineData().get(5), showItem, "L1");
+                                addMeterData(getSpannableString("MAX(%f)"), 6, groupListObj1, list.getModelLineData().get(6), showItem, "L1");
+                                addMeterData(getSpannableString("MIN(%f)"), 7, groupListObj1, list.getModelLineData().get(7), showItem, "L1");
+                                addMeterData(getSpannableString("Ad"), 8, groupListObj1, list.getModelLineData().get(8), showItem, "L1");
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 8 + i, groupListObj1, list.getModelLineData().get(i+8), showItem,"L1");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 8 + i, groupListObj1, list.getModelLineData().get(i + 8), showItem, "L1");
                                 }
                                 break;
                             case 2://L2
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem,"L2");
-                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem,"L2");
-                                addMeterData(getSpannableString("ØA(°)"), 2, groupListObj1, list.getModelLineData().get(2), showItem,"L2");
-                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, list.getModelLineData().get(3), showItem,"L2");
-                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem,"L2");
-                                addMeterData(getSpannableString("K-factor"), 5, groupListObj1, list.getModelLineData().get(5), showItem,"L2");
-                                addMeterData(getSpannableString("MAX(%f)"), 6, groupListObj1, list.getModelLineData().get(6), showItem,"L2");
-                                addMeterData(getSpannableString("MIN(%f)"), 7, groupListObj1, list.getModelLineData().get(7), showItem,"L2");
-                                addMeterData(getSpannableString("Ad"), 8, groupListObj1, list.getModelLineData().get(8), showItem,"L2");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem, "L2");
+                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem, "L2");
+                                addMeterData(getSpannableString("ØA(°)"), 2, groupListObj1, list.getModelLineData().get(2), showItem, "L2");
+                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, list.getModelLineData().get(3), showItem, "L2");
+                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem, "L2");
+                                addMeterData(getSpannableString("K-factor"), 5, groupListObj1, list.getModelLineData().get(5), showItem, "L2");
+                                addMeterData(getSpannableString("MAX(%f)"), 6, groupListObj1, list.getModelLineData().get(6), showItem, "L2");
+                                addMeterData(getSpannableString("MIN(%f)"), 7, groupListObj1, list.getModelLineData().get(7), showItem, "L2");
+                                addMeterData(getSpannableString("Ad"), 8, groupListObj1, list.getModelLineData().get(8), showItem, "L2");
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 8 + i, groupListObj1, list.getModelLineData().get(i+8), showItem,"L2");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 8 + i, groupListObj1, list.getModelLineData().get(i + 8), showItem, "L2");
                                 }
                                 break;
                             case 3://N
 
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem,"N");
-                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem,"N");
-                                addMeterData(getSpannableString("THD(%r)"), 2, groupListObj1, list.getModelLineData().get(3), showItem,"N");
-                                addMeterData(getSpannableString("MAX(%r)"), 3, groupListObj1, list.getModelLineData().get(6), showItem,"N");
-                                addMeterData(getSpannableString("MIN(%r)"), 4, groupListObj1, list.getModelLineData().get(7), showItem,"N");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem, "N");
+                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem, "N");
+                                addMeterData(getSpannableString("THD(%r)"), 2, groupListObj1, list.getModelLineData().get(3), showItem, "N");
+                                addMeterData(getSpannableString("MAX(%r)"), 3, groupListObj1, list.getModelLineData().get(6), showItem, "N");
+                                addMeterData(getSpannableString("MIN(%r)"), 4, groupListObj1, list.getModelLineData().get(7), showItem, "N");
 
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%r)"), 4 + i, groupListObj1, list.getModelLineData().get(i+8), showItem,"N");
+                                    addMeterData(getSpannableString("H" + i + "(%r)"), 4 + i, groupListObj1, list.getModelLineData().get(i + 8), showItem, "N");
                                 }
                                 break;
 
@@ -1303,32 +1311,32 @@ public class HarmonicsMeter extends BaseFragmentTrend {
                     case 1://S
                         switch (wir_right_index) {
                             case 0://2L
-                                addMeterData(getSpannableString("THD(%f)"), 0, groupListObj1, list.getModelLineData().get(0), showItem,"");
-                                addMeterData(getSpannableString("DC(%f)"), 1, groupListObj1, list.getModelLineData().get(1), showItem,"");
-                                addMeterData(getSpannableString("K-factor"), 2, groupListObj1, list.getModelLineData().get(2), showItem,"");
+                                addMeterData(getSpannableString("THD(%f)"), 0, groupListObj1, list.getModelLineData().get(0), showItem, "");
+                                addMeterData(getSpannableString("DC(%f)"), 1, groupListObj1, list.getModelLineData().get(1), showItem, "");
+                                addMeterData(getSpannableString("K-factor"), 2, groupListObj1, list.getModelLineData().get(2), showItem, "");
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 2 + i, groupListObj1, list.getModelLineData().get(i+5), showItem,"");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 2 + i, groupListObj1, list.getModelLineData().get(i + 5), showItem, "");
                                 }
-                                  break;
+                                break;
                             case 1://L1
-                                addMeterData(getSpannableString("THD(%f)"), 0, groupListObj1, list.getModelLineData().get(0), showItem,"L1");
-                                addMeterData(getSpannableString("DC(%f)"), 1, groupListObj1, list.getModelLineData().get(1), showItem,"L1");
-                                addMeterData(getSpannableString("K-factor"), 2, groupListObj1, list.getModelLineData().get(2), showItem,"L1");
-                                addMeterData(getSpannableString("W(°)"), 3, groupListObj1, list.getModelLineData().get(3), showItem,"L1");
-                                addMeterData(getSpannableString("MAX(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem,"L1");
-                                addMeterData(getSpannableString("MIN(%f)"), 5, groupListObj1, list.getModelLineData().get(5), showItem,"L1");
+                                addMeterData(getSpannableString("THD(%f)"), 0, groupListObj1, list.getModelLineData().get(0), showItem, "L1");
+                                addMeterData(getSpannableString("DC(%f)"), 1, groupListObj1, list.getModelLineData().get(1), showItem, "L1");
+                                addMeterData(getSpannableString("K-factor"), 2, groupListObj1, list.getModelLineData().get(2), showItem, "L1");
+                                addMeterData(getSpannableString("W(°)"), 3, groupListObj1, list.getModelLineData().get(3), showItem, "L1");
+                                addMeterData(getSpannableString("MAX(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem, "L1");
+                                addMeterData(getSpannableString("MIN(%f)"), 5, groupListObj1, list.getModelLineData().get(5), showItem, "L1");
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 5 + i, groupListObj1, list.getModelLineData().get(i+5), showItem,"L1");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 5 + i, groupListObj1, list.getModelLineData().get(i + 5), showItem, "L1");
                                 }
                             case 2://L2
-                                addMeterData(getSpannableString("THD(%f)"), 0, groupListObj1, list.getModelLineData().get(0), showItem,"L2");
-                                addMeterData(getSpannableString("DC(%f)"), 1, groupListObj1, list.getModelLineData().get(1), showItem,"L2");
-                                addMeterData(getSpannableString("K-factor"), 2, groupListObj1, list.getModelLineData().get(2), showItem,"L2");
-                                addMeterData(getSpannableString("W(°)"), 3, groupListObj1, list.getModelLineData().get(3), showItem,"L2");
-                                addMeterData(getSpannableString("MAX(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem,"L2");
-                                addMeterData(getSpannableString("MIN(%f)"), 5, groupListObj1, list.getModelLineData().get(5), showItem,"L2");
+                                addMeterData(getSpannableString("THD(%f)"), 0, groupListObj1, list.getModelLineData().get(0), showItem, "L2");
+                                addMeterData(getSpannableString("DC(%f)"), 1, groupListObj1, list.getModelLineData().get(1), showItem, "L2");
+                                addMeterData(getSpannableString("K-factor"), 2, groupListObj1, list.getModelLineData().get(2), showItem, "L2");
+                                addMeterData(getSpannableString("W(°)"), 3, groupListObj1, list.getModelLineData().get(3), showItem, "L2");
+                                addMeterData(getSpannableString("MAX(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem, "L2");
+                                addMeterData(getSpannableString("MIN(%f)"), 5, groupListObj1, list.getModelLineData().get(5), showItem, "L2");
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 5 + i, groupListObj1, list.getModelLineData().get(i+5), showItem,"L2");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 5 + i, groupListObj1, list.getModelLineData().get(i + 5), showItem, "L2");
                                 }
                                 break;
                         }
@@ -1336,52 +1344,52 @@ public class HarmonicsMeter extends BaseFragmentTrend {
                     case 0://V
                         switch (wir_right_index) {
                             case 0://2L
-                                 addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem,"");
-                                addMeterData(getSpannableString("Vfund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem,"");
-                                addMeterData(getSpannableString("ØV(°)"), 2, groupListObj1, list.getModelLineData().get(2), showItem,"");
-                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, list.getModelLineData().get(3), showItem,"");
-                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem,"");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem, "");
+                                addMeterData(getSpannableString("Vfund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem, "");
+                                addMeterData(getSpannableString("ØV(°)"), 2, groupListObj1, list.getModelLineData().get(2), showItem, "");
+                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, list.getModelLineData().get(3), showItem, "");
+                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem, "");
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 4+ i, groupListObj1, list.getModelLineData().get(i+7), showItem,"");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 4 + i, groupListObj1, list.getModelLineData().get(i + 7), showItem, "");
                                 }
-                                  break;
+                                break;
                             case 1://L1
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem,"L1");
-                                addMeterData(getSpannableString("Vfund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem,"L1");
-                                addMeterData(getSpannableString("ØV(°)"), 2, groupListObj1, list.getModelLineData().get(2), showItem,"L1");
-                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, list.getModelLineData().get(3), showItem,"L1");
-                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem,"L1");
-                                addMeterData(getSpannableString("MAX(%f)"), 5, groupListObj1, list.getModelLineData().get(5), showItem,"L1");
-                                addMeterData(getSpannableString("MIN(%f)"), 6, groupListObj1, list.getModelLineData().get(6), showItem,"L1");
-                                addMeterData(getSpannableString("Vd"), 7, groupListObj1, list.getModelLineData().get(7), showItem,"L1");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem, "L1");
+                                addMeterData(getSpannableString("Vfund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem, "L1");
+                                addMeterData(getSpannableString("ØV(°)"), 2, groupListObj1, list.getModelLineData().get(2), showItem, "L1");
+                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, list.getModelLineData().get(3), showItem, "L1");
+                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem, "L1");
+                                addMeterData(getSpannableString("MAX(%f)"), 5, groupListObj1, list.getModelLineData().get(5), showItem, "L1");
+                                addMeterData(getSpannableString("MIN(%f)"), 6, groupListObj1, list.getModelLineData().get(6), showItem, "L1");
+                                addMeterData(getSpannableString("Vd"), 7, groupListObj1, list.getModelLineData().get(7), showItem, "L1");
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 7 + i, groupListObj1, list.getModelLineData().get(i+7), showItem,"L1");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 7 + i, groupListObj1, list.getModelLineData().get(i + 7), showItem, "L1");
                                 }
                                 break;
                             case 2://L2
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem,"L2");
-                                addMeterData(getSpannableString("Vfund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem,"L2");
-                                addMeterData(getSpannableString("ØV(°)"), 2, groupListObj1, list.getModelLineData().get(2), showItem,"L2");
-                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, list.getModelLineData().get(3), showItem,"L2");
-                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem,"L2");
-                                addMeterData(getSpannableString("MAX(%f)"), 5, groupListObj1, list.getModelLineData().get(5), showItem,"L2");
-                                addMeterData(getSpannableString("MIN(%f)"), 6, groupListObj1, list.getModelLineData().get(6), showItem,"L2");
-                                addMeterData(getSpannableString("Vd"), 7, groupListObj1, list.getModelLineData().get(7), showItem,"L2");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem, "L2");
+                                addMeterData(getSpannableString("Vfund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem, "L2");
+                                addMeterData(getSpannableString("ØV(°)"), 2, groupListObj1, list.getModelLineData().get(2), showItem, "L2");
+                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, list.getModelLineData().get(3), showItem, "L2");
+                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem, "L2");
+                                addMeterData(getSpannableString("MAX(%f)"), 5, groupListObj1, list.getModelLineData().get(5), showItem, "L2");
+                                addMeterData(getSpannableString("MIN(%f)"), 6, groupListObj1, list.getModelLineData().get(6), showItem, "L2");
+                                addMeterData(getSpannableString("Vd"), 7, groupListObj1, list.getModelLineData().get(7), showItem, "L2");
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 7 + i, groupListObj1, list.getModelLineData().get(i+7), showItem,"L2");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 7 + i, groupListObj1, list.getModelLineData().get(i + 7), showItem, "L2");
                                 }
                                 break;
                             case 3://N
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem,"N");
-                                addMeterData(getSpannableString("Vfund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem,"N");
-                                addMeterData(getSpannableString("ØV(°)"), 2, groupListObj1, list.getModelLineData().get(2), showItem,"N");
-                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, list.getModelLineData().get(3), showItem,"N");
-                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem,"N");
-                                addMeterData(getSpannableString("MAX(%f)"), 5, groupListObj1, list.getModelLineData().get(5), showItem,"N");
-                                addMeterData(getSpannableString("MIN(%f)"), 6, groupListObj1, list.getModelLineData().get(6), showItem,"N");
-                                addMeterData(getSpannableString("Vd"), 7, groupListObj1, list.getModelLineData().get(7), showItem,"N");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem, "N");
+                                addMeterData(getSpannableString("Vfund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem, "N");
+                                addMeterData(getSpannableString("ØV(°)"), 2, groupListObj1, list.getModelLineData().get(2), showItem, "N");
+                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, list.getModelLineData().get(3), showItem, "N");
+                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem, "N");
+                                addMeterData(getSpannableString("MAX(%f)"), 5, groupListObj1, list.getModelLineData().get(5), showItem, "N");
+                                addMeterData(getSpannableString("MIN(%f)"), 6, groupListObj1, list.getModelLineData().get(6), showItem, "N");
+                                addMeterData(getSpannableString("Vd"), 7, groupListObj1, list.getModelLineData().get(7), showItem, "N");
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 7 + i, groupListObj1, list.getModelLineData().get(i+7), showItem,"N");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 7 + i, groupListObj1, list.getModelLineData().get(i + 7), showItem, "N");
                                 }
                                 break;
                         }
@@ -1391,35 +1399,35 @@ public class HarmonicsMeter extends BaseFragmentTrend {
             case 8://1Q IT NO NEUTRAL
                 switch (harmonicsType) {
                     case 2://A
-                        addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem,"");
-                        addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem,"");
+                        addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem, "");
+                        addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem, "");
                         addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, list.getModelLineData().get(3), showItem, "");
                         addMeterData(getSpannableString("MAX(%f)"), 4, groupListObj1, list.getModelLineData().get(6), showItem, "");
                         for (int i = 1; i <= 50; i++) {
-                            addMeterData(getSpannableString("H" + i + "(%f)"), 4+ i, groupListObj1, list.getModelLineData().get(i+8), showItem,"");
+                            addMeterData(getSpannableString("H" + i + "(%f)"), 4 + i, groupListObj1, list.getModelLineData().get(i + 8), showItem, "");
                         }
                         break;
                     case 1://S
-                        addMeterData(getSpannableString("THD(%f)"), 0, groupListObj1, list.getModelLineData().get(0), showItem,"");
-                        addMeterData(getSpannableString("DC(%f)"), 1, groupListObj1, list.getModelLineData().get(1), showItem,"");
-                        addMeterData(getSpannableString("K-factor"), 2, groupListObj1, list.getModelLineData().get(2), showItem,"");
-                        addMeterData(getSpannableString("ØW(°)"), 3, groupListObj1, list.getModelLineData().get(3), showItem,"");
-                        addMeterData(getSpannableString("MAX(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem,"");
-                        addMeterData(getSpannableString("MIN(%f)"), 5, groupListObj1, list.getModelLineData().get(5), showItem,"");
+                        addMeterData(getSpannableString("THD(%f)"), 0, groupListObj1, list.getModelLineData().get(0), showItem, "");
+                        addMeterData(getSpannableString("DC(%f)"), 1, groupListObj1, list.getModelLineData().get(1), showItem, "");
+                        addMeterData(getSpannableString("K-factor"), 2, groupListObj1, list.getModelLineData().get(2), showItem, "");
+                        addMeterData(getSpannableString("ØW(°)"), 3, groupListObj1, list.getModelLineData().get(3), showItem, "");
+                        addMeterData(getSpannableString("MAX(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem, "");
+                        addMeterData(getSpannableString("MIN(%f)"), 5, groupListObj1, list.getModelLineData().get(5), showItem, "");
 
                         for (int i = 1; i <= 50; i++) {
-                            addMeterData(getSpannableString("H" + i + "(%f)"), 5+ i, groupListObj1, list.getModelLineData().get(i+5), showItem,"");
+                            addMeterData(getSpannableString("H" + i + "(%f)"), 5 + i, groupListObj1, list.getModelLineData().get(i + 5), showItem, "");
                         }
                         break;
                     case 0://U
-                        addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem,"");
-                        addMeterData(getSpannableString("Ufund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem,"");
-                        addMeterData(getSpannableString("ØU(°)"), 2, groupListObj1, list.getModelLineData().get(2), showItem,"");
-                        addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, list.getModelLineData().get(3), showItem,"");
-                        addMeterData(getSpannableString("MAX(%f)"), 4, groupListObj1, list.getModelLineData().get(5), showItem,"");
-                        addMeterData(getSpannableString("MIN(%f)"), 5, groupListObj1, list.getModelLineData().get(6), showItem,"");
+                        addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem, "");
+                        addMeterData(getSpannableString("Ufund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem, "");
+                        addMeterData(getSpannableString("ØU(°)"), 2, groupListObj1, list.getModelLineData().get(2), showItem, "");
+                        addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, list.getModelLineData().get(3), showItem, "");
+                        addMeterData(getSpannableString("MAX(%f)"), 4, groupListObj1, list.getModelLineData().get(5), showItem, "");
+                        addMeterData(getSpannableString("MIN(%f)"), 5, groupListObj1, list.getModelLineData().get(6), showItem, "");
                         for (int i = 1; i <= 50; i++) {
-                            addMeterData(getSpannableString("H" + i + "(%f)"), 5+ i, groupListObj1, list.getModelLineData().get(i+6), showItem,"");
+                            addMeterData(getSpannableString("H" + i + "(%f)"), 5 + i, groupListObj1, list.getModelLineData().get(i + 6), showItem, "");
                         }
                         break;
                 }
@@ -1430,76 +1438,76 @@ public class HarmonicsMeter extends BaseFragmentTrend {
                         switch (wir_right_index) {
                             case 0://L1
 
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem,"L1");
-                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem,"L1");
-                                addMeterData(getSpannableString("ØA(°)"), 2, groupListObj1, list.getModelLineData().get(2), showItem,"L1");
-                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, list.getModelLineData().get(3), showItem,"L1");
-                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem,"L1");
-                                addMeterData(getSpannableString("K-factor"), 5, groupListObj1, list.getModelLineData().get(5), showItem,"L1");
-                                addMeterData(getSpannableString("MAX(%f)"), 6, groupListObj1, list.getModelLineData().get(6), showItem,"L1");
-                                addMeterData(getSpannableString("MIN(%f)"), 7, groupListObj1, list.getModelLineData().get(7), showItem,"L1");
-                                addMeterData(getSpannableString("Ad"), 8, groupListObj1, list.getModelLineData().get(8), showItem,"");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem, "L1");
+                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem, "L1");
+                                addMeterData(getSpannableString("ØA(°)"), 2, groupListObj1, list.getModelLineData().get(2), showItem, "L1");
+                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, list.getModelLineData().get(3), showItem, "L1");
+                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem, "L1");
+                                addMeterData(getSpannableString("K-factor"), 5, groupListObj1, list.getModelLineData().get(5), showItem, "L1");
+                                addMeterData(getSpannableString("MAX(%f)"), 6, groupListObj1, list.getModelLineData().get(6), showItem, "L1");
+                                addMeterData(getSpannableString("MIN(%f)"), 7, groupListObj1, list.getModelLineData().get(7), showItem, "L1");
+                                addMeterData(getSpannableString("Ad"), 8, groupListObj1, list.getModelLineData().get(8), showItem, "");
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 8 + i, groupListObj1, list.getModelLineData().get(i+8), showItem,"L1");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 8 + i, groupListObj1, list.getModelLineData().get(i + 8), showItem, "L1");
                                 }
 
                                 break;
                             case 1://N
 
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem,"N");
-                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem,"N");
-                                addMeterData(getSpannableString("ØA(°)"), 2, groupListObj1, list.getModelLineData().get(2), showItem,"N");
-                                addMeterData(getSpannableString("THD(%r)"), 3, groupListObj1, list.getModelLineData().get(3), showItem,"N");
-                                addMeterData(getSpannableString("DC(%r)"), 4, groupListObj1, list.getModelLineData().get(4), showItem,"N");
-                                addMeterData(getSpannableString("MAX(%r)"), 5, groupListObj1, list.getModelLineData().get(6), showItem,"N");
-                                addMeterData(getSpannableString("MIN(%r)"), 6, groupListObj1, list.getModelLineData().get(7), showItem,"N");
-                                addMeterData(getSpannableString("Ad"), 7, groupListObj1, list.getModelLineData().get(8), showItem,"N");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem, "N");
+                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem, "N");
+                                addMeterData(getSpannableString("ØA(°)"), 2, groupListObj1, list.getModelLineData().get(2), showItem, "N");
+                                addMeterData(getSpannableString("THD(%r)"), 3, groupListObj1, list.getModelLineData().get(3), showItem, "N");
+                                addMeterData(getSpannableString("DC(%r)"), 4, groupListObj1, list.getModelLineData().get(4), showItem, "N");
+                                addMeterData(getSpannableString("MAX(%r)"), 5, groupListObj1, list.getModelLineData().get(6), showItem, "N");
+                                addMeterData(getSpannableString("MIN(%r)"), 6, groupListObj1, list.getModelLineData().get(7), showItem, "N");
+                                addMeterData(getSpannableString("Ad"), 7, groupListObj1, list.getModelLineData().get(8), showItem, "N");
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%r)"), 7 + i, groupListObj1, list.getModelLineData().get(8+i), showItem,"N");
+                                    addMeterData(getSpannableString("H" + i + "(%r)"), 7 + i, groupListObj1, list.getModelLineData().get(8 + i), showItem, "N");
                                 }
                                 break;
 
                         }
                         break;
                     case 1://S
-                        addMeterData(getSpannableString("THD(%f)"), 0, groupListObj1, list.getModelLineData().get(0), showItem,"");
-                        addMeterData(getSpannableString("DC(%f)"), 1, groupListObj1, list.getModelLineData().get(1), showItem,"");
-                        addMeterData(getSpannableString("K-factor"), 2, groupListObj1, list.getModelLineData().get(2), showItem,"");
-                        addMeterData(getSpannableString("W(°)"), 3, groupListObj1, list.getModelLineData().get(3), showItem,"");
-                        addMeterData(getSpannableString("MAX(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem,"");
-                        addMeterData(getSpannableString("MIN(%f)"), 5, groupListObj1, list.getModelLineData().get(5), showItem,"");
+                        addMeterData(getSpannableString("THD(%f)"), 0, groupListObj1, list.getModelLineData().get(0), showItem, "");
+                        addMeterData(getSpannableString("DC(%f)"), 1, groupListObj1, list.getModelLineData().get(1), showItem, "");
+                        addMeterData(getSpannableString("K-factor"), 2, groupListObj1, list.getModelLineData().get(2), showItem, "");
+                        addMeterData(getSpannableString("W(°)"), 3, groupListObj1, list.getModelLineData().get(3), showItem, "");
+                        addMeterData(getSpannableString("MAX(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem, "");
+                        addMeterData(getSpannableString("MIN(%f)"), 5, groupListObj1, list.getModelLineData().get(5), showItem, "");
 
                         for (int i = 1; i <= 50; i++) {
-                            addMeterData(getSpannableString("H" + i + "(%f)"), 5 + i, groupListObj1, list.getModelLineData().get(i+5), showItem,"");
+                            addMeterData(getSpannableString("H" + i + "(%f)"), 5 + i, groupListObj1, list.getModelLineData().get(i + 5), showItem, "");
                         }
                         break;
                     case 0://V
                         switch (wir_right_index) {
                             case 0://L1
 
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem,"L1");
-                                addMeterData(getSpannableString("Vfund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem,"L1");
-                                addMeterData(getSpannableString("ØV(°)"), 2, groupListObj1, list.getModelLineData().get(2), showItem,"L1");
-                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, list.getModelLineData().get(3), showItem,"L1");
-                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem,"L1");
-                                addMeterData(getSpannableString("MAX(%f)"), 5, groupListObj1, list.getModelLineData().get(5), showItem,"L1");
-                                addMeterData(getSpannableString("MIN(%f)"), 6, groupListObj1, list.getModelLineData().get(6), showItem,"L1");
-                                addMeterData(getSpannableString("Vd"), 7, groupListObj1, list.getModelLineData().get(7), showItem,"L1");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem, "L1");
+                                addMeterData(getSpannableString("Vfund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem, "L1");
+                                addMeterData(getSpannableString("ØV(°)"), 2, groupListObj1, list.getModelLineData().get(2), showItem, "L1");
+                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, list.getModelLineData().get(3), showItem, "L1");
+                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, list.getModelLineData().get(4), showItem, "L1");
+                                addMeterData(getSpannableString("MAX(%f)"), 5, groupListObj1, list.getModelLineData().get(5), showItem, "L1");
+                                addMeterData(getSpannableString("MIN(%f)"), 6, groupListObj1, list.getModelLineData().get(6), showItem, "L1");
+                                addMeterData(getSpannableString("Vd"), 7, groupListObj1, list.getModelLineData().get(7), showItem, "L1");
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 7+ i, groupListObj1, list.getModelLineData().get(i+7), showItem,"L1");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 7 + i, groupListObj1, list.getModelLineData().get(i + 7), showItem, "L1");
                                 }
                                 break;
                             case 1://N
 
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem,"N");
-                                addMeterData(getSpannableString("Vfund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem,"N");
-                                addMeterData(getSpannableString("ØV(°)"), 2, groupListObj1, list.getModelLineData().get(2), showItem,"N");
-                                addMeterData(getSpannableString("THD(%r)"), 3, groupListObj1, list.getModelLineData().get(3), showItem,"N");
-                                addMeterData(getSpannableString("MAX(%r)"), 4, groupListObj1, list.getModelLineData().get(5), showItem,"N");
-                                addMeterData(getSpannableString("MIN(%r)"), 5, groupListObj1, list.getModelLineData().get(6), showItem,"N");
-                                addMeterData(getSpannableString("Vd"), 6, groupListObj1, list.getModelLineData().get(7), showItem,"N");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, list.getModelLineData().get(0), showItem, "N");
+                                addMeterData(getSpannableString("Vfund", 1, 5), 1, groupListObj1, list.getModelLineData().get(1), showItem, "N");
+                                addMeterData(getSpannableString("ØV(°)"), 2, groupListObj1, list.getModelLineData().get(2), showItem, "N");
+                                addMeterData(getSpannableString("THD(%r)"), 3, groupListObj1, list.getModelLineData().get(3), showItem, "N");
+                                addMeterData(getSpannableString("MAX(%r)"), 4, groupListObj1, list.getModelLineData().get(5), showItem, "N");
+                                addMeterData(getSpannableString("MIN(%r)"), 5, groupListObj1, list.getModelLineData().get(6), showItem, "N");
+                                addMeterData(getSpannableString("Vd"), 6, groupListObj1, list.getModelLineData().get(7), showItem, "N");
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%r)"), 6 + i, groupListObj1, list.getModelLineData().get(i+7), showItem,"N");
+                                    addMeterData(getSpannableString("H" + i + "(%r)"), 6 + i, groupListObj1, list.getModelLineData().get(i + 7), showItem, "N");
                                 }
                                 break;
                         }
@@ -1513,10 +1521,11 @@ public class HarmonicsMeter extends BaseFragmentTrend {
     /**
      * 点击右边菜单切换后的显示处理
      * 防止点击切换右边模式时 数据未传送过来显示空白的处理
+     *
      * @param wir_index
      * @param wir_right_index
      */
-    private void updateWirData(int wir_index, int wir_right_index,int harmonicsType){
+    private void updateWirData(int wir_index, int wir_right_index, int harmonicsType) {
         ModelLineData modelLineData = new ModelLineData();
         ModelBaseData modelBaseData = new ModelBaseData("---");
         modelLineData.setaValue(modelBaseData);
@@ -1532,44 +1541,44 @@ public class HarmonicsMeter extends BaseFragmentTrend {
                     case 2://A
                         switch (wir_right_index) {
                             case 0://L1
-                                refeshHeadColor(2,"L1");
+                                refeshHeadColor(2, "L1");
                                 showItem = 2;
                                 groupListObj1.Clear();
                                 stickyLayout.setShowDividerCount(1);
                                 groupListObj1.addHeader(getResources().getStringArray(R.array.l1_array));
 
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("ØA(°)"), 2, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("K-factor"), 5, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("MAX(%f)"), 6, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("MIN(%f)"), 7, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("Ad"), 8, groupListObj1, modelLineData, showItem,"L1");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("ØA(°)"), 2, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("K-factor"), 5, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("MAX(%f)"), 6, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("MIN(%f)"), 7, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("Ad"), 8, groupListObj1, modelLineData, showItem, "L1");
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 8 + i, groupListObj1, modelLineData, showItem,"L1");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 8 + i, groupListObj1, modelLineData, showItem, "L1");
                                 }
                                 baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS(V≃)", new String[]{"RMS(V≃)", "DC(V=)", "PEAK+(V=)", "PEAK-(V=)", "MAX(V≃)", "MIN(V≃)", "CF", "THD(%f)", "THD(%r)", "PST", "PLT"});
                                 break;
                             case 1://N
-                                refeshHeadColor(2,"N");
+                                refeshHeadColor(2, "N");
                                 showItem = 2;
                                 groupListObj1.Clear();
                                 stickyLayout.setShowDividerCount(1);
                                 groupListObj1.addHeader(getResources().getStringArray(R.array.n_array));
 
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem,"N");
-                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, modelLineData, showItem,"N");
-                                addMeterData(getSpannableString("ØA(°)"), 2, groupListObj1, modelLineData, showItem,"N");
-                                addMeterData(getSpannableString("THD(%r)"), 3, groupListObj1, modelLineData, showItem,"N");
-                                addMeterData(getSpannableString("DC(%r)"), 4, groupListObj1, modelLineData, showItem,"N");
-                                addMeterData(getSpannableString("K-factor"), 5, groupListObj1, modelLineData, showItem,"N");
-                                addMeterData(getSpannableString("MAX(%r)"), 6, groupListObj1, modelLineData, showItem,"N");
-                                addMeterData(getSpannableString("MIN(%r)"), 7, groupListObj1, modelLineData, showItem,"N");
-                                addMeterData(getSpannableString("Ad"), 8, groupListObj1, modelLineData, showItem,"N");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem, "N");
+                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, modelLineData, showItem, "N");
+                                addMeterData(getSpannableString("ØA(°)"), 2, groupListObj1, modelLineData, showItem, "N");
+                                addMeterData(getSpannableString("THD(%r)"), 3, groupListObj1, modelLineData, showItem, "N");
+                                addMeterData(getSpannableString("DC(%r)"), 4, groupListObj1, modelLineData, showItem, "N");
+                                addMeterData(getSpannableString("K-factor"), 5, groupListObj1, modelLineData, showItem, "N");
+                                addMeterData(getSpannableString("MAX(%r)"), 6, groupListObj1, modelLineData, showItem, "N");
+                                addMeterData(getSpannableString("MIN(%r)"), 7, groupListObj1, modelLineData, showItem, "N");
+                                addMeterData(getSpannableString("Ad"), 8, groupListObj1, modelLineData, showItem, "N");
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%r)"), 8 + i, groupListObj1, modelLineData, showItem,"N");
+                                    addMeterData(getSpannableString("H" + i + "(%r)"), 8 + i, groupListObj1, modelLineData, showItem, "N");
                                 }
 
                                 baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS(V≃)", new String[]{"RMS", "DC", "PEAK+", "PEAK-", "MAX", "MIN", "CF", "THD(%f)", "THD(%r)", "PST", "PLT", "FHL", "FK"});
@@ -1578,63 +1587,63 @@ public class HarmonicsMeter extends BaseFragmentTrend {
                         }
                         break;
                     case 1://S
-                        refeshHeadColor(1,"L1");
+                        refeshHeadColor(1, "L1");
                         showItem = 2;
                         groupListObj1.Clear();
                         stickyLayout.setShowDividerCount(1);
                         groupListObj1.addHeader(getResources().getStringArray(R.array.l1_array));
 
-                        addMeterData(getSpannableString("THD(%f)"), 0, groupListObj1, modelLineData, showItem,"");
-                        addMeterData(getSpannableString("DC(%f)"), 1, groupListObj1, modelLineData, showItem,"");
-                        addMeterData(getSpannableString("K-factor"), 2, groupListObj1, modelLineData, showItem,"");
-                        addMeterData(getSpannableString("W(°)"), 3, groupListObj1, modelLineData, showItem,"");
-                        addMeterData(getSpannableString("MAX(%f)"), 4, groupListObj1, modelLineData, showItem,"");
-                        addMeterData(getSpannableString("MIN(%f)"), 5, groupListObj1, modelLineData, showItem,"");
+                        addMeterData(getSpannableString("THD(%f)"), 0, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("DC(%f)"), 1, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("K-factor"), 2, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("W(°)"), 3, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("MAX(%f)"), 4, groupListObj1, modelLineData, showItem, "");
+                        addMeterData(getSpannableString("MIN(%f)"), 5, groupListObj1, modelLineData, showItem, "");
 
                         for (int i = 1; i <= 50; i++) {
-                            addMeterData(getSpannableString("H" + i + "(%f)"), 5 + i, groupListObj1, modelLineData, showItem,"");
+                            addMeterData(getSpannableString("H" + i + "(%f)"), 5 + i, groupListObj1, modelLineData, showItem, "");
                         }
                         baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS(V≃)", new String[]{"RMS(V≃)", "DC(V=)", "PEAK+(V=)", "PEAK-(V=)", "MAX(V≃)", "MIN(V≃)", "CF", "THD(%f)", "THD(%r)", "PST", "PLT"});
                         break;
                     case 0://V
                         switch (wir_right_index) {
                             case 0://L1
-                                refeshHeadColor(2,"L1");
+                                refeshHeadColor(2, "L1");
                                 showItem = 2;
                                 groupListObj1.Clear();
                                 stickyLayout.setShowDividerCount(1);
                                 groupListObj1.addHeader(getResources().getStringArray(R.array.l1_array));
 
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("Vfund", 1, 5), 1, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("ØV(°)"), 2, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("MAX(%f)"), 5, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("MIN(%f)"), 6, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("Vd"), 7, groupListObj1, modelLineData, showItem,"L1");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("Vfund", 1, 5), 1, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("ØV(°)"), 2, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("MAX(%f)"), 5, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("MIN(%f)"), 6, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("Vd"), 7, groupListObj1, modelLineData, showItem, "L1");
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 7+ i, groupListObj1, modelLineData, showItem,"L1");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 7 + i, groupListObj1, modelLineData, showItem, "L1");
                                 }
                                 baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS(V≃)", new String[]{"RMS(V≃)", "DC(V=)", "PEAK+(V=)", "PEAK-(V=)", "MAX(V≃)", "MIN(V≃)", "CF", "THD(%f)", "THD(%r)", "PST", "PLT"});
                                 break;
                             case 1://N
-                                refeshHeadColor(2,"N");
+                                refeshHeadColor(2, "N");
                                 showItem = 2;
                                 Group_list_middleText.setText("");
                                 groupListObj1.Clear();
                                 stickyLayout.setShowDividerCount(1);
                                 groupListObj1.addHeader(getResources().getStringArray(R.array.l1_array));
 
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem,"N");
-                                addMeterData(getSpannableString("Vfund", 1, 5), 1, groupListObj1, modelLineData, showItem,"N");
-                                addMeterData(getSpannableString("ØV(°)"), 2, groupListObj1, modelLineData, showItem,"N");
-                                addMeterData(getSpannableString("THD(%r)"), 3, groupListObj1, modelLineData, showItem,"N");
-                                addMeterData(getSpannableString("MAX(%r)"), 4, groupListObj1, modelLineData, showItem,"N");
-                                addMeterData(getSpannableString("MIN(%r)"), 5, groupListObj1, modelLineData, showItem,"N");
-                                addMeterData(getSpannableString("Vd"), 6, groupListObj1, modelLineData, showItem,"N");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem, "N");
+                                addMeterData(getSpannableString("Vfund", 1, 5), 1, groupListObj1, modelLineData, showItem, "N");
+                                addMeterData(getSpannableString("ØV(°)"), 2, groupListObj1, modelLineData, showItem, "N");
+                                addMeterData(getSpannableString("THD(%r)"), 3, groupListObj1, modelLineData, showItem, "N");
+                                addMeterData(getSpannableString("MAX(%r)"), 4, groupListObj1, modelLineData, showItem, "N");
+                                addMeterData(getSpannableString("MIN(%r)"), 5, groupListObj1, modelLineData, showItem, "N");
+                                addMeterData(getSpannableString("Vd"), 6, groupListObj1, modelLineData, showItem, "N");
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%r)"), 6 + i, groupListObj1, modelLineData, showItem,"N");
+                                    addMeterData(getSpannableString("H" + i + "(%r)"), 6 + i, groupListObj1, modelLineData, showItem, "N");
                                 }
                                 baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS(V≃)", new String[]{"RMS", "DC", "PEAK+", "PEAK-", "MAX", "MIN", "CF", "THD(%f)", "THD(%r)", "PST", "PLT", "FHL", "FK"});
                                 break;
@@ -1650,82 +1659,82 @@ public class HarmonicsMeter extends BaseFragmentTrend {
                     case 2://A
                         switch (wir_right_index) {
                             case 0://2L
-                                refeshHeadColor(4,"2L");
+                                refeshHeadColor(4, "2L");
                                 showItem = 4;
                                 groupListObj1.Clear();
                                 stickyLayout.setShowDividerCount(3);
                                 groupListObj1.addHeader(getResources().getStringArray(R.array.l1l2l2l3l3l1_array));
 
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem,"");
-                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, modelLineData, showItem,"");
-                                addMeterData(getSpannableString("ØA(°)"), 2, groupListObj1, modelLineData, showItem,"");
-                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem,"");
-                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem,"");
-                                addMeterData(getSpannableString("K-factor"), 5, groupListObj1, modelLineData, showItem,"");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem, "");
+                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, modelLineData, showItem, "");
+                                addMeterData(getSpannableString("ØA(°)"), 2, groupListObj1, modelLineData, showItem, "");
+                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem, "");
+                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem, "");
+                                addMeterData(getSpannableString("K-factor"), 5, groupListObj1, modelLineData, showItem, "");
 
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 5 + i, groupListObj1, modelLineData, showItem,"");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 5 + i, groupListObj1, modelLineData, showItem, "");
                                 }
                                 baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS(V≃)", new String[]{"RMS(V≃)", "DC(V=)", "PEAK+(V=)", "PEAK-(V=)", "MAX(V≃)", "MIN(V≃)", "CF", "THD(%f)", "THD(%r)", "PST", "PLT"});
                                 break;
                             case 1://L1
-                                refeshHeadColor(4,"L1");
+                                refeshHeadColor(4, "L1");
                                 showItem = 2;
                                 groupListObj1.Clear();
                                 stickyLayout.setShowDividerCount(1);
                                 groupListObj1.addHeader(getResources().getStringArray(R.array.l1_array));
 
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("ØA(°)"), 2, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("K-factor"), 5, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("MAX(%f)"), 6, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("MIN(%f)"), 7, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("Ad"), 8, groupListObj1, modelLineData, showItem,"L1");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("ØA(°)"), 2, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("K-factor"), 5, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("MAX(%f)"), 6, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("MIN(%f)"), 7, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("Ad"), 8, groupListObj1, modelLineData, showItem, "L1");
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 8 + i, groupListObj1, modelLineData, showItem,"L1");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 8 + i, groupListObj1, modelLineData, showItem, "L1");
                                 }
                                 baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS(V≃)", new String[]{"RMS", "DC", "PEAK+", "PEAK-", "MAX", "MIN", "CF", "THD(%f)", "THD(%r)", "PST", "PLT", "FHL", "FK"});
                                 break;
                             case 2://L2
-                                refeshHeadColor(4,"L2");
+                                refeshHeadColor(4, "L2");
                                 showItem = 2;
                                 groupListObj1.Clear();
                                 stickyLayout.setShowDividerCount(1);
                                 groupListObj1.addHeader(getResources().getStringArray(R.array.l2_array));
 
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem,"L2");
-                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, modelLineData,showItem,"L2");
-                                addMeterData(getSpannableString("ØA(°)"), 2, groupListObj1, modelLineData, showItem,"L2");
-                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem,"L2");
-                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem,"L2");
-                                addMeterData(getSpannableString("K-factor"), 5, groupListObj1, modelLineData, showItem,"L2");
-                                addMeterData(getSpannableString("MAX(%f)"), 6, groupListObj1, modelLineData, showItem,"L2");
-                                addMeterData(getSpannableString("MIN(%f)"), 7, groupListObj1, modelLineData, showItem,"L2");
-                                addMeterData(getSpannableString("Ad"), 8, groupListObj1, modelLineData, showItem,"L2");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("ØA(°)"), 2, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("K-factor"), 5, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("MAX(%f)"), 6, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("MIN(%f)"), 7, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("Ad"), 8, groupListObj1, modelLineData, showItem, "L2");
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 8 + i, groupListObj1, modelLineData, showItem,"L2");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 8 + i, groupListObj1, modelLineData, showItem, "L2");
                                 }
 
                                 baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS(V≃)", new String[]{"RMS", "DC", "PEAK+", "PEAK-", "MAX", "MIN", "CF", "THD(%f)", "THD(%r)", "PST", "PLT", "FHL", "FK"});
                                 break;
                             case 3://N
-                                refeshHeadColor(4,"N");
+                                refeshHeadColor(4, "N");
                                 showItem = 2;
                                 groupListObj1.Clear();
                                 stickyLayout.setShowDividerCount(1);
                                 groupListObj1.addHeader(getResources().getStringArray(R.array.n_array));
 
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem,"N");
-                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, modelLineData, showItem,"N");
-                                addMeterData(getSpannableString("THD(%r)"), 2, groupListObj1, modelLineData, showItem,"N");
-                                addMeterData(getSpannableString("MAX(%r)"), 3, groupListObj1, modelLineData, showItem,"N");
-                                addMeterData(getSpannableString("MIN(%r)"), 4, groupListObj1, modelLineData, showItem,"N");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem, "N");
+                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, modelLineData, showItem, "N");
+                                addMeterData(getSpannableString("THD(%r)"), 2, groupListObj1, modelLineData, showItem, "N");
+                                addMeterData(getSpannableString("MAX(%r)"), 3, groupListObj1, modelLineData, showItem, "N");
+                                addMeterData(getSpannableString("MIN(%r)"), 4, groupListObj1, modelLineData, showItem, "N");
 
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%r)"), 4 + i, groupListObj1, modelLineData, showItem,"N");
+                                    addMeterData(getSpannableString("H" + i + "(%r)"), 4 + i, groupListObj1, modelLineData, showItem, "N");
                                 }
 
                                 baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS(V≃)", new String[]{"RMS", "DC", "PEAK+", "PEAK-", "MAX", "MIN", "CF", "THD(%f)", "THD(%r)", "PST", "PLT", "FHL", "FK"});
@@ -1736,57 +1745,57 @@ public class HarmonicsMeter extends BaseFragmentTrend {
                     case 1://S
                         switch (wir_right_index) {
                             case 0://2L
-                                refeshHeadColor(3,"2L");
+                                refeshHeadColor(3, "2L");
                                 showItem = 3;
                                 groupListObj1.Clear();
                                 stickyLayout.setShowDividerCount(2);
                                 groupListObj1.addHeader(getResources().getStringArray(R.array.l1l2_array));
 
-                                addMeterData(getSpannableString("THD(%f)"), 0, groupListObj1, modelLineData, showItem,"");
-                                addMeterData(getSpannableString("DC(%f)"), 1, groupListObj1, modelLineData, showItem,"");
-                                addMeterData(getSpannableString("K-factor"), 2, groupListObj1, modelLineData, showItem,"");
+                                addMeterData(getSpannableString("THD(%f)"), 0, groupListObj1, modelLineData, showItem, "");
+                                addMeterData(getSpannableString("DC(%f)"), 1, groupListObj1, modelLineData, showItem, "");
+                                addMeterData(getSpannableString("K-factor"), 2, groupListObj1, modelLineData, showItem, "");
 
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 2 + i, groupListObj1, modelLineData, showItem,"");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 2 + i, groupListObj1, modelLineData, showItem, "");
                                 }
                                 baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS(V≃)", new String[]{"RMS(V≃)", "DC(V=)", "PEAK+(V=)", "PEAK-(V=)", "MAX(V≃)", "MIN(V≃)", "CF", "THD(%f)", "THD(%r)", "PST", "PLT"});
                                 break;
                             case 1://L1
-                                refeshHeadColor(3,"L1");
+                                refeshHeadColor(3, "L1");
                                 showItem = 2;
                                 groupListObj1.Clear();
                                 stickyLayout.setShowDividerCount(1);
                                 groupListObj1.addHeader(getResources().getStringArray(R.array.l1_array));
 
-                                addMeterData(getSpannableString("THD(%f)"), 0, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("DC(%f)"), 1, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("K-factor"), 2, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("W(°)"), 3, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("MAX(%f)"), 4, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("MIN(%f)"), 5, groupListObj1, modelLineData, showItem,"L1");
+                                addMeterData(getSpannableString("THD(%f)"), 0, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("DC(%f)"), 1, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("K-factor"), 2, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("W(°)"), 3, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("MAX(%f)"), 4, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("MIN(%f)"), 5, groupListObj1, modelLineData, showItem, "L1");
 
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 5 + i, groupListObj1, modelLineData, showItem,"L1");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 5 + i, groupListObj1, modelLineData, showItem, "L1");
                                 }
 
                                 baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS(V≃)", new String[]{"RMS", "DC", "PEAK+", "PEAK-", "MAX", "MIN", "CF", "THD(%f)", "THD(%r)", "PST", "PLT", "FHL", "FK"});
                                 break;
                             case 2://L2
-                                refeshHeadColor(3,"L2");
+                                refeshHeadColor(3, "L2");
                                 showItem = 2;
                                 groupListObj1.Clear();
                                 stickyLayout.setShowDividerCount(1);
                                 groupListObj1.addHeader(getResources().getStringArray(R.array.l2_array));
 
-                                addMeterData(getSpannableString("THD(%f)"), 0, groupListObj1, modelLineData, showItem,"L2");
-                                addMeterData(getSpannableString("DC(%f)"), 1, groupListObj1, modelLineData, showItem,"L2");
-                                addMeterData(getSpannableString("K-factor"), 2, groupListObj1, modelLineData, showItem,"L2");
-                                addMeterData(getSpannableString("W(°)"), 3, groupListObj1, modelLineData, showItem,"L2");
-                                addMeterData(getSpannableString("MAX(%f)"), 4, groupListObj1, modelLineData, showItem,"L2");
-                                addMeterData(getSpannableString("MIN(%f)"), 5, groupListObj1, modelLineData, showItem,"L2");
+                                addMeterData(getSpannableString("THD(%f)"), 0, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("DC(%f)"), 1, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("K-factor"), 2, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("W(°)"), 3, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("MAX(%f)"), 4, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("MIN(%f)"), 5, groupListObj1, modelLineData, showItem, "L2");
 
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 5 + i, groupListObj1, modelLineData, showItem,"L2");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 5 + i, groupListObj1, modelLineData, showItem, "L2");
                                 }
 
                                 baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS(V≃)", new String[]{"RMS", "DC", "PEAK+", "PEAK-", "MAX", "MIN", "CF", "THD(%f)", "THD(%r)", "PST", "PLT", "FHL", "FK"});
@@ -1796,80 +1805,80 @@ public class HarmonicsMeter extends BaseFragmentTrend {
                     case 0://V
                         switch (wir_right_index) {
                             case 0://2L
-                                refeshHeadColor(4,"2L");
+                                refeshHeadColor(4, "2L");
                                 showItem = 4;
                                 groupListObj1.Clear();
                                 stickyLayout.setShowDividerCount(3);
                                 groupListObj1.addHeader(getResources().getStringArray(R.array.l1l2l2l3n_array));
 
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem,"");
-                                addMeterData(getSpannableString("Vfund", 1, 5), 1, groupListObj1, modelLineData, showItem,"");
-                                addMeterData(getSpannableString("ØV(°)"), 2, groupListObj1, modelLineData, showItem,"");
-                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem,"");
-                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem,"");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem, "");
+                                addMeterData(getSpannableString("Vfund", 1, 5), 1, groupListObj1, modelLineData, showItem, "");
+                                addMeterData(getSpannableString("ØV(°)"), 2, groupListObj1, modelLineData, showItem, "");
+                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem, "");
+                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem, "");
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 4+ i, groupListObj1, modelLineData, showItem,"");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 4 + i, groupListObj1, modelLineData, showItem, "");
                                 }
                                 baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS(V≃)", new String[]{"RMS(V≃)", "DC(V=)", "PEAK+(V=)", "PEAK-(V=)", "MAX(V≃)", "MIN(V≃)", "CF", "THD(%f)", "THD(%r)", "PST", "PLT"});
                                 break;
                             case 1://L1
-                                refeshHeadColor(4,"L1");
+                                refeshHeadColor(4, "L1");
                                 showItem = 2;
                                 groupListObj1.Clear();
                                 stickyLayout.setShowDividerCount(1);
                                 groupListObj1.addHeader(getResources().getStringArray(R.array.l1_array));
 
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("Vfund", 1, 5), 1, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("ØV(°)"), 2, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("MAX(%f)"), 5, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("MIN(%f)"), 6, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("Vd"), 7, groupListObj1, modelLineData, showItem,"L1");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("Vfund", 1, 5), 1, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("ØV(°)"), 2, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("MAX(%f)"), 5, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("MIN(%f)"), 6, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("Vd"), 7, groupListObj1, modelLineData, showItem, "L1");
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 7 + i, groupListObj1, modelLineData, showItem,"L1");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 7 + i, groupListObj1, modelLineData, showItem, "L1");
                                 }
 
                                 baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS(V≃)", new String[]{"RMS", "DC", "PEAK+", "PEAK-", "MAX", "MIN", "CF", "THD(%f)", "THD(%r)", "PST", "PLT", "FHL", "FK"});
                                 break;
                             case 2://L2
-                                refeshHeadColor(4,"L2");
+                                refeshHeadColor(4, "L2");
                                 showItem = 2;
                                 groupListObj1.Clear();
                                 stickyLayout.setShowDividerCount(1);
                                 groupListObj1.addHeader(getResources().getStringArray(R.array.l2_array));
 
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem,"L2");
-                                addMeterData(getSpannableString("Vfund", 1, 5), 1, groupListObj1, modelLineData, showItem,"L2");
-                                addMeterData(getSpannableString("ØV(°)"), 2, groupListObj1, modelLineData, showItem,"L2");
-                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem,"L2");
-                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem,"L2");
-                                addMeterData(getSpannableString("MAX(%f)"), 5, groupListObj1, modelLineData, showItem,"L2");
-                                addMeterData(getSpannableString("MIN(%f)"), 6, groupListObj1, modelLineData, showItem,"L2");
-                                addMeterData(getSpannableString("Vd"), 7, groupListObj1, modelLineData, showItem,"L2");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("Vfund", 1, 5), 1, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("ØV(°)"), 2, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("MAX(%f)"), 5, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("MIN(%f)"), 6, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("Vd"), 7, groupListObj1, modelLineData, showItem, "L2");
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 7 + i, groupListObj1, modelLineData, showItem,"L2");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 7 + i, groupListObj1, modelLineData, showItem, "L2");
                                 }
                                 baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS(V≃)", new String[]{"RMS", "DC", "PEAK+", "PEAK-", "MAX", "MIN", "CF", "THD(%f)", "THD(%r)", "PST", "PLT", "FHL", "FK"});
                                 break;
                             case 3://N
-                                refeshHeadColor(4,"N");
+                                refeshHeadColor(4, "N");
                                 showItem = 2;
                                 groupListObj1.Clear();
                                 stickyLayout.setShowDividerCount(1);
                                 groupListObj1.addHeader(getResources().getStringArray(R.array.n_array));
 
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem,"N");
-                                addMeterData(getSpannableString("Vfund", 1, 5), 1, groupListObj1, modelLineData, showItem,"N");
-                                addMeterData(getSpannableString("ØV(°)"), 2, groupListObj1, modelLineData, showItem,"N");
-                                addMeterData(getSpannableString("THD(%r)"), 3, groupListObj1, modelLineData, showItem,"N");
-                                addMeterData(getSpannableString("DC(%r)"), 4, groupListObj1, modelLineData, showItem,"N");
-                                addMeterData(getSpannableString("MAX(%r)"), 5, groupListObj1, modelLineData, showItem,"N");
-                                addMeterData(getSpannableString("MIN(%r)"), 6, groupListObj1, modelLineData, showItem,"N");
-                                addMeterData(getSpannableString("Ad(%r)"), 7, groupListObj1, modelLineData, showItem,"N");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem, "N");
+                                addMeterData(getSpannableString("Vfund", 1, 5), 1, groupListObj1, modelLineData, showItem, "N");
+                                addMeterData(getSpannableString("ØV(°)"), 2, groupListObj1, modelLineData, showItem, "N");
+                                addMeterData(getSpannableString("THD(%r)"), 3, groupListObj1, modelLineData, showItem, "N");
+                                addMeterData(getSpannableString("DC(%r)"), 4, groupListObj1, modelLineData, showItem, "N");
+                                addMeterData(getSpannableString("MAX(%r)"), 5, groupListObj1, modelLineData, showItem, "N");
+                                addMeterData(getSpannableString("MIN(%r)"), 6, groupListObj1, modelLineData, showItem, "N");
+                                addMeterData(getSpannableString("Ad(%r)"), 7, groupListObj1, modelLineData, showItem, "N");
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%r)"), 7 + i, groupListObj1, modelLineData, showItem,"N");
+                                    addMeterData(getSpannableString("H" + i + "(%r)"), 7 + i, groupListObj1, modelLineData, showItem, "N");
                                 }
                                 baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS(V≃)", new String[]{"RMS", "DC", "PEAK+", "PEAK-", "MAX", "MIN", "CF", "THD(%f)", "THD(%r)", "PST", "PLT", "FHL", "FK"});
                                 break;
@@ -1882,107 +1891,107 @@ public class HarmonicsMeter extends BaseFragmentTrend {
                     case 2://A
                         switch (wir_right_index) {
                             case 0://3L
-                                refeshHeadColor(5,"3L");
+                                refeshHeadColor(5, "3L");
                                 showItem = 5;
                                 groupListObj1.Clear();
                                 stickyLayout.setShowDividerCount(4);
                                 groupListObj1.addHeader(getResources().getStringArray(R.array.l1l2l3n_array));
 
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem,"");
-                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, modelLineData, showItem,"");
-                                addMeterData(getSpannableString("ØA(°)"), 2, groupListObj1, modelLineData, showItem,"");
-                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem,"");
-                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem,"");
-                                addMeterData(getSpannableString("K-factor"), 5, groupListObj1, modelLineData, showItem,"");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem, "");
+                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, modelLineData, showItem, "");
+                                addMeterData(getSpannableString("ØA(°)"), 2, groupListObj1, modelLineData, showItem, "");
+                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem, "");
+                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem, "");
+                                addMeterData(getSpannableString("K-factor"), 5, groupListObj1, modelLineData, showItem, "");
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 5 + i, groupListObj1, modelLineData, showItem,"");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 5 + i, groupListObj1, modelLineData, showItem, "");
                                 }
                                 baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS(V≃)", new String[]{"RMS(V≃)", "DC(V=)", "PEAK+(V=)", "PEAK-(V=)", "MAX(V≃)", "MIN(V≃)", "CF", "THD(%f)", "THD(%r)", "PST", "PLT"});
                                 break;
                             case 1://L1
-                                refeshHeadColor(5,"L1");
+                                refeshHeadColor(5, "L1");
                                 showItem = 2;
                                 Group_list_middleText.setText("");
                                 groupListObj1.Clear();
                                 stickyLayout.setShowDividerCount(1);
                                 groupListObj1.addHeader(getResources().getStringArray(R.array.l1_array));
 
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("ØA(°)"), 2, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("K-factor"), 5, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("MAX(%f)"), 6, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("MIN(%f)"), 7, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("Ad"), 8, groupListObj1, modelLineData, showItem,"L1");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("ØA(°)"), 2, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("K-factor"), 5, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("MAX(%f)"), 6, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("MIN(%f)"), 7, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("Ad"), 8, groupListObj1, modelLineData, showItem, "L1");
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 8 + i, groupListObj1, modelLineData, showItem,"L1");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 8 + i, groupListObj1, modelLineData, showItem, "L1");
                                 }
 
                                 baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS(V≃)", new String[]{"RMS", "DC", "PEAK+", "PEAK-", "MAX", "MIN", "CF", "THD(%f)", "THD(%r)", "PST", "PLT", "FHL", "FK"});
                                 break;
                             case 2://L2
-                                refeshHeadColor(5,"L2");
+                                refeshHeadColor(5, "L2");
                                 showItem = 2;
                                 Group_list_middleText.setText("");
                                 groupListObj1.Clear();
                                 stickyLayout.setShowDividerCount(1);
                                 groupListObj1.addHeader(getResources().getStringArray(R.array.l2_array));
 
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem,"L2");
-                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, modelLineData, showItem,"L2");
-                                addMeterData(getSpannableString("ØA(°)"), 2, groupListObj1, modelLineData, showItem,"L2");
-                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem,"L2");
-                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem,"L2");
-                                addMeterData(getSpannableString("K-factor"), 5, groupListObj1, modelLineData, showItem,"L2");
-                                addMeterData(getSpannableString("MAX(%f)"), 6, groupListObj1, modelLineData, showItem,"L2");
-                                addMeterData(getSpannableString("MIN(%f)"), 7, groupListObj1, modelLineData, showItem,"L2");
-                                addMeterData(getSpannableString("Ad"), 8, groupListObj1, modelLineData, showItem,"L2");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("ØA(°)"), 2, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("K-factor"), 5, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("MAX(%f)"), 6, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("MIN(%f)"), 7, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("Ad"), 8, groupListObj1, modelLineData, showItem, "L2");
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 8 + i, groupListObj1, modelLineData, showItem,"L2");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 8 + i, groupListObj1, modelLineData, showItem, "L2");
                                 }
 
                                 baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS(V≃)", new String[]{"RMS", "DC", "PEAK+", "PEAK-", "MAX", "MIN", "CF", "THD(%f)", "THD(%r)", "PST", "PLT", "FHL", "FK"});
                                 break;
                             case 3://L3
-                                refeshHeadColor(5,"L3");
+                                refeshHeadColor(5, "L3");
                                 showItem = 2;
                                 Group_list_middleText.setText("");
                                 groupListObj1.Clear();
                                 stickyLayout.setShowDividerCount(1);
                                 groupListObj1.addHeader(getResources().getStringArray(R.array.l3_array));
 
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem,"L3");
-                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, modelLineData, showItem,"L3");
-                                addMeterData(getSpannableString("ØA(°)"), 2, groupListObj1, modelLineData, showItem,"L3");
-                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem,"L3");
-                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem,"L3");
-                                addMeterData(getSpannableString("K-factor"), 5, groupListObj1, modelLineData, showItem,"L3");
-                                addMeterData(getSpannableString("MAX(%f)"), 6, groupListObj1, modelLineData, showItem,"L3");
-                                addMeterData(getSpannableString("MIN(%f)"), 7, groupListObj1, modelLineData, showItem,"L3");
-                                addMeterData(getSpannableString("Ad"), 8, groupListObj1, modelLineData, showItem,"L3");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem, "L3");
+                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, modelLineData, showItem, "L3");
+                                addMeterData(getSpannableString("ØA(°)"), 2, groupListObj1, modelLineData, showItem, "L3");
+                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem, "L3");
+                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem, "L3");
+                                addMeterData(getSpannableString("K-factor"), 5, groupListObj1, modelLineData, showItem, "L3");
+                                addMeterData(getSpannableString("MAX(%f)"), 6, groupListObj1, modelLineData, showItem, "L3");
+                                addMeterData(getSpannableString("MIN(%f)"), 7, groupListObj1, modelLineData, showItem, "L3");
+                                addMeterData(getSpannableString("Ad"), 8, groupListObj1, modelLineData, showItem, "L3");
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 8 + i, groupListObj1, modelLineData, showItem,"L3");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 8 + i, groupListObj1, modelLineData, showItem, "L3");
                                 }
 
                                 baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS(V≃)", new String[]{"RMS", "DC", "PEAK+", "PEAK-", "MAX", "MIN", "CF", "THD(%f)", "THD(%r)", "PST", "PLT", "FHL", "FK"});
                                 break;
                             case 4://N
-                                refeshHeadColor(5,"N");
+                                refeshHeadColor(5, "N");
                                 showItem = 2;
                                 Group_list_middleText.setText("");
                                 groupListObj1.Clear();
                                 stickyLayout.setShowDividerCount(1);
                                 groupListObj1.addHeader(getResources().getStringArray(R.array.n_array));
 
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem,"N");
-                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, modelLineData, showItem,"N");
-                                addMeterData(getSpannableString("THD(%r)"), 2, groupListObj1, modelLineData, showItem,"N");
-                                addMeterData(getSpannableString("MAX(%r)"), 3, groupListObj1, modelLineData, showItem,"N");
-                                addMeterData(getSpannableString("MIN(%r)"), 4, groupListObj1, modelLineData, showItem,"N");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem, "N");
+                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, modelLineData, showItem, "N");
+                                addMeterData(getSpannableString("THD(%r)"), 2, groupListObj1, modelLineData, showItem, "N");
+                                addMeterData(getSpannableString("MAX(%r)"), 3, groupListObj1, modelLineData, showItem, "N");
+                                addMeterData(getSpannableString("MIN(%r)"), 4, groupListObj1, modelLineData, showItem, "N");
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%r)"), 4 + i, groupListObj1, modelLineData, showItem,"N");
+                                    addMeterData(getSpannableString("H" + i + "(%r)"), 4 + i, groupListObj1, modelLineData, showItem, "N");
                                 }
                                 baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS", new String[]{"RMS", "DC", "PEAK+", "PEAK-", "CF", "THD%f", "THD%r"});
                                 break;
@@ -1992,79 +2001,79 @@ public class HarmonicsMeter extends BaseFragmentTrend {
                     case 1://S
                         switch (wir_right_index) {
                             case 0://3L
-                                refeshHeadColor(4,"3L");
+                                refeshHeadColor(4, "3L");
                                 showItem = 4;
                                 groupListObj1.Clear();
                                 stickyLayout.setShowDividerCount(4);
                                 groupListObj1.addHeader(getResources().getStringArray(R.array.l1l2l3_array));
 
-                                addMeterData(getSpannableString("THD(%f)"), 0, groupListObj1, modelLineData, showItem,"");
-                                addMeterData(getSpannableString("DC(%f)"), 1, groupListObj1, modelLineData, showItem,"");
-                                addMeterData(getSpannableString("K-factor"), 2, groupListObj1, modelLineData, showItem,"");
+                                addMeterData(getSpannableString("THD(%f)"), 0, groupListObj1, modelLineData, showItem, "");
+                                addMeterData(getSpannableString("DC(%f)"), 1, groupListObj1, modelLineData, showItem, "");
+                                addMeterData(getSpannableString("K-factor"), 2, groupListObj1, modelLineData, showItem, "");
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 2 + i, groupListObj1, modelLineData, showItem,"");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 2 + i, groupListObj1, modelLineData, showItem, "");
                                 }
                                 baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS(V≃)", new String[]{"RMS(V≃)", "DC(V=)", "PEAK+(V=)", "PEAK-(V=)", "MAX(V≃)", "MIN(V≃)", "CF", "THD(%f)", "THD(%r)", "PST", "PLT"});
                                 break;
                             case 1://L1
-                                refeshHeadColor(4,"L1");
+                                refeshHeadColor(4, "L1");
                                 showItem = 2;
                                 Group_list_middleText.setText("");
                                 groupListObj1.Clear();
                                 stickyLayout.setShowDividerCount(1);
                                 groupListObj1.addHeader(getResources().getStringArray(R.array.l1_array));
 
-                                addMeterData(getSpannableString("THD(%f)"), 0, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("DC(%f)"), 1, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("K-factor"), 2, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("ØW(°)"), 3, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("MAX(%f)"), 4, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("MIN(%f)"), 5, groupListObj1, modelLineData, showItem,"L1");
+                                addMeterData(getSpannableString("THD(%f)"), 0, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("DC(%f)"), 1, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("K-factor"), 2, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("ØW(°)"), 3, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("MAX(%f)"), 4, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("MIN(%f)"), 5, groupListObj1, modelLineData, showItem, "L1");
 
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 5 + i, groupListObj1, modelLineData, showItem,"L1");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 5 + i, groupListObj1, modelLineData, showItem, "L1");
                                 }
 
                                 baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS(V≃)", new String[]{"RMS", "DC", "PEAK+", "PEAK-", "MAX", "MIN", "CF", "THD(%f)", "THD(%r)", "PST", "PLT", "FHL", "FK"});
                                 break;
                             case 2://L2
-                                refeshHeadColor(4,"L2");
+                                refeshHeadColor(4, "L2");
                                 showItem = 2;
                                 Group_list_middleText.setText("");
                                 groupListObj1.Clear();
                                 stickyLayout.setShowDividerCount(1);
                                 groupListObj1.addHeader(getResources().getStringArray(R.array.l2_array));
 
-                                addMeterData(getSpannableString("THD(%f)"), 0, groupListObj1, modelLineData, showItem,"L2");
-                                addMeterData(getSpannableString("DC(%f)"), 1, groupListObj1, modelLineData, showItem,"L2");
-                                addMeterData(getSpannableString("K-factor"), 2, groupListObj1, modelLineData, showItem,"L2");
-                                addMeterData(getSpannableString("ØW(°)"), 3, groupListObj1, modelLineData, showItem,"L2");
-                                addMeterData(getSpannableString("MAX(%f)"), 4, groupListObj1, modelLineData, showItem,"L2");
-                                addMeterData(getSpannableString("MIN(%f)"), 5, groupListObj1, modelLineData, showItem,"L2");
+                                addMeterData(getSpannableString("THD(%f)"), 0, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("DC(%f)"), 1, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("K-factor"), 2, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("ØW(°)"), 3, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("MAX(%f)"), 4, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("MIN(%f)"), 5, groupListObj1, modelLineData, showItem, "L2");
 
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 5 + i, groupListObj1, modelLineData, showItem,"L2");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 5 + i, groupListObj1, modelLineData, showItem, "L2");
                                 }
 
                                 baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS(V≃)", new String[]{"RMS", "DC", "PEAK+", "PEAK-", "MAX", "MIN", "CF", "THD(%f)", "THD(%r)", "PST", "PLT", "FHL", "FK"});
                                 break;
                             case 3://L3
-                                refeshHeadColor(4,"L3");
+                                refeshHeadColor(4, "L3");
                                 showItem = 2;
                                 Group_list_middleText.setText("");
                                 groupListObj1.Clear();
                                 stickyLayout.setShowDividerCount(1);
                                 groupListObj1.addHeader(getResources().getStringArray(R.array.l3_array));
 
-                                addMeterData(getSpannableString("THD(%f)"), 0, groupListObj1, modelLineData, showItem,"L3");
-                                addMeterData(getSpannableString("DC(%f)"), 1, groupListObj1, modelLineData, showItem,"L3");
-                                addMeterData(getSpannableString("K-factor"), 2, groupListObj1, modelLineData, showItem,"L3");
-                                addMeterData(getSpannableString("ØW(°)"), 3, groupListObj1, modelLineData, showItem,"L3");
-                                addMeterData(getSpannableString("MAX(%f)"), 4, groupListObj1, modelLineData, showItem,"L3");
-                                addMeterData(getSpannableString("MIN(%f)"), 5, groupListObj1, modelLineData, showItem,"L3");
+                                addMeterData(getSpannableString("THD(%f)"), 0, groupListObj1, modelLineData, showItem, "L3");
+                                addMeterData(getSpannableString("DC(%f)"), 1, groupListObj1, modelLineData, showItem, "L3");
+                                addMeterData(getSpannableString("K-factor"), 2, groupListObj1, modelLineData, showItem, "L3");
+                                addMeterData(getSpannableString("ØW(°)"), 3, groupListObj1, modelLineData, showItem, "L3");
+                                addMeterData(getSpannableString("MAX(%f)"), 4, groupListObj1, modelLineData, showItem, "L3");
+                                addMeterData(getSpannableString("MIN(%f)"), 5, groupListObj1, modelLineData, showItem, "L3");
 
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 5 + i, groupListObj1, modelLineData, showItem,"L3");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 5 + i, groupListObj1, modelLineData, showItem, "L3");
                                 }
 
                                 baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS(V≃)", new String[]{"RMS", "DC", "PEAK+", "PEAK-", "MAX", "MIN", "CF", "THD(%f)", "THD(%r)", "PST", "PLT", "FHL", "FK"});
@@ -2075,104 +2084,104 @@ public class HarmonicsMeter extends BaseFragmentTrend {
                     case 0://V
                         switch (wir_right_index) {
                             case 0://3L
-                                refeshHeadColor(5,"3L");
+                                refeshHeadColor(5, "3L");
                                 showItem = 5;
                                 groupListObj1.Clear();
                                 stickyLayout.setShowDividerCount(4);
                                 groupListObj1.addHeader(getResources().getStringArray(R.array.l1l2l3n_array));
 
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem,"");
-                                addMeterData(getSpannableString("Vfund", 1, 5), 1, groupListObj1, modelLineData, showItem,"");
-                                addMeterData(getSpannableString("ØV(°)"), 2, groupListObj1, modelLineData, showItem,"");
-                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem,"");
-                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem,"");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem, "");
+                                addMeterData(getSpannableString("Vfund", 1, 5), 1, groupListObj1, modelLineData, showItem, "");
+                                addMeterData(getSpannableString("ØV(°)"), 2, groupListObj1, modelLineData, showItem, "");
+                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem, "");
+                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem, "");
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 4 + i, groupListObj1, modelLineData, showItem,"");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 4 + i, groupListObj1, modelLineData, showItem, "");
                                 }
                                 baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS(V≃)", new String[]{"RMS(V≃)", "DC(V=)", "PEAK+(V=)", "PEAK-(V=)", "MAX(V≃)", "MIN(V≃)", "CF", "THD(%f)", "THD(%r)", "PST", "PLT"});
                                 break;
                             case 1://L1
-                                refeshHeadColor(5,"L1");
+                                refeshHeadColor(5, "L1");
                                 showItem = 2;
                                 Group_list_middleText.setText("");
                                 groupListObj1.Clear();
                                 stickyLayout.setShowDividerCount(1);
                                 groupListObj1.addHeader(getResources().getStringArray(R.array.l1_array));
 
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("Vfund", 1, 5), 1, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("ØV(°)"), 2, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("MAX(%f)"), 5, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("MIN(%f)"), 6, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("Ad"), 7, groupListObj1, modelLineData, showItem,"L1");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("Vfund", 1, 5), 1, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("ØV(°)"), 2, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("MAX(%f)"), 5, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("MIN(%f)"), 6, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("Ad"), 7, groupListObj1, modelLineData, showItem, "L1");
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 7 + i, groupListObj1, modelLineData, showItem,"L1");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 7 + i, groupListObj1, modelLineData, showItem, "L1");
                                 }
 
                                 baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS(V≃)", new String[]{"RMS", "DC", "PEAK+", "PEAK-", "MAX", "MIN", "CF", "THD(%f)", "THD(%r)", "PST", "PLT", "FHL", "FK"});
                                 break;
                             case 2://L2
-                                refeshHeadColor(5,"L2");
+                                refeshHeadColor(5, "L2");
                                 showItem = 2;
                                 Group_list_middleText.setText("");
                                 groupListObj1.Clear();
                                 stickyLayout.setShowDividerCount(1);
                                 groupListObj1.addHeader(getResources().getStringArray(R.array.l2_array));
 
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem,"L2");
-                                addMeterData(getSpannableString("Vfund", 1, 5), 1, groupListObj1, modelLineData, showItem,"L2");
-                                addMeterData(getSpannableString("ØV(°)"), 2, groupListObj1, modelLineData, showItem,"L2");
-                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem,"L2");
-                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem,"L2");
-                                addMeterData(getSpannableString("MAX(%f)"), 5, groupListObj1, modelLineData, showItem,"L2");
-                                addMeterData(getSpannableString("MIN(%f)"), 6, groupListObj1, modelLineData, showItem,"L2");
-                                addMeterData(getSpannableString("Ad"), 7, groupListObj1, modelLineData, showItem,"L2");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("Vfund", 1, 5), 1, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("ØV(°)"), 2, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("MAX(%f)"), 5, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("MIN(%f)"), 6, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("Ad"), 7, groupListObj1, modelLineData, showItem, "L2");
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 7 + i, groupListObj1, modelLineData, showItem,"L2");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 7 + i, groupListObj1, modelLineData, showItem, "L2");
                                 }
 
                                 baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS(V≃)", new String[]{"RMS", "DC", "PEAK+", "PEAK-", "MAX", "MIN", "CF", "THD(%f)", "THD(%r)", "PST", "PLT", "FHL", "FK"});
                                 break;
                             case 3://L3
-                                refeshHeadColor(5,"L3");
+                                refeshHeadColor(5, "L3");
                                 showItem = 2;
                                 Group_list_middleText.setText("");
                                 groupListObj1.Clear();
                                 stickyLayout.setShowDividerCount(1);
                                 groupListObj1.addHeader(getResources().getStringArray(R.array.l3_array));
 
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem,"L3");
-                                addMeterData(getSpannableString("Vfund", 1, 5), 1, groupListObj1, modelLineData, showItem,"L3");
-                                addMeterData(getSpannableString("ØV(°)"), 2, groupListObj1, modelLineData, showItem,"L3");
-                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem,"L3");
-                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem,"L3");
-                                addMeterData(getSpannableString("MAX(%f)"), 5, groupListObj1, modelLineData, showItem,"L3");
-                                addMeterData(getSpannableString("MIN(%f)"), 6, groupListObj1, modelLineData, showItem,"L3");
-                                addMeterData(getSpannableString("Ad"), 7, groupListObj1, modelLineData, showItem,"L3");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem, "L3");
+                                addMeterData(getSpannableString("Vfund", 1, 5), 1, groupListObj1, modelLineData, showItem, "L3");
+                                addMeterData(getSpannableString("ØV(°)"), 2, groupListObj1, modelLineData, showItem, "L3");
+                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem, "L3");
+                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem, "L3");
+                                addMeterData(getSpannableString("MAX(%f)"), 5, groupListObj1, modelLineData, showItem, "L3");
+                                addMeterData(getSpannableString("MIN(%f)"), 6, groupListObj1, modelLineData, showItem, "L3");
+                                addMeterData(getSpannableString("Ad"), 7, groupListObj1, modelLineData, showItem, "L3");
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 7 + i, groupListObj1, modelLineData, showItem,"L3");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 7 + i, groupListObj1, modelLineData, showItem, "L3");
                                 }
 
                                 baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS(V≃)", new String[]{"RMS", "DC", "PEAK+", "PEAK-", "MAX", "MIN", "CF", "THD(%f)", "THD(%r)", "PST", "PLT", "FHL", "FK"});
                                 break;
                             case 4://N
-                                refeshHeadColor(5,"N");
+                                refeshHeadColor(5, "N");
                                 showItem = 2;
                                 Group_list_middleText.setText("");
                                 groupListObj1.Clear();
                                 stickyLayout.setShowDividerCount(1);
                                 groupListObj1.addHeader(getResources().getStringArray(R.array.n_array));
 
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem,"N");
-                                addMeterData(getSpannableString("Vfund", 1, 5), 1, groupListObj1, modelLineData, showItem,"N");
-                                addMeterData(getSpannableString("THD(%r)"), 2, groupListObj1, modelLineData, showItem,"N");
-                                addMeterData(getSpannableString("MAX(%r)"), 3, groupListObj1, modelLineData, showItem,"N");
-                                addMeterData(getSpannableString("MIN(%r)"), 4, groupListObj1, modelLineData, showItem,"N");
-                                addMeterData(getSpannableString("ØV(°)"), 5, groupListObj1, modelLineData, showItem,"N");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem, "N");
+                                addMeterData(getSpannableString("Vfund", 1, 5), 1, groupListObj1, modelLineData, showItem, "N");
+                                addMeterData(getSpannableString("THD(%r)"), 2, groupListObj1, modelLineData, showItem, "N");
+                                addMeterData(getSpannableString("MAX(%r)"), 3, groupListObj1, modelLineData, showItem, "N");
+                                addMeterData(getSpannableString("MIN(%r)"), 4, groupListObj1, modelLineData, showItem, "N");
+                                addMeterData(getSpannableString("ØV(°)"), 5, groupListObj1, modelLineData, showItem, "N");
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%r)"), 5 + i, groupListObj1, modelLineData, showItem,"N");
+                                    addMeterData(getSpannableString("H" + i + "(%r)"), 5 + i, groupListObj1, modelLineData, showItem, "N");
                                 }
                                 baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS", new String[]{"RMS", "DC", "PEAK+", "PEAK-", "CF", "THD%f", "THD%r"});
                                 break;
@@ -2189,86 +2198,86 @@ public class HarmonicsMeter extends BaseFragmentTrend {
                     case 2://A
                         switch (wir_right_index) {
                             case 0://3L
-                                refeshHeadColor(4,"3L");
+                                refeshHeadColor(4, "3L");
                                 showItem = 4;
                                 groupListObj1.Clear();
                                 stickyLayout.setShowDividerCount(3);
                                 groupListObj1.addHeader(getResources().getStringArray(R.array.l1l2l2l3l3l1_array));
 
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem,"");
-                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, modelLineData, showItem,"");
-                                addMeterData(getSpannableString("ØA(°)"), 2, groupListObj1, modelLineData, showItem,"");
-                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem,"");
-                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem,"");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem, "");
+                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, modelLineData, showItem, "");
+                                addMeterData(getSpannableString("ØA(°)"), 2, groupListObj1, modelLineData, showItem, "");
+                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem, "");
+                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem, "");
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 4 + i, groupListObj1, modelLineData, showItem,"");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 4 + i, groupListObj1, modelLineData, showItem, "");
                                 }
                                 baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS(V≃)", new String[]{"RMS(V≃)", "DC(V=)", "PEAK+(V=)", "PEAK-(V=)", "MAX(V≃)", "MIN(V≃)", "CF", "THD(%f)", "THD(%r)", "PST", "PLT"});
                                 break;
                             case 1://L1L2
-                                refeshHeadColor(4,"L1");
+                                refeshHeadColor(4, "L1");
                                 showItem = 2;
                                 groupListObj1.Clear();
                                 stickyLayout.setShowDividerCount(1);
                                 groupListObj1.addHeader(getResources().getStringArray(R.array.L1L2_array));
 
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("ØA(°)"), 2, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("K-factor"), 5, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("MAX(%f)"), 6, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("MIN(%f)"), 7, groupListObj1, modelLineData, showItem,"L1");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("ØA(°)"), 2, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("K-factor"), 5, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("MAX(%f)"), 6, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("MIN(%f)"), 7, groupListObj1, modelLineData, showItem, "L1");
 
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 7 + i, groupListObj1, modelLineData, showItem,"L1");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 7 + i, groupListObj1, modelLineData, showItem, "L1");
                                 }
 
                                 baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS(V≃)", new String[]{"RMS", "DC", "PEAK+", "PEAK-", "MAX", "MIN", "CF", "THD(%f)", "THD(%r)", "PST", "PLT", "FHL", "FK"});
                                 break;
                             case 2://L2L3
-                                refeshHeadColor(4,"L2");
+                                refeshHeadColor(4, "L2");
                                 showItem = 2;
                                 Group_list_middleText.setText("");
                                 groupListObj1.Clear();
                                 stickyLayout.setShowDividerCount(1);
                                 groupListObj1.addHeader(getResources().getStringArray(R.array.L2L3_array));
 
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem,"L2");
-                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, modelLineData, showItem,"L2");
-                                addMeterData(getSpannableString("ØA(°)"), 2, groupListObj1, modelLineData, showItem,"L2");
-                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem,"L2");
-                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem,"L2");
-                                addMeterData(getSpannableString("K-factor"), 5, groupListObj1, modelLineData, showItem,"L2");
-                                addMeterData(getSpannableString("MAX(%f)"), 6, groupListObj1, modelLineData, showItem,"L2");
-                                addMeterData(getSpannableString("MIN(%f)"), 7, groupListObj1, modelLineData, showItem,"L2");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("ØA(°)"), 2, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("K-factor"), 5, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("MAX(%f)"), 6, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("MIN(%f)"), 7, groupListObj1, modelLineData, showItem, "L2");
 
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 7 + i, groupListObj1, modelLineData, showItem,"L2");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 7 + i, groupListObj1, modelLineData, showItem, "L2");
                                 }
 
                                 baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS(V≃)", new String[]{"RMS", "DC", "PEAK+", "PEAK-", "MAX", "MIN", "CF", "THD(%f)", "THD(%r)", "PST", "PLT", "FHL", "FK"});
                                 break;
                             case 3://L3L1
-                                refeshHeadColor(4,"L3");
+                                refeshHeadColor(4, "L3");
                                 showItem = 2;
                                 Group_list_middleText.setText("");
                                 groupListObj1.Clear();
                                 stickyLayout.setShowDividerCount(1);
                                 groupListObj1.addHeader(getResources().getStringArray(R.array.L3L1_array));
 
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem,"L3");
-                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, modelLineData, showItem,"L3");
-                                addMeterData(getSpannableString("ØA(°)"), 2, groupListObj1, modelLineData, showItem,"L3");
-                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem,"L3");
-                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem,"L3");
-                                addMeterData(getSpannableString("K-factor"), 5, groupListObj1, modelLineData, showItem,"L3");
-                                addMeterData(getSpannableString("MAX(%f)"), 6, groupListObj1, modelLineData, showItem,"L3");
-                                addMeterData(getSpannableString("MIN(%f)"), 7, groupListObj1, modelLineData, showItem,"L3");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem, "L3");
+                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, modelLineData, showItem, "L3");
+                                addMeterData(getSpannableString("ØA(°)"), 2, groupListObj1, modelLineData, showItem, "L3");
+                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem, "L3");
+                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem, "L3");
+                                addMeterData(getSpannableString("K-factor"), 5, groupListObj1, modelLineData, showItem, "L3");
+                                addMeterData(getSpannableString("MAX(%f)"), 6, groupListObj1, modelLineData, showItem, "L3");
+                                addMeterData(getSpannableString("MIN(%f)"), 7, groupListObj1, modelLineData, showItem, "L3");
 
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 7 + i, groupListObj1, modelLineData, showItem,"L3");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 7 + i, groupListObj1, modelLineData, showItem, "L3");
                                 }
 
                                 baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS(V≃)", new String[]{"RMS", "DC", "PEAK+", "PEAK-", "MAX", "MIN", "CF", "THD(%f)", "THD(%r)", "PST", "PLT", "FHL", "FK"});
@@ -2278,76 +2287,76 @@ public class HarmonicsMeter extends BaseFragmentTrend {
                     case 1://S
                         switch (wir_right_index) {
                             case 0://3L
-                                refeshHeadColor(4,"3L");
+                                refeshHeadColor(4, "3L");
                                 showItem = 4;
                                 groupListObj1.Clear();
                                 stickyLayout.setShowDividerCount(3);
                                 groupListObj1.addHeader(getResources().getStringArray(R.array.l1l2l2l3l3l1_array));
 
-                                addMeterData(getSpannableString("THD(%f)"), 0, groupListObj1, modelLineData, showItem,"");
-                                addMeterData(getSpannableString("DC(%f)"), 1, groupListObj1, modelLineData, showItem,"");
-                                addMeterData(getSpannableString("K-factor"), 2, groupListObj1, modelLineData, showItem,"");
+                                addMeterData(getSpannableString("THD(%f)"), 0, groupListObj1, modelLineData, showItem, "");
+                                addMeterData(getSpannableString("DC(%f)"), 1, groupListObj1, modelLineData, showItem, "");
+                                addMeterData(getSpannableString("K-factor"), 2, groupListObj1, modelLineData, showItem, "");
                                 for (int i = 1; i <= 30; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 3 + i, groupListObj1, modelLineData, showItem,"");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 3 + i, groupListObj1, modelLineData, showItem, "");
                                 }
                                 baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS(V≃)", new String[]{"RMS(V≃)", "DC(V=)", "PEAK+(V=)", "PEAK-(V=)", "MAX(V≃)", "MIN(V≃)", "CF", "THD(%f)", "THD(%r)", "PST", "PLT"});
                                 break;
                             case 1://L1L2
-                                refeshHeadColor(4,"L1");
+                                refeshHeadColor(4, "L1");
                                 showItem = 2;
                                 groupListObj1.Clear();
                                 stickyLayout.setShowDividerCount(1);
                                 groupListObj1.addHeader(getResources().getStringArray(R.array.L1L2_array));
 
-                                addMeterData(getSpannableString("THD(%f)"), 0, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("DC(%f)"), 1, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("K-factor"), 2, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("ØW(°)"), 3, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("MAX(%f)"), 4, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("MIN(%f)"), 5, groupListObj1, modelLineData, showItem,"L1");
+                                addMeterData(getSpannableString("THD(%f)"), 0, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("DC(%f)"), 1, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("K-factor"), 2, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("ØW(°)"), 3, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("MAX(%f)"), 4, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("MIN(%f)"), 5, groupListObj1, modelLineData, showItem, "L1");
 
                                 for (int i = 1; i <= 30; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 5 + i, groupListObj1, modelLineData, showItem,"L1");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 5 + i, groupListObj1, modelLineData, showItem, "L1");
                                 }
 
                                 baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS(V≃)", new String[]{"RMS", "DC", "PEAK+", "PEAK-", "MAX", "MIN", "CF", "THD(%f)", "THD(%r)", "PST", "PLT", "FHL", "FK"});
                                 break;
                             case 2://L2L3
-                                refeshHeadColor(4,"L2");
+                                refeshHeadColor(4, "L2");
                                 showItem = 2;
                                 groupListObj1.Clear();
                                 stickyLayout.setShowDividerCount(1);
                                 groupListObj1.addHeader(getResources().getStringArray(R.array.L2L3_array));
 
-                                addMeterData(getSpannableString("THD(%f)"), 0, groupListObj1, modelLineData, showItem,"L2");
-                                addMeterData(getSpannableString("DC(%f)"), 1, groupListObj1, modelLineData, showItem,"L2");
-                                addMeterData(getSpannableString("K-factor"), 2, groupListObj1, modelLineData, showItem,"L2");
-                                addMeterData(getSpannableString("ØW(°)"), 3, groupListObj1, modelLineData, showItem,"L2");
-                                addMeterData(getSpannableString("MAX(%f)"), 4, groupListObj1, modelLineData, showItem,"L2");
-                                addMeterData(getSpannableString("MIN(%f)"), 5, groupListObj1, modelLineData, showItem,"L2");
+                                addMeterData(getSpannableString("THD(%f)"), 0, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("DC(%f)"), 1, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("K-factor"), 2, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("ØW(°)"), 3, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("MAX(%f)"), 4, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("MIN(%f)"), 5, groupListObj1, modelLineData, showItem, "L2");
 
                                 for (int i = 1; i <= 30; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 5 + i, groupListObj1, modelLineData, showItem,"L2");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 5 + i, groupListObj1, modelLineData, showItem, "L2");
                                 }
 
                                 baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS(V≃)", new String[]{"RMS", "DC", "PEAK+", "PEAK-", "MAX", "MIN", "CF", "THD(%f)", "THD(%r)", "PST", "PLT", "FHL", "FK"});
                                 break;
                             case 3://L3L1
-                                refeshHeadColor(4,"L3");
+                                refeshHeadColor(4, "L3");
                                 showItem = 2;
                                 groupListObj1.Clear();
                                 stickyLayout.setShowDividerCount(1);
                                 groupListObj1.addHeader(getResources().getStringArray(R.array.L3L1_array));
 
-                                addMeterData(getSpannableString("THD(%f)"), 0, groupListObj1, modelLineData, showItem,"L3");
-                                addMeterData(getSpannableString("DC(%f)"), 1, groupListObj1, modelLineData, showItem,"L3");
-                                addMeterData(getSpannableString("K-factor"), 2, groupListObj1, modelLineData, showItem,"L3");
-                                addMeterData(getSpannableString("ØW(°)"), 3, groupListObj1, modelLineData, showItem,"L3");
-                                addMeterData(getSpannableString("MAX(%f)"), 4, groupListObj1, modelLineData, showItem,"L3");
-                                addMeterData(getSpannableString("MIN(%f)"), 5, groupListObj1, modelLineData, showItem,"L3");
+                                addMeterData(getSpannableString("THD(%f)"), 0, groupListObj1, modelLineData, showItem, "L3");
+                                addMeterData(getSpannableString("DC(%f)"), 1, groupListObj1, modelLineData, showItem, "L3");
+                                addMeterData(getSpannableString("K-factor"), 2, groupListObj1, modelLineData, showItem, "L3");
+                                addMeterData(getSpannableString("ØW(°)"), 3, groupListObj1, modelLineData, showItem, "L3");
+                                addMeterData(getSpannableString("MAX(%f)"), 4, groupListObj1, modelLineData, showItem, "L3");
+                                addMeterData(getSpannableString("MIN(%f)"), 5, groupListObj1, modelLineData, showItem, "L3");
 
                                 for (int i = 1; i <= 30; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 5 + i, groupListObj1, modelLineData, showItem,"L3");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 5 + i, groupListObj1, modelLineData, showItem, "L3");
                                 }
 
                                 baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS(V≃)", new String[]{"RMS", "DC", "PEAK+", "PEAK-", "MAX", "MIN", "CF", "THD(%f)", "THD(%r)", "PST", "PLT", "FHL", "FK"});
@@ -2358,81 +2367,81 @@ public class HarmonicsMeter extends BaseFragmentTrend {
                     case 0://U
                         switch (wir_right_index) {
                             case 0://3L
-                                refeshHeadColor(4,"3L");
+                                refeshHeadColor(4, "3L");
                                 showItem = 4;
                                 groupListObj1.Clear();
                                 stickyLayout.setShowDividerCount(3);
                                 groupListObj1.addHeader(getResources().getStringArray(R.array.l1l2l2l3l3l1_array));
 
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem,"");
-                                addMeterData(getSpannableString("Ufund", 1, 5), 1, groupListObj1, modelLineData, showItem,"");
-                                addMeterData(getSpannableString("ØU(°)"), 2, groupListObj1, modelLineData, showItem,"");
-                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem,"");
-                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem,"");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem, "");
+                                addMeterData(getSpannableString("Ufund", 1, 5), 1, groupListObj1, modelLineData, showItem, "");
+                                addMeterData(getSpannableString("ØU(°)"), 2, groupListObj1, modelLineData, showItem, "");
+                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem, "");
+                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem, "");
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 4 + i, groupListObj1, modelLineData, showItem,"");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 4 + i, groupListObj1, modelLineData, showItem, "");
                                 }
                                 baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS(V≃)", new String[]{"RMS(V≃)", "DC(V=)", "PEAK+(V=)", "PEAK-(V=)", "MAX(V≃)", "MIN(V≃)", "CF", "THD(%f)", "THD(%r)", "PST", "PLT"});
                                 break;
                             case 1://L1L2
-                                refeshHeadColor(4,"L1");
+                                refeshHeadColor(4, "L1");
                                 showItem = 2;
                                 groupListObj1.Clear();
                                 stickyLayout.setShowDividerCount(1);
                                 groupListObj1.addHeader(getResources().getStringArray(R.array.L1L2_array));
 
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("Ufund", 1, 5), 1, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("ØU(°)"), 2, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("MAX(%f)"), 5, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("MIN(%f)"), 6, groupListObj1, modelLineData, showItem,"L1");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("Ufund", 1, 5), 1, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("ØU(°)"), 2, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("MAX(%f)"), 5, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("MIN(%f)"), 6, groupListObj1, modelLineData, showItem, "L1");
 
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 6 + i, groupListObj1, modelLineData, showItem,"L1");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 6 + i, groupListObj1, modelLineData, showItem, "L1");
                                 }
 
                                 baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS(V≃)", new String[]{"RMS", "DC", "PEAK+", "PEAK-", "MAX", "MIN", "CF", "THD(%f)", "THD(%r)", "PST", "PLT", "FHL", "FK"});
                                 break;
                             case 2://L2L3
-                                refeshHeadColor(4,"L2");
+                                refeshHeadColor(4, "L2");
                                 showItem = 2;
                                 groupListObj1.Clear();
                                 stickyLayout.setShowDividerCount(1);
                                 groupListObj1.addHeader(getResources().getStringArray(R.array.L2L3_array));
 
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem,"L2");
-                                addMeterData(getSpannableString("Ufund", 1, 5), 1, groupListObj1, modelLineData, showItem,"L2");
-                                addMeterData(getSpannableString("ØU(°)"), 2, groupListObj1, modelLineData, showItem,"L2");
-                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem,"L2");
-                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem,"L2");
-                                addMeterData(getSpannableString("MAX(%f)"), 5, groupListObj1, modelLineData, showItem,"L2");
-                                addMeterData(getSpannableString("MIN(%f)"), 6, groupListObj1, modelLineData, showItem,"L2");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("Ufund", 1, 5), 1, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("ØU(°)"), 2, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("MAX(%f)"), 5, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("MIN(%f)"), 6, groupListObj1, modelLineData, showItem, "L2");
 
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 6 + i, groupListObj1, modelLineData, showItem,"L2");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 6 + i, groupListObj1, modelLineData, showItem, "L2");
                                 }
 
                                 baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS(V≃)", new String[]{"RMS", "DC", "PEAK+", "PEAK-", "MAX", "MIN", "CF", "THD(%f)", "THD(%r)", "PST", "PLT", "FHL", "FK"});
                                 break;
                             case 3://L3L1
-                                refeshHeadColor(4,"L3");
+                                refeshHeadColor(4, "L3");
                                 showItem = 2;
                                 groupListObj1.Clear();
                                 stickyLayout.setShowDividerCount(1);
                                 groupListObj1.addHeader(getResources().getStringArray(R.array.L3L1_array));
 
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem,"L3");
-                                addMeterData(getSpannableString("Ufund", 1, 5), 1, groupListObj1, modelLineData, showItem,"L3");
-                                addMeterData(getSpannableString("ØU(°)"), 2, groupListObj1, modelLineData, showItem,"L3");
-                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem,"L3");
-                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem,"L3");
-                                addMeterData(getSpannableString("MAX(%f)"), 5, groupListObj1, modelLineData, showItem,"L3");
-                                addMeterData(getSpannableString("MIN(%f)"), 6, groupListObj1, modelLineData, showItem,"L3");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem, "L3");
+                                addMeterData(getSpannableString("Ufund", 1, 5), 1, groupListObj1, modelLineData, showItem, "L3");
+                                addMeterData(getSpannableString("ØU(°)"), 2, groupListObj1, modelLineData, showItem, "L3");
+                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem, "L3");
+                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem, "L3");
+                                addMeterData(getSpannableString("MAX(%f)"), 5, groupListObj1, modelLineData, showItem, "L3");
+                                addMeterData(getSpannableString("MIN(%f)"), 6, groupListObj1, modelLineData, showItem, "L3");
 
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 6 + i, groupListObj1, modelLineData, showItem,"L3");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 6 + i, groupListObj1, modelLineData, showItem, "L3");
                                 }
 
                                 baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS(V≃)", new String[]{"RMS", "DC", "PEAK+", "PEAK-", "MAX", "MIN", "CF", "THD(%f)", "THD(%r)", "PST", "PLT", "FHL", "FK"});
@@ -2451,107 +2460,107 @@ public class HarmonicsMeter extends BaseFragmentTrend {
                     case 2://A
                         switch (wir_right_index) {
                             case 0://4V
-                                refeshHeadColor(5,"3L");
+                                refeshHeadColor(5, "3L");
                                 showItem = 5;
                                 groupListObj1.Clear();
                                 stickyLayout.setShowDividerCount(4);
                                 groupListObj1.addHeader(getResources().getStringArray(R.array.l1l2l3n_array));
 
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem,"");
-                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, modelLineData, showItem,"");
-                                addMeterData(getSpannableString("ØA(°)"), 2, groupListObj1, modelLineData, showItem,"");
-                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem,"");
-                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem,"");
-                                addMeterData(getSpannableString("K-factor"), 5, groupListObj1, modelLineData, showItem,"");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem, "");
+                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, modelLineData, showItem, "");
+                                addMeterData(getSpannableString("ØA(°)"), 2, groupListObj1, modelLineData, showItem, "");
+                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem, "");
+                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem, "");
+                                addMeterData(getSpannableString("K-factor"), 5, groupListObj1, modelLineData, showItem, "");
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 5 + i, groupListObj1, modelLineData, showItem,"");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 5 + i, groupListObj1, modelLineData, showItem, "");
                                 }
                                 baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS(V≃)", new String[]{"RMS(V≃)", "DC(V=)", "PEAK+(V=)", "PEAK-(V=)", "MAX(V≃)", "MIN(V≃)", "CF", "THD(%f)", "THD(%r)", "PST", "PLT"});
                                 break;
                             case 1://L1
-                                refeshHeadColor(5,"L1");
+                                refeshHeadColor(5, "L1");
                                 showItem = 2;
                                 Group_list_middleText.setText("");
                                 groupListObj1.Clear();
                                 stickyLayout.setShowDividerCount(1);
                                 groupListObj1.addHeader(getResources().getStringArray(R.array.l1_array));
 
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("ØA(°)"), 2, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("K-factor"), 5, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("MAX(%f)"), 6, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("MIN(%f)"), 7, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("Ad"), 8, groupListObj1, modelLineData, showItem,"L1");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("ØA(°)"), 2, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("K-factor"), 5, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("MAX(%f)"), 6, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("MIN(%f)"), 7, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("Ad"), 8, groupListObj1, modelLineData, showItem, "L1");
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 8 + i, groupListObj1, modelLineData, showItem,"L1");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 8 + i, groupListObj1, modelLineData, showItem, "L1");
                                 }
 
                                 baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS(V≃)", new String[]{"RMS", "DC", "PEAK+", "PEAK-", "MAX", "MIN", "CF", "THD(%f)", "THD(%r)", "PST", "PLT", "FHL", "FK"});
                                 break;
                             case 2://L2
-                                refeshHeadColor(5,"L2");
+                                refeshHeadColor(5, "L2");
                                 showItem = 2;
                                 Group_list_middleText.setText("");
                                 groupListObj1.Clear();
                                 stickyLayout.setShowDividerCount(1);
                                 groupListObj1.addHeader(getResources().getStringArray(R.array.l2_array));
 
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem,"L2");
-                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, modelLineData, showItem,"L2");
-                                addMeterData(getSpannableString("ØA(°)"), 2, groupListObj1, modelLineData, showItem,"L2");
-                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem,"L2");
-                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem,"L2");
-                                addMeterData(getSpannableString("K-factor"), 5, groupListObj1, modelLineData, showItem,"L2");
-                                addMeterData(getSpannableString("MAX(%f)"), 6, groupListObj1, modelLineData, showItem,"L2");
-                                addMeterData(getSpannableString("MIN(%f)"), 7, groupListObj1, modelLineData, showItem,"L2");
-                                addMeterData(getSpannableString("Ad"), 8, groupListObj1, modelLineData, showItem,"L2");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("ØA(°)"), 2, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("K-factor"), 5, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("MAX(%f)"), 6, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("MIN(%f)"), 7, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("Ad"), 8, groupListObj1, modelLineData, showItem, "L2");
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 8 + i, groupListObj1, modelLineData, showItem,"L2");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 8 + i, groupListObj1, modelLineData, showItem, "L2");
                                 }
 
                                 baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS(V≃)", new String[]{"RMS", "DC", "PEAK+", "PEAK-", "MAX", "MIN", "CF", "THD(%f)", "THD(%r)", "PST", "PLT", "FHL", "FK"});
                                 break;
                             case 3://L3
-                                refeshHeadColor(5,"L3");
+                                refeshHeadColor(5, "L3");
                                 showItem = 2;
                                 Group_list_middleText.setText("");
                                 groupListObj1.Clear();
                                 stickyLayout.setShowDividerCount(1);
                                 groupListObj1.addHeader(getResources().getStringArray(R.array.l3_array));
 
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem,"L3");
-                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, modelLineData, showItem,"L3");
-                                addMeterData(getSpannableString("ØA(°)"), 2, groupListObj1, modelLineData, showItem,"L3");
-                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem,"L3");
-                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem,"L3");
-                                addMeterData(getSpannableString("K-factor"), 5, groupListObj1, modelLineData, showItem,"L3");
-                                addMeterData(getSpannableString("MAX(%f)"), 6, groupListObj1, modelLineData, showItem,"L3");
-                                addMeterData(getSpannableString("MIN(%f)"), 7, groupListObj1, modelLineData, showItem,"L3");
-                                addMeterData(getSpannableString("Ad"), 8, groupListObj1, modelLineData, showItem,"L3");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem, "L3");
+                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, modelLineData, showItem, "L3");
+                                addMeterData(getSpannableString("ØA(°)"), 2, groupListObj1, modelLineData, showItem, "L3");
+                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem, "L3");
+                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem, "L3");
+                                addMeterData(getSpannableString("K-factor"), 5, groupListObj1, modelLineData, showItem, "L3");
+                                addMeterData(getSpannableString("MAX(%f)"), 6, groupListObj1, modelLineData, showItem, "L3");
+                                addMeterData(getSpannableString("MIN(%f)"), 7, groupListObj1, modelLineData, showItem, "L3");
+                                addMeterData(getSpannableString("Ad"), 8, groupListObj1, modelLineData, showItem, "L3");
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 8 + i, groupListObj1, modelLineData, showItem,"L3");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 8 + i, groupListObj1, modelLineData, showItem, "L3");
                                 }
 
                                 baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS(V≃)", new String[]{"RMS", "DC", "PEAK+", "PEAK-", "MAX", "MIN", "CF", "THD(%f)", "THD(%r)", "PST", "PLT", "FHL", "FK"});
                                 break;
                             case 4://N
-                                refeshHeadColor(5,"N");
+                                refeshHeadColor(5, "N");
                                 showItem = 2;
                                 Group_list_middleText.setText("");
                                 groupListObj1.Clear();
                                 stickyLayout.setShowDividerCount(1);
                                 groupListObj1.addHeader(getResources().getStringArray(R.array.n_array));
 
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem,"N");
-                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, modelLineData, showItem,"N");
-                                addMeterData(getSpannableString("THD(%r)"), 2, groupListObj1, modelLineData, showItem,"N");
-                                addMeterData(getSpannableString("MAX(%r)"), 3, groupListObj1, modelLineData, showItem,"N");
-                                addMeterData(getSpannableString("MIN(%r)"), 4, groupListObj1, modelLineData, showItem,"N");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem, "N");
+                                addMeterData(getSpannableString("Afund", 1, 5), 1, groupListObj1, modelLineData, showItem, "N");
+                                addMeterData(getSpannableString("THD(%r)"), 2, groupListObj1, modelLineData, showItem, "N");
+                                addMeterData(getSpannableString("MAX(%r)"), 3, groupListObj1, modelLineData, showItem, "N");
+                                addMeterData(getSpannableString("MIN(%r)"), 4, groupListObj1, modelLineData, showItem, "N");
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%r)"), 4 + i, groupListObj1, modelLineData, showItem,"N");
+                                    addMeterData(getSpannableString("H" + i + "(%r)"), 4 + i, groupListObj1, modelLineData, showItem, "N");
                                 }
                                 baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS", new String[]{"RMS", "DC", "PEAK+", "PEAK-", "CF", "THD%f", "THD%r"});
                                 break;
@@ -2561,79 +2570,79 @@ public class HarmonicsMeter extends BaseFragmentTrend {
                     case 1://S
                         switch (wir_right_index) {
                             case 0://3L
-                                refeshHeadColor(4,"3L");
+                                refeshHeadColor(4, "3L");
                                 showItem = 4;
                                 groupListObj1.Clear();
                                 stickyLayout.setShowDividerCount(4);
                                 groupListObj1.addHeader(getResources().getStringArray(R.array.l1l2l3_array));
 
-                                addMeterData(getSpannableString("THD(%f)"), 0, groupListObj1, modelLineData, showItem,"");
-                                addMeterData(getSpannableString("DC(%f)"), 1, groupListObj1, modelLineData, showItem,"");
-                                addMeterData(getSpannableString("K-factor"), 2, groupListObj1, modelLineData, showItem,"");
+                                addMeterData(getSpannableString("THD(%f)"), 0, groupListObj1, modelLineData, showItem, "");
+                                addMeterData(getSpannableString("DC(%f)"), 1, groupListObj1, modelLineData, showItem, "");
+                                addMeterData(getSpannableString("K-factor"), 2, groupListObj1, modelLineData, showItem, "");
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 2 + i, groupListObj1, modelLineData, showItem,"");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 2 + i, groupListObj1, modelLineData, showItem, "");
                                 }
                                 baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS(V≃)", new String[]{"RMS(V≃)", "DC(V=)", "PEAK+(V=)", "PEAK-(V=)", "MAX(V≃)", "MIN(V≃)", "CF", "THD(%f)", "THD(%r)", "PST", "PLT"});
                                 break;
                             case 1://L1
-                                refeshHeadColor(4,"L1");
+                                refeshHeadColor(4, "L1");
                                 showItem = 2;
                                 Group_list_middleText.setText("");
                                 groupListObj1.Clear();
                                 stickyLayout.setShowDividerCount(1);
                                 groupListObj1.addHeader(getResources().getStringArray(R.array.l1_array));
 
-                                addMeterData(getSpannableString("THD(%f)"), 0, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("DC(%f)"), 1, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("K-factor"), 2, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("ØW(°)"), 3, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("MAX(%f)"), 4, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("MIN(%f)"), 5, groupListObj1, modelLineData, showItem,"L1");
+                                addMeterData(getSpannableString("THD(%f)"), 0, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("DC(%f)"), 1, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("K-factor"), 2, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("ØW(°)"), 3, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("MAX(%f)"), 4, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("MIN(%f)"), 5, groupListObj1, modelLineData, showItem, "L1");
 
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 5 + i, groupListObj1, modelLineData, showItem,"L1");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 5 + i, groupListObj1, modelLineData, showItem, "L1");
                                 }
 
                                 baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS(V≃)", new String[]{"RMS", "DC", "PEAK+", "PEAK-", "MAX", "MIN", "CF", "THD(%f)", "THD(%r)", "PST", "PLT", "FHL", "FK"});
                                 break;
                             case 2://L2
-                                refeshHeadColor(4,"L2");
+                                refeshHeadColor(4, "L2");
                                 showItem = 2;
                                 Group_list_middleText.setText("");
                                 groupListObj1.Clear();
                                 stickyLayout.setShowDividerCount(1);
                                 groupListObj1.addHeader(getResources().getStringArray(R.array.l2_array));
 
-                                addMeterData(getSpannableString("THD(%f)"), 0, groupListObj1, modelLineData, showItem,"L2");
-                                addMeterData(getSpannableString("DC(%f)"), 1, groupListObj1, modelLineData, showItem,"L2");
-                                addMeterData(getSpannableString("K-factor"), 2, groupListObj1, modelLineData, showItem,"L2");
-                                addMeterData(getSpannableString("ØW(°)"), 3, groupListObj1, modelLineData, showItem,"L2");
-                                addMeterData(getSpannableString("MAX(%f)"), 4, groupListObj1, modelLineData, showItem,"L2");
-                                addMeterData(getSpannableString("MIN(%f)"), 5, groupListObj1, modelLineData, showItem,"L2");
+                                addMeterData(getSpannableString("THD(%f)"), 0, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("DC(%f)"), 1, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("K-factor"), 2, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("ØW(°)"), 3, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("MAX(%f)"), 4, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("MIN(%f)"), 5, groupListObj1, modelLineData, showItem, "L2");
 
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 5 + i, groupListObj1, modelLineData, showItem,"L2");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 5 + i, groupListObj1, modelLineData, showItem, "L2");
                                 }
 
                                 baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS(V≃)", new String[]{"RMS", "DC", "PEAK+", "PEAK-", "MAX", "MIN", "CF", "THD(%f)", "THD(%r)", "PST", "PLT", "FHL", "FK"});
                                 break;
                             case 3://L3
-                                refeshHeadColor(4,"L3");
+                                refeshHeadColor(4, "L3");
                                 showItem = 2;
                                 Group_list_middleText.setText("");
                                 groupListObj1.Clear();
                                 stickyLayout.setShowDividerCount(1);
                                 groupListObj1.addHeader(getResources().getStringArray(R.array.l3_array));
 
-                                addMeterData(getSpannableString("THD(%f)"), 0, groupListObj1, modelLineData, showItem,"L3");
-                                addMeterData(getSpannableString("DC(%f)"), 1, groupListObj1, modelLineData, showItem,"L3");
-                                addMeterData(getSpannableString("K-factor"), 2, groupListObj1, modelLineData, showItem,"L3");
-                                addMeterData(getSpannableString("ØW(°)"), 3, groupListObj1, modelLineData, showItem,"L3");
-                                addMeterData(getSpannableString("MAX(%f)"), 4, groupListObj1, modelLineData, showItem,"L3");
-                                addMeterData(getSpannableString("MIN(%f)"), 5, groupListObj1, modelLineData, showItem,"L3");
+                                addMeterData(getSpannableString("THD(%f)"), 0, groupListObj1, modelLineData, showItem, "L3");
+                                addMeterData(getSpannableString("DC(%f)"), 1, groupListObj1, modelLineData, showItem, "L3");
+                                addMeterData(getSpannableString("K-factor"), 2, groupListObj1, modelLineData, showItem, "L3");
+                                addMeterData(getSpannableString("ØW(°)"), 3, groupListObj1, modelLineData, showItem, "L3");
+                                addMeterData(getSpannableString("MAX(%f)"), 4, groupListObj1, modelLineData, showItem, "L3");
+                                addMeterData(getSpannableString("MIN(%f)"), 5, groupListObj1, modelLineData, showItem, "L3");
 
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 5 + i, groupListObj1, modelLineData, showItem,"L3");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 5 + i, groupListObj1, modelLineData, showItem, "L3");
                                 }
 
                                 baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS(V≃)", new String[]{"RMS", "DC", "PEAK+", "PEAK-", "MAX", "MIN", "CF", "THD(%f)", "THD(%r)", "PST", "PLT", "FHL", "FK"});
@@ -2645,103 +2654,103 @@ public class HarmonicsMeter extends BaseFragmentTrend {
                     case 0://V
                         switch (wir_right_index) {
                             case 0://3L
-                                refeshHeadColor(5,"3L");
+                                refeshHeadColor(5, "3L");
                                 showItem = 5;
                                 groupListObj1.Clear();
                                 stickyLayout.setShowDividerCount(4);
                                 groupListObj1.addHeader(getResources().getStringArray(R.array.l1l2l3n_array));
 
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem,"");
-                                addMeterData(getSpannableString("Vfund", 1, 5), 1, groupListObj1, modelLineData, showItem,"");
-                                addMeterData(getSpannableString("ØV(°)"), 2, groupListObj1, modelLineData, showItem,"");
-                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem,"");
-                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem,"");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem, "");
+                                addMeterData(getSpannableString("Vfund", 1, 5), 1, groupListObj1, modelLineData, showItem, "");
+                                addMeterData(getSpannableString("ØV(°)"), 2, groupListObj1, modelLineData, showItem, "");
+                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem, "");
+                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem, "");
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 4 + i, groupListObj1, modelLineData, showItem,"");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 4 + i, groupListObj1, modelLineData, showItem, "");
                                 }
                                 baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS(V≃)", new String[]{"RMS(V≃)", "DC(V=)", "PEAK+(V=)", "PEAK-(V=)", "MAX(V≃)", "MIN(V≃)", "CF", "THD(%f)", "THD(%r)", "PST", "PLT"});
                                 break;
                             case 1://L1
-                                refeshHeadColor(5,"L1");
+                                refeshHeadColor(5, "L1");
                                 showItem = 2;
                                 Group_list_middleText.setText("");
                                 groupListObj1.Clear();
                                 stickyLayout.setShowDividerCount(1);
                                 groupListObj1.addHeader(getResources().getStringArray(R.array.l1_array));
 
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("Vfund", 1, 5), 1, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("ØV(°)"), 2, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("MAX(%f)"), 5, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("MIN(%f)"), 6, groupListObj1, modelLineData, showItem,"L1");
-                                addMeterData(getSpannableString("Ad"), 7, groupListObj1, modelLineData, showItem,"L1");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("Vfund", 1, 5), 1, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("ØV(°)"), 2, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("MAX(%f)"), 5, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("MIN(%f)"), 6, groupListObj1, modelLineData, showItem, "L1");
+                                addMeterData(getSpannableString("Ad"), 7, groupListObj1, modelLineData, showItem, "L1");
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 7 + i, groupListObj1, modelLineData, showItem,"L1");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 7 + i, groupListObj1, modelLineData, showItem, "L1");
                                 }
 
                                 baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS(V≃)", new String[]{"RMS", "DC", "PEAK+", "PEAK-", "MAX", "MIN", "CF", "THD(%f)", "THD(%r)", "PST", "PLT", "FHL", "FK"});
                                 break;
                             case 2://L2
-                                refeshHeadColor(5,"L2");
+                                refeshHeadColor(5, "L2");
                                 showItem = 2;
                                 Group_list_middleText.setText("");
                                 groupListObj1.Clear();
                                 stickyLayout.setShowDividerCount(1);
                                 groupListObj1.addHeader(getResources().getStringArray(R.array.l2_array));
 
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem,"L2");
-                                addMeterData(getSpannableString("Vfund", 1, 5), 1, groupListObj1, modelLineData, showItem,"L2");
-                                addMeterData(getSpannableString("ØV(°)"), 2, groupListObj1, modelLineData, showItem,"L2");
-                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem,"L2");
-                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem,"L2");
-                                addMeterData(getSpannableString("MAX(%f)"), 5, groupListObj1, modelLineData, showItem,"L2");
-                                addMeterData(getSpannableString("MIN(%f)"), 6, groupListObj1, modelLineData, showItem,"L2");
-                                addMeterData(getSpannableString("Ad"), 7, groupListObj1, modelLineData, showItem,"L2");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("Vfund", 1, 5), 1, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("ØV(°)"), 2, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("MAX(%f)"), 5, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("MIN(%f)"), 6, groupListObj1, modelLineData, showItem, "L2");
+                                addMeterData(getSpannableString("Ad"), 7, groupListObj1, modelLineData, showItem, "L2");
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 7 + i, groupListObj1, modelLineData, showItem,"L2");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 7 + i, groupListObj1, modelLineData, showItem, "L2");
                                 }
 
                                 baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS(V≃)", new String[]{"RMS", "DC", "PEAK+", "PEAK-", "MAX", "MIN", "CF", "THD(%f)", "THD(%r)", "PST", "PLT", "FHL", "FK"});
                                 break;
                             case 3://L3
-                                refeshHeadColor(5,"L3");
+                                refeshHeadColor(5, "L3");
                                 showItem = 2;
                                 Group_list_middleText.setText("");
                                 groupListObj1.Clear();
                                 stickyLayout.setShowDividerCount(1);
                                 groupListObj1.addHeader(getResources().getStringArray(R.array.l3_array));
 
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem,"L3");
-                                addMeterData(getSpannableString("Vfund", 1, 5), 1, groupListObj1, modelLineData, showItem,"L3");
-                                addMeterData(getSpannableString("ØV(°)"), 2, groupListObj1, modelLineData, showItem,"L3");
-                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem,"L3");
-                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem,"L3");
-                                addMeterData(getSpannableString("MAX(%f)"), 5, groupListObj1, modelLineData, showItem,"L3");
-                                addMeterData(getSpannableString("MIN(%f)"), 6, groupListObj1, modelLineData, showItem,"L3");
-                                addMeterData(getSpannableString("Ad"), 7, groupListObj1, modelLineData, showItem,"L3");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem, "L3");
+                                addMeterData(getSpannableString("Vfund", 1, 5), 1, groupListObj1, modelLineData, showItem, "L3");
+                                addMeterData(getSpannableString("ØV(°)"), 2, groupListObj1, modelLineData, showItem, "L3");
+                                addMeterData(getSpannableString("THD(%f)"), 3, groupListObj1, modelLineData, showItem, "L3");
+                                addMeterData(getSpannableString("DC(%f)"), 4, groupListObj1, modelLineData, showItem, "L3");
+                                addMeterData(getSpannableString("MAX(%f)"), 5, groupListObj1, modelLineData, showItem, "L3");
+                                addMeterData(getSpannableString("MIN(%f)"), 6, groupListObj1, modelLineData, showItem, "L3");
+                                addMeterData(getSpannableString("Ad"), 7, groupListObj1, modelLineData, showItem, "L3");
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%f)"), 7 + i, groupListObj1, modelLineData, showItem,"L3");
+                                    addMeterData(getSpannableString("H" + i + "(%f)"), 7 + i, groupListObj1, modelLineData, showItem, "L3");
                                 }
 
                                 baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS(V≃)", new String[]{"RMS", "DC", "PEAK+", "PEAK-", "MAX", "MIN", "CF", "THD(%f)", "THD(%r)", "PST", "PLT", "FHL", "FK"});
                                 break;
                             case 4://N
-                                refeshHeadColor(5,"N");
+                                refeshHeadColor(5, "N");
                                 showItem = 2;
                                 Group_list_middleText.setText("");
                                 groupListObj1.Clear();
                                 stickyLayout.setShowDividerCount(1);
                                 groupListObj1.addHeader(getResources().getStringArray(R.array.n_array));
 
-                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem,"N");
-                                addMeterData(getSpannableString("Vfund", 1, 5), 1, groupListObj1, modelLineData, showItem,"N");
-                                addMeterData(getSpannableString("THD(%r)"), 2, groupListObj1, modelLineData, showItem,"N");
-                                addMeterData(getSpannableString("MAX(%r)"), 3, groupListObj1, modelLineData, showItem,"N");
-                                addMeterData(getSpannableString("MIN(%r)"), 4, groupListObj1, modelLineData, showItem,"N");
+                                addMeterData(getSpannableString("RMS"), 0, groupListObj1, modelLineData, showItem, "N");
+                                addMeterData(getSpannableString("Vfund", 1, 5), 1, groupListObj1, modelLineData, showItem, "N");
+                                addMeterData(getSpannableString("THD(%r)"), 2, groupListObj1, modelLineData, showItem, "N");
+                                addMeterData(getSpannableString("MAX(%r)"), 3, groupListObj1, modelLineData, showItem, "N");
+                                addMeterData(getSpannableString("MIN(%r)"), 4, groupListObj1, modelLineData, showItem, "N");
                                 for (int i = 1; i <= 50; i++) {
-                                    addMeterData(getSpannableString("H" + i + "(%r)"), 4 + i, groupListObj1, modelLineData, showItem,"N");
+                                    addMeterData(getSpannableString("H" + i + "(%r)"), 4 + i, groupListObj1, modelLineData, showItem, "N");
                                 }
                                 baseBottomAdapterObj = new BaseBottomAdapterObj(2, "RMS", new String[]{"RMS", "DC", "PEAK+", "PEAK-", "CF", "THD%f", "THD%r"});
                                 break;
@@ -2751,12 +2760,67 @@ public class HarmonicsMeter extends BaseFragmentTrend {
                 }
                 break;
         }
-        ((HarmonicsActivity)getActivity()).updateBottomData(baseBottomAdapterObj,2);
+        ((HarmonicsActivity) getActivity()).updateBottomData(baseBottomAdapterObj, 2);
         stickyLayout.notifyChildChanged();
     }
 
     public void setRightIndex(int right) {
         rightModeView.setSelection(right);
         rightModeView.invalidate();
+    }
+
+    public void setFocusOnLeft() {
+        stickyLayout.requestFocus();
+        stickyLayout.getViewFoucs();
+        stickyLayout.setListFocusAble(true);
+        stickyLayout.setListClickAble(true);
+        stickyLayout.setListToucheAble(true);
+
+        rightModeView.setListViewFocusable(false);
+        rightModeView.setListViewFocusableInTouchMode(false);
+        rightModeView.lostFocus(true);
+
+        leftFocusIv.setVisibility(View.VISIBLE);
+
+    }
+
+    public void setFocusOnRight() {
+        stickyLayout.setListFocusAble(false);
+
+
+        rightModeView.getViewFoucs();
+        rightModeView.lostFocus(false);
+        //        rightModeView.setSelection(0);
+
+        leftFocusIv.setVisibility(View.GONE);
+
+    }
+
+    public void leftUpScroll() {
+        upOnclick(getContext());
+    }
+
+    public void leftDownScroll() {
+        downClick(getContext());
+    }
+
+    private void upOnclick(Context context) {
+        MeterGroupListObj groupItem = stickyLayout.getGroupItem(0);
+        int firstVisibleItem = stickyLayout.getFirstVisibleItem();
+        if (firstVisibleItem >= 1) {
+            stickyLayout.scrollToPosition(firstVisibleItem - 1);
+        } else {
+//            Toast.makeText(context, "icon_up_test" + " 已经到顶", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void downClick(Context context) {
+        MeterGroupListObj groupItem = stickyLayout.getGroupItem(0);
+        int lastVisibleItem = stickyLayout.getLastVisibleItem();
+        if (lastVisibleItem <= (groupItem.getChildSize() - 1)) {
+            stickyLayout.scrollToPosition(lastVisibleItem + 1);
+        } else {
+//            Toast.makeText(context, "icon_up_test" + " 已经到底", Toast.LENGTH_SHORT).show();
+        }
     }
 }

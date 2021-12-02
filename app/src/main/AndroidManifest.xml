@@ -4,158 +4,157 @@
 
     package="com.cem.powerqualityanalyser">
     <!--android:sharedUserId = "android.uid.system"-->
-        <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-        <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
-        <uses-permission android:name="android.permission.INTERNET" />
-        <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-        <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
 
-        <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-        <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-        <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-        <uses-permission android:name="android.permission.BLUETOOTH" />
-        <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-        <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-        <uses-permission android:name="android.permission.REBOOT"/>
-        <uses-permission android:name="android.permission.SHUTDOWN"/>
-        <uses-permission
-            android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.REBOOT" />
+    <uses-permission android:name="android.permission.SHUTDOWN" />
+    <uses-permission
+        android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+
+    <!--    <uses-permission android:name="android.permission.SET_TIME"
             tools:ignore="ProtectedPermissions" />
-        <uses-permission android:name="android.permission.WRITE_SETTINGS" />
-        <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+        <uses-permission android:name="android.permission.WRITE_SETTINGS"
+            tools:ignore="ProtectedPermissions" />
+        <uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS"
+            tools:ignore="ProtectedPermissions" />-->
 
-        <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
 
-<!--    <uses-permission android:name="android.permission.SET_TIME"
-        tools:ignore="ProtectedPermissions" />
-    <uses-permission android:name="android.permission.WRITE_SETTINGS"
-        tools:ignore="ProtectedPermissions" />
-    <uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS"
-        tools:ignore="ProtectedPermissions" />-->
+    <application
+        android:name=".application.MyApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
 
-    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION"/>
-
-        <application
-            android:name=".application.MyApplication"
-            android:allowBackup="true"
-            android:icon="@mipmap/ic_launcher"
-            android:label="@string/app_name"
-
-            android:resizeableActivity="true"
-            android:roundIcon="@mipmap/ic_launcher_round"
-            android:requestLegacyExternalStorage="true"
-            android:supportsRtl="true"
-            tools:replace="android:icon,android:theme,android:allowBackup"
-            android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen"
-            tools:ignore="GoogleAppIndexingWarning">
-            <provider
-                android:name="android.support.v4.content.FileProvider"
-                android:authorities="${applicationId}.provider"
-                android:exported="false"
-                android:grantUriPermissions="true">
-                <meta-data
-                    android:name="android.support.FILE_PROVIDER_PATHS"
-                    android:resource="@xml/file_paths" />
-            </provider>
+        android:requestLegacyExternalStorage="true"
+        android:resizeableActivity="true"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen"
+        tools:ignore="GoogleAppIndexingWarning"
+        tools:replace="android:icon,android:theme,android:allowBackup">
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
 
 
-            <activity
-                android:name=".activity.LaunchActivity"
-                android:launchMode="singleTask"
-                android:screenOrientation="landscape">
-                <intent-filter>
-                    <action android:name="android.intent.action.MAIN" />
-                    <category android:name="android.intent.category.HOME" />
-                    <category android:name="android.intent.category.DEFAULT" />
-                    <category android:name="android.intent.category.LAUNCHER" />
-                </intent-filter>
-            </activity>
+        <activity
+            android:name=".activity.LaunchActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="landscape">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-            <activity android:name=".activity.ConfigActiity"/>
-            <activity android:name=".activity.ConfigUserListActiity"/>
-            <activity android:name=".activity.ConfigLimitInfoActivity"/>
-            <activity android:name=".activity.ConfigVnomInfoActivity"/>
-            <activity android:name=".activity.ConfigHzInfoActivity"/>
-            <activity android:name=".activity.ConfigAmpsInfoActivity"/>
-            <activity android:name=".activity.ConfigScaleActivity"/>
+                <category android:name="android.intent.category.HOME" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
-
-            <activity android:name=".activity.MainActivity" />
-            <activity android:name=".activity.ScopeActivity" />
-            <activity android:name=".activity.VoltsAmpsHertzActivity" />
-            <activity android:name=".activity.PowerEnergyActivity" />
-            <activity android:name=".activity.HarmonicsActivity" />
-            <activity android:name=".activity.UnbalanceActivity" />
-
-            <activity android:name=".activity.WarningActivity" />
-            <activity android:name=".activity.FlickerActivity" />
-            <activity android:name=".activity.TransientActivityTest" />
-            <activity android:name=".activity.TransientActivity" />
-            <activity android:name=".activity.WaveFormCaptureActivity" />
-            <activity android:name=".activity.TrendChartRecordActivity" />
-            <activity android:name=".activity.InrushActivity" />
-            <activity android:name=".activity.DipsSwellsActivityTest" />
-            <activity android:name=".activity.DipsSwellsActivity" />
-            <activity android:name=".activity.PowerMonitorActivity" />
-            <activity android:name=".activity.EneryCalculatorActivity" />
-            <activity android:name=".activity.PreviewImageActivity" />
-
-            <activity android:name=".activity.DeviceParametersActivity" />
-            <activity android:name=".activity.PhotoActivity" />
-            <activity android:name=".activity.IRActivity" />
-            <activity android:name=".activity.SetupActivityTest" />
-            <activity android:name=".activity.SetupActivity" />
-
-            <activity android:name=".activity.SetupChildCalucActivity" />
-            <activity android:name=".activity.SetupChildWirActivity" />
-            <activity android:name=".activity.SetupChildClampActivity" />
-            <activity android:name=".activity.SetupChildPointActivity" />
-            <activity android:name=".activity.SetupChildDateActivity" />
-            <activity android:name=".activity.SetupChildTrendActivity" />
-            <activity android:name=".activity.SetupChildShowActivity" />
-            <activity android:name=".activity.SetupChildDeleteActivity" />
-            <activity android:name=".activity.SetupChildTimerActivity" />
-            <activity android:name=".activity.SetupChildWarnActivity" />
-            <activity android:name=".activity.SetupChildInfoActivity" />
-
-            <activity android:name=".activity.VerifyActivity" />
-
-            <activity android:name=".activity.AllMeterActivity" />
-            <activity
-                android:name=".activity.RecorderActivity"
-                android:windowSoftInputMode="stateHidden" />
-            <activity android:name=".activity.LoggerThendActivity" />
-            <activity android:name=".activity.NewLoggerThendActivity" />
-            <activity android:name=".activity.NewHistoryLoggerActivity" />
-            <activity android:name=".activity.HistoryLoggerActivity" />
-            <activity android:name=".activity.CsvFileActivity" />
-            <activity android:name=".activity.InrushHistoryActivity" />
-            <activity android:name=".activity.DipsSwellHistoryLoggerActivity" />
-            <activity android:name=".activity.TransientHistoryLoggerActivity" />
-
-            <!--<activity
-                android:name=".activity.MonitorActivity"
-                android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".activity.ConfigActiity" />
+        <activity android:name=".activity.ConfigLimitInfoActivity" />
+        <activity android:name=".activity.ConfigVnomInfoActivity" />
+        <activity android:name=".activity.ConfigHzInfoActivity" />
+        <activity android:name=".activity.ConfigAmpsInfoActivity" />
+        <activity android:name=".activity.ConfigScaleActivity" />
 
 
-            <activity
-                android:name=".activity.MainActivity"
-                android:launchMode="singleTask"
-                android:screenOrientation="landscape">
-                <intent-filter>
-                    <action android:name="android.intent.action.MAIN" />
+        <activity android:name=".activity.MainActivity" />
+        <activity android:name=".activity.ScopeActivity" />
+        <activity android:name=".activity.VoltsAmpsHertzActivity" />
+        <activity android:name=".activity.PowerEnergyActivity" />
+        <activity android:name=".activity.HarmonicsActivity" />
+        <activity android:name=".activity.UnbalanceActivity" />
 
-                    <category android:name="android.intent.category.HOME" />
-                    <category android:name="android.intent.category.DEFAULT" />
-                    <category android:name="android.intent.category.LAUNCHER" />
-                </intent-filter>
-            </activity>
-            <activity
-                android:name=".activity.BaseActivity"
-                android:label="@string/title_activity_base" />
-            <activity android:name=".activity.HistoryLoggerActivity" />
-            <activity android:name=".activity.PreviewImageActivity"></activity>-->
-        </application>
+        <activity android:name=".activity.WarningActivity" />
+        <activity android:name=".activity.FlickerActivity" />
+        <activity android:name=".activity.TransientActivityTest" />
+        <activity android:name=".activity.TransientActivity" />
+        <activity android:name=".activity.WaveFormCaptureActivity" />
+        <activity android:name=".activity.TrendChartRecordActivity" />
+        <activity android:name=".activity.InrushActivity" />
+        <activity android:name=".activity.DipsSwellsActivityTest" />
+        <activity android:name=".activity.DipsSwellsActivity" />
+        <activity android:name=".activity.PowerMonitorActivity" />
+        <activity android:name=".activity.EneryCalculatorActivity" />
+        <activity android:name=".activity.PreviewImageActivity" />
 
-    </manifest>
+        <activity android:name=".activity.DeviceParametersActivity" />
+        <activity android:name=".activity.PhotoActivity" />
+        <activity android:name=".activity.IRActivity" />
+        <activity android:name=".activity.SetupActivityTest" />
+        <activity android:name=".activity.SetupActivity" />
+
+        <activity android:name=".activity.SetupChildCalucActivity" />
+        <activity android:name=".activity.SetupChildWirActivity" />
+        <activity android:name=".activity.SetupChildClampActivity" />
+        <activity android:name=".activity.SetupChildPointActivity" />
+        <activity android:name=".activity.SetupChildDateActivity" />
+        <activity android:name=".activity.SetupChildTrendActivity" />
+        <activity android:name=".activity.SetupChildShowActivity" />
+        <activity android:name=".activity.SetupChildDeleteActivity" />
+        <activity android:name=".activity.SetupChildTimerActivity" />
+        <activity android:name=".activity.SetupChildWarnActivity" />
+        <activity android:name=".activity.SetupChildInfoActivity" />
+
+        <activity android:name=".activity.VerifyActivity" />
+
+        <activity android:name=".activity.AllMeterActivity" />
+        <activity
+            android:name=".activity.RecorderActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".activity.LoggerThendActivity" />
+        <activity android:name=".activity.NewLoggerThendActivity" />
+        <activity android:name=".activity.NewHistoryLoggerActivity" />
+        <activity android:name=".activity.HistoryLoggerActivity" />
+        <activity android:name=".activity.CsvFileActivity" />
+        <activity android:name=".activity.InrushHistoryActivity" />
+        <activity android:name=".activity.DipsSwellHistoryLoggerActivity" />
+        <!--<activity
+            android:name=".activity.MonitorActivity"
+            android:windowSoftInputMode="stateHidden" />
+
+
+        <activity
+            android:name=".activity.MainActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="landscape">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.HOME" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.BaseActivity"
+            android:label="@string/title_activity_base" />
+        <activity android:name=".activity.HistoryLoggerActivity" />
+        <activity android:name=".activity.PreviewImageActivity"></activity>-->
+    </application>
+
+</manifest>
+

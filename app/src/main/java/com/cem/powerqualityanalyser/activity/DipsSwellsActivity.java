@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
 import android.view.View;
 
@@ -498,7 +499,8 @@ public class DipsSwellsActivity extends BaseActivity implements BaseFragmentTren
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-//        possKeyDown(keyCode);
+        View rootview = getWindow().getDecorView();
+        View currentView = rootview.findFocus();
         MeterKeyValue key = MeterKeyValue.valueOf(keyCode);
         switch (key) {
             case Up:
@@ -514,6 +516,10 @@ public class DipsSwellsActivity extends BaseActivity implements BaseFragmentTren
                         Fragment_Third.zoomScale(zoomSize);
                     }else{
 
+                    }
+                }else if (Fragment_Second != null && Fragment_Second.isAdded()) {
+                    if (currentView != null && currentView.isFocusable() && currentView instanceof RecyclerView) {
+                        Fragment_Second.leftUpScroll();
                     }
                 }
                 break;
@@ -531,6 +537,10 @@ public class DipsSwellsActivity extends BaseActivity implements BaseFragmentTren
                     }else {
 
                     }
+                }else if (Fragment_Second != null && Fragment_Second.isAdded()) {
+                    if (currentView != null && currentView.isFocusable() && currentView instanceof RecyclerView) {
+                        Fragment_Second.leftDownScroll();
+                    }
                 }
                 break;
             case Left:
@@ -541,6 +551,8 @@ public class DipsSwellsActivity extends BaseActivity implements BaseFragmentTren
                     }
                 }else if(Fragment_Third!=null && Fragment_Third.isAdded()) {
                     Fragment_Third.moveCursor(-1);
+                }else if (Fragment_Second != null && Fragment_Second.isAdded()) {
+                    Fragment_Second.setFocusOnLeft();
                 }
 
                 break;
@@ -552,6 +564,8 @@ public class DipsSwellsActivity extends BaseActivity implements BaseFragmentTren
                     }
                 } else if (Fragment_Third != null && Fragment_Third.isAdded()) {
                     Fragment_Third.moveCursor(1);
+                }else if (Fragment_Second != null && Fragment_Second.isAdded()) {
+                    Fragment_Second.setFocusOnRight();
                 }
                 break;
             case Back:

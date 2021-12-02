@@ -23,9 +23,9 @@ import java.util.ArrayList;
 public abstract class GroupedRecyclerViewAdapter
         extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    public static final int TYPE_HEADER =1;
+    public static final int TYPE_HEADER = 1;
     public static final int TYPE_FOOTER = 2;
-    public static final int TYPE_CHILD =3;
+    public static final int TYPE_CHILD = 3;
 
     private OnHeaderClickListener mOnHeaderClickListener;
     private OnFooterClickListener mOnFooterClickListener;
@@ -97,7 +97,6 @@ public abstract class GroupedRecyclerViewAdapter
 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
-
 
 
         int type = judgeType(position);

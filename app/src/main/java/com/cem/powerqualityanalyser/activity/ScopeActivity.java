@@ -5,6 +5,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 
+import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Toast;
@@ -15,6 +16,7 @@ import com.cem.powerqualityanalyser.AppConfig.AppConfig;
 import com.cem.powerqualityanalyser.R;
 
 import com.cem.powerqualityanalyser.fragment.BaseFragmentTrend;
+import com.cem.powerqualityanalyser.newchart.ScopeTrendVie;
 import com.cem.powerqualityanalyser.tool.BleUtil;
 import com.cem.powerqualityanalyser.tool.log;
 import com.cem.powerqualityanalyser.userobject.BaseBottomAdapterObj;
@@ -36,8 +38,8 @@ public class ScopeActivity extends BaseActivity implements BaseFragmentTrend.OnW
     private FragmentTransaction fragmentTransaction;
     private FragmentManager fragmentManager;
     private int currentFragmentIndex = 0;
-    private int funTypeIndex=0;
-         
+    private int funTypeIndex = 0;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -52,7 +54,7 @@ public class ScopeActivity extends BaseActivity implements BaseFragmentTrend.OnW
 
     @Override
     public byte[] getMode() {
-        return new byte[]{(byte) 0xE1,0x00};
+        return new byte[]{(byte) 0xE1, 0x00};
     }
 
     @Override
@@ -62,34 +64,35 @@ public class ScopeActivity extends BaseActivity implements BaseFragmentTrend.OnW
 
     /**
      * 根据接线方式和右边选择栏更换命令传输数据
+     *
      * @param wir
      * @param right
      * @return
      */
-    private byte[] sendOrderData(int funTypeIndex){
+    private byte[] sendOrderData(int funTypeIndex) {
         byte[] order = new byte[0];
-        if(wir_index == 0 ||wir_index == 5 ||wir_index == 6||wir_index == 7||wir_index == 9){
-            switch (funTypeIndex){
+        if (wir_index == 0 || wir_index == 5 || wir_index == 6 || wir_index == 7 || wir_index == 9) {
+            switch (funTypeIndex) {
                 case 0://A
-                    order = new byte[]{(byte) 0xE3,0X00};
+                    order = new byte[]{(byte) 0xE3, 0X00};
                     break;
                 case 1://SS
-                    order = new byte[]{(byte) 0xE3,0X10};
+                    order = new byte[]{(byte) 0xE3, 0X10};
                     break;
                 case 2://V
-                    order = new byte[]{(byte) 0xE3,0X20};
+                    order = new byte[]{(byte) 0xE3, 0X20};
                     break;
             }
-        }else{
-            switch (funTypeIndex){
+        } else {
+            switch (funTypeIndex) {
                 case 0://A
-                    order = new byte[]{(byte) 0xE3,0X00};
+                    order = new byte[]{(byte) 0xE3, 0X00};
                     break;
                 case 1://S
-                    order = new byte[]{(byte) 0xE3,0X10};
+                    order = new byte[]{(byte) 0xE3, 0X10};
                     break;
                 case 2://U
-                    order = new byte[]{(byte) 0xE3,0X30};
+                    order = new byte[]{(byte) 0xE3, 0X30};
                     break;
             }
         }
@@ -99,6 +102,7 @@ public class ScopeActivity extends BaseActivity implements BaseFragmentTrend.OnW
 
     /**
      * 弹窗菜单点击事件
+     *
      * @param obj
      * @param positio
      */
@@ -107,34 +111,36 @@ public class ScopeActivity extends BaseActivity implements BaseFragmentTrend.OnW
 
         switch (obj.getId()) {
             case 0://切换 RMS ,THD ,CF
-                funTypeIndex=positio;
+                funTypeIndex = positio;
                 break;
         }
     }
 
     /**
      * 底部按钮点击事件
+     *
      * @param view
      * @param obj
      */
     private boolean cursorEnable = false;
+
     @Override
     protected void BottomViewClick(View view, BaseBottomAdapterObj obj) {
-        switch (obj.getId()){
+        switch (obj.getId()) {
             case 0:
 
                 break;
             case 1:
                 cursorEnable = !cursorEnable;
-                if (Fragment_first!=null) {
+                if (Fragment_first != null) {
                     Fragment_first.showCursor(cursorEnable);
                 }
                 break;
-            case  2:
+            case 2:
                 setViewShow(obj.getSwitchindex());
                 break;
             case 3:
-                if (Fragment_first!=null) {
+                if (Fragment_first != null) {
                     Fragment_first.fitScreen();
                 }
                 break;
@@ -146,18 +152,19 @@ public class ScopeActivity extends BaseActivity implements BaseFragmentTrend.OnW
 
     /**
      * 初始化底部按钮数据
+     *
      * @return
      */
     @Override
-    protected List<BaseBottomAdapterObj> initBottomData(){
-        List<BaseBottomAdapterObj> data=new ArrayList<>();
+    protected List<BaseBottomAdapterObj> initBottomData() {
+        List<BaseBottomAdapterObj> data = new ArrayList<>();
 
-        data.add(new BaseBottomAdapterObj(0,Res2Stringarr(R.array.scope_array)[0],Res2Stringarr(R.array.scope_array)));
-        data.add(new BaseBottomAdapterObj(1,Res2String(R.string.Cursor),Res2String(R.string.On),Res2String(R.string.Off)));
-        data.add(new BaseBottomAdapterObj(2,R.mipmap.triangle,R.mipmap.vectro_ico));
-        data.add(new BaseBottomAdapterObj(3,Res2String(R.string.Zoom),R.mipmap.up_down,AppConfig.getInstance().getMaxZoom()));
-        data.add(new BaseBottomAdapterObj(4,null,Res2String(R.string.run),Res2String(R.string.Hold)));
-        return  data;
+        data.add(new BaseBottomAdapterObj(0, Res2Stringarr(R.array.scope_array)[0], Res2Stringarr(R.array.scope_array)));
+        data.add(new BaseBottomAdapterObj(1, Res2String(R.string.Cursor), Res2String(R.string.On), Res2String(R.string.Off)));
+        data.add(new BaseBottomAdapterObj(2, R.mipmap.triangle, R.mipmap.vectro_ico));
+        data.add(new BaseBottomAdapterObj(3, Res2String(R.string.Zoom), R.mipmap.up_down, AppConfig.getInstance().getMaxZoom()));
+        data.add(new BaseBottomAdapterObj(4, null, Res2String(R.string.run), Res2String(R.string.Hold)));
+        return data;
     }
 
     private void setViewShow(int index) {
@@ -166,10 +173,10 @@ public class ScopeActivity extends BaseActivity implements BaseFragmentTrend.OnW
             if (null == Fragment_Second) {
                 Fragment_Second = new ScopeVector();
             }
-            updateBottomView(new BaseBottomAdapterObj(null),0);
-            updateBottomView(new BaseBottomAdapterObj(null),1);
-            updateBottomView(new BaseBottomAdapterObj(null),3);
- //           updateBottomView(new BaseBottomAdapterObj(3,Res2String(R.string.Trend)),3);
+            updateBottomView(new BaseBottomAdapterObj(null), 0);
+            updateBottomView(new BaseBottomAdapterObj(null), 1);
+            updateBottomView(new BaseBottomAdapterObj(null), 3);
+            //           updateBottomView(new BaseBottomAdapterObj(3,Res2String(R.string.Trend)),3);
             showFragment(Fragment_Second, Res2String(R.string.Meter));
         } else {
             if (null == Fragment_first) {
@@ -177,9 +184,9 @@ public class ScopeActivity extends BaseActivity implements BaseFragmentTrend.OnW
                 Fragment_first.showCursor(cursorEnable);
             }
 
-            updateBottomView(new BaseBottomAdapterObj(0,Res2Stringarr(R.array.scope_array)[0],Res2Stringarr(R.array.scope_array)),0);
-            updateBottomView(new BaseBottomAdapterObj(1,Res2String(R.string.Cursor),Res2String(R.string.On),Res2String(R.string.Off)),1);
-            updateBottomView(new BaseBottomAdapterObj(3,Res2String(R.string.Zoom),R.mipmap.up_down,AppConfig.getInstance().getMaxZoom()),3);
+            updateBottomView(new BaseBottomAdapterObj(0, Res2Stringarr(R.array.scope_array)[0], Res2Stringarr(R.array.scope_array)), 0);
+            updateBottomView(new BaseBottomAdapterObj(1, Res2String(R.string.Cursor), Res2String(R.string.On), Res2String(R.string.Off)), 1);
+            updateBottomView(new BaseBottomAdapterObj(3, Res2String(R.string.Zoom), R.mipmap.up_down, AppConfig.getInstance().getMaxZoom()), 3);
 
             Fragment_first.setOnWirAndRightIndexCallBack(this);
             showFragment(Fragment_first, Res2String(R.string.Trend));
@@ -198,38 +205,68 @@ public class ScopeActivity extends BaseActivity implements BaseFragmentTrend.OnW
         possKeyDown(keyCode);
         return super.onKeyDown(keyCode, event);
     }
-    private int i  = 1;
+
+    private int i = 1;
+
     private void possKeyDown(int keyCode) {
+        View rootview = getWindow().getDecorView();
+        View currentView = rootview.findFocus();
+        /*if (currentView != null)
+            log.e("当前焦点所在View：" + currentView.toString());
+        else
+            log.e("当前焦点所在View：" + currentView);*/
         MeterKeyValue key = MeterKeyValue.valueOf(keyCode);
-  //      log.e("========" + key.toString());
+        //      log.e("========" + key.toString());
         switch (key) {
             case Up:
+                /*1.如果左边被选中，上下按键是缩放
+                 * 2.如果右边被选中，上下按键是切换*/
                 if (Fragment_first != null) {
-                    if (i < 3) {
-                        i++;
+                    if (currentView != null && currentView.isFocusable() && currentView instanceof ScopeTrendVie) {
+                        if (i < 3) {
+                            i++;
+                            AppConfig.getInstance().setMaxZoom(i);
+                        }
+                        Fragment_first.zoomScale(i);
+                        updateBottomView(new BaseBottomAdapterObj(3, Res2String(R.string.Cursor), R.mipmap.left_right, AppConfig.getInstance().getMaxZoom()), 3);
                     }
-                    Fragment_first.zoomScale(i);
                 }
                 break;
             case Down:
                 if (Fragment_first != null) {
-                    if (i > 1) {
-                        i--;
+                    if (currentView != null && currentView.isFocusable() && currentView instanceof ScopeTrendVie) {
+                        if (i > 1) {
+                            i--;
+                            AppConfig.getInstance().setMaxZoom(i);
+                        }
+                        Fragment_first.zoomScale(i);
+                        updateBottomView(new BaseBottomAdapterObj(3, Res2String(R.string.Cursor), R.mipmap.left_right, AppConfig.getInstance().getMaxZoom()), 3);
                     }
-                    Fragment_first.zoomScale(i);
                 }
                 break;
             case Left:
-                if(Fragment_first!=null)
-                    Fragment_first.moveCursor(-1);
+                /*1.左右键有切换光标的功能和切换左右焦点的功能
+                 * 2.如果光标显示，就移动光标，光标不显示就切换焦点*/
+                if (Fragment_first != null && Fragment_first.isAdded()) {
+                    if (cursorEnable) {
+                        Fragment_first.moveCursor(-1);
+                    } else {
+                        Fragment_first.setFocusOnLeft();
+                    }
+                }
                 break;
             case Right:
-                if(Fragment_first!=null)
-                    Fragment_first.moveCursor(1);
+                if (Fragment_first != null && Fragment_first.isAdded()) {
+                    if (cursorEnable) {
+                        Fragment_first.moveCursor(1);
+                    } else {
+                        Fragment_first.setFocusOnRight();
+                    }
+                }
                 break;
             case Back:
             case Menu:
-                if(isStart){
+                if (isStart) {
                     isStartAlert(Res2String(R.string.scope));
                 }
 
@@ -244,15 +281,15 @@ public class ScopeActivity extends BaseActivity implements BaseFragmentTrend.OnW
 
     @Override
     public void onDataReceivedModel(ModelAllData modelAllData) {
-        if(modelAllData!=null && modelAllData.getValueType() == ModelAllData.AllData_valueType.E1_Oscilloscope) {
+        if (modelAllData != null && modelAllData.getValueType() == ModelAllData.AllData_valueType.E1_Oscilloscope) {
 //            dissLoading();
-            if(!isStart)
+            if (!isStart)
                 isStart = true;
             if (!isHold) {
                 List<ModelLineData> dataList = modelAllData.getModelLineData();
                 if (dataList != null) {
                     if (Fragment_first != null && Fragment_first.isAdded())
-                        Fragment_first.setShowMeterData(modelAllData,wir_index,trendRightIndex,funTypeIndex,cursorEnable);
+                        Fragment_first.setShowMeterData(modelAllData, wir_index, trendRightIndex, funTypeIndex, cursorEnable);
                     else {
                         //筛选出选中的选项的数据转成对象传入曲线
                         if (Fragment_Second != null && Fragment_Second.isAdded())
@@ -264,8 +301,8 @@ public class ScopeActivity extends BaseActivity implements BaseFragmentTrend.OnW
     }
 
 
-    private ModelLineData selectModelLineData(ModelAllData modelAllData,int fun){
-        if(modelAllData!=null && modelAllData.getModelLineData().size()>fun){
+    private ModelLineData selectModelLineData(ModelAllData modelAllData, int fun) {
+        if (modelAllData != null && modelAllData.getModelLineData().size() > fun) {
             return modelAllData.getModelLineData().get(fun);
         }
         return modelAllData.getModelLineData().get(0);
@@ -276,16 +313,16 @@ public class ScopeActivity extends BaseActivity implements BaseFragmentTrend.OnW
 
     }
 
-    private int trendRightIndex =0;
+    private int trendRightIndex = 0;
 
     @Override
     public void returnWirAndRight(int wir, int right) {
         this.trendRightIndex = right;
         this.wir_index = wir;
-        serialHelper.sendData(sendMeterOrderData(wir,right));
+        serialHelper.sendData(sendMeterOrderData(wir, right));
     }
 
-    private byte[] sendMeterOrderData(int wir,int wir_right) {
+    private byte[] sendMeterOrderData(int wir, int wir_right) {
         byte[] cmd = new byte[2];
         switch (wir) {
             case 0://三相5线
@@ -318,7 +355,7 @@ public class ScopeActivity extends BaseActivity implements BaseFragmentTrend.OnW
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(serialHelper!=null){
+        if (serialHelper != null) {
             serialHelper.closeSerialPort();
             serialHelper = null;
         }

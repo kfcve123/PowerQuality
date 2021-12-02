@@ -100,7 +100,7 @@
         android:orientation="vertical">
 
         <RelativeLayout
-            android:id="@+id/voltsampshertzlinechart_rl"
+            android:id="@+id/inrushchart_l1_rl"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1">
@@ -126,6 +126,7 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/inrushchart_l2_rl"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1">
@@ -151,6 +152,7 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/inrushchart_l3_rl"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1">

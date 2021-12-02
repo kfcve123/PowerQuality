@@ -10,6 +10,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableStringBuilder;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -18,11 +20,15 @@ import androidx.annotation.Nullable;
 
 import com.cem.powerqualityanalyser.R;
 import com.cem.powerqualityanalyser.adapter.GroupedListAdapter;
+import com.cem.powerqualityanalyser.tool.log;
 import com.cem.powerqualityanalyser.userobject.MeterGroupChildObj;
 import com.cem.powerqualityanalyser.userobject.MeterGroupListObj;
+import com.cem.powerqualityanalyser.userobject.MeterKeyValue;
+import com.cem.powerqualityanalyser.view.RightModeView;
 
 public class MyTableListView extends StickyHeaderLayout {
     private GroupedListAdapter adapter;
+    private RecyclerView rvList;
 
     public MyTableListView(@NonNull Context context) {
         super(context);
@@ -41,21 +47,33 @@ public class MyTableListView extends StickyHeaderLayout {
     }
 
     private void initView() {
-        RecyclerView rvList = new RecyclerView(this.getContext());
+        rvList = new RecyclerView(this.getContext());
         rvList.setLayoutManager(new LinearLayoutManager(this.getContext()));
         adapter = new GroupedListAdapter(this.getContext());
         rvList.setBackgroundColor(getContext().getResources().getColor(R.color.tabledrive));
-        rvList.addItemDecoration(new CommItemDecoration(this.getContext(),LinearLayoutManager.VERTICAL, Color.WHITE,1));
+        rvList.addItemDecoration(new CommItemDecoration(this.getContext(), LinearLayoutManager.VERTICAL, Color.WHITE, 1));
         //LinearLayout.LayoutParams layoutParams=   new LinearLayout.LayoutParams( LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
         //  FrameLayout.LayoutParams  layoutParams =new LayoutParams( LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
 
         addView(rvList, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         rvList.setAdapter(adapter);
+
+        adapter.setOnChildClickListener(new GroupedRecyclerViewAdapter.OnChildClickListener() {
+            @Override
+            public void onChildClick(GroupedRecyclerViewAdapter adapter, BaseViewHolder holder, int groupPosition, int childPosition) {
+                holder.itemView.requestFocus();
+                holder.itemView.setFocusable(true);
+            }
+        });
     }
 
     public void addItem(MeterGroupListObj obj) {
         adapter.addItem(obj);
         adapter.notifyDataChanged();
+    }
+
+    public void scrollToPosition(int position) {
+        rvList.smoothScrollToPosition(position);
     }
 
     public void removeItem(MeterGroupListObj obj) {
@@ -219,5 +237,4 @@ public class MyTableListView extends StickyHeaderLayout {
             return new CommItemDecoration(context, HORIZONTAL_LIST, color, width);
         }
     }
-
 }

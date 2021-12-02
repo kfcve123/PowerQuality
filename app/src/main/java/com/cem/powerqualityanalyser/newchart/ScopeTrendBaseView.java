@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ScopeTrendBaseView  extends MPChartBaseView implements OnChartValueSelectedListener {
+public class ScopeTrendBaseView extends MPChartBaseView implements OnChartValueSelectedListener {
 
     protected MyNoPaddingTextView textview_l1, textview_l2, textview_l3, textview_l4;
     protected ScopeType scopeType = ScopeType.VOLT4V;
@@ -38,11 +38,11 @@ public class ScopeTrendBaseView  extends MPChartBaseView implements OnChartValue
     protected TextView scope_config_tv;
     protected boolean showCurson;
     protected int iLastEntry;
-    protected TextView scope_bottom_tv1,scope_bottom_tv2,scope_bottom_tv3,scope_bottom_tv4,scope_bottom_tv5;
+    protected TextView scope_bottom_tv1, scope_bottom_tv2, scope_bottom_tv3, scope_bottom_tv4, scope_bottom_tv5;
 
-    protected RelativeLayout top_n1_rl,top_l1a_rl,top_l1b_rl,top_l1c_rl;
+    protected RelativeLayout top_n1_rl, top_l1a_rl, top_l1b_rl, top_l1c_rl;
     protected ScopeLineChart scopeLineChart;
-    protected TextView l1a,l1b,l1c,n1;
+    protected TextView l1a, l1b, l1c, n1;
     protected int[] imgid;
 
     //记录每条线的最大值
@@ -54,17 +54,17 @@ public class ScopeTrendBaseView  extends MPChartBaseView implements OnChartValue
     protected float minRightTrendView = 0f;
 
     public enum ScopeType {
-        VOLT4V, VOLT3U,AMP, L1, L2, L3,N
+        VOLT4V, VOLT3U, AMP, L1, L2, L3, N
     }
 
     public void setScopeTopView(float textSize, String s) {
-        if(scope_config_tv!=null){
+        if (scope_config_tv != null) {
             scope_config_tv.setText(s);
             scope_config_tv.setTextSize(textSize);
         }
     }
 
-    public void setTopBag(int l1a,int l1b,int l1c,int n1){
+    public void setTopBag(int l1a, int l1b, int l1c, int n1) {
         top_l1a_rl.setBackgroundResource(l1a);
         top_l1b_rl.setBackgroundResource(l1b);
         top_l1c_rl.setBackgroundResource(l1c);
@@ -124,7 +124,7 @@ public class ScopeTrendBaseView  extends MPChartBaseView implements OnChartValue
         TypedArray ar = getResources().obtainTypedArray(R.array.top_backgroud_res_array);
         final int len = ar.length();
         imgid = new int[len];
-        for (int i = 0; i < len; i++){
+        for (int i = 0; i < len; i++) {
             imgid[i] = ar.getResourceId(i, 0);
         }
         ar.recycle();
@@ -140,22 +140,23 @@ public class ScopeTrendBaseView  extends MPChartBaseView implements OnChartValue
         ArrayList<Entry> values1 = new ArrayList<>();
         int count = 5;
         for (int i = 0; i < count; i++) {
-            float val = 0f;
-            values1.add(new Entry(i, val));
+            float val = (float) Math.random() * i;
+            values1.add(new Entry(i, 0));
         }
 
         ArrayList<Entry> values2 = new ArrayList<>();
 
         for (int i = 0; i < count; i++) {
-            float val = 0f;
-            values2.add(new Entry(i, val));
+//            float val = 1f;
+            float val = (float) Math.random() * (i + 1);
+            values2.add(new Entry(i, 0));
         }
 
         ArrayList<Entry> values3 = new ArrayList<>();
 
         for (int i = 0; i < count; i++) {
-            float val = 0f;
-            values3.add(new Entry(i, val));
+            float val = (float) Math.random() * (i + 2);
+            values3.add(new Entry(i, 0));
         }
 
         LineDataSet set1, set2, set3;
@@ -168,6 +169,9 @@ public class ScopeTrendBaseView  extends MPChartBaseView implements OnChartValue
             set1.setValues(values1);
             set2.setValues(values2);
             set3.setValues(values3);
+            set1.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+            set2.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+            set3.setMode(LineDataSet.Mode.CUBIC_BEZIER);
             scopeLineChart.getData().notifyDataChanged();
             scopeLineChart.notifyDataSetChanged();
         } else {
@@ -203,8 +207,8 @@ public class ScopeTrendBaseView  extends MPChartBaseView implements OnChartValue
         set.setValueTextSize(9f);
         set.setDrawValues(false);
         set.setDrawCircles(false);
- //       set.setMode(LineDataSet.Mode.CUBIC_BEZIER);
-        set.setMode(LineDataSet.Mode.LINEAR);
+        set.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+//        set.setMode(LineDataSet.Mode.LINEAR);
 
         //       set.setHighlightEnabled(false);
         return set;
@@ -213,11 +217,11 @@ public class ScopeTrendBaseView  extends MPChartBaseView implements OnChartValue
     private void setAxisLeft() {
         YAxis leftAxis = scopeLineChart.getAxisLeft();
         leftAxis.setTypeface(tfLight);
-        leftAxis.setTextColor(getResources().getColor(R.color.colorblack,null));
-        leftAxis.setLabelCount(lableCount,true);
+        leftAxis.setTextColor(getResources().getColor(R.color.colorblack, null));
+        leftAxis.setLabelCount(lableCount, true);
         leftAxis.setDrawLabels(true);
         leftAxis.setDrawZeroLine(false);
-        leftAxis.enableAxisLineDashedLine(40,40,10);
+        leftAxis.enableAxisLineDashedLine(40, 40, 10);
         leftAxis.enableGridDashedLine(5f, 5f, 0f);
 
 
@@ -277,10 +281,9 @@ public class ScopeTrendBaseView  extends MPChartBaseView implements OnChartValue
         scopeLineChart.animateX(1500);*/
 
 
-
     }
 
-    private void setXAxis(){
+    private void setXAxis() {
         XAxis xAxis = scopeLineChart.getXAxis();
         xAxis.setEnabled(false);
 
@@ -299,7 +302,7 @@ public class ScopeTrendBaseView  extends MPChartBaseView implements OnChartValue
 
     }
 
-    private void setLegend(){
+    private void setLegend() {
         Legend legend = scopeLineChart.getLegend();
         legend.setTypeface(tfRegular);
         legend.setForm(Legend.LegendForm.CIRCLE);
@@ -320,67 +323,67 @@ public class ScopeTrendBaseView  extends MPChartBaseView implements OnChartValue
 
     }
 
-    protected void showL1L2L3L4(boolean l1show,boolean l2show,boolean l3show,boolean l4show){
-        if(l1show){
-            if(top_l1a_rl.getVisibility()!= View.VISIBLE)
+    protected void showL1L2L3L4(boolean l1show, boolean l2show, boolean l3show, boolean l4show) {
+        if (l1show) {
+            if (top_l1a_rl.getVisibility() != View.VISIBLE)
                 top_l1a_rl.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             if (top_l1a_rl.getVisibility() != View.INVISIBLE)
                 top_l1a_rl.setVisibility(View.INVISIBLE);
         }
-        if(l2show){
-            if(top_l1b_rl.getVisibility()!= View.VISIBLE)
+        if (l2show) {
+            if (top_l1b_rl.getVisibility() != View.VISIBLE)
                 top_l1b_rl.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             if (top_l1b_rl.getVisibility() != View.INVISIBLE)
                 top_l1b_rl.setVisibility(View.INVISIBLE);
         }
 
-        if(l3show){
-            if(top_l1c_rl.getVisibility()!= View.VISIBLE)
+        if (l3show) {
+            if (top_l1c_rl.getVisibility() != View.VISIBLE)
                 top_l1c_rl.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             if (top_l1c_rl.getVisibility() != View.INVISIBLE)
                 top_l1c_rl.setVisibility(View.INVISIBLE);
         }
 
-        if(l4show){
-            if(top_n1_rl.getVisibility()!= View.VISIBLE)
+        if (l4show) {
+            if (top_n1_rl.getVisibility() != View.VISIBLE)
                 top_n1_rl.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             if (top_n1_rl.getVisibility() != View.INVISIBLE)
                 top_n1_rl.setVisibility(View.INVISIBLE);
         }
 
     }
 
-    private void setScope_bottom_tv1(String bottom_tv1){
-        if(scope_bottom_tv1!=null)
+    private void setScope_bottom_tv1(String bottom_tv1) {
+        if (scope_bottom_tv1 != null)
             scope_bottom_tv1.setText(bottom_tv1);
     }
 
-    private void setScope_bottom_tv2(String bottom_tv2){
-        if(scope_bottom_tv2!=null)
+    private void setScope_bottom_tv2(String bottom_tv2) {
+        if (scope_bottom_tv2 != null)
             scope_bottom_tv2.setText(bottom_tv2);
     }
 
-    private void setScope_bottom_tv3(String bottom_tv3){
-        if(scope_bottom_tv3!=null)
+    private void setScope_bottom_tv3(String bottom_tv3) {
+        if (scope_bottom_tv3 != null)
             scope_bottom_tv3.setText(bottom_tv3);
     }
 
-    private void setScope_bottom_tv4(String bottom_tv4){
-        if(scope_bottom_tv4!=null)
+    private void setScope_bottom_tv4(String bottom_tv4) {
+        if (scope_bottom_tv4 != null)
             scope_bottom_tv4.setText(bottom_tv4);
     }
 
-    private void setScope_bottom_tv5(String bottom_tv5){
-        if(scope_bottom_tv5!=null)
+    private void setScope_bottom_tv5(String bottom_tv5) {
+        if (scope_bottom_tv5 != null)
             scope_bottom_tv5.setText(bottom_tv5);
     }
 
 
-    public void setScopeBottoms(String bottom_tv1,String bottom_tv2,String bottom_tv3,String bottom_tv4,String bottom_tv5){
+    public void setScopeBottoms(String bottom_tv1, String bottom_tv2, String bottom_tv3, String bottom_tv4, String bottom_tv5) {
         setScope_bottom_tv1(bottom_tv1);
         setScope_bottom_tv2(bottom_tv2);
         setScope_bottom_tv3(bottom_tv3);
@@ -392,15 +395,15 @@ public class ScopeTrendBaseView  extends MPChartBaseView implements OnChartValue
     @Override
     public void onValueSelected(Entry e, Highlight h) {
         int iEntry = (int) e.getX();
-        log.e(iLastEntry+ "==========" + iEntry);
+        log.e(iLastEntry + "==========" + iEntry);
 
-            if (iLastEntry != iEntry) {
-                iLastEntry = iEntry;
+        if (iLastEntry != iEntry) {
+            iLastEntry = iEntry;
 //                scopeLineChart.highlightValue(e.getX(), 0);
-            }
+        }
 
-        if(e!=null && h!=null)
-            showSelectValue(e,h);
+        if (e != null && h != null)
+            showSelectValue(e, h);
     }
 
     @Override
@@ -410,16 +413,17 @@ public class ScopeTrendBaseView  extends MPChartBaseView implements OnChartValue
 
     /**
      * 放大缩小
+     *
      * @param xScale
      * @param yScale
      */
-    public void zoomScale(float xScale,float yScale){
-        if(scopeLineChart.isScaleXEnabled()){
+    public void zoomScale(float xScale, float yScale) {
+        if (scopeLineChart.isScaleXEnabled()) {
 
         }
         //缩放第二种方式  
         scopeLineChart.fitScreen();
-        scopeLineChart.getViewPortHandler().getMatrixTouch().postScale(xScale,yScale);
+        scopeLineChart.getViewPortHandler().getMatrixTouch().postScale(xScale, yScale);
         //缩放第一种方式  
         /*Matrix matrix = new Matrix();
         mChart.fitScreen();
@@ -428,20 +432,20 @@ public class ScopeTrendBaseView  extends MPChartBaseView implements OnChartValue
     }
 
 
-    public void showCursor(boolean enable){
+    public void showCursor(boolean enable) {
         /*for(ILineDataSet dataSet:mChart.getLineData().getDataSets()) {
             mChart.getLineData().getDataSetByIndex(0).setHighlightEnabled(enable);
         }*/
         showCurson = enable;
-        if(enable){
-            scopeLineChart.highlightValue(iLastEntry,0);
+        if (enable) {
+            scopeLineChart.highlightValue(iLastEntry, 0);
             scopeLineChart.getData().setHighlightEnabled(true);
            /* for(int i = 0;i<mChart.getData().getDataSetCount();i++){
                 LineDataSet set = (LineDataSet) mChart.getData().getDataSetByIndex(i);
                 set.setHighlightEnabled(true);
 
             }*/
-        }else {
+        } else {
             scopeLineChart.highlightValues(null);
             //          log.e("======cursor enable false=======");
             /*for(int i = 0;i<mChart.getData().getDataSetCount();i++){
@@ -449,7 +453,7 @@ public class ScopeTrendBaseView  extends MPChartBaseView implements OnChartValue
                 set.setHighlightEnabled(true);
                 log.e("======cursor enable false=======");
             }*/
-            if(scopeLineChart.getData().isHighlightEnabled()) {
+            if (scopeLineChart.getData().isHighlightEnabled()) {
                 scopeLineChart.getData().setHighlightEnabled(false);
                 log.e("======cursor enable false=======");
             }
@@ -462,14 +466,14 @@ public class ScopeTrendBaseView  extends MPChartBaseView implements OnChartValue
      * 恢复原始
      * 重设所有缩放和拖动，使图表完全适合它的边界（完全缩小）。  
      */
-    public void fitScreen(){
+    public void fitScreen() {
         scopeLineChart.fitScreen();
         //    mChart.setVisibleXRangeMaximum(maxXRange);
-        scopeLineChart.getViewPortHandler().getMatrixTouch().postScale(0f,0f);
+        scopeLineChart.getViewPortHandler().getMatrixTouch().postScale(0f, 0f);
     }
 
-    public void moveCursor(int i){
-        if(showCurson) {
+    public void moveCursor(int i) {
+        if (showCurson) {
             if (scopeLineChart != null) {
                 log.e("===" + scopeLineChart.getLineData());
                 log.e("===" + scopeLineChart.getLineData().getDataSetByIndex(0));
@@ -480,12 +484,12 @@ public class ScopeTrendBaseView  extends MPChartBaseView implements OnChartValue
             }
         }
     }
-    
-    private void showSelectValue(int index){
+
+    private void showSelectValue(int index) {
         ArrayList<Float> values = new ArrayList<>();
         for (int i = 0; i < scopeLineChart.getLineData().getDataSetCount(); i++) {
             //数组越界加的if判断
-            if (index < scopeLineChart.getLineData().getDataSetByIndex(i).getEntryCount()){
+            if (index < scopeLineChart.getLineData().getDataSetByIndex(i).getEntryCount()) {
                 float value = scopeLineChart.getLineData().getDataSetByIndex(i).getEntryForIndex(index).getY();
                 values.add(value);
             }
@@ -497,7 +501,7 @@ public class ScopeTrendBaseView  extends MPChartBaseView implements OnChartValue
     protected void showSelectValue(Entry e, Highlight h) {
         ArrayList<Float> values = new ArrayList<>();
         int index = scopeLineChart.getLineData().getDataSetByIndex(h.getDataSetIndex()).getEntryIndex(e);
-        if(scopeLineChart.getLineData().getDataSetCount()>0) {
+        if (scopeLineChart.getLineData().getDataSetCount() > 0) {
             for (int i = 0; i < scopeLineChart.getLineData().getDataSetCount(); i++) {
                 float value = scopeLineChart.getLineData().getDataSetByIndex(i).getEntryForIndex(index).getY();
                 values.add(value);
@@ -506,24 +510,24 @@ public class ScopeTrendBaseView  extends MPChartBaseView implements OnChartValue
         setScopeBottoms(values);
     }
 
-    public void setTouchEnable(boolean isEnable){
+    public void setTouchEnable(boolean isEnable) {
         scopeLineChart.setTouchEnabled(isEnable);
     }
 
-    public void setScopeBottomValues(List<List<Float>> meterGraphData){
+    public void setScopeBottomValues(List<List<Float>> meterGraphData) {
         ArrayList<Float> values = new ArrayList<>();
-        if(meterGraphData!=null) {
-            for(int i = 0;i< meterGraphData.size();i++){
-                values.add(meterGraphData.get(i).get(meterGraphData.get(i).size()-1));
+        if (meterGraphData != null) {
+            for (int i = 0; i < meterGraphData.size(); i++) {
+                values.add(meterGraphData.get(i).get(meterGraphData.get(i).size() - 1));
             }
         }
-        if(!showCurson)
+        if (!showCurson)
             setScopeBottoms(values);
     }
 
 
-    public void setScopeBottoms(List<Float> values){
-        if(values!=null) {
+    public void setScopeBottoms(List<Float> values) {
+        if (values != null) {
             switch (scopeType) {
                 case VOLT4V:
                     if (values.size() >= 4) {
@@ -531,53 +535,53 @@ public class ScopeTrendBaseView  extends MPChartBaseView implements OnChartValue
                         float value1 = values.get(1);
                         float value2 = values.get(2);
                         float value3 = values.get(3);
-                        setScopeBottoms("","V1= " + DataFormatUtil.formatValue(value,2) + "  V","V2= " + DataFormatUtil.formatValue(value1,2) + "  V","V3= " + DataFormatUtil.formatValue(value2,2) + "  V","VN= " + DataFormatUtil.formatValue(value3,2) + "  V");
+                        setScopeBottoms("", "V1= " + DataFormatUtil.formatValue(value, 2) + "  V", "V2= " + DataFormatUtil.formatValue(value1, 2) + "  V", "V3= " + DataFormatUtil.formatValue(value2, 2) + "  V", "VN= " + DataFormatUtil.formatValue(value3, 2) + "  V");
                     }
                     break;
                 case VOLT3U:
-                    if(values.size()>=3) {
+                    if (values.size() >= 3) {
                         float value = values.get(0);
                         float value1 = values.get(1);
                         float value2 = values.get(2);
-                        setScopeBottoms("","U1= " + DataFormatUtil.formatValue(value,2) + "  V","U2= " + DataFormatUtil.formatValue(value1,2) + "  V","U3= " + DataFormatUtil.formatValue(value2,2) + "  V","");
+                        setScopeBottoms("", "U1= " + DataFormatUtil.formatValue(value, 2) + "  V", "U2= " + DataFormatUtil.formatValue(value1, 2) + "  V", "U3= " + DataFormatUtil.formatValue(value2, 2) + "  V", "");
                     }
                     break;
                 case AMP:
-                    if(values.size()>=4) {
+                    if (values.size() >= 4) {
                         float value = values.get(0);
                         float value1 = values.get(1);
                         float value2 = values.get(2);
                         float value3 = values.get(3);
-                        setScopeBottoms("","A1= " + DataFormatUtil.formatValue(value,2) + " A","A2= " + DataFormatUtil.formatValue(value1,2) + "  A","A3= " + DataFormatUtil.formatValue(value,2) + "  A","AN= " + DataFormatUtil.formatValue(value3,2) + "  A");
+                        setScopeBottoms("", "A1= " + DataFormatUtil.formatValue(value, 2) + " A", "A2= " + DataFormatUtil.formatValue(value1, 2) + "  A", "A3= " + DataFormatUtil.formatValue(value, 2) + "  A", "AN= " + DataFormatUtil.formatValue(value3, 2) + "  A");
                     }
                     break;
                 case L1:
-                    if(values.size()>=2) {
+                    if (values.size() >= 2) {
                         float value = values.get(0);
                         float value1 = values.get(1);
-                        setScopeBottoms("","V1= " + DataFormatUtil.formatValue(value,2) + "  V","A1= " + DataFormatUtil.formatValue(value1,2) + "  A","","");
+                        setScopeBottoms("", "V1= " + DataFormatUtil.formatValue(value, 2) + "  V", "A1= " + DataFormatUtil.formatValue(value1, 2) + "  A", "", "");
                     }
                     break;
                 case L2:
-                    if(values.size()>=2) {
+                    if (values.size() >= 2) {
                         float value = values.get(0);
                         float value1 = values.get(1);
-                        setScopeBottoms("","V2= " + DataFormatUtil.formatValue(value,2) + "  V","A2= " + DataFormatUtil.formatValue(value1,2) + "  A","","");
+                        setScopeBottoms("", "V2= " + DataFormatUtil.formatValue(value, 2) + "  V", "A2= " + DataFormatUtil.formatValue(value1, 2) + "  A", "", "");
                     }
                     break;
                 case L3:
-                    if(values.size()>=2) {
+                    if (values.size() >= 2) {
                         float value = values.get(0);
                         float value1 = values.get(1);
-                        setScopeBottoms("","V3= " + DataFormatUtil.formatValue(value,2) + "  V","A3= " + DataFormatUtil.formatValue(value1,2) + "  A","","");
+                        setScopeBottoms("", "V3= " + DataFormatUtil.formatValue(value, 2) + "  V", "A3= " + DataFormatUtil.formatValue(value1, 2) + "  A", "", "");
                     }
 
                     break;
                 case N:
-                    if(values.size()>=2) {
+                    if (values.size() >= 2) {
                         float value = values.get(0);
                         float value1 = values.get(1);
-                        setScopeBottoms("","VN= " + value + "  V","AN= " + value1 + "  A","","");
+                        setScopeBottoms("", "VN= " + value + "  V", "AN= " + value1 + "  A", "", "");
                     }
 
                     break;
@@ -586,14 +590,14 @@ public class ScopeTrendBaseView  extends MPChartBaseView implements OnChartValue
 
     }
 
-    public void showRunTextValue(ArrayList<Float> values,int popwinIndex){
-        if(values!=null) {
- //           log.e(values.size() + "------" + popwinIndex);
-            switch (popwinIndex){
+    public void showRunTextValue(ArrayList<Float> values, int popwinIndex) {
+        if (values != null) {
+            //           log.e(values.size() + "------" + popwinIndex);
+            switch (popwinIndex) {
                 case 0:
                     switch (scopeType) {
                         case VOLT4V:
-                            if(values.size()>=4) {
+                            if (values.size() >= 4) {
                                 float value = values.get(0);
                                 float value1 = values.get(1);
                                 float value2 = values.get(2);
@@ -605,7 +609,7 @@ public class ScopeTrendBaseView  extends MPChartBaseView implements OnChartValue
                             }
                             break;
                         case VOLT3U:
-                            if(values.size()>=3) {
+                            if (values.size() >= 3) {
                                 float value = values.get(0);
                                 float value1 = values.get(1);
                                 float value2 = values.get(2);
@@ -615,7 +619,7 @@ public class ScopeTrendBaseView  extends MPChartBaseView implements OnChartValue
                             }
                             break;
                         case AMP:
-                            if(values.size()>=4) {
+                            if (values.size() >= 4) {
                                 float value = values.get(0);
                                 float value1 = values.get(1);
                                 float value2 = values.get(2);
@@ -631,7 +635,7 @@ public class ScopeTrendBaseView  extends MPChartBaseView implements OnChartValue
                         case L2:
                         case L3:
                         case N:
-                            if(values.size()>=2) {
+                            if (values.size() >= 2) {
                                 float value = values.get(0);
                                 float value1 = values.get(1);
                                 textview_l1.setText(value + "  V");
@@ -643,7 +647,7 @@ public class ScopeTrendBaseView  extends MPChartBaseView implements OnChartValue
                 case 1:
                     switch (scopeType) {
                         case VOLT4V:
-                            if(values.size()>=4) {
+                            if (values.size() >= 4) {
                                 float value = values.get(0);
                                 float value1 = values.get(1);
                                 float value2 = values.get(2);
@@ -655,7 +659,7 @@ public class ScopeTrendBaseView  extends MPChartBaseView implements OnChartValue
                             }
                             break;
                         case VOLT3U:
-                            if(values.size()>=3) {
+                            if (values.size() >= 3) {
                                 float value = values.get(0);
                                 float value1 = values.get(1);
                                 float value2 = values.get(2);
@@ -665,7 +669,7 @@ public class ScopeTrendBaseView  extends MPChartBaseView implements OnChartValue
                             }
                             break;
                         case AMP:
-                            if(values.size()>=4) {
+                            if (values.size() >= 4) {
                                 float value = values.get(0);
                                 float value1 = values.get(1);
                                 float value2 = values.get(2);
@@ -681,7 +685,7 @@ public class ScopeTrendBaseView  extends MPChartBaseView implements OnChartValue
                         case L2:
                         case L3:
                         case N:
-                            if(values.size()>=2) {
+                            if (values.size() >= 2) {
                                 float value = values.get(0);
                                 float value1 = values.get(1);
                                 textview_l1.setText(value + "  ");
@@ -694,7 +698,7 @@ public class ScopeTrendBaseView  extends MPChartBaseView implements OnChartValue
                     switch (scopeType) {
                         case VOLT4V:
                         case AMP:
-                            if(values.size()>=4) {
+                            if (values.size() >= 4) {
                                 float value = values.get(0);
                                 float value1 = values.get(1);
                                 float value2 = values.get(2);
@@ -706,7 +710,7 @@ public class ScopeTrendBaseView  extends MPChartBaseView implements OnChartValue
                             }
                             break;
                         case VOLT3U:
-                            if(values.size()>=3) {
+                            if (values.size() >= 3) {
                                 float value = values.get(0);
                                 float value1 = values.get(1);
                                 float value2 = values.get(2);
@@ -719,7 +723,7 @@ public class ScopeTrendBaseView  extends MPChartBaseView implements OnChartValue
                         case L1:
                         case L2:
                         case L3:
-                            if(values.size()>=2) {
+                            if (values.size() >= 2) {
                                 float value = values.get(0);
                                 float value1 = values.get(1);
                                 textview_l1.setText(value + "  %f");
@@ -727,7 +731,7 @@ public class ScopeTrendBaseView  extends MPChartBaseView implements OnChartValue
                             }
                             break;
                         case N:
-                            if(values.size()>=2) {
+                            if (values.size() >= 2) {
                                 float value = values.get(0);
                                 float value1 = values.get(1);
                                 textview_l1.setText(value + "  %r");
